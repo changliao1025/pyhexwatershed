@@ -156,7 +156,7 @@ if __name__ == '__main__':
     sWorkspace_out = '/pic/scratch/liao313/04model/dggrid/' + slash + sRegion + slash + 'simulation'
     sFilename_dggrid = '/qfs/people/liao313/bin/dggrid'
 
-    sFilename_boundary = '/qfs/people/liao313/data/dggrid/conus/vector/conus.shp'
+    sFilename_boundary = '/qfs/people/liao313/data/dggrid/conus/vector/conus_simple.shp'
     iCase_index = 1
     sGrid_type='isea3h'
     for i  in np.arange(1, 15):

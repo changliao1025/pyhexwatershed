@@ -41,7 +41,7 @@ aLinestyle = [  'solid',  'dotted'  , 'dashed', 'dashdot', 'dashdot', 'solid']
 aMarker=  [  '+',  '^'  , 'o', 'p', 'd', '*']
 #np.full(nData, '+')
 aColor= create_diverge_rgb_color_hex(nData )
-aLabel_legend= ['NHD','Nearest','Nearest with stream burning','Zonal mean','Zonal mean with stream burning','MOSART']
+aLabel_legend= ['NHD','Nearest','Nearest with stream burning','Zonal mean','Zonal mean with stream burning','DRT']
 
 x = np.arange(1,5,1)
 
