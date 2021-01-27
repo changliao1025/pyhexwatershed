@@ -12,15 +12,15 @@ from pyes.system.define_global_variables import *
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
-sDate = '20201015'
+sDate = '20210108'
 def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_index,\
      lMeshID_outlet,\
     dAccumulation_threshold , sResolution, sFilename_dem, sMissing_value_dem):
 
-    #if (sResolution == '20k' ):
-    #    if(iFlag_resample_method ==1):
-    #        lMeshID_outlet = 1166
-    #        pass
+    if (sResolution == '20k' ):
+        if(iFlag_resample_method ==1):
+            lMeshID_outlet = 1166
+            pass
            
         
 
@@ -33,8 +33,12 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_
         print(sCommand)
         p = subprocess.Popen(sCommand, shell= True)
         p.wait()
+    else:
+        print(sCase_folder)
 
     Path(sCase_folder).mkdir(parents=True, exist_ok=True)
+    
+
     os.chdir(sCase_folder)
     #writen normal run script
     sFilename_bash = sCase_folder + slash + 'run.sh'
@@ -100,7 +104,7 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_
     ofs.write(sLine)
     sLine = 'sFilename_hexagon_polygon_shapefile, grid' + sResolution + '.shp'+ '\n'
     ofs.write(sLine)
-    sLine = 'sFilename_nhd_flowline_shapefile, grid' + sResolution + '_sto.shp' + '\n'
+    sLine = 'sFilename_nhd_flowline_shapefile, grid' + sResolution + '_str.shp' + '\n'
     ofs.write(sLine)
     sLine = 'sFilename_elevation_raster, ' + sFilename_dem + '\n'
     ofs.write(sLine)
@@ -137,13 +141,13 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_
 if __name__ == '__main__':
 
 
-    #sRegion = 'columboa_river_basin'
-    sRegion = 'susquehanna'
+    sRegion = 'columbia_river_basin'
+    #sRegion = 'susquehanna'
 
     
     
     #crb
-    if sRegion == 'columboa_river_basin':
+    if sRegion == 'columbia_river_basin':
         aResolution = ['5k', '10k', '20k', '40k']
         aAccumulation_threshold =[1000, 250, 60, 15]
         aMeshID_outlet =[19595, 4848, 1240, 324]
@@ -168,6 +172,8 @@ if __name__ == '__main__':
     sFilename_hexwatershed = '/qfs/people/liao313/workspace/cplus/hexwatershed_dev/hexwatershed_dev/bin/hexwatershed'
     iCase_index = 1
     for i  in np.arange(nResolution):
+        
+
 
         dAccumulation_threshold = aAccumulation_threshold[i]
         sResolution = aResolution[i]
