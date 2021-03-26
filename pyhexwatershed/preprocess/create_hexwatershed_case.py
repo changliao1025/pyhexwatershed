@@ -12,10 +12,14 @@ from pyes.system.define_global_variables import *
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
-sDate = '20210108'
-def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_index,\
+sDate = '20210308'
+def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology,\
+    iCase_index,\
      lMeshID_outlet,\
-    dAccumulation_threshold , sResolution, sFilename_dem, sMissing_value_dem):
+    dAccumulation_threshold , \
+        sResolution, \
+            sFilename_dem, \
+                sMissing_value_dem):
 
     if (sResolution == '20k' ):
         if(iFlag_resample_method ==1):
@@ -113,6 +117,9 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_
     ofs.write(sLine)
     sLine = 'iFlag_nhd_flowline, ' +   "{:0d}".format( iFlag_stream_burning )  + '\n'
     ofs.write(sLine)
+    sLine = 'iFlag_stream_burning_topology, ' +   "{:0d}".format( iFlag_stream_burning_topology )  + '\n'
+    ofs.write(sLine)
+    
     sLine = 'iFlag_resample_method, ' +   "{:0d}".format( iFlag_resample_method )  + '\n'
     ofs.write(sLine)
     if (iFlag_stream_burning ==1):
@@ -171,35 +178,43 @@ if __name__ == '__main__':
     sWorkspace_job = '/qfs/people/liao313/jobs/hexwatershed/' +sRegion +'/simulation'
     sFilename_hexwatershed = '/qfs/people/liao313/workspace/cplus/hexwatershed_dev/hexwatershed_dev/bin/hexwatershed'
     iCase_index = 1
+
+    iFlag_resample_method = 2
     for i  in np.arange(nResolution):
         
+        if i !=3 :
+            continue
 
-
+        iCase_index = i* nResolution + 1
         dAccumulation_threshold = aAccumulation_threshold[i]
         sResolution = aResolution[i]
         
         lMeshID_outlet = aMeshID_outlet[i]
-        iFlag_resample_method = 1 
-        iFlag_stream_burning = 0
-        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_index, \
+        iFlag_stream_burning_topology = 0
+        iFlag_stream_burning = 1
+        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology, \
+            iCase_index, \
                     lMeshID_outlet,dAccumulation_threshold ,  sResolution, sFilename_dem, sMissing_value_dem)
         iCase_index = iCase_index + 1
 
-        iFlag_resample_method = 1 
+        iFlag_stream_burning_topology = 1 
         iFlag_stream_burning = 1
-        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_index, \
+        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology, \
+            iCase_index, \
                      lMeshID_outlet,dAccumulation_threshold , sResolution, sFilename_dem, sMissing_value_dem)
-        iCase_index = iCase_index + 1
+        
+
+        continue
 
         iFlag_resample_method = 2
         iFlag_stream_burning = 0
-        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_index, \
+        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology,iCase_index, \
                      lMeshID_outlet,dAccumulation_threshold , sResolution, sFilename_dem, sMissing_value_dem)
         iCase_index = iCase_index + 1
 
         iFlag_resample_method = 2 
         iFlag_stream_burning = 1
-        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iCase_index, \
+        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology,iCase_index, \
                      lMeshID_outlet ,dAccumulation_threshold, sResolution, sFilename_dem, sMissing_value_dem)
         iCase_index = iCase_index + 1
 
