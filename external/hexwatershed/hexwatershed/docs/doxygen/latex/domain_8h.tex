@@ -1,0 +1,95 @@
+\hypertarget{domain_8h}{\section{/qfs/people/liao313/workspace/cplus/hexwatershed\-\_\-pnnl/hexwatershed/src/domain.h File Reference}
+\label{domain_8h}\index{/qfs/people/liao313/workspace/cplus/hexwatershed\-\_\-pnnl/hexwatershed/src/domain.\-h@{/qfs/people/liao313/workspace/cplus/hexwatershed\-\_\-pnnl/hexwatershed/src/domain.\-h}}
+}
+
+
+Header file of the domain class.  
+
+
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$queue$>$}\\*
+{\ttfamily \#include $<$numeric$>$}\\*
+{\ttfamily \#include $<$utility$>$}\\*
+{\ttfamily \#include \char`\"{}ogrsf\-\_\-frmts.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}system.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}hexagon.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}segment.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}conversion.\-h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classhexwatershed_1_1domain}{hexwatershed\-::domain}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespacehexwatershed}{hexwatershed}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24}{e\-Variable} \{ \\*
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a26e9d2c5976c2c415708f7b8222c63ce}{e\-V\-\_\-elevation}, 
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24aa1126a8d0a1a19c78086fb34b27bcd70}{e\-V\-\_\-flow\-\_\-direction}, 
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a1d05320d3f48c56b2c5fa450c4c51370}{e\-V\-\_\-flow\-\_\-accumulation}, 
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a74f990cbc9d8b996058f94af0184a90e}{e\-V\-\_\-confluence}, 
+\\*
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a13c79bb48cda7dfc116c4d2e36830e10}{e\-V\-\_\-watershed}, 
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a9c28ffb3e2a5d148bb207a40d1398e41}{e\-V\-\_\-subbasin}, 
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a006f0e22afa43b09bee228a0f3664b95}{e\-V\-\_\-segment}, 
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a9ee9c387f7adae86585e72b12a112ead}{e\-V\-\_\-stream\-\_\-order}, 
+\\*
+\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a74cc506a8002308dbc76d5bde3e0b02c}{e\-V\-\_\-wetness\-\_\-index}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header file of the domain class. Hex\-Watershed, a hydrologic routing model based on the hexagon mesh framework. Copyright (C) $<$2002$>$ $<$\-Chang liao$>$=\char`\"{}\char`\"{}$>$ Developer can be contacted by \href{mailto:chang.liao@pnnl.gov}{\tt chang.\-liao@pnnl.\-gov} This program is free software; you can redistribute it and/or modify it under the terms of the G\-N\-U General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but W\-I\-T\-H\-O\-U\-T A\-N\-Y W\-A\-R\-R\-A\-N\-T\-Y; without even the implied warranty of M\-E\-R\-C\-H\-A\-N\-T\-A\-B\-I\-L\-I\-T\-Y or F\-I\-T\-N\-E\-S\-S F\-O\-R A P\-A\-R\-T\-I\-C\-U\-L\-A\-R P\-U\-R\-P\-O\-S\-E. See the G\-N\-U General Public License for more details. You should have received a copy of the G\-N\-U General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, M\-A 02110-\/1301 U\-S\-A.
+
+\begin{DoxyAuthor}{Author}
+Chang Liao (\href{mailto:chang.liao@pnnl.gov}{\tt chang.\-liao@pnnl.\-gov}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\-1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/08-\/02
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24}{\index{domain.\-h@{domain.\-h}!e\-Variable@{e\-Variable}}
+\index{e\-Variable@{e\-Variable}!domain.h@{domain.\-h}}
+\subsubsection[{e\-Variable}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf e\-Variable}}}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{e\-V\-\_\-elevation@{e\-V\-\_\-elevation}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-elevation@{e\-V\-\_\-elevation}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a26e9d2c5976c2c415708f7b8222c63ce}{e\-V\-\_\-elevation}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a26e9d2c5976c2c415708f7b8222c63ce}
+}]\index{e\-V\-\_\-flow\-\_\-direction@{e\-V\-\_\-flow\-\_\-direction}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-flow\-\_\-direction@{e\-V\-\_\-flow\-\_\-direction}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24aa1126a8d0a1a19c78086fb34b27bcd70}{e\-V\-\_\-flow\-\_\-direction}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24aa1126a8d0a1a19c78086fb34b27bcd70}
+}]\index{e\-V\-\_\-flow\-\_\-accumulation@{e\-V\-\_\-flow\-\_\-accumulation}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-flow\-\_\-accumulation@{e\-V\-\_\-flow\-\_\-accumulation}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a1d05320d3f48c56b2c5fa450c4c51370}{e\-V\-\_\-flow\-\_\-accumulation}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a1d05320d3f48c56b2c5fa450c4c51370}
+}]\index{e\-V\-\_\-confluence@{e\-V\-\_\-confluence}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-confluence@{e\-V\-\_\-confluence}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a74f990cbc9d8b996058f94af0184a90e}{e\-V\-\_\-confluence}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a74f990cbc9d8b996058f94af0184a90e}
+}]\index{e\-V\-\_\-watershed@{e\-V\-\_\-watershed}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-watershed@{e\-V\-\_\-watershed}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a13c79bb48cda7dfc116c4d2e36830e10}{e\-V\-\_\-watershed}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a13c79bb48cda7dfc116c4d2e36830e10}
+}]\index{e\-V\-\_\-subbasin@{e\-V\-\_\-subbasin}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-subbasin@{e\-V\-\_\-subbasin}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a9c28ffb3e2a5d148bb207a40d1398e41}{e\-V\-\_\-subbasin}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a9c28ffb3e2a5d148bb207a40d1398e41}
+}]\index{e\-V\-\_\-segment@{e\-V\-\_\-segment}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-segment@{e\-V\-\_\-segment}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a006f0e22afa43b09bee228a0f3664b95}{e\-V\-\_\-segment}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a006f0e22afa43b09bee228a0f3664b95}
+}]\index{e\-V\-\_\-stream\-\_\-order@{e\-V\-\_\-stream\-\_\-order}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-stream\-\_\-order@{e\-V\-\_\-stream\-\_\-order}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a9ee9c387f7adae86585e72b12a112ead}{e\-V\-\_\-stream\-\_\-order}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a9ee9c387f7adae86585e72b12a112ead}
+}]\index{e\-V\-\_\-wetness\-\_\-index@{e\-V\-\_\-wetness\-\_\-index}!domain.\-h@{domain.\-h}}\index{domain.\-h@{domain.\-h}!e\-V\-\_\-wetness\-\_\-index@{e\-V\-\_\-wetness\-\_\-index}}\item[{\em 
+\hypertarget{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a74cc506a8002308dbc76d5bde3e0b02c}{e\-V\-\_\-wetness\-\_\-index}\label{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24a74cc506a8002308dbc76d5bde3e0b02c}
+}]\end{description}
+\end{Desc}

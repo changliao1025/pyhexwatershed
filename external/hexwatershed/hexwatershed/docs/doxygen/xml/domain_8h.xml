@@ -1,0 +1,524 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="domain_8h" kind="file">
+    <compoundname>domain.h</compoundname>
+    <includes local="no">cmath</includes>
+    <includes local="no">string</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">map</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">queue</includes>
+    <includes local="no">numeric</includes>
+    <includes local="no">utility</includes>
+    <includes local="yes">ogrsf_frmts.h</includes>
+    <includes refid="system_8h" local="yes">system.h</includes>
+    <includes refid="hexagon_8h" local="yes">hexagon.h</includes>
+    <includes refid="segment_8h" local="yes">segment.h</includes>
+    <includes refid="conversion_8h" local="yes">conversion.h</includes>
+    <includedby refid="domain_8cpp" local="yes">/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp</includedby>
+    <includedby refid="main_8cpp" local="yes">/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/main.cpp</includedby>
+    <incdepgraph>
+      <node id="112">
+        <label>hexagon.h</label>
+        <link refid="hexagon_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+      <node id="116">
+        <label>iomanip</label>
+      </node>
+      <node id="102">
+        <label>queue</label>
+      </node>
+      <node id="117">
+        <label>iterator</label>
+      </node>
+      <node id="96">
+        <label>cmath</label>
+      </node>
+      <node id="105">
+        <label>ogrsf_frmts.h</label>
+      </node>
+      <node id="103">
+        <label>numeric</label>
+      </node>
+      <node id="97">
+        <label>string</label>
+      </node>
+      <node id="100">
+        <label>map</label>
+      </node>
+      <node id="106">
+        <label>system.h</label>
+        <link refid="system_8h"/>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="95">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h</label>
+        <link refid="domain.h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>fstream</label>
+      </node>
+      <node id="107">
+        <label>limits.h</label>
+      </node>
+      <node id="111">
+        <label>global.h</label>
+        <link refid="global_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>vector</label>
+      </node>
+      <node id="104">
+        <label>utility</label>
+      </node>
+      <node id="113">
+        <label>array</label>
+      </node>
+      <node id="118">
+        <label>sstream</label>
+      </node>
+      <node id="98">
+        <label>iostream</label>
+      </node>
+      <node id="114">
+        <label>segment.h</label>
+        <link refid="segment_8h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>algorithm</label>
+      </node>
+      <node id="115">
+        <label>conversion.h</label>
+        <link refid="conversion_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>stdio.h</label>
+      </node>
+      <node id="109">
+        <label>cstring</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="120">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp</label>
+        <link refid="domain_8cpp"/>
+      </node>
+      <node id="119">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h</label>
+        <link refid="domain.h"/>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+      </node>
+      <node id="121">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classhexwatershed_1_1domain" prot="public">hexwatershed::domain</innerclass>
+    <innernamespace refid="namespacehexwatershed">hexwatershed</innernamespace>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" prot="public" static="no">
+        <name>eVariable</name>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a26e9d2c5976c2c415708f7b8222c63ce" prot="public">
+          <name>eV_elevation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24aa1126a8d0a1a19c78086fb34b27bcd70" prot="public">
+          <name>eV_flow_direction</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a1d05320d3f48c56b2c5fa450c4c51370" prot="public">
+          <name>eV_flow_accumulation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a74f990cbc9d8b996058f94af0184a90e" prot="public">
+          <name>eV_confluence</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a13c79bb48cda7dfc116c4d2e36830e10" prot="public">
+          <name>eV_watershed</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a9c28ffb3e2a5d148bb207a40d1398e41" prot="public">
+          <name>eV_subbasin</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a006f0e22afa43b09bee228a0f3664b95" prot="public">
+          <name>eV_segment</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a9ee9c387f7adae86585e72b12a112ead" prot="public">
+          <name>eV_stream_order</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a74cc506a8002308dbc76d5bde3e0b02c" prot="public">
+          <name>eV_wetness_index</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="37" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="36" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Header file of the domain class. </para>    </briefdescription>
+    <detaileddescription>
+<para>HexWatershed, a hydrologic routing model based on the hexagon mesh framework. Copyright (C) &lt;2002&gt; &lt;Chang liao&gt;=&quot;&quot;&gt; Developer can be contacted by <ulink url="mailto:chang.liao@pnnl.gov">chang.liao@pnnl.gov</ulink> This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.</para><para><simplesect kind="author"><para>Chang Liao (<ulink url="mailto:chang.liao@pnnl.gov">chang.liao@pnnl.gov</ulink>) </para></simplesect>
+<simplesect kind="version"><para>0.1 </para></simplesect>
+<simplesect kind="date"><para>2019-08-02</para></simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2019 </para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="18"><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;queue&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;numeric&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utility&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ogrsf_frmts.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="system_8h" kindref="compound">system.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="hexagon_8h" kindref="compound">hexagon.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="segment_8h" kindref="compound">segment.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="conversion_8h" kindref="compound">conversion.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a26e9d2c5976c2c415708f7b8222c63ce" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a26e9d2c5976c2c415708f7b8222c63ce" kindref="member">eV_elevation</ref>,</highlight></codeline>
+<codeline lineno="39" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24aa1126a8d0a1a19c78086fb34b27bcd70" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24aa1126a8d0a1a19c78086fb34b27bcd70" kindref="member">eV_flow_direction</ref>,</highlight></codeline>
+<codeline lineno="40" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a1d05320d3f48c56b2c5fa450c4c51370" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a1d05320d3f48c56b2c5fa450c4c51370" kindref="member">eV_flow_accumulation</ref>,</highlight></codeline>
+<codeline lineno="41" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a74f990cbc9d8b996058f94af0184a90e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a74f990cbc9d8b996058f94af0184a90e" kindref="member">eV_confluence</ref>,</highlight></codeline>
+<codeline lineno="42" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a13c79bb48cda7dfc116c4d2e36830e10" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a13c79bb48cda7dfc116c4d2e36830e10" kindref="member">eV_watershed</ref>,</highlight></codeline>
+<codeline lineno="43" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a9c28ffb3e2a5d148bb207a40d1398e41" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a9c28ffb3e2a5d148bb207a40d1398e41" kindref="member">eV_subbasin</ref>,</highlight></codeline>
+<codeline lineno="44" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a006f0e22afa43b09bee228a0f3664b95" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a006f0e22afa43b09bee228a0f3664b95" kindref="member">eV_segment</ref>,</highlight></codeline>
+<codeline lineno="45" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a9ee9c387f7adae86585e72b12a112ead" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a9ee9c387f7adae86585e72b12a112ead" kindref="member">eV_stream_order</ref>,</highlight></codeline>
+<codeline lineno="46" refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a74cc506a8002308dbc76d5bde3e0b02c" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24a74cc506a8002308dbc76d5bde3e0b02c" kindref="member">eV_wetness_index</ref>,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hexwatershed</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51" refid="classhexwatershed_1_1domain" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classhexwatershed_1_1domain" kindref="compound">domain</ref></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><ref refid="classhexwatershed_1_1domain" kindref="compound">domain</ref>();</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classhexwatershed_1_1domain" kindref="compound">domain</ref>(std::string<sp/>sFilename_configuration);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>~<ref refid="classhexwatershed_1_1domain" kindref="compound">domain</ref>();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="classhexwatershed_1_1domain_1aec8e60df7b635db51d0be1eedb99e3b1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1aec8e60df7b635db51d0be1eedb99e3b1" kindref="member">iFlag_debug</ref>;</highlight></codeline>
+<codeline lineno="61" refid="classhexwatershed_1_1domain_1aab3d8698d380781b36bcfc0baaccc1d6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1aab3d8698d380781b36bcfc0baaccc1d6" kindref="member">iFlag_merge</ref>;</highlight></codeline>
+<codeline lineno="62" refid="classhexwatershed_1_1domain_1a068c98debccd44c5eb543b2c06b90d8e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a068c98debccd44c5eb543b2c06b90d8e" kindref="member">iFlag_configuration_file</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="classhexwatershed_1_1domain_1a38c815a5e615239fa0fba0b3d04109d9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a38c815a5e615239fa0fba0b3d04109d9" kindref="member">iFlag_hexagon_point</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">//user<sp/>provided<sp/>point<sp/>hexagon</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="classhexwatershed_1_1domain_1ad3d2e6910dc27d36b61fb4c0998f006f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1ad3d2e6910dc27d36b61fb4c0998f006f" kindref="member">iFlag_hexagon_polygon</ref>;<sp/></highlight><highlight class="comment">//user<sp/>provided<sp/>polygon<sp/>hexagon</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="classhexwatershed_1_1domain_1a8f921593736177839989703e6e891c8e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a8f921593736177839989703e6e891c8e" kindref="member">iMesh_type</ref>;<sp/></highlight><highlight class="comment">//1:<sp/>qgis;<sp/>2:<sp/>dggrid;<sp/>3:<sp/>MPAS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="classhexwatershed_1_1domain_1a7622ea5cc85456fa046c78105d98fcc6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a7622ea5cc85456fa046c78105d98fcc6" kindref="member">nColumn_elevation</ref>;</highlight></codeline>
+<codeline lineno="70" refid="classhexwatershed_1_1domain_1ad350abd8fce9e42e628821479dd495c7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1ad350abd8fce9e42e628821479dd495c7" kindref="member">nRow_elevation</ref>;</highlight></codeline>
+<codeline lineno="71" refid="classhexwatershed_1_1domain_1a67a496a610896ea4cb699326d7e68542" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a67a496a610896ea4cb699326d7e68542" kindref="member">nColumn_mesh</ref>;</highlight></codeline>
+<codeline lineno="72" refid="classhexwatershed_1_1domain_1ab4ae9021b585b50c97395e2caf3d35a4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1ab4ae9021b585b50c97395e2caf3d35a4" kindref="member">nRow_mesh</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="classhexwatershed_1_1domain_1a8a0d4931851da051b0b38f10b8df13fe" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a8a0d4931851da051b0b38f10b8df13fe" kindref="member">nSegment</ref>;</highlight></codeline>
+<codeline lineno="75" refid="classhexwatershed_1_1domain_1a09d29ab3c105e41f28f6d88a66f372d0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a09d29ab3c105e41f28f6d88a66f372d0" kindref="member">iSegment_current</ref>;</highlight></codeline>
+<codeline lineno="76" refid="classhexwatershed_1_1domain_1acfef0358941f910f3f6ac141e82b1f70" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1acfef0358941f910f3f6ac141e82b1f70" kindref="member">iCase</ref>;</highlight></codeline>
+<codeline lineno="77" refid="classhexwatershed_1_1domain_1ad9678605c1dae376003cb5b435a498da" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1ad9678605c1dae376003cb5b435a498da" kindref="member">lOutlet</ref>;</highlight></codeline>
+<codeline lineno="78" refid="classhexwatershed_1_1domain_1ad760e386909941278c649b5e93fa8a3a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1ad760e386909941278c649b5e93fa8a3a" kindref="member">nRecord_shapefile</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="classhexwatershed_1_1domain_1acb549889c20abf5221562f5ff78c9ecf" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1acb549889c20abf5221562f5ff78c9ecf" kindref="member">lCell_count</ref>;</highlight></codeline>
+<codeline lineno="81" refid="classhexwatershed_1_1domain_1a22b6e1b39cd846bfc82d1c3fe86e0886" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a22b6e1b39cd846bfc82d1c3fe86e0886" kindref="member">dResolution_elevation</ref>;</highlight></codeline>
+<codeline lineno="82" refid="classhexwatershed_1_1domain_1a39b4717af33e4821536463e885329151" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a39b4717af33e4821536463e885329151" kindref="member">dX_origin</ref>;</highlight></codeline>
+<codeline lineno="83" refid="classhexwatershed_1_1domain_1acc93bafe88763e95e9919f7b57f2c4b1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1acc93bafe88763e95e9919f7b57f2c4b1" kindref="member">dY_origin</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="classhexwatershed_1_1domain_1a9e795c0653f95505ef7644911000ad67" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a9e795c0653f95505ef7644911000ad67" kindref="member">dArea_watershed</ref>;</highlight></codeline>
+<codeline lineno="86" refid="classhexwatershed_1_1domain_1a2c358b846c8211809a2ff82708b57fcd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a2c358b846c8211809a2ff82708b57fcd" kindref="member">dLength_stream</ref>;</highlight></codeline>
+<codeline lineno="87" refid="classhexwatershed_1_1domain_1a422214efada705de83d13d0fa77218ec" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a422214efada705de83d13d0fa77218ec" kindref="member">dLongest_length_stream</ref>;</highlight></codeline>
+<codeline lineno="88" refid="classhexwatershed_1_1domain_1a87acb765b1435ff5f6cb08a5af07d834" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a87acb765b1435ff5f6cb08a5af07d834" kindref="member">dArea_2_stream_ratio</ref>;</highlight></codeline>
+<codeline lineno="89" refid="classhexwatershed_1_1domain_1a5fa8787a45b52c82c86b15adc945c46d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a5fa8787a45b52c82c86b15adc945c46d" kindref="member">dSlope_mean</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="classhexwatershed_1_1domain_1ab3b0972033f100aa1080c709c4bc1ee1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1ab3b0972033f100aa1080c709c4bc1ee1" kindref="member">dAccumulation_threshold</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="classhexwatershed_1_1domain_1a07e80b92d1c62b66af5e94c7a139981f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="classhexwatershed_1_1domain_1a07e80b92d1c62b66af5e94c7a139981f" kindref="member">missing_value</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="classhexwatershed_1_1domain_1a86902641b63b77dccfef08a94df2e55b" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a86902641b63b77dccfef08a94df2e55b" kindref="member">sRegion</ref>;</highlight></codeline>
+<codeline lineno="96" refid="classhexwatershed_1_1domain_1a61879b2d1218be6af1b35d936b00fcf2" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a61879b2d1218be6af1b35d936b00fcf2" kindref="member">sWorkspace_data</ref>;</highlight></codeline>
+<codeline lineno="97" refid="classhexwatershed_1_1domain_1a613b370ecaa3cb488c84a05b20d87cf2" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a613b370ecaa3cb488c84a05b20d87cf2" kindref="member">sWorkspace_output</ref>;</highlight></codeline>
+<codeline lineno="98" refid="classhexwatershed_1_1domain_1a237356c07d7d19526bc78884cc8e7dc1" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a237356c07d7d19526bc78884cc8e7dc1" kindref="member">sFilename_configuration</ref>;</highlight></codeline>
+<codeline lineno="99" refid="classhexwatershed_1_1domain_1a807070dbc27d9f921316937879419aa5" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a807070dbc27d9f921316937879419aa5" kindref="member">sFilename_log</ref>;</highlight></codeline>
+<codeline lineno="100" refid="classhexwatershed_1_1domain_1aee8643251832efafa47400b95dc504d1" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1aee8643251832efafa47400b95dc504d1" kindref="member">sLog</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="classhexwatershed_1_1domain_1addabb6266ed831687398d7e99c7a1eb6" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1addabb6266ed831687398d7e99c7a1eb6" kindref="member">sFilename_hexagon_point_shapefile</ref>;</highlight></codeline>
+<codeline lineno="103" refid="classhexwatershed_1_1domain_1a81785372d37e465554213628b5226fb5" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a81785372d37e465554213628b5226fb5" kindref="member">sFilename_hexagon_polygon_shapefile</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="classhexwatershed_1_1domain_1a014fe1eb4dde81d891c97988220d729d" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a014fe1eb4dde81d891c97988220d729d" kindref="member">sFilename_elevation_raster</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//point<sp/>vector<sp/>filenames</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="classhexwatershed_1_1domain_1a0ddfbc822faa401aa28669bc111165c7" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a0ddfbc822faa401aa28669bc111165c7" kindref="member">sFilename_elevation_point</ref>;</highlight></codeline>
+<codeline lineno="109" refid="classhexwatershed_1_1domain_1a16c36285a4bea563a20d42b68abd52c1" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a16c36285a4bea563a20d42b68abd52c1" kindref="member">sFilename_elevation_point_debug</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="classhexwatershed_1_1domain_1aa1f8aba1cfe66636ca85daf26e1ca72d" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1aa1f8aba1cfe66636ca85daf26e1ca72d" kindref="member">sFilename_flow_accumulation_point</ref>;</highlight></codeline>
+<codeline lineno="112" refid="classhexwatershed_1_1domain_1a00f76f9a44e9fbf6f05f9127ac4dce2f" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a00f76f9a44e9fbf6f05f9127ac4dce2f" kindref="member">sFilename_flow_accumulation_point_debug</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="classhexwatershed_1_1domain_1a82aaf8850706fb149e1deaca2a15b377" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a82aaf8850706fb149e1deaca2a15b377" kindref="member">sFilename_watershed_point</ref>;</highlight></codeline>
+<codeline lineno="115" refid="classhexwatershed_1_1domain_1a43439d2bf30dd2ef83e233b26229faec" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a43439d2bf30dd2ef83e233b26229faec" kindref="member">sFilename_stream_confluence_point</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="classhexwatershed_1_1domain_1a6e0807e868e43612827691b207f16e28" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a6e0807e868e43612827691b207f16e28" kindref="member">sFilename_subbasin_point</ref>;</highlight></codeline>
+<codeline lineno="118" refid="classhexwatershed_1_1domain_1a4fbfd3966c288287e2f4333d527964b0" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a4fbfd3966c288287e2f4333d527964b0" kindref="member">sFilename_stream_grid_point</ref>;</highlight></codeline>
+<codeline lineno="119" refid="classhexwatershed_1_1domain_1ad4350a3b1ffea69f457256b640d250dd" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1ad4350a3b1ffea69f457256b640d250dd" kindref="member">sFilename_stream_grid_point_debug</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="classhexwatershed_1_1domain_1a2fb83f796660d12113b5bdf4f497529f" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a2fb83f796660d12113b5bdf4f497529f" kindref="member">sFilename_stream_segment_point</ref>;</highlight></codeline>
+<codeline lineno="122" refid="classhexwatershed_1_1domain_1a9edbb2f200391123c1d558aae2109001" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a9edbb2f200391123c1d558aae2109001" kindref="member">sFilename_wetness_index_point</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//polygon<sp/>vector<sp/>filename</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="classhexwatershed_1_1domain_1a7e8fe1e18c688c3e5f07fe23dc49c759" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a7e8fe1e18c688c3e5f07fe23dc49c759" kindref="member">sFilename_elevation_polygon</ref>;</highlight></codeline>
+<codeline lineno="125" refid="classhexwatershed_1_1domain_1aab217d0d54135663b80f65ab416a294a" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1aab217d0d54135663b80f65ab416a294a" kindref="member">sFilename_elevation_polygon_debug</ref>;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="classhexwatershed_1_1domain_1ab5b6a7a63ac54ffe127704b804fbf902" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1ab5b6a7a63ac54ffe127704b804fbf902" kindref="member">sFilename_flow_accumulation_polygon</ref>;</highlight></codeline>
+<codeline lineno="128" refid="classhexwatershed_1_1domain_1aad07742f02d46cc27f749e88c4d8198f" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1aad07742f02d46cc27f749e88c4d8198f" kindref="member">sFilename_flow_accumulation_polygon_debug</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="classhexwatershed_1_1domain_1a1485608eea9c7f5cca53ee07cdb21b99" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a1485608eea9c7f5cca53ee07cdb21b99" kindref="member">sFilename_watershed_polygon</ref>;</highlight></codeline>
+<codeline lineno="131" refid="classhexwatershed_1_1domain_1a0336019c551b96cb417539db336c9491" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a0336019c551b96cb417539db336c9491" kindref="member">sFilename_stream_confluence_polygon</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="classhexwatershed_1_1domain_1a3bd210d0b5641b0f1c802bc30a2da523" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a3bd210d0b5641b0f1c802bc30a2da523" kindref="member">sFilename_stream_grid_polygon</ref>;</highlight></codeline>
+<codeline lineno="134" refid="classhexwatershed_1_1domain_1a37139f277cdc2d45bd86a3925828f46b" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a37139f277cdc2d45bd86a3925828f46b" kindref="member">sFilename_stream_grid_polygon_debug</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="classhexwatershed_1_1domain_1a2c268f965da15520aed905681bc26a3c" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a2c268f965da15520aed905681bc26a3c" kindref="member">sFilename_subbasin_polygon</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="classhexwatershed_1_1domain_1afdd8ae066d65ca7e0fdd364f331086b6" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1afdd8ae066d65ca7e0fdd364f331086b6" kindref="member">sFilename_stream_segment_polygon</ref>;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="classhexwatershed_1_1domain_1a5ee33e54da314c49081cc5aff85ed2f2" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a5ee33e54da314c49081cc5aff85ed2f2" kindref="member">sFilename_wetness_index_polygon</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//polyline</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="classhexwatershed_1_1domain_1a9c0a520ad75fcd98931a2b2a0de6bbba" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a9c0a520ad75fcd98931a2b2a0de6bbba" kindref="member">sFilename_stream_segment_polyline</ref>;</highlight></codeline>
+<codeline lineno="144" refid="classhexwatershed_1_1domain_1a8fbb658626050e4041a6f055f5db9e50" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a8fbb658626050e4041a6f055f5db9e50" kindref="member">sFilename_stream_segment_merge_polyline</ref>;</highlight></codeline>
+<codeline lineno="145" refid="classhexwatershed_1_1domain_1a6c6d9ac39299a220605efcf4b6092103" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a6c6d9ac39299a220605efcf4b6092103" kindref="member">sFilename_flow_direction_polyline</ref>;</highlight></codeline>
+<codeline lineno="146" refid="classhexwatershed_1_1domain_1a6d9997df868bf85104cb2dacc3b0a074" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a6d9997df868bf85104cb2dacc3b0a074" kindref="member">sFilename_flow_direction_polyline_debug</ref>;</highlight></codeline>
+<codeline lineno="147" refid="classhexwatershed_1_1domain_1a7dc757b3f0ce86808ab7e2c2ae7a5eb6" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a7dc757b3f0ce86808ab7e2c2ae7a5eb6" kindref="member">sFilename_stream_order_polyline</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//others</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151" refid="classhexwatershed_1_1domain_1a951d721abfc639a301a0834231c1bf5d" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a951d721abfc639a301a0834231c1bf5d" kindref="member">sFilename_watershed_characteristics</ref>;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="classhexwatershed_1_1domain_1a165e26b5807eac0f5cd19ef907fe569b" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a165e26b5807eac0f5cd19ef907fe569b" kindref="member">sExtension_header</ref>;</highlight></codeline>
+<codeline lineno="154" refid="classhexwatershed_1_1domain_1ab72b24c88c3eaef574931c2d653ee514" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1ab72b24c88c3eaef574931c2d653ee514" kindref="member">sExtension_envi</ref>;</highlight></codeline>
+<codeline lineno="155" refid="classhexwatershed_1_1domain_1a24e3c79deec7127a752885357cc60e3d" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classhexwatershed_1_1domain_1a24e3c79deec7127a752885357cc60e3d" kindref="member">sExtension_text</ref>;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="classhexwatershed_1_1domain_1a17de82513fa3f9838ea499e8328d52ab" refkind="member"><highlight class="normal"><sp/><sp/>std::ofstream<sp/><ref refid="classhexwatershed_1_1domain_1a17de82513fa3f9838ea499e8328d52ab" kindref="member">ofs_log</ref>;<sp/></highlight><highlight class="comment">//<sp/>used<sp/>for<sp/>IO<sp/>starlog<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="classhexwatershed_1_1domain_1ad819d11f40db09883ade5c0ad020b521" refkind="member"><highlight class="normal"><sp/><sp/>std::map&lt;std::string,<sp/>std::string&gt;<sp/><ref refid="classhexwatershed_1_1domain_1ad819d11f40db09883ade5c0ad020b521" kindref="member">mParameter</ref>;<sp/></highlight><highlight class="comment">//for<sp/>input<sp/>data<sp/>and<sp/>parameters</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="classhexwatershed_1_1domain_1a335b042f837bb1d5bf6494e1b28ce502" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;hexagon&gt;<sp/><ref refid="classhexwatershed_1_1domain_1a335b042f837bb1d5bf6494e1b28ce502" kindref="member">vCell</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//all<sp/>the<sp/>cells<sp/>based<sp/>on<sp/>shapefile</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161" refid="classhexwatershed_1_1domain_1ae83f1884f6afd8f5a98848e93f3507ea" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;hexagon&gt;<sp/><ref refid="classhexwatershed_1_1domain_1ae83f1884f6afd8f5a98848e93f3507ea" kindref="member">vCell_active</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//all<sp/>calls<sp/>has<sp/>elevation<sp/>(not<sp/>missing<sp/>value)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162" refid="classhexwatershed_1_1domain_1a5087da3221f695d12d0659d779e41e2c" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;hexagon&gt;<sp/><ref refid="classhexwatershed_1_1domain_1a5087da3221f695d12d0659d779e41e2c" kindref="member">vCell_watershed</ref>;</highlight></codeline>
+<codeline lineno="163" refid="classhexwatershed_1_1domain_1ac4d3bbe063870f14c2c2560e43c8d01a" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;segment&gt;<sp/><ref refid="classhexwatershed_1_1domain_1ac4d3bbe063870f14c2c2560e43c8d01a" kindref="member">vSegment</ref>;</highlight></codeline>
+<codeline lineno="164" refid="classhexwatershed_1_1domain_1a534b3cf5bff1f923373c187ca9d0db08" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="classhexwatershed_1_1domain_1a534b3cf5bff1f923373c187ca9d0db08" kindref="member">vElevation</ref>;</highlight></codeline>
+<codeline lineno="165" refid="classhexwatershed_1_1domain_1a7fe968d507aa3f6225f2890b1ed12ff0" refkind="member"><highlight class="normal"><sp/><sp/>std::vector&lt;hexagon&gt;<sp/><ref refid="classhexwatershed_1_1domain_1a7fe968d507aa3f6225f2890b1ed12ff0" kindref="member">vConfluence</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167" refid="classhexwatershed_1_1domain_1acb7ef4a40c805b9a986eb977059a5cd3" refkind="member"><highlight class="normal"><sp/><sp/>OGRSpatialReference<sp/>*<ref refid="classhexwatershed_1_1domain_1acb7ef4a40c805b9a986eb977059a5cd3" kindref="member">oSRS</ref>;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//setup</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_setup_model();</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//read</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_read_data();</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_read_configuration_file();</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_retrieve_user_input();</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_read_all_cell_information(std::string<sp/>sFilename_hexagon_point_shapefile_in,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sFilename_hexagon_polygon_shapefile_in,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sFilename_elevation_in);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>read_digital_elevation_model(std::string<sp/>sFilename_elevation_in);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>read_hexagon_point_shapefile(std::string<sp/>sFilename_hexagon_point_shapefile_in);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>read_hexagon_polygon_shapefile(std::string<sp/>sFilename_hexagon_polygon_shapefile_in);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_hexagon_polygon_center_location();</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_initialize_model();</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_run_model();</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_fill_depression();</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_flow_direction();</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_flow_accumulation();</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_define_stream_grid();</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_define_watershed_boundary();</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_define_stream_confluence();</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_define_stream_segment();</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_build_stream_topology();</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_define_stream_order();</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_tag_confluence_upstream(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>lID_confluence);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_define_subbasin();</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//the<sp/>watershed<sp/>characteristics<sp/>for<sp/>comparison</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_watershed_characteristics();</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_watershed_drainage_area();</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_watershed_total_stream_length();</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_watershed_longest_stream_length();</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_watershed_area_to_stream_length_ratio();</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_watershed_average_slope();</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_calculate_topographic_wetness_index();</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_save_watershed_characteristics();</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//we<sp/>decided<sp/>to<sp/>not<sp/>calculate<sp/>the<sp/>aspect<sp/>here.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//other<sp/>indices?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//save<sp/>all<sp/>the<sp/>result</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_save_result();</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_save_variable(<ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref><sp/>eV_in);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_save_point_vector(<ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref><sp/>eV_in,</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sFieldname_in,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sFilename_in,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sLayer_name_in);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_save_polyline_vector(<ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref><sp/>eV_in,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sFieldname_in,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sFilename_in,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sLayername_in);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_save_polygon_vector(<ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref><sp/>eV_in,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sFieldname_in,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sFilename_in,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>sLayer_name_in);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>domain_cleanup();</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/>std::vector&lt;hexagon&gt;<sp/>domain_get_boundary(std::vector&lt;hexagon&gt;<sp/>vCell_in);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>check_digital_elevation_model_depression(std::vector&lt;hexagon&gt;<sp/>vCell_in);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/>std::array&lt;long,<sp/>3&gt;<sp/>find_lowest_cell(std::vector&lt;hexagon&gt;<sp/>vCell_in);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>find_all_neighbors();</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hexwatershed</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h"/>
+  </compounddef>
+</doxygen>

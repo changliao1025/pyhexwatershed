@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="segment_8cpp" kind="file">
+    <compoundname>segment.cpp</compoundname>
+    <includes refid="segment_8h" local="yes">segment.h</includes>
+    <incdepgraph>
+      <node id="189">
+        <label>hexagon.h</label>
+        <link refid="hexagon_8h"/>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+      </node>
+      <node id="190">
+        <label>string</label>
+      </node>
+      <node id="186">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.cpp</label>
+        <link refid="segment.cpp"/>
+        <childnode refid="187" relation="include">
+        </childnode>
+      </node>
+      <node id="188">
+        <label>vector</label>
+      </node>
+      <node id="191">
+        <label>array</label>
+      </node>
+      <node id="187">
+        <label>segment.h</label>
+        <link refid="segment_8h"/>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="189" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacehexwatershed">hexwatershed</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>HexWatershed, a hydrologic routing model based on the hexagon mesh framework. Copyright (C) &lt;2002&gt; &lt;Chang liao&gt;=&quot;&quot;&gt; Developer can be contacted by <ulink url="mailto:chang.liao@pnnl.gov">chang.liao@pnnl.gov</ulink> This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.</para><para><simplesect kind="author"><para>Chang Liao (<ulink url="mailto:chang.liao@pnnl.gov">chang.liao@pnnl.gov</ulink>) </para></simplesect>
+<simplesect kind="version"><para>0.1 </para></simplesect>
+<simplesect kind="date"><para>2019-08-02</para></simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2019 </para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="18"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="segment_8h" kindref="compound">segment.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">hexwatershed</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1a1f33851d1a3e9d1a7d76442662b8f9ef" kindref="member">segment::segment</ref>()</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1ad1f98a6311bc0431f225a78527f3d74f" kindref="member">iFlag_headwater</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1ae39d97817c7a2e1a362f3d425d060522" kindref="member">iSegment</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1a2d26dfcbee67b2a7e8cff0800967585c" kindref="member">iSegment_order</ref>=-1;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1a55819810ead509866cf5487ea743214a" kindref="member">iSegment_downstream</ref><sp/>=-1;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//iSegment_upstream=-1;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1aa66f1c654fe5c5ed5de764680ace6a4b" kindref="member">iFlag_has_upstream</ref><sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1a3359788cdb16f704cee42480e73efb82" kindref="member">iFlag_has_downstream</ref>=-1;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1a0658a0988d360f55942787f8b99096e6" kindref="member">nSegment_upstream</ref><sp/>=-1;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classhexwatershed_1_1segment_1af0a33aff39a8d36dd8c401b607fa2f3b" kindref="member">segment::~segment</ref>()</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.cpp"/>
+  </compounddef>
+</doxygen>

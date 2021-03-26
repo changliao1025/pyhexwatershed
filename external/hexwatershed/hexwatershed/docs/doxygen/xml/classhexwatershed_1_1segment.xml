@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="classhexwatershed_1_1segment" kind="class" prot="public">
+    <compoundname>hexwatershed::segment</compoundname>
+    <includes refid="segment_8h" local="no">segment.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1a9115344c54333df599c6d14cc14caf29" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::segment::nReach</definition>
+        <argsstring></argsstring>
+        <name>nReach</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="33" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1ae39d97817c7a2e1a362f3d425d060522" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::segment::iSegment</definition>
+        <argsstring></argsstring>
+        <name>iSegment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="34" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1a55819810ead509866cf5487ea743214a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::segment::iSegment_downstream</definition>
+        <argsstring></argsstring>
+        <name>iSegment_downstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="36" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1a2d26dfcbee67b2a7e8cff0800967585c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::segment::iSegment_order</definition>
+        <argsstring></argsstring>
+        <name>iSegment_order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="37" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1ad1f98a6311bc0431f225a78527f3d74f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::segment::iFlag_headwater</definition>
+        <argsstring></argsstring>
+        <name>iFlag_headwater</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="38" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1aa66f1c654fe5c5ed5de764680ace6a4b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::segment::iFlag_has_upstream</definition>
+        <argsstring></argsstring>
+        <name>iFlag_has_upstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="39" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1a3359788cdb16f704cee42480e73efb82" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::segment::iFlag_has_downstream</definition>
+        <argsstring></argsstring>
+        <name>iFlag_has_downstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="40" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1a0658a0988d360f55942787f8b99096e6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::segment::nSegment_upstream</definition>
+        <argsstring></argsstring>
+        <name>nSegment_upstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="41" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1aa318d66f1d6a6d0f7022ad3b4e1485c8" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; hexwatershed::segment::vSegment_upstream</definition>
+        <argsstring></argsstring>
+        <name>vSegment_upstream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="42" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1af085a918d896be0ee619429917ba00d2" prot="public" static="no" mutable="no">
+        <type><ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref></type>
+        <definition>hexagon hexwatershed::segment::cReach_start</definition>
+        <argsstring></argsstring>
+        <name>cReach_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="44" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1a096404720cd3c8245ea3dcf5638e6e2e" prot="public" static="no" mutable="no">
+        <type><ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref></type>
+        <definition>hexagon hexwatershed::segment::cReach_end</definition>
+        <argsstring></argsstring>
+        <name>cReach_end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="45" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1segment_1af1d6dedc2a40652967be4b88e3e56882" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+        <definition>std::vector&lt;hexagon&gt; hexwatershed::segment::vReach_segment</definition>
+        <argsstring></argsstring>
+        <name>vReach_segment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="46" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhexwatershed_1_1segment_1a1f33851d1a3e9d1a7d76442662b8f9ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hexwatershed::segment::segment</definition>
+        <argsstring>()</argsstring>
+        <name>segment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="29" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.cpp" bodystart="22" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1segment_1af0a33aff39a8d36dd8c401b607fa2f3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hexwatershed::segment::~segment</definition>
+        <argsstring>()</argsstring>
+        <name>~segment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="31" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.cpp" bodystart="35" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1segment_1a537893160b9da97cf5d4b256de74ba7b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool hexwatershed::segment::operator&lt;</definition>
+        <argsstring>(const segment &amp;cSegment) const </argsstring>
+        <name>operator&lt;</name>
+        <param>
+          <type>const <ref refid="classhexwatershed_1_1segment" kindref="compound">segment</ref> &amp;</type>
+          <declname>cSegment</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="49" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="49" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="12">
+        <label>hexwatershed::hexagon</label>
+        <link refid="classhexwatershed_1_1hexagon"/>
+      </node>
+      <node id="11">
+        <label>hexwatershed::segment</label>
+        <link refid="classhexwatershed_1_1segment"/>
+        <childnode refid="12" relation="usage">
+          <edgelabel>cReach_start</edgelabel>
+          <edgelabel>cReach_end</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" line="27" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/segment.h" bodystart="26" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classhexwatershed_1_1segment_1a096404720cd3c8245ea3dcf5638e6e2e" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>cReach_end</name></member>
+      <member refid="classhexwatershed_1_1segment_1af085a918d896be0ee619429917ba00d2" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>cReach_start</name></member>
+      <member refid="classhexwatershed_1_1segment_1a3359788cdb16f704cee42480e73efb82" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>iFlag_has_downstream</name></member>
+      <member refid="classhexwatershed_1_1segment_1aa66f1c654fe5c5ed5de764680ace6a4b" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>iFlag_has_upstream</name></member>
+      <member refid="classhexwatershed_1_1segment_1ad1f98a6311bc0431f225a78527f3d74f" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>iFlag_headwater</name></member>
+      <member refid="classhexwatershed_1_1segment_1ae39d97817c7a2e1a362f3d425d060522" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>iSegment</name></member>
+      <member refid="classhexwatershed_1_1segment_1a55819810ead509866cf5487ea743214a" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>iSegment_downstream</name></member>
+      <member refid="classhexwatershed_1_1segment_1a2d26dfcbee67b2a7e8cff0800967585c" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>iSegment_order</name></member>
+      <member refid="classhexwatershed_1_1segment_1a9115344c54333df599c6d14cc14caf29" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>nReach</name></member>
+      <member refid="classhexwatershed_1_1segment_1a0658a0988d360f55942787f8b99096e6" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>nSegment_upstream</name></member>
+      <member refid="classhexwatershed_1_1segment_1a537893160b9da97cf5d4b256de74ba7b" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>operator&lt;</name></member>
+      <member refid="classhexwatershed_1_1segment_1a1f33851d1a3e9d1a7d76442662b8f9ef" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>segment</name></member>
+      <member refid="classhexwatershed_1_1segment_1af1d6dedc2a40652967be4b88e3e56882" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>vReach_segment</name></member>
+      <member refid="classhexwatershed_1_1segment_1aa318d66f1d6a6d0f7022ad3b4e1485c8" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>vSegment_upstream</name></member>
+      <member refid="classhexwatershed_1_1segment_1af0a33aff39a8d36dd8c401b607fa2f3b" prot="public" virt="non-virtual"><scope>hexwatershed::segment</scope><name>~segment</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

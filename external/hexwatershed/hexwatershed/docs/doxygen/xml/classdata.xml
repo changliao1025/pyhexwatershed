@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="classdata" kind="class" prot="public">
+    <compoundname>data</compoundname>
+    <includes refid="data_8h" local="no">data.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classdata_1aad3355ddfb4e1a1212328b01ac441766" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>data::data</definition>
+        <argsstring>()</argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h" line="38" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.cpp" bodystart="18" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classdata_1ac18b8a36d33f78bb65d09b885657427d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>data::~data</definition>
+        <argsstring>()</argsstring>
+        <name>~data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h" line="39" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.cpp" bodystart="22" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classdata_1abc1fde825e15f4ff7b378adffd38327d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float *</type>
+        <definition>float * data::read_binary</definition>
+        <argsstring>(std::string sFilename_in)</argsstring>
+        <name>read_binary</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_in</declname>
+        </param>
+        <briefdescription>
+<para>read_eco3d binary file (float type) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sFilename_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>float* </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h" line="43" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.cpp" bodystart="33" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classdata_1a77b437ef4f21eb6017cc055c701a8c9a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float **</type>
+        <definition>static float** data::read_binary</definition>
+        <argsstring>(std::string sFilename_in, long lColumn_in, long lRow_in)</argsstring>
+        <name>read_binary</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_in</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>lColumn_in</declname>
+        </param>
+        <param>
+          <type>long</type>
+          <declname>lRow_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h" line="44" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classdata_1a234bb6b6f92a4b1de4e17290053fe10f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>vector&lt; double &gt; data::read_binary_vector</definition>
+        <argsstring>(std::string sFilename_in)</argsstring>
+        <name>read_binary_vector</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_in</declname>
+        </param>
+        <briefdescription>
+<para>read_eco3d binary and save to a vector </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sFilename_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>vector&lt;double&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h" line="47" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.cpp" bodystart="133" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="classdata_1a29e59f19f32c1a41a049d9e1521bae30" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int data::write_binary_vector</definition>
+        <argsstring>(std::string sFilename_in, vector&lt; double &gt; vData_in)</argsstring>
+        <name>write_binary_vector</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_in</declname>
+        </param>
+        <param>
+          <type>vector&lt; double &gt;</type>
+          <declname>vData_in</declname>
+        </param>
+        <briefdescription>
+<para>write vector to float binary file </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sFilename_out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vData_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h" line="48" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.cpp" bodystart="181" bodyend="231"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h" line="36" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h" bodystart="35" bodyend="56"/>
+    <listofallmembers>
+      <member refid="classdata_1aad3355ddfb4e1a1212328b01ac441766" prot="public" virt="non-virtual"><scope>data</scope><name>data</name></member>
+      <member refid="classdata_1abc1fde825e15f4ff7b378adffd38327d" prot="public" virt="non-virtual"><scope>data</scope><name>read_binary</name></member>
+      <member refid="classdata_1a77b437ef4f21eb6017cc055c701a8c9a" prot="public" virt="non-virtual"><scope>data</scope><name>read_binary</name></member>
+      <member refid="classdata_1a234bb6b6f92a4b1de4e17290053fe10f" prot="public" virt="non-virtual"><scope>data</scope><name>read_binary_vector</name></member>
+      <member refid="classdata_1a29e59f19f32c1a41a049d9e1521bae30" prot="public" virt="non-virtual"><scope>data</scope><name>write_binary_vector</name></member>
+      <member refid="classdata_1ac18b8a36d33f78bb65d09b885657427d" prot="public" virt="non-virtual"><scope>data</scope><name>~data</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

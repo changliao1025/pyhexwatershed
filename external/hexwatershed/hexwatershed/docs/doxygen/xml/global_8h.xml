@@ -1,0 +1,1096 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="global_8h" kind="file">
+    <compoundname>global.h</compoundname>
+    <includes local="no">string</includes>
+    <includedby refid="conversion_8h" local="yes">/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h</includedby>
+    <includedby refid="system_8h" local="yes">/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/system.h</includedby>
+    <includedby refid="global_8cpp" local="yes">/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp</includedby>
+    <incdepgraph>
+      <node id="127">
+        <label>string</label>
+      </node>
+      <node id="126">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h</label>
+        <link refid="global.h"/>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="137">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/system.cpp</label>
+        <link refid="system_8cpp"/>
+      </node>
+      <node id="132">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp</label>
+        <link refid="domain_8cpp"/>
+      </node>
+      <node id="134">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/system.h</label>
+        <link refid="system_8h"/>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp</label>
+        <link refid="conversion_8cpp"/>
+      </node>
+      <node id="128">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h</label>
+        <link refid="global.h"/>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.h</label>
+        <link refid="data_8h"/>
+        <childnode refid="136" relation="include">
+        </childnode>
+      </node>
+      <node id="136">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/data.cpp</label>
+        <link refid="data_8cpp"/>
+      </node>
+      <node id="138">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp</label>
+        <link refid="global_8cpp"/>
+      </node>
+      <node id="133">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+      <node id="129">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h</label>
+        <link refid="conversion_8h"/>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="global_8h_1ad4c722530ca5a4b208fa201f15553ee4" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double small_value</definition>
+        <argsstring></argsstring>
+        <name>small_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="30" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1ac4155fbef976d2d5385fd89810d04efd" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double tiny_value</definition>
+        <argsstring></argsstring>
+        <name>tiny_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="31" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a5aca12d356d94e82500721ee9b205621" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double near_zero</definition>
+        <argsstring></argsstring>
+        <name>near_zero</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="32" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a43016d873124d39034edb8cd164794db" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double pi</definition>
+        <argsstring></argsstring>
+        <name>pi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="35" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a8fdd4f7699effd37e2d25bb27585d04e" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double minute_2_second</definition>
+        <argsstring></argsstring>
+        <name>minute_2_second</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="38" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a0a4d9f1bc929b208ce8d5b18d681a04f" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double day_2_second</definition>
+        <argsstring></argsstring>
+        <name>day_2_second</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="39" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aaef131a36046e082cf6ab804f9938868" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double day_2_minute</definition>
+        <argsstring></argsstring>
+        <name>day_2_minute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="40" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a9e570c432525ee4d8cad75bc3f0b63c1" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double hour_2_second</definition>
+        <argsstring></argsstring>
+        <name>hour_2_second</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="41" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aef3a1a211d317b291c768f1f52cf09cf" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dTimestep_eco3d</definition>
+        <argsstring></argsstring>
+        <name>dTimestep_eco3d</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="42" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a5cf9c7ebd4dd861e2c6ad8407dc9755b" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dTimestep_eco3d_minute</definition>
+        <argsstring></argsstring>
+        <name>dTimestep_eco3d_minute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="43" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1ae90d37e765be4adc1dfbfb194306b389" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dTimestep_eco3d_hour</definition>
+        <argsstring></argsstring>
+        <name>dTimestep_eco3d_hour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="44" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a5675d468111b9438b795405042362a7b" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dTimestep_eco3d_day</definition>
+        <argsstring></argsstring>
+        <name>dTimestep_eco3d_day</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="45" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aef1aaa6b608af7a0cbc16c9468200aab" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dTimestep_eco3d_stream_minute</definition>
+        <argsstring></argsstring>
+        <name>dTimestep_eco3d_stream_minute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="47" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1ae1cea42717e0c4289690a7ab33f8be52" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double meter_2_millimeter</definition>
+        <argsstring></argsstring>
+        <name>meter_2_millimeter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="51" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aa9bdca81a39ce5fc60989f3cd7850a54" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double meter_2_foot</definition>
+        <argsstring></argsstring>
+        <name>meter_2_foot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="52" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a9e62e47be8883f4e5dad79c5d7da5042" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double millimeter_2_meter</definition>
+        <argsstring></argsstring>
+        <name>millimeter_2_meter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="53" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1ae7cd3e245a0d2492aaecdcab4864d6f6" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double inch_2_meter</definition>
+        <argsstring></argsstring>
+        <name>inch_2_meter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="54" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1ac556bb7f77c2cfff999093bb781aed35" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double inch_2_centimeter</definition>
+        <argsstring></argsstring>
+        <name>inch_2_centimeter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="55" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1af12b893661e48dcf7cd8bc7c4fee18b7" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double square_meter_2_square_centimeter</definition>
+        <argsstring></argsstring>
+        <name>square_meter_2_square_centimeter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="57" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a93120b5214a51d9e6ccdd094ea178cea" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double hpa_2_pa</definition>
+        <argsstring></argsstring>
+        <name>hpa_2_pa</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="58" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a0cfad6042b021c529224d6007a4f55bc" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double gram_2_kilogram</definition>
+        <argsstring></argsstring>
+        <name>gram_2_kilogram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="61" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a76dc78b0ca2c0760e5b8a08cd0f24b4c" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double milligram_2_kilogram</definition>
+        <argsstring></argsstring>
+        <name>milligram_2_kilogram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="62" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aa15536031dff9817ed5a009ecd878681" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double kelvin_2_celsius</definition>
+        <argsstring></argsstring>
+        <name>kelvin_2_celsius</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="64" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a7e8154261d856ba837c4455db2d34acc" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double celsius_2_kelvin</definition>
+        <argsstring></argsstring>
+        <name>celsius_2_kelvin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="65" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a8e1b76059e3d5260385e06fbede38024" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double cubic_meter_2_cubic_centimeter</definition>
+        <argsstring></argsstring>
+        <name>cubic_meter_2_cubic_centimeter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="67" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aa65ad4db994014b2cef06398a52ce499" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double cubic_meter_2_cubic_liter</definition>
+        <argsstring></argsstring>
+        <name>cubic_meter_2_cubic_liter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="68" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aba62205415ff5bd3c34ad703ab089bcd" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double cubic_centimeter_2_cubic_meter</definition>
+        <argsstring></argsstring>
+        <name>cubic_centimeter_2_cubic_meter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="69" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a639a16e25bfc1eb45220c456b30aa9e1" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double kilogram_per_kilogram_2_milligram_per_gram</definition>
+        <argsstring></argsstring>
+        <name>kilogram_per_kilogram_2_milligram_per_gram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="71" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a12c40cae0581da763795902e2af45ad1" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double milligram_per_gram_2_kilogram_per_kilogram</definition>
+        <argsstring></argsstring>
+        <name>milligram_per_gram_2_kilogram_per_kilogram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="72" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a339302dea210a4711383a297ec37ac67" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double kilogram_per_cubic_meter_2_gram_per_cubic_centimeter</definition>
+        <argsstring></argsstring>
+        <name>kilogram_per_cubic_meter_2_gram_per_cubic_centimeter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="74" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a970dd57b66ff2bf2c4f3e83fd15d77a6" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double kilogram_per_cubic_meter_2_gram_per_liter</definition>
+        <argsstring></argsstring>
+        <name>kilogram_per_cubic_meter_2_gram_per_liter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="75" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aeb16a2afc9a9d3101835d9cf60cba522" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double kilogram_per_cubic_meter_2_milligram_per_liter</definition>
+        <argsstring></argsstring>
+        <name>kilogram_per_cubic_meter_2_milligram_per_liter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="76" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1ad34a4cd04f2ee665b0c3e030f050321c" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double milligram_per_liter_2_kilogram_per_cubic_meter</definition>
+        <argsstring></argsstring>
+        <name>milligram_per_liter_2_kilogram_per_cubic_meter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="77" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a84b152d248e41591ca7c7ac2188a52b0" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double kilogram_per_square_meter_2_gram_per_square_meter</definition>
+        <argsstring></argsstring>
+        <name>kilogram_per_square_meter_2_gram_per_square_meter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="79" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1afb03589b77e2d00a8aca297fb59fe6f6" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double gram_per_square_meter_2_kilogram_per_square_meter</definition>
+        <argsstring></argsstring>
+        <name>gram_per_square_meter_2_kilogram_per_square_meter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="81" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aae221d5ebaed70a9c1d7801130cbc3aa" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double joule_2_calorie</definition>
+        <argsstring></argsstring>
+        <name>joule_2_calorie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="85" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1abf0b6870514125ce573cdc37ce89de9a" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double joule_2_megajoule</definition>
+        <argsstring></argsstring>
+        <name>joule_2_megajoule</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="86" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a36a81951d00462b1ff8c8d06626b5edd" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double joule_2_langley</definition>
+        <argsstring></argsstring>
+        <name>joule_2_langley</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="87" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1adbc4bf3ac66163e7c65c19d831575709" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double calorie_2_joule</definition>
+        <argsstring></argsstring>
+        <name>calorie_2_joule</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="89" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a34ce834aeb643f06ff50235b23d5d15f" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double langley_2_joule</definition>
+        <argsstring></argsstring>
+        <name>langley_2_joule</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="91" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a787a5bf089f9f792fdd0a37254f40b9c" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dStefan_boltzmann</definition>
+        <argsstring></argsstring>
+        <name>dStefan_boltzmann</name>
+        <briefdescription>
+<para>50================================================== </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="97" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a2b48b0b6415898bded05d1e0698a129f" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dManning_roughness</definition>
+        <argsstring></argsstring>
+        <name>dManning_roughness</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="98" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aacabbbf32ba97b2aeec6a4b71abe5496" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double radian</definition>
+        <argsstring></argsstring>
+        <name>radian</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="99" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a8af1d98477a9714872232c68ebf1b65c" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dEccentricy</definition>
+        <argsstring></argsstring>
+        <name>dEccentricy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="100" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a119ce05d552197c4e23acb12e85d7cdc" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dSolar_constant</definition>
+        <argsstring></argsstring>
+        <name>dSolar_constant</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="103" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a031be2cff69840b1efee7594c451c055" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dFrozen_temperature</definition>
+        <argsstring></argsstring>
+        <name>dFrozen_temperature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="105" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a7b2ead00a0a0738f14dc07f13d265458" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dDensity_water</definition>
+        <argsstring></argsstring>
+        <name>dDensity_water</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="106" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a038cae36d8535231ab2b2203f054c2b1" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dLatent_heat_water</definition>
+        <argsstring></argsstring>
+        <name>dLatent_heat_water</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="108" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a210be43e8ecc4c0644423405a8090cfa" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dSpecific_heat_water</definition>
+        <argsstring></argsstring>
+        <name>dSpecific_heat_water</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="110" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a13abb3f9d435f3c4710613a90158eb9e" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dSpecific_heat_ice</definition>
+        <argsstring></argsstring>
+        <name>dSpecific_heat_ice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="112" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1ab0779ff58aaf000796d6cd538a82b615" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double tkwat</definition>
+        <argsstring></argsstring>
+        <name>tkwat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="113" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a5d6592ac560d8403467f8774e6c6d378" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double tkice</definition>
+        <argsstring></argsstring>
+        <name>tkice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="114" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a53ca1f5e9d15bd5cb39ce740e11b2e1a" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double cwat</definition>
+        <argsstring></argsstring>
+        <name>cwat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="115" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a27d5aac34c0da6eca0cdf0e597822c9f" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double cice</definition>
+        <argsstring></argsstring>
+        <name>cice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="116" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a5a66d357dce4708c8126c686f4fecf59" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dResolution</definition>
+        <argsstring></argsstring>
+        <name>dResolution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="120" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a35dcde8e5c86e55be7820e14e76bac2f" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dArea</definition>
+        <argsstring></argsstring>
+        <name>dArea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="121" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aec785514ec58f47b005e993a715f38b4" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dTemperature_all_rain</definition>
+        <argsstring></argsstring>
+        <name>dTemperature_all_rain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="123" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a7522846a6bd3b2a19c585c25d79d1799" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dTemperature_all_snow</definition>
+        <argsstring></argsstring>
+        <name>dTemperature_all_snow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="124" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a0772250bcffc647bcc8f6d36af48a077" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double dFraction_sublimation</definition>
+        <argsstring></argsstring>
+        <name>dFraction_sublimation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="125" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a8a61687ebfbd266cab27c2f2dc21f78b" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char slash</definition>
+        <argsstring></argsstring>
+        <name>slash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="127" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1acb24233d227bf20a0fb6936e16e702b0" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string sError_file_missing</definition>
+        <argsstring></argsstring>
+        <name>sError_file_missing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="129" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1af93fe15bd2d32bbd3664c77870b2ff96" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string sError_open_failed</definition>
+        <argsstring></argsstring>
+        <name>sError_open_failed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="130" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1ab437dd41c2535526b93cf99e9808db62" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string sError_data_missing</definition>
+        <argsstring></argsstring>
+        <name>sError_data_missing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="131" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aba5fb26b63252db176cb8b797ebdf96c" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string sLog_data_quality</definition>
+        <argsstring></argsstring>
+        <name>sLog_data_quality</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="134" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1a9c92795342a738deee0ad5a367cd77c7" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string sLog_open_success</definition>
+        <argsstring></argsstring>
+        <name>sLog_open_success</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="135" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.cpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1acdb1da724f0416c85e5035eb6a10743a" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string sModule_cascade</definition>
+        <argsstring></argsstring>
+        <name>sModule_cascade</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="137" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="global_8h_1aa7e6124c4a12bfad2921e501a747163a" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string sModule_snow</definition>
+        <argsstring></argsstring>
+        <name>sModule_snow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h" line="138" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Header file the global class. </para>    </briefdescription>
+    <detaileddescription>
+<para>HexWatershed, a hydrologic routing model based on the hexagon mesh framework. Copyright (C) &lt;2002&gt; &lt;Chang liao&gt;=&quot;&quot;&gt; Developer can be contacted by <ulink url="mailto:chang.liao@pnnl.gov">chang.liao@pnnl.gov</ulink> This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.</para><para><simplesect kind="author"><para>Chang Liao (<ulink url="mailto:chang.liao@pnnl.gov">chang.liao@pnnl.gov</ulink>) </para></simplesect>
+<simplesect kind="version"><para>0.1 </para></simplesect>
+<simplesect kind="date"><para>2019-08-02</para></simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2019 </para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="18"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>the<sp/>global<sp/>constant<sp/>file<sp/>for<sp/>all<sp/>the<sp/>modules</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>some<sp/>constants<sp/>or<sp/>variables<sp/>are<sp/>written<sp/>cross-platfrom</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>math</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//to<sp/>reduce<sp/>float<sp/>point<sp/>error,<sp/>we<sp/>used<sp/>different<sp/>level<sp/>of<sp/>thresholds<sp/>to<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//remove<sp/>some<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1ad4c722530ca5a4b208fa201f15553ee4" kindref="member">small_value</ref>;<sp/></highlight><highlight class="comment">//small,<sp/>from<sp/>Latex</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1ac4155fbef976d2d5385fd89810d04efd" kindref="member">tiny_value</ref>;<sp/></highlight><highlight class="comment">//extreme<sp/>small,<sp/>from<sp/>Latex</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a5aca12d356d94e82500721ee9b205621" kindref="member">near_zero</ref>;<sp/></highlight><highlight class="comment">//the<sp/>smallest</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a43016d873124d39034edb8cd164794db" kindref="member">pi</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//extern<sp/>const<sp/>double<sp/>missing_value;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>time</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a8fdd4f7699effd37e2d25bb27585d04e" kindref="member">minute_2_second</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a0a4d9f1bc929b208ce8d5b18d681a04f" kindref="member">day_2_second</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aaef131a36046e082cf6ab804f9938868" kindref="member">day_2_minute</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a9e570c432525ee4d8cad75bc3f0b63c1" kindref="member">hour_2_second</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aef3a1a211d317b291c768f1f52cf09cf" kindref="member">dTimestep_eco3d</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>second</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a5cf9c7ebd4dd861e2c6ad8407dc9755b" kindref="member">dTimestep_eco3d_minute</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>minutes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1ae90d37e765be4adc1dfbfb194306b389" kindref="member">dTimestep_eco3d_hour</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>second</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a5675d468111b9438b795405042362a7b" kindref="member">dTimestep_eco3d_day</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>minutes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aef1aaa6b608af7a0cbc16c9468200aab" kindref="member">dTimestep_eco3d_stream_minute</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>minutes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/>length</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1ae1cea42717e0c4289690a7ab33f8be52" kindref="member">meter_2_millimeter</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aa9bdca81a39ce5fc60989f3cd7850a54" kindref="member">meter_2_foot</ref>;<sp/></highlight><highlight class="comment">//<sp/>conversion</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a9e62e47be8883f4e5dad79c5d7da5042" kindref="member">millimeter_2_meter</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1ae7cd3e245a0d2492aaecdcab4864d6f6" kindref="member">inch_2_meter</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1ac556bb7f77c2cfff999093bb781aed35" kindref="member">inch_2_centimeter</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//<sp/>area</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1af12b893661e48dcf7cd8bc7c4fee18b7" kindref="member">square_meter_2_square_centimeter</ref>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a93120b5214a51d9e6ccdd094ea178cea" kindref="member">hpa_2_pa</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/>mass</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a0cfad6042b021c529224d6007a4f55bc" kindref="member">gram_2_kilogram</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a76dc78b0ca2c0760e5b8a08cd0f24b4c" kindref="member">milligram_2_kilogram</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//<sp/>temperature</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aa15536031dff9817ed5a009ecd878681" kindref="member">kelvin_2_celsius</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a7e8154261d856ba837c4455db2d34acc" kindref="member">celsius_2_kelvin</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//<sp/>conversion</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a8e1b76059e3d5260385e06fbede38024" kindref="member">cubic_meter_2_cubic_centimeter</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aa65ad4db994014b2cef06398a52ce499" kindref="member">cubic_meter_2_cubic_liter</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aba62205415ff5bd3c34ad703ab089bcd" kindref="member">cubic_centimeter_2_cubic_meter</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a639a16e25bfc1eb45220c456b30aa9e1" kindref="member">kilogram_per_kilogram_2_milligram_per_gram</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a12c40cae0581da763795902e2af45ad1" kindref="member">milligram_per_gram_2_kilogram_per_kilogram</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a339302dea210a4711383a297ec37ac67" kindref="member">kilogram_per_cubic_meter_2_gram_per_cubic_centimeter</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a970dd57b66ff2bf2c4f3e83fd15d77a6" kindref="member">kilogram_per_cubic_meter_2_gram_per_liter</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aeb16a2afc9a9d3101835d9cf60cba522" kindref="member">kilogram_per_cubic_meter_2_milligram_per_liter</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1ad34a4cd04f2ee665b0c3e030f050321c" kindref="member">milligram_per_liter_2_kilogram_per_cubic_meter</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a84b152d248e41591ca7c7ac2188a52b0" kindref="member">kilogram_per_square_meter_2_gram_per_square_meter</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1afb03589b77e2d00a8aca297fb59fe6f6" kindref="member">gram_per_square_meter_2_kilogram_per_square_meter</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aae221d5ebaed70a9c1d7801130cbc3aa" kindref="member">joule_2_calorie</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1abf0b6870514125ce573cdc37ce89de9a" kindref="member">joule_2_megajoule</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a36a81951d00462b1ff8c8d06626b5edd" kindref="member">joule_2_langley</ref>;<sp/></highlight><highlight class="comment">//<sp/>convert<sp/>from<sp/>joulies<sp/><sp/>to<sp/>langley</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1adbc4bf3ac66163e7c65c19d831575709" kindref="member">calorie_2_joule</ref>;<sp/></highlight><highlight class="comment">//<sp/>convert<sp/>from<sp/>calorie<sp/><sp/>to<sp/>langley</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a34ce834aeb643f06ff50235b23d5d15f" kindref="member">langley_2_joule</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="comment">//<sp/>physical</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a787a5bf089f9f792fdd0a37254f40b9c" kindref="member">dStefan_boltzmann</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a2b48b0b6415898bded05d1e0698a129f" kindref="member">dManning_roughness</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aacabbbf32ba97b2aeec6a4b71abe5496" kindref="member">radian</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a8af1d98477a9714872232c68ebf1b65c" kindref="member">dEccentricy</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">//<sp/>revolution<sp/>speed<sp/>of<sp/>the<sp/>Earth,<sp/>radians<sp/>per<sp/>day<sp/>,<sp/>this<sp/>is<sp/>very<sp/>close<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">//<sp/>pi/180,<sp/>but<sp/>it<sp/>is<sp/>different.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a119ce05d552197c4e23acb12e85d7cdc" kindref="member">dSolar_constant</ref>;<sp/></highlight><highlight class="comment">//<sp/>units:<sp/>watt<sp/>per<sp/>square<sp/>meter,<sp/>look<sp/>at</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">//<sp/>wiki:<sp/>https://en.wikipedia.org/wiki/Solar_constant</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a031be2cff69840b1efee7594c451c055" kindref="member">dFrozen_temperature</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>K</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a7b2ead00a0a0738f14dc07f13d265458" kindref="member">dDensity_water</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>density<sp/>of<sp/>water,<sp/>unit:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a038cae36d8535231ab2b2203f054c2b1" kindref="member">dLatent_heat_water</ref>;<sp/></highlight><highlight class="comment">//<sp/>heat<sp/>of<sp/>fusion<sp/>(latent<sp/>heat)<sp/>of</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>water.<sp/>units:<sp/>joule<sp/>per<sp/>kilogram</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a210be43e8ecc4c0644423405a8090cfa" kindref="member">dSpecific_heat_water</ref>;<sp/></highlight><highlight class="comment">//<sp/>the<sp/>specific<sp/>heat<sp/>of<sp/>water,<sp/>units:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>j<sp/>/<sp/>(kg<sp/>*<sp/>kelvin<sp/>)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a13abb3f9d435f3c4710613a90158eb9e" kindref="member">dSpecific_heat_ice</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>units:<sp/>j<sp/>/<sp/>(kg<sp/>*<sp/>kelvin<sp/>)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1ab0779ff58aaf000796d6cd538a82b615" kindref="member">tkwat</ref>;<sp/></highlight><highlight class="comment">//<sp/>thermal<sp/>conductivity<sp/>of<sp/>water<sp/>(w/m/kelvin)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a5d6592ac560d8403467f8774e6c6d378" kindref="member">tkice</ref>;<sp/></highlight><highlight class="comment">//<sp/>thermal<sp/>conductivity<sp/>of<sp/>ice<sp/>(w/m/kelvin)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a53ca1f5e9d15bd5cb39ce740e11b2e1a" kindref="member">cwat</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>specific<sp/>heat<sp/>capacity<sp/>of<sp/>water<sp/>(j/m**3/kelvin)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a27d5aac34c0da6eca0cdf0e597822c9f" kindref="member">cice</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>specific<sp/>heat<sp/>capacity<sp/>of<sp/>ice<sp/>(j/m**3/kelvin)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">//<sp/>gis</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a5a66d357dce4708c8126c686f4fecf59" kindref="member">dResolution</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>meter</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a35dcde8e5c86e55be7820e14e76bac2f" kindref="member">dArea</ref>;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">//<sp/>modules</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1aec785514ec58f47b005e993a715f38b4" kindref="member">dTemperature_all_rain</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>kelvin</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a7522846a6bd3b2a19c585c25d79d1799" kindref="member">dTemperature_all_snow</ref>;<sp/></highlight><highlight class="comment">//<sp/>unit:<sp/>kelvin</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a0772250bcffc647bcc8f6d36af48a077" kindref="member">dFraction_sublimation</ref>;<sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">//<sp/>system</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="global_8cpp_1a8a61687ebfbd266cab27c2f2dc21f78b" kindref="member">slash</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="global_8cpp_1acb24233d227bf20a0fb6936e16e702b0" kindref="member">sError_file_missing</ref><sp/>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="global_8cpp_1af93fe15bd2d32bbd3664c77870b2ff96" kindref="member">sError_open_failed</ref><sp/>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="global_8cpp_1ab437dd41c2535526b93cf99e9808db62" kindref="member">sError_data_missing</ref><sp/>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">//log<sp/>report</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="global_8cpp_1aba5fb26b63252db176cb8b797ebdf96c" kindref="member">sLog_data_quality</ref><sp/>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="global_8cpp_1a9c92795342a738deee0ad5a367cd77c7" kindref="member">sLog_open_success</ref><sp/>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="global_8h_1acdb1da724f0416c85e5035eb6a10743a" kindref="member">sModule_cascade</ref>;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="global_8h_1aa7e6124c4a12bfad2921e501a747163a" kindref="member">sModule_snow</ref><sp/>;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/global.h"/>
+  </compounddef>
+</doxygen>

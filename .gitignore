@@ -6,16 +6,15 @@
 *.dll
 *.so
 *.dylib
-cache/*.log
-cache/*.jig
-cache/*.msh
+
+
 
 # python things
 __pycache__/
 *.py[cod]
 
-jigsawpy/_bin/
-jigsawpy/_lib/
+pyhexwatershed/_bin/
+pyhexwatershed/_lib/
 
 build/
 develop-eggs/
