@@ -1,6 +1,0 @@
-sWorkspace_data ../hexwatershed/example/columbia_basin_flat/input
-sWorkspace_output ./output
-sFilename_hexagon_polygon_shapefile hexagon90.shp
-sFilename_elevation_raster cbf90.tif
-iCase 1
-dAccumulation_threshold 500
