@@ -1,7 +1,7 @@
 ## `HexWatershed: A hexagon mesh grid based watershed delineation model`
 
 <p align="middle">
-  <img src = "./external/hexwatershed/example/figure/stream_topology.png" width="20%" hspace="0.55%"> 
+  <img src = "./external/hexwatershed/example/figure/stream_topology.png" width="50%" hspace="0.55%"> 
 </p>
 
 `HexWatershed` is a hydrologic routing model based on the hexagon mesh framework.
