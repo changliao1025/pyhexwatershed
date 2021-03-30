@@ -6,15 +6,15 @@ import shutil
 
 from setuptools import setup, find_packages, Command
 
-NAME = "jigsawpy"
+NAME = "pyHexWatershed"
 DESCRIPTION = \
-    "Python interface for the JIGSAW meshing library."
-AUTHOR = "Darren Engwirda"
-AUTHOR_EMAIL = "d.engwirda@gmail.com"
-URL = "https://github.com/dengwirda/"
+    "Python interface for the HexWatershed."
+AUTHOR = "Chang Liao"
+AUTHOR_EMAIL = "chang.liao@pnnl.gov"
+URL = "https://github.com/changliao1025/"
 VERSION = "0.3.3"
 REQUIRES_PYTHON = ">=3.6.0"
-KEYWORDS = "Mesh-generation Delaunay Voronoi"
+KEYWORDS = "hexwatershed hexagon"
 
 REQUIRED = [
     "numpy", "pathlib"
@@ -28,7 +28,7 @@ CLASSIFY = [
     "Programming Language :: Python :: 3",
     "Programming Language :: C++",
     "Topic :: Scientific/Engineering",
-    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Hydrology",
     "Topic :: Scientific/Engineering :: Physics",
     "Topic :: Scientific/Engineering :: Visualization"
 ]
@@ -46,7 +46,7 @@ except FileNotFoundError:
 
 class build_external(Command):
 
-    description = "build external JIGSAW dependencies"
+    description = "build external HexWatershed dependencies"
 
     user_options = []
 
@@ -67,7 +67,7 @@ class build_external(Command):
             self.announce("cmake config.", level=3)
 
             source_path = os.path.join(
-                HERE, "external", "jigsaw")
+                HERE, "external", "hexwatershed")
 
             builds_path = \
                 os.path.join(source_path, "tmp")
@@ -81,10 +81,10 @@ class build_external(Command):
                 os.path.join(source_path, "lib")
 
             exedst_path = os.path.join(
-                HERE, "jigsawpy", "_bin")
+                HERE, "hexwatershed", "_bin")
 
             libdst_path = os.path.join(
-                HERE, "jigsawpy", "_lib")
+                HERE, "hexwatershed", "_lib")
 
             shutil.rmtree(
                 exedst_path, ignore_errors=True)
@@ -134,7 +134,7 @@ setup(
     url=URL,
     packages=find_packages(),
     cmdclass={"build_external": build_external},
-    package_data={"jigsawpy": ["_bin/*", "_lib/*"]},
+    package_data={"hexwatershed": ["_bin/*", "_lib/*"]},
     install_requires=REQUIRED,
     classifiers=CLASSIFY
 )
