@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="classhexwatershed_1_1watershed" kind="class" prot="public">
+    <compoundname>hexwatershed::watershed</compoundname>
+    <includes refid="watershed_8h" local="no">watershed.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classhexwatershed_1_1watershed_1aaa82e9d85d3d0b2fb5261c2aafdd3838" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+        <definition>std::vector&lt;hexagon&gt; hexwatershed::watershed::vCell</definition>
+        <argsstring></argsstring>
+        <name>vCell</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/watershed.h" line="29" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/watershed.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/watershed.h" line="27" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/watershed.h" bodystart="26" bodyend="30"/>
+    <listofallmembers>
+      <member refid="classhexwatershed_1_1watershed_1aaa82e9d85d3d0b2fb5261c2aafdd3838" prot="private" virt="non-virtual"><scope>hexwatershed::watershed</scope><name>vCell</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

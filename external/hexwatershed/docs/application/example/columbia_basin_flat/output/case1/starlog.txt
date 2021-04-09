@@ -1,0 +1,12 @@
+=Level 1: Simulation log will be save to log file: ./output/case1/starlog.txt
+Finished depression filling
+Finished flow direction
+Finished flow accumulation
+Finished defining stream grid
+Finished defining watershed boundary
+Finished defining confluence
+Finished defining stream segment
+Finished defining stream topology
+Finished defining stream order
+Finished defining subbasin
+Finished watershed characteristics

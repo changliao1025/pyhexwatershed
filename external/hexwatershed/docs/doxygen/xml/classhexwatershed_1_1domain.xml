@@ -1,0 +1,1991 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="classhexwatershed_1_1domain" kind="class" prot="public">
+    <compoundname>hexwatershed::domain</compoundname>
+    <includes refid="domain_8h" local="no">domain.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1aec8e60df7b635db51d0be1eedb99e3b1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::iFlag_debug</definition>
+        <argsstring></argsstring>
+        <name>iFlag_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="60" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1aab3d8698d380781b36bcfc0baaccc1d6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::iFlag_merge</definition>
+        <argsstring></argsstring>
+        <name>iFlag_merge</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="61" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a068c98debccd44c5eb543b2c06b90d8e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::iFlag_configuration_file</definition>
+        <argsstring></argsstring>
+        <name>iFlag_configuration_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="62" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a38c815a5e615239fa0fba0b3d04109d9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::iFlag_hexagon_point</definition>
+        <argsstring></argsstring>
+        <name>iFlag_hexagon_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="64" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ad3d2e6910dc27d36b61fb4c0998f006f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::iFlag_hexagon_polygon</definition>
+        <argsstring></argsstring>
+        <name>iFlag_hexagon_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="65" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a8f921593736177839989703e6e891c8e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::iMesh_type</definition>
+        <argsstring></argsstring>
+        <name>iMesh_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="67" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a7622ea5cc85456fa046c78105d98fcc6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::nColumn_elevation</definition>
+        <argsstring></argsstring>
+        <name>nColumn_elevation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="69" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ad350abd8fce9e42e628821479dd495c7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::nRow_elevation</definition>
+        <argsstring></argsstring>
+        <name>nRow_elevation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="70" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a67a496a610896ea4cb699326d7e68542" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::nColumn_mesh</definition>
+        <argsstring></argsstring>
+        <name>nColumn_mesh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="71" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ab4ae9021b585b50c97395e2caf3d35a4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::nRow_mesh</definition>
+        <argsstring></argsstring>
+        <name>nRow_mesh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="72" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a8a0d4931851da051b0b38f10b8df13fe" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::nSegment</definition>
+        <argsstring></argsstring>
+        <name>nSegment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="74" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a09d29ab3c105e41f28f6d88a66f372d0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::iSegment_current</definition>
+        <argsstring></argsstring>
+        <name>iSegment_current</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="75" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1acfef0358941f910f3f6ac141e82b1f70" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int hexwatershed::domain::iCase</definition>
+        <argsstring></argsstring>
+        <name>iCase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="76" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ad9678605c1dae376003cb5b435a498da" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long hexwatershed::domain::lOutlet</definition>
+        <argsstring></argsstring>
+        <name>lOutlet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="77" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ad760e386909941278c649b5e93fa8a3a" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long hexwatershed::domain::nRecord_shapefile</definition>
+        <argsstring></argsstring>
+        <name>nRecord_shapefile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="78" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1acb549889c20abf5221562f5ff78c9ecf" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long hexwatershed::domain::lCell_count</definition>
+        <argsstring></argsstring>
+        <name>lCell_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="80" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a22b6e1b39cd846bfc82d1c3fe86e0886" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dResolution_elevation</definition>
+        <argsstring></argsstring>
+        <name>dResolution_elevation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="81" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a39b4717af33e4821536463e885329151" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dX_origin</definition>
+        <argsstring></argsstring>
+        <name>dX_origin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="82" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1acc93bafe88763e95e9919f7b57f2c4b1" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dY_origin</definition>
+        <argsstring></argsstring>
+        <name>dY_origin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="83" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a9e795c0653f95505ef7644911000ad67" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dArea_watershed</definition>
+        <argsstring></argsstring>
+        <name>dArea_watershed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="85" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a2c358b846c8211809a2ff82708b57fcd" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dLength_stream</definition>
+        <argsstring></argsstring>
+        <name>dLength_stream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="86" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a422214efada705de83d13d0fa77218ec" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dLongest_length_stream</definition>
+        <argsstring></argsstring>
+        <name>dLongest_length_stream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="87" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a87acb765b1435ff5f6cb08a5af07d834" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dArea_2_stream_ratio</definition>
+        <argsstring></argsstring>
+        <name>dArea_2_stream_ratio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="88" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a5fa8787a45b52c82c86b15adc945c46d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dSlope_mean</definition>
+        <argsstring></argsstring>
+        <name>dSlope_mean</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="89" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ab3b0972033f100aa1080c709c4bc1ee1" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::dAccumulation_threshold</definition>
+        <argsstring></argsstring>
+        <name>dAccumulation_threshold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="91" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a07e80b92d1c62b66af5e94c7a139981f" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double hexwatershed::domain::missing_value</definition>
+        <argsstring></argsstring>
+        <name>missing_value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="93" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a86902641b63b77dccfef08a94df2e55b" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sRegion</definition>
+        <argsstring></argsstring>
+        <name>sRegion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="95" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a61879b2d1218be6af1b35d936b00fcf2" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sWorkspace_data</definition>
+        <argsstring></argsstring>
+        <name>sWorkspace_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="96" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a613b370ecaa3cb488c84a05b20d87cf2" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sWorkspace_output</definition>
+        <argsstring></argsstring>
+        <name>sWorkspace_output</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="97" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a237356c07d7d19526bc78884cc8e7dc1" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_configuration</definition>
+        <argsstring></argsstring>
+        <name>sFilename_configuration</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="98" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a807070dbc27d9f921316937879419aa5" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_log</definition>
+        <argsstring></argsstring>
+        <name>sFilename_log</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="99" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1aee8643251832efafa47400b95dc504d1" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sLog</definition>
+        <argsstring></argsstring>
+        <name>sLog</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="100" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1addabb6266ed831687398d7e99c7a1eb6" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_hexagon_point_shapefile</definition>
+        <argsstring></argsstring>
+        <name>sFilename_hexagon_point_shapefile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="102" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a81785372d37e465554213628b5226fb5" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_hexagon_polygon_shapefile</definition>
+        <argsstring></argsstring>
+        <name>sFilename_hexagon_polygon_shapefile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="103" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a014fe1eb4dde81d891c97988220d729d" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_elevation_raster</definition>
+        <argsstring></argsstring>
+        <name>sFilename_elevation_raster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="105" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a0ddfbc822faa401aa28669bc111165c7" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_elevation_point</definition>
+        <argsstring></argsstring>
+        <name>sFilename_elevation_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="108" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a16c36285a4bea563a20d42b68abd52c1" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_elevation_point_debug</definition>
+        <argsstring></argsstring>
+        <name>sFilename_elevation_point_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="109" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1aa1f8aba1cfe66636ca85daf26e1ca72d" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_flow_accumulation_point</definition>
+        <argsstring></argsstring>
+        <name>sFilename_flow_accumulation_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="111" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a00f76f9a44e9fbf6f05f9127ac4dce2f" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_flow_accumulation_point_debug</definition>
+        <argsstring></argsstring>
+        <name>sFilename_flow_accumulation_point_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="112" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a82aaf8850706fb149e1deaca2a15b377" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_watershed_point</definition>
+        <argsstring></argsstring>
+        <name>sFilename_watershed_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="114" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a43439d2bf30dd2ef83e233b26229faec" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_confluence_point</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_confluence_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="115" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a6e0807e868e43612827691b207f16e28" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_subbasin_point</definition>
+        <argsstring></argsstring>
+        <name>sFilename_subbasin_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="117" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a4fbfd3966c288287e2f4333d527964b0" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_grid_point</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_grid_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="118" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ad4350a3b1ffea69f457256b640d250dd" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_grid_point_debug</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_grid_point_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="119" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a2fb83f796660d12113b5bdf4f497529f" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_segment_point</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_segment_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="121" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a9edbb2f200391123c1d558aae2109001" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_wetness_index_point</definition>
+        <argsstring></argsstring>
+        <name>sFilename_wetness_index_point</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="122" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a7e8fe1e18c688c3e5f07fe23dc49c759" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_elevation_polygon</definition>
+        <argsstring></argsstring>
+        <name>sFilename_elevation_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="124" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1aab217d0d54135663b80f65ab416a294a" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_elevation_polygon_debug</definition>
+        <argsstring></argsstring>
+        <name>sFilename_elevation_polygon_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="125" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ab5b6a7a63ac54ffe127704b804fbf902" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_flow_accumulation_polygon</definition>
+        <argsstring></argsstring>
+        <name>sFilename_flow_accumulation_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="127" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1aad07742f02d46cc27f749e88c4d8198f" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_flow_accumulation_polygon_debug</definition>
+        <argsstring></argsstring>
+        <name>sFilename_flow_accumulation_polygon_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="128" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a1485608eea9c7f5cca53ee07cdb21b99" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_watershed_polygon</definition>
+        <argsstring></argsstring>
+        <name>sFilename_watershed_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="130" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a0336019c551b96cb417539db336c9491" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_confluence_polygon</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_confluence_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="131" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a3bd210d0b5641b0f1c802bc30a2da523" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_grid_polygon</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_grid_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="133" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a37139f277cdc2d45bd86a3925828f46b" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_grid_polygon_debug</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_grid_polygon_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="134" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a2c268f965da15520aed905681bc26a3c" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_subbasin_polygon</definition>
+        <argsstring></argsstring>
+        <name>sFilename_subbasin_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="136" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1afdd8ae066d65ca7e0fdd364f331086b6" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_segment_polygon</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_segment_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="138" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a5ee33e54da314c49081cc5aff85ed2f2" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_wetness_index_polygon</definition>
+        <argsstring></argsstring>
+        <name>sFilename_wetness_index_polygon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="140" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a9c0a520ad75fcd98931a2b2a0de6bbba" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_segment_polyline</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_segment_polyline</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="143" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a8fbb658626050e4041a6f055f5db9e50" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_segment_merge_polyline</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_segment_merge_polyline</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="144" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a6c6d9ac39299a220605efcf4b6092103" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_flow_direction_polyline</definition>
+        <argsstring></argsstring>
+        <name>sFilename_flow_direction_polyline</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="145" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a6d9997df868bf85104cb2dacc3b0a074" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_flow_direction_polyline_debug</definition>
+        <argsstring></argsstring>
+        <name>sFilename_flow_direction_polyline_debug</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="146" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a7dc757b3f0ce86808ab7e2c2ae7a5eb6" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_stream_order_polyline</definition>
+        <argsstring></argsstring>
+        <name>sFilename_stream_order_polyline</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="147" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a951d721abfc639a301a0834231c1bf5d" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sFilename_watershed_characteristics</definition>
+        <argsstring></argsstring>
+        <name>sFilename_watershed_characteristics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="151" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a165e26b5807eac0f5cd19ef907fe569b" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sExtension_header</definition>
+        <argsstring></argsstring>
+        <name>sExtension_header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="153" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ab72b24c88c3eaef574931c2d653ee514" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sExtension_envi</definition>
+        <argsstring></argsstring>
+        <name>sExtension_envi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="154" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a24e3c79deec7127a752885357cc60e3d" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string hexwatershed::domain::sExtension_text</definition>
+        <argsstring></argsstring>
+        <name>sExtension_text</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="155" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a17de82513fa3f9838ea499e8328d52ab" prot="public" static="no" mutable="no">
+        <type>std::ofstream</type>
+        <definition>std::ofstream hexwatershed::domain::ofs_log</definition>
+        <argsstring></argsstring>
+        <name>ofs_log</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="157" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ad819d11f40db09883ade5c0ad020b521" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::string &gt;</type>
+        <definition>std::map&lt;std::string, std::string&gt; hexwatershed::domain::mParameter</definition>
+        <argsstring></argsstring>
+        <name>mParameter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="159" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a335b042f837bb1d5bf6494e1b28ce502" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+        <definition>std::vector&lt;hexagon&gt; hexwatershed::domain::vCell</definition>
+        <argsstring></argsstring>
+        <name>vCell</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="160" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ae83f1884f6afd8f5a98848e93f3507ea" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+        <definition>std::vector&lt;hexagon&gt; hexwatershed::domain::vCell_active</definition>
+        <argsstring></argsstring>
+        <name>vCell_active</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="161" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a5087da3221f695d12d0659d779e41e2c" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+        <definition>std::vector&lt;hexagon&gt; hexwatershed::domain::vCell_watershed</definition>
+        <argsstring></argsstring>
+        <name>vCell_watershed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="162" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1ac4d3bbe063870f14c2c2560e43c8d01a" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classhexwatershed_1_1segment" kindref="compound">segment</ref> &gt;</type>
+        <definition>std::vector&lt;segment&gt; hexwatershed::domain::vSegment</definition>
+        <argsstring></argsstring>
+        <name>vSegment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="163" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a534b3cf5bff1f923373c187ca9d0db08" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; hexwatershed::domain::vElevation</definition>
+        <argsstring></argsstring>
+        <name>vElevation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="164" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1a7fe968d507aa3f6225f2890b1ed12ff0" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+        <definition>std::vector&lt;hexagon&gt; hexwatershed::domain::vConfluence</definition>
+        <argsstring></argsstring>
+        <name>vConfluence</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="165" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classhexwatershed_1_1domain_1acb7ef4a40c805b9a986eb977059a5cd3" prot="public" static="no" mutable="no">
+        <type>OGRSpatialReference *</type>
+        <definition>OGRSpatialReference* hexwatershed::domain::oSRS</definition>
+        <argsstring></argsstring>
+        <name>oSRS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="167" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a846191a00bd00509ebac0a0c832f7c6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hexwatershed::domain::domain</definition>
+        <argsstring>()</argsstring>
+        <name>domain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="54" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a32bb46cf3d4cb241072e6b6379196aa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hexwatershed::domain::domain</definition>
+        <argsstring>(std::string sFilename_configuration)</argsstring>
+        <name>domain</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_configuration</declname>
+          <defname>sFilename_configuration_in</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sFilename_configuration_in</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user provided model configuration file please refer to the user guide for I/O instruction </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="56" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="32" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a2801120e16364dba8bf2e17ba7615e2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>hexwatershed::domain::~domain</definition>
+        <argsstring>()</argsstring>
+        <name>~domain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="58" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a48c7d4b2101d8a7e385f73c6ba4b5561" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_setup_model</definition>
+        <argsstring>()</argsstring>
+        <name>domain_setup_model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>set up the model <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="171" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="70" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a66322aa4de2d4fec92791117648778ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_read_data</definition>
+        <argsstring>()</argsstring>
+        <name>domain_read_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read data from the model configuration file <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="174" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="118" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a3e9019a4f1907f4d6f8f293c01231c30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_read_configuration_file</definition>
+        <argsstring>()</argsstring>
+        <name>domain_read_configuration_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read the user provided configuration file <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="176" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="171" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a65b8a8fc2f0751aecdadf0cb9e046e96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_retrieve_user_input</definition>
+        <argsstring>()</argsstring>
+        <name>domain_retrieve_user_input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>extract the dictionary from user provided configuration file <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="178" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="252" bodyend="391"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a4e57adf3f427614751e623017ba389b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_read_all_cell_information</definition>
+        <argsstring>(std::string sFilename_hexagon_point_shapefile_in, std::string sFilename_hexagon_polygon_shapefile_in, std::string sFilename_elevation_in)</argsstring>
+        <name>domain_read_all_cell_information</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_hexagon_point_shapefile_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_hexagon_polygon_shapefile_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_elevation_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read the cell information from input data <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sFilename_hexagon_point_shapefile_in</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the point based shapefile </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sFilename_hexagon_polygon_shapefile_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: the polygon based shapefile </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sFilename_elevation_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the digital elevation model file </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="180" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="400" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1aee114b17be1fb0a0fcd245653cad1272" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::read_digital_elevation_model</definition>
+        <argsstring>(std::string sFilename_elevation_in)</argsstring>
+        <name>read_digital_elevation_model</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_elevation_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read the elevation file <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sFilename_elevation_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="184" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="538" bodyend="627"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a33564ee8de427694e3e87db0c9cbbbb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::read_hexagon_point_shapefile</definition>
+        <argsstring>(std::string sFilename_hexagon_point_shapefile_in)</argsstring>
+        <name>read_hexagon_point_shapefile</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_hexagon_point_shapefile_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read point based shapefile information if available <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sFilename_hexagon_point_shapefile_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:filename of the point shapefile </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="186" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="749" bodyend="807"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a0398863e0789867ff4c241c762e2556c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::read_hexagon_polygon_shapefile</definition>
+        <argsstring>(std::string sFilename_hexagon_polygon_shapefile_in)</argsstring>
+        <name>read_hexagon_polygon_shapefile</name>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_hexagon_polygon_shapefile_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>read the polygon shapefile <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sFilename_hexagon_polygon_shapefile_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the filename of the polygon shapefile </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="188" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="634" bodyend="742"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1afca38447e56be20f7a6d2853fe7251bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_hexagon_polygon_center_location</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_hexagon_polygon_center_location</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the center location of a hexagon using 6 vertex <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="190" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="502" bodyend="531"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a027b4dc68624df0ea9b479902fa37ec7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_initialize_model</definition>
+        <argsstring>()</argsstring>
+        <name>domain_initialize_model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>initialize the model <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="192" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="813" bodyend="819"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a77dc83d7a361f08669141a6d30d2d9e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_run_model</definition>
+        <argsstring>()</argsstring>
+        <name>domain_run_model</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>run the model <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="194" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="825" bodyend="918"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1ac9e6620a2104e5852af9d420b206fea1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_fill_depression</definition>
+        <argsstring>()</argsstring>
+        <name>domain_fill_depression</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>DEM depression filling <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="196" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="924" bodyend="1004"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a0deb61a5834c6dc73ea5257f9da4fed9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_flow_direction</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_flow_direction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the flow direction based on elevation, this step &quot;should&quot; only be run after the depression filling <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="198" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1010" bodyend="1056"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1ae42abc180d3ee0b13b10389be5bc1719" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_flow_accumulation</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_flow_accumulation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the flow accumulation based on flow direction <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="200" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1062" bodyend="1165"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a204f9552b66b2f2c94c32b50a99324eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_define_stream_grid</definition>
+        <argsstring>()</argsstring>
+        <name>domain_define_stream_grid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>define the stream network using flow accumulation value <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="202" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1171" bodyend="1196"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a1c8425f7efe360857994d6a70d080c97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_define_watershed_boundary</definition>
+        <argsstring>()</argsstring>
+        <name>domain_define_watershed_boundary</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>define the watershed boundary using outlet <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="204" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1202" bodyend="1255"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1af745bbbe6eff842e26996f43607fd36b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_define_stream_confluence</definition>
+        <argsstring>()</argsstring>
+        <name>domain_define_stream_confluence</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>define the stream confluence point <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="206" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1260" bodyend="1302"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a5aa4c948b2e6af271b961184522a114d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_define_stream_segment</definition>
+        <argsstring>()</argsstring>
+        <name>domain_define_stream_segment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>define the stream segment <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="208" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1307" bodyend="1365"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1ad2b11812ce5315cdf3e7442a15c7fbaf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_build_stream_topology</definition>
+        <argsstring>()</argsstring>
+        <name>domain_build_stream_topology</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>build the stream topology based on stream segment information <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="209" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1370" bodyend="1394"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1aaf3528852f5431fb674b94c6ce39dd5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_define_stream_order</definition>
+        <argsstring>()</argsstring>
+        <name>domain_define_stream_order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>build the stream order based on stream topology <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="210" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1399" bodyend="1462"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a75316b0c2fea060db74db70c76d61711" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_tag_confluence_upstream</definition>
+        <argsstring>(long lID_confluence)</argsstring>
+        <name>domain_tag_confluence_upstream</name>
+        <param>
+          <type>long</type>
+          <declname>lID_confluence</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>find the confluence recursively from existing confluence point. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lID_confluence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="212" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1469" bodyend="1561"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1afe910ab221c8e6871ae7e1d67e8788e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_define_subbasin</definition>
+        <argsstring>()</argsstring>
+        <name>domain_define_subbasin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>define subbasin boundary <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="214" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1567" bodyend="1649"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1aa1226d5aabd18a3f8edee1d086375270" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_watershed_characteristics</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_watershed_characteristics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the watershed characteristics <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="217" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1655" bodyend="1675"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1ad0460cce308bf46b551a28fb11d34391" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_watershed_drainage_area</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_watershed_drainage_area</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the watershed drainage total area <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="219" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1681" bodyend="1703"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a4f91911114897b85ecca3ddcc2a6ad3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_watershed_total_stream_length</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_watershed_total_stream_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the total stream length <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="221" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1709" bodyend="1729"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a115ef97c3418382592a2390b766f4a7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_watershed_longest_stream_length</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_watershed_longest_stream_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the longest stream length <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="223" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1734" bodyend="1791"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1affc80ad3c171da254eba12ddf7fc9ad7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_watershed_area_to_stream_length_ratio</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_watershed_area_to_stream_length_ratio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the watershed area to stream length ratio <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="225" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1796" bodyend="1809"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1ac22d45a58ed1063b9a45f3a79893f45e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_watershed_average_slope</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_watershed_average_slope</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the mean slope of the watershed <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="227" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1814" bodyend="1831"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a81ada0020ec3c991a858a01a72d2c294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_calculate_topographic_wetness_index</definition>
+        <argsstring>()</argsstring>
+        <name>domain_calculate_topographic_wetness_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>calculate the TWI index using method from //https://en.wikipedia.org/wiki/Topographic_wetness_index // {  {a   b}} <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="228" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1838" bodyend="1874"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1acf500c397baf2a54c510506f4e4a71e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_save_watershed_characteristics</definition>
+        <argsstring>()</argsstring>
+        <name>domain_save_watershed_characteristics</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>save the watershed characteristics in the output <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="229" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1880" bodyend="1909"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a01b8063b356024ed131bbc98c24f8d87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_save_result</definition>
+        <argsstring>()</argsstring>
+        <name>domain_save_result</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>save all the model outputs <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="235" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1915" bodyend="1939"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1aee3a9cae14f5d4a4a95733888aaceb56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_save_variable</definition>
+        <argsstring>(eVariable eV_in)</argsstring>
+        <name>domain_save_variable</name>
+        <param>
+          <type><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref></type>
+          <declname>eV_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>an advanced way to save important watershed dataset <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>eV_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="237" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="1946" bodyend="2076"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a883af7b812dda18a89114cafd62d8666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_save_point_vector</definition>
+        <argsstring>(eVariable eV_in, std::string sFieldname_in, std::string sFilename_in, std::string sLayer_name_in)</argsstring>
+        <name>domain_save_point_vector</name>
+        <param>
+          <type><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref></type>
+          <declname>eV_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sFieldname_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sLayer_name_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>save point based shapefile <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>eV_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the variable enumerate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sFieldname_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the attribute table field name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sFilename_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the filename of the output file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sLayer_name_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the layer name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>error_code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="239" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="2086" bodyend="2268"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1ad019c4b9bbcb194f1411b4273a561b66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_save_polyline_vector</definition>
+        <argsstring>(eVariable eV_in, std::string sFieldname_in, std::string sFilename_in, std::string sLayername_in)</argsstring>
+        <name>domain_save_polyline_vector</name>
+        <param>
+          <type><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref></type>
+          <declname>eV_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sFieldname_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sLayername_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>save model outputs in the polyline shapefile format <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>eV_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the variable enumerate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sFieldname_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the attribute table field name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sFilename_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the filename of the output file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sLayername_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the layer name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="244" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="2278" bodyend="2570"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a4f5a5fc8ad942cea417b505f85749f30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_save_polygon_vector</definition>
+        <argsstring>(eVariable eV_in, std::string sFieldname_in, std::string sFilename_in, std::string sLayer_name_in)</argsstring>
+        <name>domain_save_polygon_vector</name>
+        <param>
+          <type><ref refid="domain_8h_1aab5e06ddc3c042f4ed3acef47abe0b24" kindref="member">eVariable</ref></type>
+          <declname>eV_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sFieldname_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sFilename_in</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>sLayer_name_in</declname>
+          <defname>sLayername_in</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>save model outputs in the polygon shapefile format <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>eV_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the variable enumerate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sFieldname_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the attribute table field name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sFilename_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the filename of the output file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sLayername_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the layer name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>error_code </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="249" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="2580" bodyend="2829"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a294e571887cc38da0a683ed5abcf41e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::domain_cleanup</definition>
+        <argsstring>()</argsstring>
+        <name>domain_cleanup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>clean up the model status <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="254" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="2835" bodyend="2841"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a319189008e11abaad96a2a11010cff33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+        <definition>std::vector&lt; hexagon &gt; hexwatershed::domain::domain_get_boundary</definition>
+        <argsstring>(std::vector&lt; hexagon &gt; vCell_in)</argsstring>
+        <name>domain_get_boundary</name>
+        <param>
+          <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+          <declname>vCell_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>retrieve the boundary of the hexagon grid boundary <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vCell_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the hexagon grid </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="256" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="2916" bodyend="2932"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a5ffef533f8ad17241ff427bc5aa87fdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::check_digital_elevation_model_depression</definition>
+        <argsstring>(std::vector&lt; hexagon &gt; vCell_in)</argsstring>
+        <name>check_digital_elevation_model_depression</name>
+        <param>
+          <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+          <declname>vCell_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>private functions. check whether there is local depression in the dem or not. in fact, a more rigorous method should pass in dem instead of the hexagon vector but because we will not change any member variable here, it should be safe to pass in the vector <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vCell_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="258" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="2849" bodyend="2909"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1ad2407e609e3ca92ae69de93b7c46f6e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::array&lt; long, 3 &gt;</type>
+        <definition>std::array&lt; long, 3 &gt; hexwatershed::domain::find_lowest_cell</definition>
+        <argsstring>(std::vector&lt; hexagon &gt; vCell_in)</argsstring>
+        <name>find_lowest_cell</name>
+        <param>
+          <type>std::vector&lt; <ref refid="classhexwatershed_1_1hexagon" kindref="compound">hexagon</ref> &gt;</type>
+          <declname>vCell_in</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>find the hexagon with the lowest elevation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vCell_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>:the hexagon grid </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="260" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="2939" bodyend="2974"/>
+      </memberdef>
+      <memberdef kind="function" id="classhexwatershed_1_1domain_1a87908e456a8024f9f692ff581c59b4e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int hexwatershed::domain::find_all_neighbors</definition>
+        <argsstring>()</argsstring>
+        <name>find_all_neighbors</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>find all the neighbors of each hexagon cell <simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="262" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp" bodystart="2980" bodyend="3185"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" line="52" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h" bodystart="51" bodyend="263"/>
+    <listofallmembers>
+      <member refid="classhexwatershed_1_1domain_1a5ffef533f8ad17241ff427bc5aa87fdf" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>check_digital_elevation_model_depression</name></member>
+      <member refid="classhexwatershed_1_1domain_1ab3b0972033f100aa1080c709c4bc1ee1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dAccumulation_threshold</name></member>
+      <member refid="classhexwatershed_1_1domain_1a87acb765b1435ff5f6cb08a5af07d834" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dArea_2_stream_ratio</name></member>
+      <member refid="classhexwatershed_1_1domain_1a9e795c0653f95505ef7644911000ad67" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dArea_watershed</name></member>
+      <member refid="classhexwatershed_1_1domain_1a2c358b846c8211809a2ff82708b57fcd" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dLength_stream</name></member>
+      <member refid="classhexwatershed_1_1domain_1a422214efada705de83d13d0fa77218ec" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dLongest_length_stream</name></member>
+      <member refid="classhexwatershed_1_1domain_1a846191a00bd00509ebac0a0c832f7c6e" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain</name></member>
+      <member refid="classhexwatershed_1_1domain_1a32bb46cf3d4cb241072e6b6379196aa1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad2b11812ce5315cdf3e7442a15c7fbaf" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_build_stream_topology</name></member>
+      <member refid="classhexwatershed_1_1domain_1ae42abc180d3ee0b13b10389be5bc1719" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_flow_accumulation</name></member>
+      <member refid="classhexwatershed_1_1domain_1a0deb61a5834c6dc73ea5257f9da4fed9" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_flow_direction</name></member>
+      <member refid="classhexwatershed_1_1domain_1afca38447e56be20f7a6d2853fe7251bb" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_hexagon_polygon_center_location</name></member>
+      <member refid="classhexwatershed_1_1domain_1a81ada0020ec3c991a858a01a72d2c294" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_topographic_wetness_index</name></member>
+      <member refid="classhexwatershed_1_1domain_1affc80ad3c171da254eba12ddf7fc9ad7" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_watershed_area_to_stream_length_ratio</name></member>
+      <member refid="classhexwatershed_1_1domain_1ac22d45a58ed1063b9a45f3a79893f45e" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_watershed_average_slope</name></member>
+      <member refid="classhexwatershed_1_1domain_1aa1226d5aabd18a3f8edee1d086375270" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_watershed_characteristics</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad0460cce308bf46b551a28fb11d34391" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_watershed_drainage_area</name></member>
+      <member refid="classhexwatershed_1_1domain_1a115ef97c3418382592a2390b766f4a7b" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_watershed_longest_stream_length</name></member>
+      <member refid="classhexwatershed_1_1domain_1a4f91911114897b85ecca3ddcc2a6ad3d" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_calculate_watershed_total_stream_length</name></member>
+      <member refid="classhexwatershed_1_1domain_1a294e571887cc38da0a683ed5abcf41e8" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_cleanup</name></member>
+      <member refid="classhexwatershed_1_1domain_1af745bbbe6eff842e26996f43607fd36b" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_define_stream_confluence</name></member>
+      <member refid="classhexwatershed_1_1domain_1a204f9552b66b2f2c94c32b50a99324eb" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_define_stream_grid</name></member>
+      <member refid="classhexwatershed_1_1domain_1aaf3528852f5431fb674b94c6ce39dd5f" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_define_stream_order</name></member>
+      <member refid="classhexwatershed_1_1domain_1a5aa4c948b2e6af271b961184522a114d" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_define_stream_segment</name></member>
+      <member refid="classhexwatershed_1_1domain_1afe910ab221c8e6871ae7e1d67e8788e1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_define_subbasin</name></member>
+      <member refid="classhexwatershed_1_1domain_1a1c8425f7efe360857994d6a70d080c97" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_define_watershed_boundary</name></member>
+      <member refid="classhexwatershed_1_1domain_1ac9e6620a2104e5852af9d420b206fea1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_fill_depression</name></member>
+      <member refid="classhexwatershed_1_1domain_1a319189008e11abaad96a2a11010cff33" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_get_boundary</name></member>
+      <member refid="classhexwatershed_1_1domain_1a027b4dc68624df0ea9b479902fa37ec7" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_initialize_model</name></member>
+      <member refid="classhexwatershed_1_1domain_1a4e57adf3f427614751e623017ba389b4" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_read_all_cell_information</name></member>
+      <member refid="classhexwatershed_1_1domain_1a3e9019a4f1907f4d6f8f293c01231c30" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_read_configuration_file</name></member>
+      <member refid="classhexwatershed_1_1domain_1a66322aa4de2d4fec92791117648778ff" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_read_data</name></member>
+      <member refid="classhexwatershed_1_1domain_1a65b8a8fc2f0751aecdadf0cb9e046e96" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_retrieve_user_input</name></member>
+      <member refid="classhexwatershed_1_1domain_1a77dc83d7a361f08669141a6d30d2d9e6" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_run_model</name></member>
+      <member refid="classhexwatershed_1_1domain_1a883af7b812dda18a89114cafd62d8666" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_save_point_vector</name></member>
+      <member refid="classhexwatershed_1_1domain_1a4f5a5fc8ad942cea417b505f85749f30" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_save_polygon_vector</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad019c4b9bbcb194f1411b4273a561b66" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_save_polyline_vector</name></member>
+      <member refid="classhexwatershed_1_1domain_1a01b8063b356024ed131bbc98c24f8d87" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_save_result</name></member>
+      <member refid="classhexwatershed_1_1domain_1aee3a9cae14f5d4a4a95733888aaceb56" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_save_variable</name></member>
+      <member refid="classhexwatershed_1_1domain_1acf500c397baf2a54c510506f4e4a71e6" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_save_watershed_characteristics</name></member>
+      <member refid="classhexwatershed_1_1domain_1a48c7d4b2101d8a7e385f73c6ba4b5561" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_setup_model</name></member>
+      <member refid="classhexwatershed_1_1domain_1a75316b0c2fea060db74db70c76d61711" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>domain_tag_confluence_upstream</name></member>
+      <member refid="classhexwatershed_1_1domain_1a22b6e1b39cd846bfc82d1c3fe86e0886" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dResolution_elevation</name></member>
+      <member refid="classhexwatershed_1_1domain_1a5fa8787a45b52c82c86b15adc945c46d" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dSlope_mean</name></member>
+      <member refid="classhexwatershed_1_1domain_1a39b4717af33e4821536463e885329151" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dX_origin</name></member>
+      <member refid="classhexwatershed_1_1domain_1acc93bafe88763e95e9919f7b57f2c4b1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>dY_origin</name></member>
+      <member refid="classhexwatershed_1_1domain_1a87908e456a8024f9f692ff581c59b4e2" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>find_all_neighbors</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad2407e609e3ca92ae69de93b7c46f6e8" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>find_lowest_cell</name></member>
+      <member refid="classhexwatershed_1_1domain_1acfef0358941f910f3f6ac141e82b1f70" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>iCase</name></member>
+      <member refid="classhexwatershed_1_1domain_1a068c98debccd44c5eb543b2c06b90d8e" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>iFlag_configuration_file</name></member>
+      <member refid="classhexwatershed_1_1domain_1aec8e60df7b635db51d0be1eedb99e3b1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>iFlag_debug</name></member>
+      <member refid="classhexwatershed_1_1domain_1a38c815a5e615239fa0fba0b3d04109d9" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>iFlag_hexagon_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad3d2e6910dc27d36b61fb4c0998f006f" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>iFlag_hexagon_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1aab3d8698d380781b36bcfc0baaccc1d6" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>iFlag_merge</name></member>
+      <member refid="classhexwatershed_1_1domain_1a8f921593736177839989703e6e891c8e" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>iMesh_type</name></member>
+      <member refid="classhexwatershed_1_1domain_1a09d29ab3c105e41f28f6d88a66f372d0" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>iSegment_current</name></member>
+      <member refid="classhexwatershed_1_1domain_1acb549889c20abf5221562f5ff78c9ecf" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>lCell_count</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad9678605c1dae376003cb5b435a498da" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>lOutlet</name></member>
+      <member refid="classhexwatershed_1_1domain_1a07e80b92d1c62b66af5e94c7a139981f" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>missing_value</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad819d11f40db09883ade5c0ad020b521" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>mParameter</name></member>
+      <member refid="classhexwatershed_1_1domain_1a7622ea5cc85456fa046c78105d98fcc6" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>nColumn_elevation</name></member>
+      <member refid="classhexwatershed_1_1domain_1a67a496a610896ea4cb699326d7e68542" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>nColumn_mesh</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad760e386909941278c649b5e93fa8a3a" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>nRecord_shapefile</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad350abd8fce9e42e628821479dd495c7" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>nRow_elevation</name></member>
+      <member refid="classhexwatershed_1_1domain_1ab4ae9021b585b50c97395e2caf3d35a4" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>nRow_mesh</name></member>
+      <member refid="classhexwatershed_1_1domain_1a8a0d4931851da051b0b38f10b8df13fe" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>nSegment</name></member>
+      <member refid="classhexwatershed_1_1domain_1a17de82513fa3f9838ea499e8328d52ab" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>ofs_log</name></member>
+      <member refid="classhexwatershed_1_1domain_1acb7ef4a40c805b9a986eb977059a5cd3" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>oSRS</name></member>
+      <member refid="classhexwatershed_1_1domain_1aee114b17be1fb0a0fcd245653cad1272" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>read_digital_elevation_model</name></member>
+      <member refid="classhexwatershed_1_1domain_1a33564ee8de427694e3e87db0c9cbbbb9" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>read_hexagon_point_shapefile</name></member>
+      <member refid="classhexwatershed_1_1domain_1a0398863e0789867ff4c241c762e2556c" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>read_hexagon_polygon_shapefile</name></member>
+      <member refid="classhexwatershed_1_1domain_1ab72b24c88c3eaef574931c2d653ee514" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sExtension_envi</name></member>
+      <member refid="classhexwatershed_1_1domain_1a165e26b5807eac0f5cd19ef907fe569b" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sExtension_header</name></member>
+      <member refid="classhexwatershed_1_1domain_1a24e3c79deec7127a752885357cc60e3d" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sExtension_text</name></member>
+      <member refid="classhexwatershed_1_1domain_1a237356c07d7d19526bc78884cc8e7dc1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_configuration</name></member>
+      <member refid="classhexwatershed_1_1domain_1a0ddfbc822faa401aa28669bc111165c7" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_elevation_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1a16c36285a4bea563a20d42b68abd52c1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_elevation_point_debug</name></member>
+      <member refid="classhexwatershed_1_1domain_1a7e8fe1e18c688c3e5f07fe23dc49c759" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_elevation_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1aab217d0d54135663b80f65ab416a294a" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_elevation_polygon_debug</name></member>
+      <member refid="classhexwatershed_1_1domain_1a014fe1eb4dde81d891c97988220d729d" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_elevation_raster</name></member>
+      <member refid="classhexwatershed_1_1domain_1aa1f8aba1cfe66636ca85daf26e1ca72d" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_flow_accumulation_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1a00f76f9a44e9fbf6f05f9127ac4dce2f" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_flow_accumulation_point_debug</name></member>
+      <member refid="classhexwatershed_1_1domain_1ab5b6a7a63ac54ffe127704b804fbf902" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_flow_accumulation_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1aad07742f02d46cc27f749e88c4d8198f" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_flow_accumulation_polygon_debug</name></member>
+      <member refid="classhexwatershed_1_1domain_1a6c6d9ac39299a220605efcf4b6092103" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_flow_direction_polyline</name></member>
+      <member refid="classhexwatershed_1_1domain_1a6d9997df868bf85104cb2dacc3b0a074" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_flow_direction_polyline_debug</name></member>
+      <member refid="classhexwatershed_1_1domain_1addabb6266ed831687398d7e99c7a1eb6" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_hexagon_point_shapefile</name></member>
+      <member refid="classhexwatershed_1_1domain_1a81785372d37e465554213628b5226fb5" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_hexagon_polygon_shapefile</name></member>
+      <member refid="classhexwatershed_1_1domain_1a807070dbc27d9f921316937879419aa5" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_log</name></member>
+      <member refid="classhexwatershed_1_1domain_1a43439d2bf30dd2ef83e233b26229faec" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_confluence_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1a0336019c551b96cb417539db336c9491" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_confluence_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1a4fbfd3966c288287e2f4333d527964b0" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_grid_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1ad4350a3b1ffea69f457256b640d250dd" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_grid_point_debug</name></member>
+      <member refid="classhexwatershed_1_1domain_1a3bd210d0b5641b0f1c802bc30a2da523" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_grid_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1a37139f277cdc2d45bd86a3925828f46b" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_grid_polygon_debug</name></member>
+      <member refid="classhexwatershed_1_1domain_1a7dc757b3f0ce86808ab7e2c2ae7a5eb6" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_order_polyline</name></member>
+      <member refid="classhexwatershed_1_1domain_1a8fbb658626050e4041a6f055f5db9e50" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_segment_merge_polyline</name></member>
+      <member refid="classhexwatershed_1_1domain_1a2fb83f796660d12113b5bdf4f497529f" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_segment_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1afdd8ae066d65ca7e0fdd364f331086b6" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_segment_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1a9c0a520ad75fcd98931a2b2a0de6bbba" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_stream_segment_polyline</name></member>
+      <member refid="classhexwatershed_1_1domain_1a6e0807e868e43612827691b207f16e28" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_subbasin_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1a2c268f965da15520aed905681bc26a3c" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_subbasin_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1a951d721abfc639a301a0834231c1bf5d" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_watershed_characteristics</name></member>
+      <member refid="classhexwatershed_1_1domain_1a82aaf8850706fb149e1deaca2a15b377" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_watershed_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1a1485608eea9c7f5cca53ee07cdb21b99" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_watershed_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1a9edbb2f200391123c1d558aae2109001" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_wetness_index_point</name></member>
+      <member refid="classhexwatershed_1_1domain_1a5ee33e54da314c49081cc5aff85ed2f2" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sFilename_wetness_index_polygon</name></member>
+      <member refid="classhexwatershed_1_1domain_1aee8643251832efafa47400b95dc504d1" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sLog</name></member>
+      <member refid="classhexwatershed_1_1domain_1a86902641b63b77dccfef08a94df2e55b" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sRegion</name></member>
+      <member refid="classhexwatershed_1_1domain_1a61879b2d1218be6af1b35d936b00fcf2" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sWorkspace_data</name></member>
+      <member refid="classhexwatershed_1_1domain_1a613b370ecaa3cb488c84a05b20d87cf2" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>sWorkspace_output</name></member>
+      <member refid="classhexwatershed_1_1domain_1a335b042f837bb1d5bf6494e1b28ce502" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>vCell</name></member>
+      <member refid="classhexwatershed_1_1domain_1ae83f1884f6afd8f5a98848e93f3507ea" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>vCell_active</name></member>
+      <member refid="classhexwatershed_1_1domain_1a5087da3221f695d12d0659d779e41e2c" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>vCell_watershed</name></member>
+      <member refid="classhexwatershed_1_1domain_1a7fe968d507aa3f6225f2890b1ed12ff0" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>vConfluence</name></member>
+      <member refid="classhexwatershed_1_1domain_1a534b3cf5bff1f923373c187ca9d0db08" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>vElevation</name></member>
+      <member refid="classhexwatershed_1_1domain_1ac4d3bbe063870f14c2c2560e43c8d01a" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>vSegment</name></member>
+      <member refid="classhexwatershed_1_1domain_1a2801120e16364dba8bf2e17ba7615e2b" prot="public" virt="non-virtual"><scope>hexwatershed::domain</scope><name>~domain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -6,18 +6,20 @@ import shutil
 
 from setuptools import setup, find_packages, Command
 
-NAME = "pyHexWatershed"
+NAME = "hexwatershed"
 DESCRIPTION = \
     "Python interface for the HexWatershed."
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
-URL = "https://github.com/changliao1025/"
-VERSION = "0.3.3"
+URL = "https://github.com/changliao1025/pyhexwatershed"
+VERSION = "0.0.1"
 REQUIRES_PYTHON = ">=3.6.0"
 KEYWORDS = "hexwatershed hexagon"
 
 REQUIRED = [
-    "numpy", "pathlib"
+    "numpy",
+    "gdal",
+    "netcdf"
 ]
 
 CLASSIFY = [
@@ -28,6 +30,7 @@ CLASSIFY = [
     "Programming Language :: Python :: 3",
     "Programming Language :: C++",
     "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: GIS"'
     "Topic :: Scientific/Engineering :: Hydrology",
     "Topic :: Scientific/Engineering :: Physics",
     "Topic :: Scientific/Engineering :: Visualization"

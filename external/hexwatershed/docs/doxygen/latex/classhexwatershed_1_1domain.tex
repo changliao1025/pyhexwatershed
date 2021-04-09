@@ -1,0 +1,1009 @@
+\hypertarget{classhexwatershed_1_1domain}{\section{hexwatershed\-:\-:domain Class Reference}
+\label{classhexwatershed_1_1domain}\index{hexwatershed\-::domain@{hexwatershed\-::domain}}
+}
+
+
+{\ttfamily \#include $<$domain.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classhexwatershed_1_1domain_a846191a00bd00509ebac0a0c832f7c6e}{domain} ()
+\item 
+\hyperlink{classhexwatershed_1_1domain_a32bb46cf3d4cb241072e6b6379196aa1}{domain} (std\-::string \hyperlink{classhexwatershed_1_1domain_a237356c07d7d19526bc78884cc8e7dc1}{s\-Filename\-\_\-configuration})
+\item 
+\hyperlink{classhexwatershed_1_1domain_a2801120e16364dba8bf2e17ba7615e2b}{$\sim$domain} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a48c7d4b2101d8a7e385f73c6ba4b5561}{domain\-\_\-setup\-\_\-model} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a66322aa4de2d4fec92791117648778ff}{domain\-\_\-read\-\_\-data} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a3e9019a4f1907f4d6f8f293c01231c30}{domain\-\_\-read\-\_\-configuration\-\_\-file} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a65b8a8fc2f0751aecdadf0cb9e046e96}{domain\-\_\-retrieve\-\_\-user\-\_\-input} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a4e57adf3f427614751e623017ba389b4}{domain\-\_\-read\-\_\-all\-\_\-cell\-\_\-information} (std\-::string s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile\-\_\-in, std\-::string s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile\-\_\-in, std\-::string s\-Filename\-\_\-elevation\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_aee114b17be1fb0a0fcd245653cad1272}{read\-\_\-digital\-\_\-elevation\-\_\-model} (std\-::string s\-Filename\-\_\-elevation\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a33564ee8de427694e3e87db0c9cbbbb9}{read\-\_\-hexagon\-\_\-point\-\_\-shapefile} (std\-::string s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a0398863e0789867ff4c241c762e2556c}{read\-\_\-hexagon\-\_\-polygon\-\_\-shapefile} (std\-::string s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_afca38447e56be20f7a6d2853fe7251bb}{domain\-\_\-calculate\-\_\-hexagon\-\_\-polygon\-\_\-center\-\_\-location} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a027b4dc68624df0ea9b479902fa37ec7}{domain\-\_\-initialize\-\_\-model} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a77dc83d7a361f08669141a6d30d2d9e6}{domain\-\_\-run\-\_\-model} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ac9e6620a2104e5852af9d420b206fea1}{domain\-\_\-fill\-\_\-depression} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a0deb61a5834c6dc73ea5257f9da4fed9}{domain\-\_\-calculate\-\_\-flow\-\_\-direction} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ae42abc180d3ee0b13b10389be5bc1719}{domain\-\_\-calculate\-\_\-flow\-\_\-accumulation} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a204f9552b66b2f2c94c32b50a99324eb}{domain\-\_\-define\-\_\-stream\-\_\-grid} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a1c8425f7efe360857994d6a70d080c97}{domain\-\_\-define\-\_\-watershed\-\_\-boundary} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_af745bbbe6eff842e26996f43607fd36b}{domain\-\_\-define\-\_\-stream\-\_\-confluence} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a5aa4c948b2e6af271b961184522a114d}{domain\-\_\-define\-\_\-stream\-\_\-segment} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ad2b11812ce5315cdf3e7442a15c7fbaf}{domain\-\_\-build\-\_\-stream\-\_\-topology} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_aaf3528852f5431fb674b94c6ce39dd5f}{domain\-\_\-define\-\_\-stream\-\_\-order} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a75316b0c2fea060db74db70c76d61711}{domain\-\_\-tag\-\_\-confluence\-\_\-upstream} (long l\-I\-D\-\_\-confluence)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_afe910ab221c8e6871ae7e1d67e8788e1}{domain\-\_\-define\-\_\-subbasin} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_aa1226d5aabd18a3f8edee1d086375270}{domain\-\_\-calculate\-\_\-watershed\-\_\-characteristics} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ad0460cce308bf46b551a28fb11d34391}{domain\-\_\-calculate\-\_\-watershed\-\_\-drainage\-\_\-area} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a4f91911114897b85ecca3ddcc2a6ad3d}{domain\-\_\-calculate\-\_\-watershed\-\_\-total\-\_\-stream\-\_\-length} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a115ef97c3418382592a2390b766f4a7b}{domain\-\_\-calculate\-\_\-watershed\-\_\-longest\-\_\-stream\-\_\-length} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_affc80ad3c171da254eba12ddf7fc9ad7}{domain\-\_\-calculate\-\_\-watershed\-\_\-area\-\_\-to\-\_\-stream\-\_\-length\-\_\-ratio} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ac22d45a58ed1063b9a45f3a79893f45e}{domain\-\_\-calculate\-\_\-watershed\-\_\-average\-\_\-slope} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a81ada0020ec3c991a858a01a72d2c294}{domain\-\_\-calculate\-\_\-topographic\-\_\-wetness\-\_\-index} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_acf500c397baf2a54c510506f4e4a71e6}{domain\-\_\-save\-\_\-watershed\-\_\-characteristics} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a01b8063b356024ed131bbc98c24f8d87}{domain\-\_\-save\-\_\-result} ()
+\item 
+int \hyperlink{classhexwatershed_1_1domain_aee3a9cae14f5d4a4a95733888aaceb56}{domain\-\_\-save\-\_\-variable} (\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24}{e\-Variable} e\-V\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a883af7b812dda18a89114cafd62d8666}{domain\-\_\-save\-\_\-point\-\_\-vector} (\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24}{e\-Variable} e\-V\-\_\-in, std\-::string s\-Fieldname\-\_\-in, std\-::string s\-Filename\-\_\-in, std\-::string s\-Layer\-\_\-name\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ad019c4b9bbcb194f1411b4273a561b66}{domain\-\_\-save\-\_\-polyline\-\_\-vector} (\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24}{e\-Variable} e\-V\-\_\-in, std\-::string s\-Fieldname\-\_\-in, std\-::string s\-Filename\-\_\-in, std\-::string s\-Layername\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a4f5a5fc8ad942cea417b505f85749f30}{domain\-\_\-save\-\_\-polygon\-\_\-vector} (\hyperlink{domain_8h_aab5e06ddc3c042f4ed3acef47abe0b24}{e\-Variable} e\-V\-\_\-in, std\-::string s\-Fieldname\-\_\-in, std\-::string s\-Filename\-\_\-in, std\-::string s\-Layer\-\_\-name\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a294e571887cc38da0a683ed5abcf41e8}{domain\-\_\-cleanup} ()
+\item 
+std\-::vector$<$ \hyperlink{classhexwatershed_1_1hexagon}{hexagon} $>$ \hyperlink{classhexwatershed_1_1domain_a319189008e11abaad96a2a11010cff33}{domain\-\_\-get\-\_\-boundary} (std\-::vector$<$ \hyperlink{classhexwatershed_1_1hexagon}{hexagon} $>$ v\-Cell\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a5ffef533f8ad17241ff427bc5aa87fdf}{check\-\_\-digital\-\_\-elevation\-\_\-model\-\_\-depression} (std\-::vector$<$ \hyperlink{classhexwatershed_1_1hexagon}{hexagon} $>$ v\-Cell\-\_\-in)
+\item 
+std\-::array$<$ long, 3 $>$ \hyperlink{classhexwatershed_1_1domain_ad2407e609e3ca92ae69de93b7c46f6e8}{find\-\_\-lowest\-\_\-cell} (std\-::vector$<$ \hyperlink{classhexwatershed_1_1hexagon}{hexagon} $>$ v\-Cell\-\_\-in)
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a87908e456a8024f9f692ff581c59b4e2}{find\-\_\-all\-\_\-neighbors} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_aec8e60df7b635db51d0be1eedb99e3b1}{i\-Flag\-\_\-debug}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_aab3d8698d380781b36bcfc0baaccc1d6}{i\-Flag\-\_\-merge}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a068c98debccd44c5eb543b2c06b90d8e}{i\-Flag\-\_\-configuration\-\_\-file}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a38c815a5e615239fa0fba0b3d04109d9}{i\-Flag\-\_\-hexagon\-\_\-point}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ad3d2e6910dc27d36b61fb4c0998f006f}{i\-Flag\-\_\-hexagon\-\_\-polygon}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a8f921593736177839989703e6e891c8e}{i\-Mesh\-\_\-type}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a7622ea5cc85456fa046c78105d98fcc6}{n\-Column\-\_\-elevation}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ad350abd8fce9e42e628821479dd495c7}{n\-Row\-\_\-elevation}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a67a496a610896ea4cb699326d7e68542}{n\-Column\-\_\-mesh}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_ab4ae9021b585b50c97395e2caf3d35a4}{n\-Row\-\_\-mesh}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a8a0d4931851da051b0b38f10b8df13fe}{n\-Segment}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_a09d29ab3c105e41f28f6d88a66f372d0}{i\-Segment\-\_\-current}
+\item 
+int \hyperlink{classhexwatershed_1_1domain_acfef0358941f910f3f6ac141e82b1f70}{i\-Case}
+\item 
+long \hyperlink{classhexwatershed_1_1domain_ad9678605c1dae376003cb5b435a498da}{l\-Outlet}
+\item 
+long \hyperlink{classhexwatershed_1_1domain_ad760e386909941278c649b5e93fa8a3a}{n\-Record\-\_\-shapefile}
+\item 
+long \hyperlink{classhexwatershed_1_1domain_acb549889c20abf5221562f5ff78c9ecf}{l\-Cell\-\_\-count}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_a22b6e1b39cd846bfc82d1c3fe86e0886}{d\-Resolution\-\_\-elevation}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_a39b4717af33e4821536463e885329151}{d\-X\-\_\-origin}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_acc93bafe88763e95e9919f7b57f2c4b1}{d\-Y\-\_\-origin}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_a9e795c0653f95505ef7644911000ad67}{d\-Area\-\_\-watershed}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_a2c358b846c8211809a2ff82708b57fcd}{d\-Length\-\_\-stream}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_a422214efada705de83d13d0fa77218ec}{d\-Longest\-\_\-length\-\_\-stream}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_a87acb765b1435ff5f6cb08a5af07d834}{d\-Area\-\_\-2\-\_\-stream\-\_\-ratio}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_a5fa8787a45b52c82c86b15adc945c46d}{d\-Slope\-\_\-mean}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_ab3b0972033f100aa1080c709c4bc1ee1}{d\-Accumulation\-\_\-threshold}
+\item 
+double \hyperlink{classhexwatershed_1_1domain_a07e80b92d1c62b66af5e94c7a139981f}{missing\-\_\-value}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a86902641b63b77dccfef08a94df2e55b}{s\-Region}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a61879b2d1218be6af1b35d936b00fcf2}{s\-Workspace\-\_\-data}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a613b370ecaa3cb488c84a05b20d87cf2}{s\-Workspace\-\_\-output}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a237356c07d7d19526bc78884cc8e7dc1}{s\-Filename\-\_\-configuration}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a807070dbc27d9f921316937879419aa5}{s\-Filename\-\_\-log}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_aee8643251832efafa47400b95dc504d1}{s\-Log}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_addabb6266ed831687398d7e99c7a1eb6}{s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a81785372d37e465554213628b5226fb5}{s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a014fe1eb4dde81d891c97988220d729d}{s\-Filename\-\_\-elevation\-\_\-raster}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a0ddfbc822faa401aa28669bc111165c7}{s\-Filename\-\_\-elevation\-\_\-point}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a16c36285a4bea563a20d42b68abd52c1}{s\-Filename\-\_\-elevation\-\_\-point\-\_\-debug}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_aa1f8aba1cfe66636ca85daf26e1ca72d}{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a00f76f9a44e9fbf6f05f9127ac4dce2f}{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point\-\_\-debug}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a82aaf8850706fb149e1deaca2a15b377}{s\-Filename\-\_\-watershed\-\_\-point}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a43439d2bf30dd2ef83e233b26229faec}{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-point}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a6e0807e868e43612827691b207f16e28}{s\-Filename\-\_\-subbasin\-\_\-point}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a4fbfd3966c288287e2f4333d527964b0}{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_ad4350a3b1ffea69f457256b640d250dd}{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point\-\_\-debug}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a2fb83f796660d12113b5bdf4f497529f}{s\-Filename\-\_\-stream\-\_\-segment\-\_\-point}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a9edbb2f200391123c1d558aae2109001}{s\-Filename\-\_\-wetness\-\_\-index\-\_\-point}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a7e8fe1e18c688c3e5f07fe23dc49c759}{s\-Filename\-\_\-elevation\-\_\-polygon}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_aab217d0d54135663b80f65ab416a294a}{s\-Filename\-\_\-elevation\-\_\-polygon\-\_\-debug}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_ab5b6a7a63ac54ffe127704b804fbf902}{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_aad07742f02d46cc27f749e88c4d8198f}{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon\-\_\-debug}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a1485608eea9c7f5cca53ee07cdb21b99}{s\-Filename\-\_\-watershed\-\_\-polygon}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a0336019c551b96cb417539db336c9491}{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-polygon}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a3bd210d0b5641b0f1c802bc30a2da523}{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a37139f277cdc2d45bd86a3925828f46b}{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon\-\_\-debug}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a2c268f965da15520aed905681bc26a3c}{s\-Filename\-\_\-subbasin\-\_\-polygon}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_afdd8ae066d65ca7e0fdd364f331086b6}{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polygon}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a5ee33e54da314c49081cc5aff85ed2f2}{s\-Filename\-\_\-wetness\-\_\-index\-\_\-polygon}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a9c0a520ad75fcd98931a2b2a0de6bbba}{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polyline}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a8fbb658626050e4041a6f055f5db9e50}{s\-Filename\-\_\-stream\-\_\-segment\-\_\-merge\-\_\-polyline}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a6c6d9ac39299a220605efcf4b6092103}{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a6d9997df868bf85104cb2dacc3b0a074}{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline\-\_\-debug}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a7dc757b3f0ce86808ab7e2c2ae7a5eb6}{s\-Filename\-\_\-stream\-\_\-order\-\_\-polyline}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a951d721abfc639a301a0834231c1bf5d}{s\-Filename\-\_\-watershed\-\_\-characteristics}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a165e26b5807eac0f5cd19ef907fe569b}{s\-Extension\-\_\-header}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_ab72b24c88c3eaef574931c2d653ee514}{s\-Extension\-\_\-envi}
+\item 
+std\-::string \hyperlink{classhexwatershed_1_1domain_a24e3c79deec7127a752885357cc60e3d}{s\-Extension\-\_\-text}
+\item 
+std\-::ofstream \hyperlink{classhexwatershed_1_1domain_a17de82513fa3f9838ea499e8328d52ab}{ofs\-\_\-log}
+\item 
+std\-::map$<$ std\-::string, \\*
+std\-::string $>$ \hyperlink{classhexwatershed_1_1domain_ad819d11f40db09883ade5c0ad020b521}{m\-Parameter}
+\item 
+std\-::vector$<$ \hyperlink{classhexwatershed_1_1hexagon}{hexagon} $>$ \hyperlink{classhexwatershed_1_1domain_a335b042f837bb1d5bf6494e1b28ce502}{v\-Cell}
+\item 
+std\-::vector$<$ \hyperlink{classhexwatershed_1_1hexagon}{hexagon} $>$ \hyperlink{classhexwatershed_1_1domain_ae83f1884f6afd8f5a98848e93f3507ea}{v\-Cell\-\_\-active}
+\item 
+std\-::vector$<$ \hyperlink{classhexwatershed_1_1hexagon}{hexagon} $>$ \hyperlink{classhexwatershed_1_1domain_a5087da3221f695d12d0659d779e41e2c}{v\-Cell\-\_\-watershed}
+\item 
+std\-::vector$<$ \hyperlink{classhexwatershed_1_1segment}{segment} $>$ \hyperlink{classhexwatershed_1_1domain_ac4d3bbe063870f14c2c2560e43c8d01a}{v\-Segment}
+\item 
+std\-::vector$<$ float $>$ \hyperlink{classhexwatershed_1_1domain_a534b3cf5bff1f923373c187ca9d0db08}{v\-Elevation}
+\item 
+std\-::vector$<$ \hyperlink{classhexwatershed_1_1hexagon}{hexagon} $>$ \hyperlink{classhexwatershed_1_1domain_a7fe968d507aa3f6225f2890b1ed12ff0}{v\-Confluence}
+\item 
+O\-G\-R\-Spatial\-Reference $\ast$ \hyperlink{classhexwatershed_1_1domain_acb7ef4a40c805b9a986eb977059a5cd3}{o\-S\-R\-S}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classhexwatershed_1_1domain_a846191a00bd00509ebac0a0c832f7c6e}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain@{domain}}
+\index{domain@{domain}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain}]{\setlength{\rightskip}{0pt plus 5cm}hexwatershed\-::domain\-::domain (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a846191a00bd00509ebac0a0c832f7c6e}
+\hypertarget{classhexwatershed_1_1domain_a32bb46cf3d4cb241072e6b6379196aa1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain@{domain}}
+\index{domain@{domain}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain}]{\setlength{\rightskip}{0pt plus 5cm}hexwatershed\-::domain\-::domain (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{s\-Filename\-\_\-configuration\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a32bb46cf3d4cb241072e6b6379196aa1}
+
+\begin{DoxyParams}{Parameters}
+{\em s\-Filename\-\_\-configuration\-\_\-in,\-:} & user provided model configuration file please refer to the user guide for I/\-O instruction \\
+\hline
+\end{DoxyParams}
+\hypertarget{classhexwatershed_1_1domain_a2801120e16364dba8bf2e17ba7615e2b}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!$\sim$domain@{$\sim$domain}}
+\index{$\sim$domain@{$\sim$domain}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{$\sim$domain}]{\setlength{\rightskip}{0pt plus 5cm}hexwatershed\-::domain\-::$\sim$domain (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a2801120e16364dba8bf2e17ba7615e2b}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classhexwatershed_1_1domain_a5ffef533f8ad17241ff427bc5aa87fdf}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!check\-\_\-digital\-\_\-elevation\-\_\-model\-\_\-depression@{check\-\_\-digital\-\_\-elevation\-\_\-model\-\_\-depression}}
+\index{check\-\_\-digital\-\_\-elevation\-\_\-model\-\_\-depression@{check\-\_\-digital\-\_\-elevation\-\_\-model\-\_\-depression}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{check\-\_\-digital\-\_\-elevation\-\_\-model\-\_\-depression}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::check\-\_\-digital\-\_\-elevation\-\_\-model\-\_\-depression (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf hexagon} $>$}]{v\-Cell\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a5ffef533f8ad17241ff427bc5aa87fdf}
+private functions. check whether there is local depression in the dem or not. in fact, a more rigorous method should pass in dem instead of the hexagon vector but because we will not change any member variable here, it should be safe to pass in the vector 
+\begin{DoxyParams}{Parameters}
+{\em v\-Cell\-\_\-in} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_ad2b11812ce5315cdf3e7442a15c7fbaf}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-build\-\_\-stream\-\_\-topology@{domain\-\_\-build\-\_\-stream\-\_\-topology}}
+\index{domain\-\_\-build\-\_\-stream\-\_\-topology@{domain\-\_\-build\-\_\-stream\-\_\-topology}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-build\-\_\-stream\-\_\-topology}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-build\-\_\-stream\-\_\-topology (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_ad2b11812ce5315cdf3e7442a15c7fbaf}
+build the stream topology based on stream segment information \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_ae42abc180d3ee0b13b10389be5bc1719}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-flow\-\_\-accumulation@{domain\-\_\-calculate\-\_\-flow\-\_\-accumulation}}
+\index{domain\-\_\-calculate\-\_\-flow\-\_\-accumulation@{domain\-\_\-calculate\-\_\-flow\-\_\-accumulation}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-flow\-\_\-accumulation}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-flow\-\_\-accumulation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_ae42abc180d3ee0b13b10389be5bc1719}
+calculate the flow accumulation based on flow direction \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a0deb61a5834c6dc73ea5257f9da4fed9}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-flow\-\_\-direction@{domain\-\_\-calculate\-\_\-flow\-\_\-direction}}
+\index{domain\-\_\-calculate\-\_\-flow\-\_\-direction@{domain\-\_\-calculate\-\_\-flow\-\_\-direction}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-flow\-\_\-direction}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-flow\-\_\-direction (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a0deb61a5834c6dc73ea5257f9da4fed9}
+calculate the flow direction based on elevation, this step \char`\"{}should\char`\"{} only be run after the depression filling \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_afca38447e56be20f7a6d2853fe7251bb}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-hexagon\-\_\-polygon\-\_\-center\-\_\-location@{domain\-\_\-calculate\-\_\-hexagon\-\_\-polygon\-\_\-center\-\_\-location}}
+\index{domain\-\_\-calculate\-\_\-hexagon\-\_\-polygon\-\_\-center\-\_\-location@{domain\-\_\-calculate\-\_\-hexagon\-\_\-polygon\-\_\-center\-\_\-location}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-hexagon\-\_\-polygon\-\_\-center\-\_\-location}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-hexagon\-\_\-polygon\-\_\-center\-\_\-location (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_afca38447e56be20f7a6d2853fe7251bb}
+calculate the center location of a hexagon using 6 vertex \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a81ada0020ec3c991a858a01a72d2c294}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-topographic\-\_\-wetness\-\_\-index@{domain\-\_\-calculate\-\_\-topographic\-\_\-wetness\-\_\-index}}
+\index{domain\-\_\-calculate\-\_\-topographic\-\_\-wetness\-\_\-index@{domain\-\_\-calculate\-\_\-topographic\-\_\-wetness\-\_\-index}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-topographic\-\_\-wetness\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-topographic\-\_\-wetness\-\_\-index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a81ada0020ec3c991a858a01a72d2c294}
+calculate the T\-W\-I index using method from //https\-://en.wikipedia.\-org/wiki/\-Topographic\-\_\-wetness\-\_\-index // \{  \{a   b\}\} \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_affc80ad3c171da254eba12ddf7fc9ad7}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-watershed\-\_\-area\-\_\-to\-\_\-stream\-\_\-length\-\_\-ratio@{domain\-\_\-calculate\-\_\-watershed\-\_\-area\-\_\-to\-\_\-stream\-\_\-length\-\_\-ratio}}
+\index{domain\-\_\-calculate\-\_\-watershed\-\_\-area\-\_\-to\-\_\-stream\-\_\-length\-\_\-ratio@{domain\-\_\-calculate\-\_\-watershed\-\_\-area\-\_\-to\-\_\-stream\-\_\-length\-\_\-ratio}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-watershed\-\_\-area\-\_\-to\-\_\-stream\-\_\-length\-\_\-ratio}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-watershed\-\_\-area\-\_\-to\-\_\-stream\-\_\-length\-\_\-ratio (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_affc80ad3c171da254eba12ddf7fc9ad7}
+calculate the watershed area to stream length ratio \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_ac22d45a58ed1063b9a45f3a79893f45e}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-watershed\-\_\-average\-\_\-slope@{domain\-\_\-calculate\-\_\-watershed\-\_\-average\-\_\-slope}}
+\index{domain\-\_\-calculate\-\_\-watershed\-\_\-average\-\_\-slope@{domain\-\_\-calculate\-\_\-watershed\-\_\-average\-\_\-slope}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-watershed\-\_\-average\-\_\-slope}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-watershed\-\_\-average\-\_\-slope (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_ac22d45a58ed1063b9a45f3a79893f45e}
+calculate the mean slope of the watershed \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_aa1226d5aabd18a3f8edee1d086375270}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-watershed\-\_\-characteristics@{domain\-\_\-calculate\-\_\-watershed\-\_\-characteristics}}
+\index{domain\-\_\-calculate\-\_\-watershed\-\_\-characteristics@{domain\-\_\-calculate\-\_\-watershed\-\_\-characteristics}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-watershed\-\_\-characteristics}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-watershed\-\_\-characteristics (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_aa1226d5aabd18a3f8edee1d086375270}
+calculate the watershed characteristics \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_ad0460cce308bf46b551a28fb11d34391}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-watershed\-\_\-drainage\-\_\-area@{domain\-\_\-calculate\-\_\-watershed\-\_\-drainage\-\_\-area}}
+\index{domain\-\_\-calculate\-\_\-watershed\-\_\-drainage\-\_\-area@{domain\-\_\-calculate\-\_\-watershed\-\_\-drainage\-\_\-area}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-watershed\-\_\-drainage\-\_\-area}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-watershed\-\_\-drainage\-\_\-area (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_ad0460cce308bf46b551a28fb11d34391}
+calculate the watershed drainage total area \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a115ef97c3418382592a2390b766f4a7b}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-watershed\-\_\-longest\-\_\-stream\-\_\-length@{domain\-\_\-calculate\-\_\-watershed\-\_\-longest\-\_\-stream\-\_\-length}}
+\index{domain\-\_\-calculate\-\_\-watershed\-\_\-longest\-\_\-stream\-\_\-length@{domain\-\_\-calculate\-\_\-watershed\-\_\-longest\-\_\-stream\-\_\-length}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-watershed\-\_\-longest\-\_\-stream\-\_\-length}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-watershed\-\_\-longest\-\_\-stream\-\_\-length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a115ef97c3418382592a2390b766f4a7b}
+calculate the longest stream length \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a4f91911114897b85ecca3ddcc2a6ad3d}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-calculate\-\_\-watershed\-\_\-total\-\_\-stream\-\_\-length@{domain\-\_\-calculate\-\_\-watershed\-\_\-total\-\_\-stream\-\_\-length}}
+\index{domain\-\_\-calculate\-\_\-watershed\-\_\-total\-\_\-stream\-\_\-length@{domain\-\_\-calculate\-\_\-watershed\-\_\-total\-\_\-stream\-\_\-length}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-calculate\-\_\-watershed\-\_\-total\-\_\-stream\-\_\-length}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-calculate\-\_\-watershed\-\_\-total\-\_\-stream\-\_\-length (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a4f91911114897b85ecca3ddcc2a6ad3d}
+calculate the total stream length \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a294e571887cc38da0a683ed5abcf41e8}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-cleanup@{domain\-\_\-cleanup}}
+\index{domain\-\_\-cleanup@{domain\-\_\-cleanup}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-cleanup}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-cleanup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a294e571887cc38da0a683ed5abcf41e8}
+clean up the model status \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_af745bbbe6eff842e26996f43607fd36b}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-define\-\_\-stream\-\_\-confluence@{domain\-\_\-define\-\_\-stream\-\_\-confluence}}
+\index{domain\-\_\-define\-\_\-stream\-\_\-confluence@{domain\-\_\-define\-\_\-stream\-\_\-confluence}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-define\-\_\-stream\-\_\-confluence}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-define\-\_\-stream\-\_\-confluence (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_af745bbbe6eff842e26996f43607fd36b}
+define the stream confluence point \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a204f9552b66b2f2c94c32b50a99324eb}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-define\-\_\-stream\-\_\-grid@{domain\-\_\-define\-\_\-stream\-\_\-grid}}
+\index{domain\-\_\-define\-\_\-stream\-\_\-grid@{domain\-\_\-define\-\_\-stream\-\_\-grid}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-define\-\_\-stream\-\_\-grid}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-define\-\_\-stream\-\_\-grid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a204f9552b66b2f2c94c32b50a99324eb}
+define the stream network using flow accumulation value \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_aaf3528852f5431fb674b94c6ce39dd5f}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-define\-\_\-stream\-\_\-order@{domain\-\_\-define\-\_\-stream\-\_\-order}}
+\index{domain\-\_\-define\-\_\-stream\-\_\-order@{domain\-\_\-define\-\_\-stream\-\_\-order}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-define\-\_\-stream\-\_\-order}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-define\-\_\-stream\-\_\-order (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_aaf3528852f5431fb674b94c6ce39dd5f}
+build the stream order based on stream topology \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a5aa4c948b2e6af271b961184522a114d}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-define\-\_\-stream\-\_\-segment@{domain\-\_\-define\-\_\-stream\-\_\-segment}}
+\index{domain\-\_\-define\-\_\-stream\-\_\-segment@{domain\-\_\-define\-\_\-stream\-\_\-segment}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-define\-\_\-stream\-\_\-segment}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-define\-\_\-stream\-\_\-segment (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a5aa4c948b2e6af271b961184522a114d}
+define the stream segment \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_afe910ab221c8e6871ae7e1d67e8788e1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-define\-\_\-subbasin@{domain\-\_\-define\-\_\-subbasin}}
+\index{domain\-\_\-define\-\_\-subbasin@{domain\-\_\-define\-\_\-subbasin}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-define\-\_\-subbasin}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-define\-\_\-subbasin (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_afe910ab221c8e6871ae7e1d67e8788e1}
+define subbasin boundary \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a1c8425f7efe360857994d6a70d080c97}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-define\-\_\-watershed\-\_\-boundary@{domain\-\_\-define\-\_\-watershed\-\_\-boundary}}
+\index{domain\-\_\-define\-\_\-watershed\-\_\-boundary@{domain\-\_\-define\-\_\-watershed\-\_\-boundary}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-define\-\_\-watershed\-\_\-boundary}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-define\-\_\-watershed\-\_\-boundary (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a1c8425f7efe360857994d6a70d080c97}
+define the watershed boundary using outlet \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_ac9e6620a2104e5852af9d420b206fea1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-fill\-\_\-depression@{domain\-\_\-fill\-\_\-depression}}
+\index{domain\-\_\-fill\-\_\-depression@{domain\-\_\-fill\-\_\-depression}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-fill\-\_\-depression}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-fill\-\_\-depression (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_ac9e6620a2104e5852af9d420b206fea1}
+D\-E\-M depression filling \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a319189008e11abaad96a2a11010cff33}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-get\-\_\-boundary@{domain\-\_\-get\-\_\-boundary}}
+\index{domain\-\_\-get\-\_\-boundary@{domain\-\_\-get\-\_\-boundary}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-get\-\_\-boundary}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf hexagon} $>$ hexwatershed\-::domain\-::domain\-\_\-get\-\_\-boundary (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf hexagon} $>$}]{v\-Cell\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a319189008e11abaad96a2a11010cff33}
+retrieve the boundary of the hexagon grid boundary 
+\begin{DoxyParams}{Parameters}
+{\em v\-Cell\-\_\-in} & \-:the hexagon grid \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a027b4dc68624df0ea9b479902fa37ec7}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-initialize\-\_\-model@{domain\-\_\-initialize\-\_\-model}}
+\index{domain\-\_\-initialize\-\_\-model@{domain\-\_\-initialize\-\_\-model}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-initialize\-\_\-model}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-initialize\-\_\-model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a027b4dc68624df0ea9b479902fa37ec7}
+initialize the model \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a4e57adf3f427614751e623017ba389b4}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-read\-\_\-all\-\_\-cell\-\_\-information@{domain\-\_\-read\-\_\-all\-\_\-cell\-\_\-information}}
+\index{domain\-\_\-read\-\_\-all\-\_\-cell\-\_\-information@{domain\-\_\-read\-\_\-all\-\_\-cell\-\_\-information}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-read\-\_\-all\-\_\-cell\-\_\-information}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-read\-\_\-all\-\_\-cell\-\_\-information (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile\-\_\-in, }
+\item[{std\-::string}]{s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile\-\_\-in, }
+\item[{std\-::string}]{s\-Filename\-\_\-elevation\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a4e57adf3f427614751e623017ba389b4}
+read the cell information from input data 
+\begin{DoxyParams}{Parameters}
+{\em s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile\-\_\-in,\-:} & the point based shapefile \\
+\hline
+{\em s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile\-\_\-in} & \-: the polygon based shapefile \\
+\hline
+{\em s\-Filename\-\_\-elevation\-\_\-in} & \-:the digital elevation model file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a3e9019a4f1907f4d6f8f293c01231c30}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-read\-\_\-configuration\-\_\-file@{domain\-\_\-read\-\_\-configuration\-\_\-file}}
+\index{domain\-\_\-read\-\_\-configuration\-\_\-file@{domain\-\_\-read\-\_\-configuration\-\_\-file}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-read\-\_\-configuration\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-read\-\_\-configuration\-\_\-file (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a3e9019a4f1907f4d6f8f293c01231c30}
+read the user provided configuration file \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a66322aa4de2d4fec92791117648778ff}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-read\-\_\-data@{domain\-\_\-read\-\_\-data}}
+\index{domain\-\_\-read\-\_\-data@{domain\-\_\-read\-\_\-data}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-read\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-read\-\_\-data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a66322aa4de2d4fec92791117648778ff}
+read data from the model configuration file \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a65b8a8fc2f0751aecdadf0cb9e046e96}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-retrieve\-\_\-user\-\_\-input@{domain\-\_\-retrieve\-\_\-user\-\_\-input}}
+\index{domain\-\_\-retrieve\-\_\-user\-\_\-input@{domain\-\_\-retrieve\-\_\-user\-\_\-input}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-retrieve\-\_\-user\-\_\-input}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-retrieve\-\_\-user\-\_\-input (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a65b8a8fc2f0751aecdadf0cb9e046e96}
+extract the dictionary from user provided configuration file \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a77dc83d7a361f08669141a6d30d2d9e6}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-run\-\_\-model@{domain\-\_\-run\-\_\-model}}
+\index{domain\-\_\-run\-\_\-model@{domain\-\_\-run\-\_\-model}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-run\-\_\-model}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-run\-\_\-model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a77dc83d7a361f08669141a6d30d2d9e6}
+run the model \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a883af7b812dda18a89114cafd62d8666}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-save\-\_\-point\-\_\-vector@{domain\-\_\-save\-\_\-point\-\_\-vector}}
+\index{domain\-\_\-save\-\_\-point\-\_\-vector@{domain\-\_\-save\-\_\-point\-\_\-vector}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-save\-\_\-point\-\_\-vector}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-save\-\_\-point\-\_\-vector (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-Variable}}]{e\-V\-\_\-in, }
+\item[{std\-::string}]{s\-Fieldname\-\_\-in, }
+\item[{std\-::string}]{s\-Filename\-\_\-in, }
+\item[{std\-::string}]{s\-Layer\-\_\-name\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a883af7b812dda18a89114cafd62d8666}
+save point based shapefile 
+\begin{DoxyParams}{Parameters}
+{\em e\-V\-\_\-in} & \-:the variable enumerate \\
+\hline
+{\em s\-Fieldname\-\_\-in} & \-:the attribute table field name \\
+\hline
+{\em s\-Filename\-\_\-in} & \-:the filename of the output file \\
+\hline
+{\em s\-Layer\-\_\-name\-\_\-in} & \-:the layer name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error\-\_\-code 
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a4f5a5fc8ad942cea417b505f85749f30}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-save\-\_\-polygon\-\_\-vector@{domain\-\_\-save\-\_\-polygon\-\_\-vector}}
+\index{domain\-\_\-save\-\_\-polygon\-\_\-vector@{domain\-\_\-save\-\_\-polygon\-\_\-vector}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-save\-\_\-polygon\-\_\-vector}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-save\-\_\-polygon\-\_\-vector (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-Variable}}]{e\-V\-\_\-in, }
+\item[{std\-::string}]{s\-Fieldname\-\_\-in, }
+\item[{std\-::string}]{s\-Filename\-\_\-in, }
+\item[{std\-::string}]{s\-Layername\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a4f5a5fc8ad942cea417b505f85749f30}
+save model outputs in the polygon shapefile format 
+\begin{DoxyParams}{Parameters}
+{\em e\-V\-\_\-in} & \-:the variable enumerate \\
+\hline
+{\em s\-Fieldname\-\_\-in} & \-:the attribute table field name \\
+\hline
+{\em s\-Filename\-\_\-in} & \-:the filename of the output file \\
+\hline
+{\em s\-Layername\-\_\-in} & \-:the layer name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error\-\_\-code 
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_ad019c4b9bbcb194f1411b4273a561b66}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-save\-\_\-polyline\-\_\-vector@{domain\-\_\-save\-\_\-polyline\-\_\-vector}}
+\index{domain\-\_\-save\-\_\-polyline\-\_\-vector@{domain\-\_\-save\-\_\-polyline\-\_\-vector}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-save\-\_\-polyline\-\_\-vector}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-save\-\_\-polyline\-\_\-vector (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-Variable}}]{e\-V\-\_\-in, }
+\item[{std\-::string}]{s\-Fieldname\-\_\-in, }
+\item[{std\-::string}]{s\-Filename\-\_\-in, }
+\item[{std\-::string}]{s\-Layername\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_ad019c4b9bbcb194f1411b4273a561b66}
+save model outputs in the polyline shapefile format 
+\begin{DoxyParams}{Parameters}
+{\em e\-V\-\_\-in} & \-:the variable enumerate \\
+\hline
+{\em s\-Fieldname\-\_\-in} & \-:the attribute table field name \\
+\hline
+{\em s\-Filename\-\_\-in} & \-:the filename of the output file \\
+\hline
+{\em s\-Layername\-\_\-in} & \-:the layer name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a01b8063b356024ed131bbc98c24f8d87}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-save\-\_\-result@{domain\-\_\-save\-\_\-result}}
+\index{domain\-\_\-save\-\_\-result@{domain\-\_\-save\-\_\-result}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-save\-\_\-result}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-save\-\_\-result (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a01b8063b356024ed131bbc98c24f8d87}
+save all the model outputs \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_aee3a9cae14f5d4a4a95733888aaceb56}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-save\-\_\-variable@{domain\-\_\-save\-\_\-variable}}
+\index{domain\-\_\-save\-\_\-variable@{domain\-\_\-save\-\_\-variable}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-save\-\_\-variable}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-save\-\_\-variable (
+\begin{DoxyParamCaption}
+\item[{{\bf e\-Variable}}]{e\-V\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_aee3a9cae14f5d4a4a95733888aaceb56}
+an advanced way to save important watershed dataset 
+\begin{DoxyParams}{Parameters}
+{\em e\-V\-\_\-in} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_acf500c397baf2a54c510506f4e4a71e6}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-save\-\_\-watershed\-\_\-characteristics@{domain\-\_\-save\-\_\-watershed\-\_\-characteristics}}
+\index{domain\-\_\-save\-\_\-watershed\-\_\-characteristics@{domain\-\_\-save\-\_\-watershed\-\_\-characteristics}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-save\-\_\-watershed\-\_\-characteristics}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-save\-\_\-watershed\-\_\-characteristics (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_acf500c397baf2a54c510506f4e4a71e6}
+save the watershed characteristics in the output \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a48c7d4b2101d8a7e385f73c6ba4b5561}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-setup\-\_\-model@{domain\-\_\-setup\-\_\-model}}
+\index{domain\-\_\-setup\-\_\-model@{domain\-\_\-setup\-\_\-model}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-setup\-\_\-model}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-setup\-\_\-model (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a48c7d4b2101d8a7e385f73c6ba4b5561}
+set up the model \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a75316b0c2fea060db74db70c76d61711}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!domain\-\_\-tag\-\_\-confluence\-\_\-upstream@{domain\-\_\-tag\-\_\-confluence\-\_\-upstream}}
+\index{domain\-\_\-tag\-\_\-confluence\-\_\-upstream@{domain\-\_\-tag\-\_\-confluence\-\_\-upstream}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{domain\-\_\-tag\-\_\-confluence\-\_\-upstream}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::domain\-\_\-tag\-\_\-confluence\-\_\-upstream (
+\begin{DoxyParamCaption}
+\item[{long}]{l\-I\-D\-\_\-confluence}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a75316b0c2fea060db74db70c76d61711}
+find the confluence recursively from existing confluence point. 
+\begin{DoxyParams}{Parameters}
+{\em l\-I\-D\-\_\-confluence} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a87908e456a8024f9f692ff581c59b4e2}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!find\-\_\-all\-\_\-neighbors@{find\-\_\-all\-\_\-neighbors}}
+\index{find\-\_\-all\-\_\-neighbors@{find\-\_\-all\-\_\-neighbors}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{find\-\_\-all\-\_\-neighbors}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::find\-\_\-all\-\_\-neighbors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a87908e456a8024f9f692ff581c59b4e2}
+find all the neighbors of each hexagon cell \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_ad2407e609e3ca92ae69de93b7c46f6e8}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!find\-\_\-lowest\-\_\-cell@{find\-\_\-lowest\-\_\-cell}}
+\index{find\-\_\-lowest\-\_\-cell@{find\-\_\-lowest\-\_\-cell}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{find\-\_\-lowest\-\_\-cell}]{\setlength{\rightskip}{0pt plus 5cm}std\-::array$<$ long, 3 $>$ hexwatershed\-::domain\-::find\-\_\-lowest\-\_\-cell (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ {\bf hexagon} $>$}]{v\-Cell\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_ad2407e609e3ca92ae69de93b7c46f6e8}
+find the hexagon with the lowest elevation 
+\begin{DoxyParams}{Parameters}
+{\em v\-Cell\-\_\-in} & \-:the hexagon grid \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_aee114b17be1fb0a0fcd245653cad1272}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!read\-\_\-digital\-\_\-elevation\-\_\-model@{read\-\_\-digital\-\_\-elevation\-\_\-model}}
+\index{read\-\_\-digital\-\_\-elevation\-\_\-model@{read\-\_\-digital\-\_\-elevation\-\_\-model}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{read\-\_\-digital\-\_\-elevation\-\_\-model}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::read\-\_\-digital\-\_\-elevation\-\_\-model (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{s\-Filename\-\_\-elevation\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_aee114b17be1fb0a0fcd245653cad1272}
+read the elevation file 
+\begin{DoxyParams}{Parameters}
+{\em s\-Filename\-\_\-elevation\-\_\-in} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a33564ee8de427694e3e87db0c9cbbbb9}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!read\-\_\-hexagon\-\_\-point\-\_\-shapefile@{read\-\_\-hexagon\-\_\-point\-\_\-shapefile}}
+\index{read\-\_\-hexagon\-\_\-point\-\_\-shapefile@{read\-\_\-hexagon\-\_\-point\-\_\-shapefile}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{read\-\_\-hexagon\-\_\-point\-\_\-shapefile}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::read\-\_\-hexagon\-\_\-point\-\_\-shapefile (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a33564ee8de427694e3e87db0c9cbbbb9}
+read point based shapefile information if available 
+\begin{DoxyParams}{Parameters}
+{\em s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile\-\_\-in} & \-:filename of the point shapefile \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classhexwatershed_1_1domain_a0398863e0789867ff4c241c762e2556c}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!read\-\_\-hexagon\-\_\-polygon\-\_\-shapefile@{read\-\_\-hexagon\-\_\-polygon\-\_\-shapefile}}
+\index{read\-\_\-hexagon\-\_\-polygon\-\_\-shapefile@{read\-\_\-hexagon\-\_\-polygon\-\_\-shapefile}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{read\-\_\-hexagon\-\_\-polygon\-\_\-shapefile}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::read\-\_\-hexagon\-\_\-polygon\-\_\-shapefile (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile\-\_\-in}
+\end{DoxyParamCaption}
+)}}\label{classhexwatershed_1_1domain_a0398863e0789867ff4c241c762e2556c}
+read the polygon shapefile 
+\begin{DoxyParams}{Parameters}
+{\em s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile\-\_\-in} & \-:the filename of the polygon shapefile \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classhexwatershed_1_1domain_ab3b0972033f100aa1080c709c4bc1ee1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-Accumulation\-\_\-threshold@{d\-Accumulation\-\_\-threshold}}
+\index{d\-Accumulation\-\_\-threshold@{d\-Accumulation\-\_\-threshold}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-Accumulation\-\_\-threshold}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-Accumulation\-\_\-threshold}}\label{classhexwatershed_1_1domain_ab3b0972033f100aa1080c709c4bc1ee1}
+\hypertarget{classhexwatershed_1_1domain_a87acb765b1435ff5f6cb08a5af07d834}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-Area\-\_\-2\-\_\-stream\-\_\-ratio@{d\-Area\-\_\-2\-\_\-stream\-\_\-ratio}}
+\index{d\-Area\-\_\-2\-\_\-stream\-\_\-ratio@{d\-Area\-\_\-2\-\_\-stream\-\_\-ratio}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-Area\-\_\-2\-\_\-stream\-\_\-ratio}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-Area\-\_\-2\-\_\-stream\-\_\-ratio}}\label{classhexwatershed_1_1domain_a87acb765b1435ff5f6cb08a5af07d834}
+\hypertarget{classhexwatershed_1_1domain_a9e795c0653f95505ef7644911000ad67}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-Area\-\_\-watershed@{d\-Area\-\_\-watershed}}
+\index{d\-Area\-\_\-watershed@{d\-Area\-\_\-watershed}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-Area\-\_\-watershed}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-Area\-\_\-watershed}}\label{classhexwatershed_1_1domain_a9e795c0653f95505ef7644911000ad67}
+\hypertarget{classhexwatershed_1_1domain_a2c358b846c8211809a2ff82708b57fcd}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-Length\-\_\-stream@{d\-Length\-\_\-stream}}
+\index{d\-Length\-\_\-stream@{d\-Length\-\_\-stream}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-Length\-\_\-stream}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-Length\-\_\-stream}}\label{classhexwatershed_1_1domain_a2c358b846c8211809a2ff82708b57fcd}
+\hypertarget{classhexwatershed_1_1domain_a422214efada705de83d13d0fa77218ec}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-Longest\-\_\-length\-\_\-stream@{d\-Longest\-\_\-length\-\_\-stream}}
+\index{d\-Longest\-\_\-length\-\_\-stream@{d\-Longest\-\_\-length\-\_\-stream}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-Longest\-\_\-length\-\_\-stream}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-Longest\-\_\-length\-\_\-stream}}\label{classhexwatershed_1_1domain_a422214efada705de83d13d0fa77218ec}
+\hypertarget{classhexwatershed_1_1domain_a22b6e1b39cd846bfc82d1c3fe86e0886}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-Resolution\-\_\-elevation@{d\-Resolution\-\_\-elevation}}
+\index{d\-Resolution\-\_\-elevation@{d\-Resolution\-\_\-elevation}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-Resolution\-\_\-elevation}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-Resolution\-\_\-elevation}}\label{classhexwatershed_1_1domain_a22b6e1b39cd846bfc82d1c3fe86e0886}
+\hypertarget{classhexwatershed_1_1domain_a5fa8787a45b52c82c86b15adc945c46d}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-Slope\-\_\-mean@{d\-Slope\-\_\-mean}}
+\index{d\-Slope\-\_\-mean@{d\-Slope\-\_\-mean}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-Slope\-\_\-mean}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-Slope\-\_\-mean}}\label{classhexwatershed_1_1domain_a5fa8787a45b52c82c86b15adc945c46d}
+\hypertarget{classhexwatershed_1_1domain_a39b4717af33e4821536463e885329151}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-X\-\_\-origin@{d\-X\-\_\-origin}}
+\index{d\-X\-\_\-origin@{d\-X\-\_\-origin}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-X\-\_\-origin}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-X\-\_\-origin}}\label{classhexwatershed_1_1domain_a39b4717af33e4821536463e885329151}
+\hypertarget{classhexwatershed_1_1domain_acc93bafe88763e95e9919f7b57f2c4b1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!d\-Y\-\_\-origin@{d\-Y\-\_\-origin}}
+\index{d\-Y\-\_\-origin@{d\-Y\-\_\-origin}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{d\-Y\-\_\-origin}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::d\-Y\-\_\-origin}}\label{classhexwatershed_1_1domain_acc93bafe88763e95e9919f7b57f2c4b1}
+\hypertarget{classhexwatershed_1_1domain_acfef0358941f910f3f6ac141e82b1f70}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!i\-Case@{i\-Case}}
+\index{i\-Case@{i\-Case}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{i\-Case}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::i\-Case}}\label{classhexwatershed_1_1domain_acfef0358941f910f3f6ac141e82b1f70}
+\hypertarget{classhexwatershed_1_1domain_a068c98debccd44c5eb543b2c06b90d8e}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!i\-Flag\-\_\-configuration\-\_\-file@{i\-Flag\-\_\-configuration\-\_\-file}}
+\index{i\-Flag\-\_\-configuration\-\_\-file@{i\-Flag\-\_\-configuration\-\_\-file}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{i\-Flag\-\_\-configuration\-\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::i\-Flag\-\_\-configuration\-\_\-file}}\label{classhexwatershed_1_1domain_a068c98debccd44c5eb543b2c06b90d8e}
+\hypertarget{classhexwatershed_1_1domain_aec8e60df7b635db51d0be1eedb99e3b1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!i\-Flag\-\_\-debug@{i\-Flag\-\_\-debug}}
+\index{i\-Flag\-\_\-debug@{i\-Flag\-\_\-debug}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{i\-Flag\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::i\-Flag\-\_\-debug}}\label{classhexwatershed_1_1domain_aec8e60df7b635db51d0be1eedb99e3b1}
+\hypertarget{classhexwatershed_1_1domain_a38c815a5e615239fa0fba0b3d04109d9}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!i\-Flag\-\_\-hexagon\-\_\-point@{i\-Flag\-\_\-hexagon\-\_\-point}}
+\index{i\-Flag\-\_\-hexagon\-\_\-point@{i\-Flag\-\_\-hexagon\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{i\-Flag\-\_\-hexagon\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::i\-Flag\-\_\-hexagon\-\_\-point}}\label{classhexwatershed_1_1domain_a38c815a5e615239fa0fba0b3d04109d9}
+\hypertarget{classhexwatershed_1_1domain_ad3d2e6910dc27d36b61fb4c0998f006f}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!i\-Flag\-\_\-hexagon\-\_\-polygon@{i\-Flag\-\_\-hexagon\-\_\-polygon}}
+\index{i\-Flag\-\_\-hexagon\-\_\-polygon@{i\-Flag\-\_\-hexagon\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{i\-Flag\-\_\-hexagon\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::i\-Flag\-\_\-hexagon\-\_\-polygon}}\label{classhexwatershed_1_1domain_ad3d2e6910dc27d36b61fb4c0998f006f}
+\hypertarget{classhexwatershed_1_1domain_aab3d8698d380781b36bcfc0baaccc1d6}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!i\-Flag\-\_\-merge@{i\-Flag\-\_\-merge}}
+\index{i\-Flag\-\_\-merge@{i\-Flag\-\_\-merge}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{i\-Flag\-\_\-merge}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::i\-Flag\-\_\-merge}}\label{classhexwatershed_1_1domain_aab3d8698d380781b36bcfc0baaccc1d6}
+\hypertarget{classhexwatershed_1_1domain_a8f921593736177839989703e6e891c8e}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!i\-Mesh\-\_\-type@{i\-Mesh\-\_\-type}}
+\index{i\-Mesh\-\_\-type@{i\-Mesh\-\_\-type}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{i\-Mesh\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::i\-Mesh\-\_\-type}}\label{classhexwatershed_1_1domain_a8f921593736177839989703e6e891c8e}
+\hypertarget{classhexwatershed_1_1domain_a09d29ab3c105e41f28f6d88a66f372d0}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!i\-Segment\-\_\-current@{i\-Segment\-\_\-current}}
+\index{i\-Segment\-\_\-current@{i\-Segment\-\_\-current}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{i\-Segment\-\_\-current}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::i\-Segment\-\_\-current}}\label{classhexwatershed_1_1domain_a09d29ab3c105e41f28f6d88a66f372d0}
+\hypertarget{classhexwatershed_1_1domain_acb549889c20abf5221562f5ff78c9ecf}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!l\-Cell\-\_\-count@{l\-Cell\-\_\-count}}
+\index{l\-Cell\-\_\-count@{l\-Cell\-\_\-count}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{l\-Cell\-\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}long hexwatershed\-::domain\-::l\-Cell\-\_\-count}}\label{classhexwatershed_1_1domain_acb549889c20abf5221562f5ff78c9ecf}
+\hypertarget{classhexwatershed_1_1domain_ad9678605c1dae376003cb5b435a498da}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!l\-Outlet@{l\-Outlet}}
+\index{l\-Outlet@{l\-Outlet}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{l\-Outlet}]{\setlength{\rightskip}{0pt plus 5cm}long hexwatershed\-::domain\-::l\-Outlet}}\label{classhexwatershed_1_1domain_ad9678605c1dae376003cb5b435a498da}
+\hypertarget{classhexwatershed_1_1domain_a07e80b92d1c62b66af5e94c7a139981f}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!missing\-\_\-value@{missing\-\_\-value}}
+\index{missing\-\_\-value@{missing\-\_\-value}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{missing\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}double hexwatershed\-::domain\-::missing\-\_\-value}}\label{classhexwatershed_1_1domain_a07e80b92d1c62b66af5e94c7a139981f}
+\hypertarget{classhexwatershed_1_1domain_ad819d11f40db09883ade5c0ad020b521}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!m\-Parameter@{m\-Parameter}}
+\index{m\-Parameter@{m\-Parameter}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{m\-Parameter}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$std\-::string, std\-::string$>$ hexwatershed\-::domain\-::m\-Parameter}}\label{classhexwatershed_1_1domain_ad819d11f40db09883ade5c0ad020b521}
+\hypertarget{classhexwatershed_1_1domain_a7622ea5cc85456fa046c78105d98fcc6}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!n\-Column\-\_\-elevation@{n\-Column\-\_\-elevation}}
+\index{n\-Column\-\_\-elevation@{n\-Column\-\_\-elevation}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{n\-Column\-\_\-elevation}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::n\-Column\-\_\-elevation}}\label{classhexwatershed_1_1domain_a7622ea5cc85456fa046c78105d98fcc6}
+\hypertarget{classhexwatershed_1_1domain_a67a496a610896ea4cb699326d7e68542}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!n\-Column\-\_\-mesh@{n\-Column\-\_\-mesh}}
+\index{n\-Column\-\_\-mesh@{n\-Column\-\_\-mesh}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{n\-Column\-\_\-mesh}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::n\-Column\-\_\-mesh}}\label{classhexwatershed_1_1domain_a67a496a610896ea4cb699326d7e68542}
+\hypertarget{classhexwatershed_1_1domain_ad760e386909941278c649b5e93fa8a3a}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!n\-Record\-\_\-shapefile@{n\-Record\-\_\-shapefile}}
+\index{n\-Record\-\_\-shapefile@{n\-Record\-\_\-shapefile}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{n\-Record\-\_\-shapefile}]{\setlength{\rightskip}{0pt plus 5cm}long hexwatershed\-::domain\-::n\-Record\-\_\-shapefile}}\label{classhexwatershed_1_1domain_ad760e386909941278c649b5e93fa8a3a}
+\hypertarget{classhexwatershed_1_1domain_ad350abd8fce9e42e628821479dd495c7}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!n\-Row\-\_\-elevation@{n\-Row\-\_\-elevation}}
+\index{n\-Row\-\_\-elevation@{n\-Row\-\_\-elevation}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{n\-Row\-\_\-elevation}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::n\-Row\-\_\-elevation}}\label{classhexwatershed_1_1domain_ad350abd8fce9e42e628821479dd495c7}
+\hypertarget{classhexwatershed_1_1domain_ab4ae9021b585b50c97395e2caf3d35a4}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!n\-Row\-\_\-mesh@{n\-Row\-\_\-mesh}}
+\index{n\-Row\-\_\-mesh@{n\-Row\-\_\-mesh}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{n\-Row\-\_\-mesh}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::n\-Row\-\_\-mesh}}\label{classhexwatershed_1_1domain_ab4ae9021b585b50c97395e2caf3d35a4}
+\hypertarget{classhexwatershed_1_1domain_a8a0d4931851da051b0b38f10b8df13fe}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!n\-Segment@{n\-Segment}}
+\index{n\-Segment@{n\-Segment}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{n\-Segment}]{\setlength{\rightskip}{0pt plus 5cm}int hexwatershed\-::domain\-::n\-Segment}}\label{classhexwatershed_1_1domain_a8a0d4931851da051b0b38f10b8df13fe}
+\hypertarget{classhexwatershed_1_1domain_a17de82513fa3f9838ea499e8328d52ab}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!ofs\-\_\-log@{ofs\-\_\-log}}
+\index{ofs\-\_\-log@{ofs\-\_\-log}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{ofs\-\_\-log}]{\setlength{\rightskip}{0pt plus 5cm}std\-::ofstream hexwatershed\-::domain\-::ofs\-\_\-log}}\label{classhexwatershed_1_1domain_a17de82513fa3f9838ea499e8328d52ab}
+\hypertarget{classhexwatershed_1_1domain_acb7ef4a40c805b9a986eb977059a5cd3}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!o\-S\-R\-S@{o\-S\-R\-S}}
+\index{o\-S\-R\-S@{o\-S\-R\-S}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{o\-S\-R\-S}]{\setlength{\rightskip}{0pt plus 5cm}O\-G\-R\-Spatial\-Reference$\ast$ hexwatershed\-::domain\-::o\-S\-R\-S}}\label{classhexwatershed_1_1domain_acb7ef4a40c805b9a986eb977059a5cd3}
+\hypertarget{classhexwatershed_1_1domain_ab72b24c88c3eaef574931c2d653ee514}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Extension\-\_\-envi@{s\-Extension\-\_\-envi}}
+\index{s\-Extension\-\_\-envi@{s\-Extension\-\_\-envi}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Extension\-\_\-envi}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Extension\-\_\-envi}}\label{classhexwatershed_1_1domain_ab72b24c88c3eaef574931c2d653ee514}
+\hypertarget{classhexwatershed_1_1domain_a165e26b5807eac0f5cd19ef907fe569b}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Extension\-\_\-header@{s\-Extension\-\_\-header}}
+\index{s\-Extension\-\_\-header@{s\-Extension\-\_\-header}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Extension\-\_\-header}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Extension\-\_\-header}}\label{classhexwatershed_1_1domain_a165e26b5807eac0f5cd19ef907fe569b}
+\hypertarget{classhexwatershed_1_1domain_a24e3c79deec7127a752885357cc60e3d}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Extension\-\_\-text@{s\-Extension\-\_\-text}}
+\index{s\-Extension\-\_\-text@{s\-Extension\-\_\-text}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Extension\-\_\-text}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Extension\-\_\-text}}\label{classhexwatershed_1_1domain_a24e3c79deec7127a752885357cc60e3d}
+\hypertarget{classhexwatershed_1_1domain_a237356c07d7d19526bc78884cc8e7dc1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-configuration@{s\-Filename\-\_\-configuration}}
+\index{s\-Filename\-\_\-configuration@{s\-Filename\-\_\-configuration}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-configuration}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-configuration}}\label{classhexwatershed_1_1domain_a237356c07d7d19526bc78884cc8e7dc1}
+\hypertarget{classhexwatershed_1_1domain_a0ddfbc822faa401aa28669bc111165c7}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-elevation\-\_\-point@{s\-Filename\-\_\-elevation\-\_\-point}}
+\index{s\-Filename\-\_\-elevation\-\_\-point@{s\-Filename\-\_\-elevation\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-elevation\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-elevation\-\_\-point}}\label{classhexwatershed_1_1domain_a0ddfbc822faa401aa28669bc111165c7}
+\hypertarget{classhexwatershed_1_1domain_a16c36285a4bea563a20d42b68abd52c1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-elevation\-\_\-point\-\_\-debug@{s\-Filename\-\_\-elevation\-\_\-point\-\_\-debug}}
+\index{s\-Filename\-\_\-elevation\-\_\-point\-\_\-debug@{s\-Filename\-\_\-elevation\-\_\-point\-\_\-debug}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-elevation\-\_\-point\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-elevation\-\_\-point\-\_\-debug}}\label{classhexwatershed_1_1domain_a16c36285a4bea563a20d42b68abd52c1}
+\hypertarget{classhexwatershed_1_1domain_a7e8fe1e18c688c3e5f07fe23dc49c759}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-elevation\-\_\-polygon@{s\-Filename\-\_\-elevation\-\_\-polygon}}
+\index{s\-Filename\-\_\-elevation\-\_\-polygon@{s\-Filename\-\_\-elevation\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-elevation\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-elevation\-\_\-polygon}}\label{classhexwatershed_1_1domain_a7e8fe1e18c688c3e5f07fe23dc49c759}
+\hypertarget{classhexwatershed_1_1domain_aab217d0d54135663b80f65ab416a294a}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-elevation\-\_\-polygon\-\_\-debug@{s\-Filename\-\_\-elevation\-\_\-polygon\-\_\-debug}}
+\index{s\-Filename\-\_\-elevation\-\_\-polygon\-\_\-debug@{s\-Filename\-\_\-elevation\-\_\-polygon\-\_\-debug}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-elevation\-\_\-polygon\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-elevation\-\_\-polygon\-\_\-debug}}\label{classhexwatershed_1_1domain_aab217d0d54135663b80f65ab416a294a}
+\hypertarget{classhexwatershed_1_1domain_a014fe1eb4dde81d891c97988220d729d}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-elevation\-\_\-raster@{s\-Filename\-\_\-elevation\-\_\-raster}}
+\index{s\-Filename\-\_\-elevation\-\_\-raster@{s\-Filename\-\_\-elevation\-\_\-raster}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-elevation\-\_\-raster}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-elevation\-\_\-raster}}\label{classhexwatershed_1_1domain_a014fe1eb4dde81d891c97988220d729d}
+\hypertarget{classhexwatershed_1_1domain_aa1f8aba1cfe66636ca85daf26e1ca72d}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point@{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point}}
+\index{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point@{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point}}\label{classhexwatershed_1_1domain_aa1f8aba1cfe66636ca85daf26e1ca72d}
+\hypertarget{classhexwatershed_1_1domain_a00f76f9a44e9fbf6f05f9127ac4dce2f}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point\-\_\-debug@{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point\-\_\-debug}}
+\index{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point\-\_\-debug@{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point\-\_\-debug}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-point\-\_\-debug}}\label{classhexwatershed_1_1domain_a00f76f9a44e9fbf6f05f9127ac4dce2f}
+\hypertarget{classhexwatershed_1_1domain_ab5b6a7a63ac54ffe127704b804fbf902}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon@{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon}}
+\index{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon@{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon}}\label{classhexwatershed_1_1domain_ab5b6a7a63ac54ffe127704b804fbf902}
+\hypertarget{classhexwatershed_1_1domain_aad07742f02d46cc27f749e88c4d8198f}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon\-\_\-debug@{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon\-\_\-debug}}
+\index{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon\-\_\-debug@{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon\-\_\-debug}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-flow\-\_\-accumulation\-\_\-polygon\-\_\-debug}}\label{classhexwatershed_1_1domain_aad07742f02d46cc27f749e88c4d8198f}
+\hypertarget{classhexwatershed_1_1domain_a6c6d9ac39299a220605efcf4b6092103}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline@{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline}}
+\index{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline@{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline}}\label{classhexwatershed_1_1domain_a6c6d9ac39299a220605efcf4b6092103}
+\hypertarget{classhexwatershed_1_1domain_a6d9997df868bf85104cb2dacc3b0a074}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline\-\_\-debug@{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline\-\_\-debug}}
+\index{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline\-\_\-debug@{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline\-\_\-debug}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-flow\-\_\-direction\-\_\-polyline\-\_\-debug}}\label{classhexwatershed_1_1domain_a6d9997df868bf85104cb2dacc3b0a074}
+\hypertarget{classhexwatershed_1_1domain_addabb6266ed831687398d7e99c7a1eb6}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile@{s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile}}
+\index{s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile@{s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-hexagon\-\_\-point\-\_\-shapefile}}\label{classhexwatershed_1_1domain_addabb6266ed831687398d7e99c7a1eb6}
+\hypertarget{classhexwatershed_1_1domain_a81785372d37e465554213628b5226fb5}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile@{s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile}}
+\index{s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile@{s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-hexagon\-\_\-polygon\-\_\-shapefile}}\label{classhexwatershed_1_1domain_a81785372d37e465554213628b5226fb5}
+\hypertarget{classhexwatershed_1_1domain_a807070dbc27d9f921316937879419aa5}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-log@{s\-Filename\-\_\-log}}
+\index{s\-Filename\-\_\-log@{s\-Filename\-\_\-log}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-log}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-log}}\label{classhexwatershed_1_1domain_a807070dbc27d9f921316937879419aa5}
+\hypertarget{classhexwatershed_1_1domain_a43439d2bf30dd2ef83e233b26229faec}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-confluence\-\_\-point@{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-point}}
+\index{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-point@{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-confluence\-\_\-point}}\label{classhexwatershed_1_1domain_a43439d2bf30dd2ef83e233b26229faec}
+\hypertarget{classhexwatershed_1_1domain_a0336019c551b96cb417539db336c9491}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-confluence\-\_\-polygon@{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-polygon}}
+\index{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-polygon@{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-confluence\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-confluence\-\_\-polygon}}\label{classhexwatershed_1_1domain_a0336019c551b96cb417539db336c9491}
+\hypertarget{classhexwatershed_1_1domain_a4fbfd3966c288287e2f4333d527964b0}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-grid\-\_\-point@{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point}}
+\index{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point@{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-grid\-\_\-point}}\label{classhexwatershed_1_1domain_a4fbfd3966c288287e2f4333d527964b0}
+\hypertarget{classhexwatershed_1_1domain_ad4350a3b1ffea69f457256b640d250dd}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-grid\-\_\-point\-\_\-debug@{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point\-\_\-debug}}
+\index{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point\-\_\-debug@{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point\-\_\-debug}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-grid\-\_\-point\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-grid\-\_\-point\-\_\-debug}}\label{classhexwatershed_1_1domain_ad4350a3b1ffea69f457256b640d250dd}
+\hypertarget{classhexwatershed_1_1domain_a3bd210d0b5641b0f1c802bc30a2da523}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon@{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon}}
+\index{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon@{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon}}\label{classhexwatershed_1_1domain_a3bd210d0b5641b0f1c802bc30a2da523}
+\hypertarget{classhexwatershed_1_1domain_a37139f277cdc2d45bd86a3925828f46b}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon\-\_\-debug@{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon\-\_\-debug}}
+\index{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon\-\_\-debug@{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon\-\_\-debug}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon\-\_\-debug}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-grid\-\_\-polygon\-\_\-debug}}\label{classhexwatershed_1_1domain_a37139f277cdc2d45bd86a3925828f46b}
+\hypertarget{classhexwatershed_1_1domain_a7dc757b3f0ce86808ab7e2c2ae7a5eb6}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-order\-\_\-polyline@{s\-Filename\-\_\-stream\-\_\-order\-\_\-polyline}}
+\index{s\-Filename\-\_\-stream\-\_\-order\-\_\-polyline@{s\-Filename\-\_\-stream\-\_\-order\-\_\-polyline}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-order\-\_\-polyline}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-order\-\_\-polyline}}\label{classhexwatershed_1_1domain_a7dc757b3f0ce86808ab7e2c2ae7a5eb6}
+\hypertarget{classhexwatershed_1_1domain_a8fbb658626050e4041a6f055f5db9e50}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-segment\-\_\-merge\-\_\-polyline@{s\-Filename\-\_\-stream\-\_\-segment\-\_\-merge\-\_\-polyline}}
+\index{s\-Filename\-\_\-stream\-\_\-segment\-\_\-merge\-\_\-polyline@{s\-Filename\-\_\-stream\-\_\-segment\-\_\-merge\-\_\-polyline}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-segment\-\_\-merge\-\_\-polyline}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-segment\-\_\-merge\-\_\-polyline}}\label{classhexwatershed_1_1domain_a8fbb658626050e4041a6f055f5db9e50}
+\hypertarget{classhexwatershed_1_1domain_a2fb83f796660d12113b5bdf4f497529f}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-segment\-\_\-point@{s\-Filename\-\_\-stream\-\_\-segment\-\_\-point}}
+\index{s\-Filename\-\_\-stream\-\_\-segment\-\_\-point@{s\-Filename\-\_\-stream\-\_\-segment\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-segment\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-segment\-\_\-point}}\label{classhexwatershed_1_1domain_a2fb83f796660d12113b5bdf4f497529f}
+\hypertarget{classhexwatershed_1_1domain_afdd8ae066d65ca7e0fdd364f331086b6}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-segment\-\_\-polygon@{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polygon}}
+\index{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polygon@{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-segment\-\_\-polygon}}\label{classhexwatershed_1_1domain_afdd8ae066d65ca7e0fdd364f331086b6}
+\hypertarget{classhexwatershed_1_1domain_a9c0a520ad75fcd98931a2b2a0de6bbba}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-stream\-\_\-segment\-\_\-polyline@{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polyline}}
+\index{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polyline@{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polyline}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-stream\-\_\-segment\-\_\-polyline}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-stream\-\_\-segment\-\_\-polyline}}\label{classhexwatershed_1_1domain_a9c0a520ad75fcd98931a2b2a0de6bbba}
+\hypertarget{classhexwatershed_1_1domain_a6e0807e868e43612827691b207f16e28}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-subbasin\-\_\-point@{s\-Filename\-\_\-subbasin\-\_\-point}}
+\index{s\-Filename\-\_\-subbasin\-\_\-point@{s\-Filename\-\_\-subbasin\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-subbasin\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-subbasin\-\_\-point}}\label{classhexwatershed_1_1domain_a6e0807e868e43612827691b207f16e28}
+\hypertarget{classhexwatershed_1_1domain_a2c268f965da15520aed905681bc26a3c}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-subbasin\-\_\-polygon@{s\-Filename\-\_\-subbasin\-\_\-polygon}}
+\index{s\-Filename\-\_\-subbasin\-\_\-polygon@{s\-Filename\-\_\-subbasin\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-subbasin\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-subbasin\-\_\-polygon}}\label{classhexwatershed_1_1domain_a2c268f965da15520aed905681bc26a3c}
+\hypertarget{classhexwatershed_1_1domain_a951d721abfc639a301a0834231c1bf5d}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-watershed\-\_\-characteristics@{s\-Filename\-\_\-watershed\-\_\-characteristics}}
+\index{s\-Filename\-\_\-watershed\-\_\-characteristics@{s\-Filename\-\_\-watershed\-\_\-characteristics}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-watershed\-\_\-characteristics}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-watershed\-\_\-characteristics}}\label{classhexwatershed_1_1domain_a951d721abfc639a301a0834231c1bf5d}
+\hypertarget{classhexwatershed_1_1domain_a82aaf8850706fb149e1deaca2a15b377}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-watershed\-\_\-point@{s\-Filename\-\_\-watershed\-\_\-point}}
+\index{s\-Filename\-\_\-watershed\-\_\-point@{s\-Filename\-\_\-watershed\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-watershed\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-watershed\-\_\-point}}\label{classhexwatershed_1_1domain_a82aaf8850706fb149e1deaca2a15b377}
+\hypertarget{classhexwatershed_1_1domain_a1485608eea9c7f5cca53ee07cdb21b99}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-watershed\-\_\-polygon@{s\-Filename\-\_\-watershed\-\_\-polygon}}
+\index{s\-Filename\-\_\-watershed\-\_\-polygon@{s\-Filename\-\_\-watershed\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-watershed\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-watershed\-\_\-polygon}}\label{classhexwatershed_1_1domain_a1485608eea9c7f5cca53ee07cdb21b99}
+\hypertarget{classhexwatershed_1_1domain_a9edbb2f200391123c1d558aae2109001}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-wetness\-\_\-index\-\_\-point@{s\-Filename\-\_\-wetness\-\_\-index\-\_\-point}}
+\index{s\-Filename\-\_\-wetness\-\_\-index\-\_\-point@{s\-Filename\-\_\-wetness\-\_\-index\-\_\-point}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-wetness\-\_\-index\-\_\-point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-wetness\-\_\-index\-\_\-point}}\label{classhexwatershed_1_1domain_a9edbb2f200391123c1d558aae2109001}
+\hypertarget{classhexwatershed_1_1domain_a5ee33e54da314c49081cc5aff85ed2f2}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Filename\-\_\-wetness\-\_\-index\-\_\-polygon@{s\-Filename\-\_\-wetness\-\_\-index\-\_\-polygon}}
+\index{s\-Filename\-\_\-wetness\-\_\-index\-\_\-polygon@{s\-Filename\-\_\-wetness\-\_\-index\-\_\-polygon}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Filename\-\_\-wetness\-\_\-index\-\_\-polygon}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Filename\-\_\-wetness\-\_\-index\-\_\-polygon}}\label{classhexwatershed_1_1domain_a5ee33e54da314c49081cc5aff85ed2f2}
+\hypertarget{classhexwatershed_1_1domain_aee8643251832efafa47400b95dc504d1}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Log@{s\-Log}}
+\index{s\-Log@{s\-Log}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Log}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Log}}\label{classhexwatershed_1_1domain_aee8643251832efafa47400b95dc504d1}
+\hypertarget{classhexwatershed_1_1domain_a86902641b63b77dccfef08a94df2e55b}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Region@{s\-Region}}
+\index{s\-Region@{s\-Region}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Region}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Region}}\label{classhexwatershed_1_1domain_a86902641b63b77dccfef08a94df2e55b}
+\hypertarget{classhexwatershed_1_1domain_a61879b2d1218be6af1b35d936b00fcf2}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Workspace\-\_\-data@{s\-Workspace\-\_\-data}}
+\index{s\-Workspace\-\_\-data@{s\-Workspace\-\_\-data}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Workspace\-\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Workspace\-\_\-data}}\label{classhexwatershed_1_1domain_a61879b2d1218be6af1b35d936b00fcf2}
+\hypertarget{classhexwatershed_1_1domain_a613b370ecaa3cb488c84a05b20d87cf2}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!s\-Workspace\-\_\-output@{s\-Workspace\-\_\-output}}
+\index{s\-Workspace\-\_\-output@{s\-Workspace\-\_\-output}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{s\-Workspace\-\_\-output}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string hexwatershed\-::domain\-::s\-Workspace\-\_\-output}}\label{classhexwatershed_1_1domain_a613b370ecaa3cb488c84a05b20d87cf2}
+\hypertarget{classhexwatershed_1_1domain_a335b042f837bb1d5bf6494e1b28ce502}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!v\-Cell@{v\-Cell}}
+\index{v\-Cell@{v\-Cell}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{v\-Cell}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf hexagon}$>$ hexwatershed\-::domain\-::v\-Cell}}\label{classhexwatershed_1_1domain_a335b042f837bb1d5bf6494e1b28ce502}
+\hypertarget{classhexwatershed_1_1domain_ae83f1884f6afd8f5a98848e93f3507ea}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!v\-Cell\-\_\-active@{v\-Cell\-\_\-active}}
+\index{v\-Cell\-\_\-active@{v\-Cell\-\_\-active}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{v\-Cell\-\_\-active}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf hexagon}$>$ hexwatershed\-::domain\-::v\-Cell\-\_\-active}}\label{classhexwatershed_1_1domain_ae83f1884f6afd8f5a98848e93f3507ea}
+\hypertarget{classhexwatershed_1_1domain_a5087da3221f695d12d0659d779e41e2c}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!v\-Cell\-\_\-watershed@{v\-Cell\-\_\-watershed}}
+\index{v\-Cell\-\_\-watershed@{v\-Cell\-\_\-watershed}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{v\-Cell\-\_\-watershed}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf hexagon}$>$ hexwatershed\-::domain\-::v\-Cell\-\_\-watershed}}\label{classhexwatershed_1_1domain_a5087da3221f695d12d0659d779e41e2c}
+\hypertarget{classhexwatershed_1_1domain_a7fe968d507aa3f6225f2890b1ed12ff0}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!v\-Confluence@{v\-Confluence}}
+\index{v\-Confluence@{v\-Confluence}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{v\-Confluence}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf hexagon}$>$ hexwatershed\-::domain\-::v\-Confluence}}\label{classhexwatershed_1_1domain_a7fe968d507aa3f6225f2890b1ed12ff0}
+\hypertarget{classhexwatershed_1_1domain_a534b3cf5bff1f923373c187ca9d0db08}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!v\-Elevation@{v\-Elevation}}
+\index{v\-Elevation@{v\-Elevation}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{v\-Elevation}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$float$>$ hexwatershed\-::domain\-::v\-Elevation}}\label{classhexwatershed_1_1domain_a534b3cf5bff1f923373c187ca9d0db08}
+\hypertarget{classhexwatershed_1_1domain_ac4d3bbe063870f14c2c2560e43c8d01a}{\index{hexwatershed\-::domain@{hexwatershed\-::domain}!v\-Segment@{v\-Segment}}
+\index{v\-Segment@{v\-Segment}!hexwatershed::domain@{hexwatershed\-::domain}}
+\subsubsection[{v\-Segment}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf segment}$>$ hexwatershed\-::domain\-::v\-Segment}}\label{classhexwatershed_1_1domain_ac4d3bbe063870f14c2c2560e43c8d01a}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/qfs/people/liao313/workspace/cplus/hexwatershed\-\_\-pnnl/hexwatershed/src/\hyperlink{domain_8h}{domain.\-h}\item 
+/qfs/people/liao313/workspace/cplus/hexwatershed\-\_\-pnnl/hexwatershed/src/\hyperlink{domain_8cpp}{domain.\-cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,521 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="conversion_8h" kind="file">
+    <compoundname>conversion.h</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">iomanip</includes>
+    <includes local="no">iterator</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">algorithm</includes>
+    <includes refid="global_8h" local="yes">global.h</includes>
+    <includedby refid="conversion_8cpp" local="yes">/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp</includedby>
+    <includedby refid="domain_8h" local="yes">/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h</includedby>
+    <incdepgraph>
+      <node id="12">
+        <label>iomanip</label>
+      </node>
+      <node id="13">
+        <label>iterator</label>
+      </node>
+      <node id="11">
+        <label>string</label>
+      </node>
+      <node id="17">
+        <label>global.h</label>
+        <link refid="global_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>vector</label>
+      </node>
+      <node id="14">
+        <label>sstream</label>
+      </node>
+      <node id="16">
+        <label>algorithm</label>
+      </node>
+      <node id="10">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h</label>
+        <link refid="conversion.h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="21">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.cpp</label>
+        <link refid="domain_8cpp"/>
+      </node>
+      <node id="20">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/domain.h</label>
+        <link refid="domain_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp</label>
+        <link refid="conversion_8cpp"/>
+      </node>
+      <node id="22">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+      <node id="18">
+        <label>/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h</label>
+        <link refid="conversion.h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespacestd">std</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="conversion_8h_1aebab32df5b81a7363596ac2d2b0b557a" prot="public" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string WHITESPACE</definition>
+        <argsstring></argsstring>
+        <name>WHITESPACE</name>
+        <initializer>= &quot; \n\r\t\f\v&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="37" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="conversion_8h_1ae0c6de25ce33430db7eca24d47c14d7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double convert_from_kelvin_to_fahrenheit</definition>
+        <argsstring>(double dTemperature_kelvin_in)</argsstring>
+        <name>convert_from_kelvin_to_fahrenheit</name>
+        <param>
+          <type>double</type>
+          <declname>dTemperature_kelvin_in</declname>
+        </param>
+        <briefdescription>
+<para>convert temperature from kelvin to fahrenheit </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dTemperature_kelvin_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="42" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="95" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1ab64e4a2b158bec646e6cb56ee986cfd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double convert_from_fahrenheit_to_kelvin</definition>
+        <argsstring>(double dTemperature_fahrenheit_in)</argsstring>
+        <name>convert_from_fahrenheit_to_kelvin</name>
+        <param>
+          <type>double</type>
+          <declname>dTemperature_fahrenheit_in</declname>
+        </param>
+        <briefdescription>
+<para>convert temperature from fahrenheit to kelvin </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dTemperature_fahrenheit_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="43" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="107" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1abeb57d8be5d74102aae7b913043abc6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double convert_from_joule_per_meter_to_calorie_per_centimeter</definition>
+        <argsstring>(double dJoule_per_meter_in)</argsstring>
+        <name>convert_from_joule_per_meter_to_calorie_per_centimeter</name>
+        <param>
+          <type>double</type>
+          <declname>dJoule_per_meter_in</declname>
+        </param>
+        <briefdescription>
+<para>convert energy unit </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dJoule_per_meter_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="44" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="119" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1ac9f97daabb1f57e9576ef24272359896" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double convert_from_calorie_per_centimeter_to_joule_per_meter</definition>
+        <argsstring>(double dCalorie_per_centimeter_in)</argsstring>
+        <name>convert_from_calorie_per_centimeter_to_joule_per_meter</name>
+        <param>
+          <type>double</type>
+          <declname>dCalorie_per_centimeter_in</declname>
+        </param>
+        <briefdescription>
+<para>conver energy units </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dCalorie_per_centimeter_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="45" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="131" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1a65cce034fae82d67d9522e6f746c40f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string convert_integer_to_string</definition>
+        <argsstring>(int iNumber_in)</argsstring>
+        <name>convert_integer_to_string</name>
+        <param>
+          <type>int</type>
+          <declname>iNumber_in</declname>
+        </param>
+        <briefdescription>
+<para>it is used to convert integer to string since c++ 11 doesn&apos;t support well </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>iNumber_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: the integer number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::string </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="47" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="30" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1ae13f57d141d8334d090798ed33d00522" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string convert_integer_to_string</definition>
+        <argsstring>(int iNumber_in, int iWidth_in)</argsstring>
+        <name>convert_integer_to_string</name>
+        <param>
+          <type>int</type>
+          <declname>iNumber_in</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iWidth_in</declname>
+        </param>
+        <briefdescription>
+<para>convert an integer to a string with fixed length </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>iNumber_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iWidth_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::string </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="49" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="46" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1aacd6e5edd4583687b33b7c9ee2cfdd4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string convert_double_to_string</definition>
+        <argsstring>(double dNumber_in)</argsstring>
+        <name>convert_double_to_string</name>
+        <param>
+          <type>double</type>
+          <declname>dNumber_in</declname>
+        </param>
+        <briefdescription>
+<para>convert a double data type to string </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dNumber_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::string </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="51" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="61" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1a1552732b1d832ee9bf213826b4ca82a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string convert_double_to_string</definition>
+        <argsstring>(int iPrecision_in, int iWidth_in, double dNumber_in)</argsstring>
+        <name>convert_double_to_string</name>
+        <param>
+          <type>int</type>
+          <declname>iPrecision_in</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>iWidth_in</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>dNumber_in</declname>
+        </param>
+        <briefdescription>
+<para>convert a double data type to a string with fixed length </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>iPrecision_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>iWidth_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dNumber_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::string </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="52" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="78" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1adeed7bc32649b81704374203059bdafa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; split_string_by_space</definition>
+        <argsstring>(std::string sString_in)</argsstring>
+        <name>split_string_by_space</name>
+        <param>
+          <type>std::string</type>
+          <declname>sString_in</declname>
+        </param>
+        <briefdescription>
+<para>split a string using space </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sString_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::vector&lt;std::string&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="57" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="146" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1a0494d502aea1c5f4b25d71252340617f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; std::string &gt;</type>
+        <definition>std::vector&lt;std::string&gt; split_string_by_delimiter</definition>
+        <argsstring>(std::string sString_in, char cDelimiter_in)</argsstring>
+        <name>split_string_by_delimiter</name>
+        <param>
+          <type>std::string</type>
+          <declname>sString_in</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>cDelimiter_in</declname>
+          <defname>cDelimiter</defname>
+        </param>
+        <briefdescription>
+<para>split a string using user provide delimiter </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sString_in</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cDelimiter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>std::vector&lt;std::string&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="58" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="172" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1a2cef02c8b080eca9c3b431e6366e7005" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ltrim</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>ltrim</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="61" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="193" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1a86a7ab065991bbd3de9bb1dd9afcf961" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string rtrim</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>rtrim</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="62" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="199" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="conversion_8h_1a1a32c4d3bd87256731e67936766c65ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string trim</definition>
+        <argsstring>(const std::string &amp;s)</argsstring>
+        <name>trim</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h" line="63" column="1" bodyfile="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.cpp" bodystart="205" bodyend="208"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The header file of the conversion source file. </para>    </briefdescription>
+    <detaileddescription>
+<para>HexWatershed, a hydrologic routing model based on the hexagon mesh framework. Copyright (C) &lt;2002&gt; &lt;Chang liao&gt;=&quot;&quot;&gt; Developer can be contacted by <ulink url="mailto:chang.liao@pnnl.gov">chang.liao@pnnl.gov</ulink> This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.</para><para><simplesect kind="author"><para>Chang Liao (<ulink url="mailto:chang.liao@pnnl.gov">chang.liao@pnnl.gov</ulink>) </para></simplesect>
+<simplesect kind="version"><para>0.1 </para></simplesect>
+<simplesect kind="date"><para>2019-08-02</para></simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2019 </para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="19"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//c++<sp/>library</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iomanip&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iterator&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//local<sp/>header</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="global_8h" kindref="compound">global.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="conversion_8h_1aebab32df5b81a7363596ac2d2b0b557a" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="conversion_8h_1aebab32df5b81a7363596ac2d2b0b557a" kindref="member">WHITESPACE</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;<sp/>\n\r\t\f\v&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//unit<sp/>conversion</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//50==================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="conversion_8cpp_1ae0c6de25ce33430db7eca24d47c14d7b" kindref="member">convert_from_kelvin_to_fahrenheit</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dTemperature_kelvin_in);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="conversion_8cpp_1ab64e4a2b158bec646e6cb56ee986cfd6" kindref="member">convert_from_fahrenheit_to_kelvin</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dTemperature_fahrenheit_in);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="conversion_8cpp_1abeb57d8be5d74102aae7b913043abc6b" kindref="member">convert_from_joule_per_meter_to_calorie_per_centimeter</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dJoule_per_meter_in);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="conversion_8cpp_1ac9f97daabb1f57e9576ef24272359896" kindref="member">convert_from_calorie_per_centimeter_to_joule_per_meter</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dCalorie_per_centimeter_in);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">std::string<sp/><ref refid="conversion_8cpp_1a65cce034fae82d67d9522e6f746c40f3" kindref="member">convert_integer_to_string</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iNumber_in);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">std::string<sp/><ref refid="conversion_8cpp_1a65cce034fae82d67d9522e6f746c40f3" kindref="member">convert_integer_to_string</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iNumber_in,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iWidth_in);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">std::string<sp/><ref refid="conversion_8cpp_1aacd6e5edd4583687b33b7c9ee2cfdd4e" kindref="member">convert_double_to_string</ref>(<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dNumber_in);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">std::string<sp/><ref refid="conversion_8cpp_1aacd6e5edd4583687b33b7c9ee2cfdd4e" kindref="member">convert_double_to_string</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iPrecision_in,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>iWidth_in,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dNumber_in);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">std::vector&lt;std::string&gt;<sp/><ref refid="conversion_8cpp_1adeed7bc32649b81704374203059bdafa" kindref="member">split_string_by_space</ref>(std::string<sp/>sString_in);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">std::vector&lt;std::string&gt;<sp/><ref refid="conversion_8cpp_1a52d0103daeb3246cb9e040574ffc2682" kindref="member">split_string_by_delimiter</ref>(std::string<sp/>sString_in,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>cDelimiter_in);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//string<sp/>trim</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">std::string<sp/><ref refid="conversion_8cpp_1a2cef02c8b080eca9c3b431e6366e7005" kindref="member">ltrim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>s);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">std::string<sp/><ref refid="conversion_8cpp_1a86a7ab065991bbd3de9bb1dd9afcf961" kindref="member">rtrim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>s);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">std::string<sp/><ref refid="conversion_8cpp_1a1a32c4d3bd87256731e67936766c65ca" kindref="member">trim</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>s);</highlight></codeline>
+    </programlisting>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/conversion.h"/>
+  </compounddef>
+</doxygen>

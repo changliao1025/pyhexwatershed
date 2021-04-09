@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="namespacehexwatershed" kind="namespace">
+    <compoundname>hexwatershed</compoundname>
+    <innerclass refid="classhexwatershed_1_1depression" prot="public">hexwatershed::depression</innerclass>
+    <innerclass refid="classhexwatershed_1_1domain" prot="public">hexwatershed::domain</innerclass>
+    <innerclass refid="structhexwatershed_1_1ptVertex" prot="public">hexwatershed::ptVertex</innerclass>
+    <innerclass refid="classhexwatershed_1_1hexagon" prot="public">hexwatershed::hexagon</innerclass>
+    <innerclass refid="classhexwatershed_1_1segment" prot="public">hexwatershed::segment</innerclass>
+    <innerclass refid="classhexwatershed_1_1watershed" prot="public">hexwatershed::watershed</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/qfs/people/liao313/workspace/cplus/hexwatershed_pnnl/hexwatershed/src/depression.cpp" line="19" column="1"/>
+  </compounddef>
+</doxygen>
