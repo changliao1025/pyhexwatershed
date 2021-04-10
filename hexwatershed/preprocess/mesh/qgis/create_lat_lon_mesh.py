@@ -11,12 +11,14 @@ os.environ['PROJ_LIB'] = '/qfs/people/liao313/.conda/envs/gdalenv/share/proj'
 def create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nrow):
 
     sResolution = '0.5'
-    sFilename_shapefile_output = 'MOSART_'+ sResolution + '.shp'
-    
+    sFilename_output = 'MOSART_'+ sResolution + '.json'
+    sWorkspace_out = '/compyfs/liao313/04model/hexwatershed/'
 
-    
-    pDriver = ogr.GetDriverByName('Esri Shapefile')
-    pDataset = pDriver.CreateDataSource(sFilename_shapefile_output)
+    sFilename_output = os.path.join(sWorkspace_out, sFilename_output)
+    #pDriver = ogr.GetDriverByName('Esri Shapefile')
+    pDriver = ogr.GetDriverByName('GeoJSON')
+    #geojson
+    pDataset = pDriver.CreateDataSource(sFilename_output)
     pSrs = osr.SpatialReference()  
     pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
 
