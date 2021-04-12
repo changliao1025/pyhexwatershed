@@ -12,9 +12,12 @@ def create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nr
 
     sResolution = '0.5'
     sFilename_output = 'MOSART_'+ sResolution + '.json'
-    sWorkspace_out = '/compyfs/liao313/04model/hexwatershed/'
+    sWorkspace_out = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin'
 
     sFilename_output = os.path.join(sWorkspace_out, sFilename_output)
+    if os.path.exists(sFilename_output): 
+        #delete it if it exists
+        os.remove(sFilename_output)
     #pDriver = ogr.GetDriverByName('Esri Shapefile')
     pDriver = ogr.GetDriverByName('GeoJSON')
     #geojson
@@ -82,12 +85,12 @@ def create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nr
     return
 
 if __name__ == '__main__':
-    dLongitude_left= -180 
-    dLatitude_bot=-90
+    dLongitude_left= -124 
+    dLatitude_bot=41
     dResolution=0.5
 
-    dLongitude_right = 180
-    dLatitude_top = 90
+    dLongitude_right = -110
+    dLatitude_top = 53
     ncolumn= int( (dLongitude_right - dLongitude_left) / dResolution )
     nrow= int( (dLatitude_top - dLatitude_bot) / dResolution )
 
