@@ -4,6 +4,7 @@
 #because it is mesh, it represent the edge instead of center
 #we will use gdal api for most operations
 import os, sys
+import numpy as np
 from osgeo import ogr, osr, gdal, gdalconst
 
 sSystem_paths = os.environ['PATH'].split(os.pathsep)
@@ -13,15 +14,15 @@ sys.path.append(sPath_pye3sm)
 
 from hexwatershed.auxiliary.gdal_function import obtain_raster_metadata
 from hexwatershed.auxiliary.gdal_function import reproject_coordinates
+from hexwatershed.auxiliary.degree_to_meter import degree_to_meter
 
-os.environ['PROJ_LIB'] = '/qfs/people/liao313/.conda/envs/gdalenv/share/proj'
+def create_hexagon_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_output):
 
-def create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nrow, sFilename_output):
-
-   
+    
     if os.path.exists(sFilename_output): 
         #delete it if it exists
         os.remove(sFilename_output)
+
     #pDriver = ogr.GetDriverByName('Esri Shapefile')
     pDriver = ogr.GetDriverByName('GeoJSON')
     #geojson
@@ -88,14 +89,10 @@ def create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nr
 
     return
 
+
 if __name__ == '__main__':
-
-
-    #dLongitude_left= -124 
-    #dLatitude_bot=41
     dResolution=0.5
-    #dLongitude_right = -110
-    #dLatitude_top = 53
+   
     
 
     #we can use the dem extent to setup 
@@ -106,23 +103,28 @@ if __name__ == '__main__':
     spatial_reference_target = osr.SpatialReference()  
     spatial_reference_target.ImportFromEPSG(4326)
 
-    dOriginY = dOriginY - (nrow+1) * dPixelWidth
-    dLongitude_left,  dLatitude_bot= reproject_coordinates(dOriginX, dOriginY,spatial_reference_source,spatial_reference_target)
+    dY_bot = dOriginY - (nrow+1) * dPixelWidth
+    dLongitude_left,  dLatitude_bot= reproject_coordinates(dOriginX, dY_bot,spatial_reference_source,spatial_reference_target)
 
-    dOriginX = dOriginX + (ncolumn +1) * dPixelWidth
-    dOriginY = dOriginY +  (nrow+1) * dPixelWidth
+    dX_right = dOriginX + (ncolumn +1) * dPixelWidth
+    
 
-    dLongitude_right, dLatitude_top= reproject_coordinates(dOriginX, dOriginY,spatial_reference_source,spatial_reference_target)
+    dLongitude_right, dLatitude_top= reproject_coordinates(dX_right, dOriginY,spatial_reference_source,spatial_reference_target)
+
+    dLatitude_mean = 0.5 * (dLatitude_top + dLatitude_bot)
+
+    dResolution_meter = degree_to_meter(dLatitude_mean, dResolution )
 
 
-    ncolumn= int( (dLongitude_right - dLongitude_left) / dResolution )
-    nrow= int( (dLatitude_top - dLatitude_bot) / dResolution )
+    dX_left = dOriginX
+    dY_bot = dOriginY
+    ncolumn =100
+    nrow = 100
 
-    sResolution = '0.5'
-    sFilename_output = 'MOSART_'+ sResolution + '.json'
+
+    sFilename_output = 'hexagon.json'
     sWorkspace_out = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin'
 
     sFilename_output = os.path.join(sWorkspace_out, sFilename_output)
-
-    create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nrow, sFilename_output)
+    create_hexagon_mesh(dX_left, dY_bot, dResolution_meter, ncolumn, nrow, sFilename_output)
 

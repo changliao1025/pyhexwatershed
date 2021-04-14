@@ -12,22 +12,35 @@ sPath_pye3sm='/people/liao313/workspace/python/hexwatershed/pyhexwatershed'
 sys.path.append(sPath_pye3sm)
 
 from hexwatershed.auxiliary.gdal_function import obtain_raster_metadata
-from hexwatershed.auxiliary.gdal_function import reproject_coordinates
+
 
 os.environ['PROJ_LIB'] = '/qfs/people/liao313/.conda/envs/gdalenv/share/proj'
 
-def create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nrow, sFilename_output):
+def create_square_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_output, sFilename_shapefile):
 
    
     if os.path.exists(sFilename_output): 
         #delete it if it exists
         os.remove(sFilename_output)
+
     #pDriver = ogr.GetDriverByName('Esri Shapefile')
     pDriver = ogr.GetDriverByName('GeoJSON')
     #geojson
     pDataset = pDriver.CreateDataSource(sFilename_output)
-    pSrs = osr.SpatialReference()  
-    pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
+    #pSpatialRef = osr.SpatialReference(wkt=pProjection)
+
+    pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
+    pDataset_shapefile = pDriver_shapefile.Open(sFilename_shapefile, 0)
+    pLayer_shapefile = pDataset_shapefile.GetLayer(0)
+    pSrs = pLayer_shapefile.GetSpatialRef()
+
+    #pDriver_geotiff = gdal.GetDriverByName('GTiff')
+    #pDriver_geotiff.Register()
+    #pDataset_geotiff = gdal.Open(sFilename_geotiff, gdal.GA_ReadOnly)
+    #pProjection = pDataset_geotiff.GetProjection()
+    #pSrs = osr.SpatialReference(wkt=pProjection)
+
+
 
     pLayer = pDataset.CreateLayer('cell', pSrs, ogr.wkbPolygon)
     # Add one attribute
@@ -38,9 +51,9 @@ def create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nr
 
     
 
-    xleft = dLongitude_left
+    xleft = dX_left
     xspacing= dResolution
-    ybottom = dLatitude_bot
+    ybottom = dY_bot
     yspacing = dResolution
 
     lID =0 
@@ -91,38 +104,35 @@ def create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nr
 if __name__ == '__main__':
 
 
-    #dLongitude_left= -124 
-    #dLatitude_bot=41
-    dResolution=0.5
-    #dLongitude_right = -110
-    #dLatitude_top = 53
+    
+    dResolution=40*1000.0
+    
     
 
     #we can use the dem extent to setup 
     sFilename_geotiff = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/raster/dem/crbdem.tif'
-    dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, pSpatialRef = obtain_raster_metadata(sFilename_geotiff)
+    dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, pSpatialRef, pPrejection = obtain_raster_metadata(sFilename_geotiff)
     
-    spatial_reference_source = pSpatialRef
-    spatial_reference_target = osr.SpatialReference()  
-    spatial_reference_target.ImportFromEPSG(4326)
+  
 
-    dOriginY = dOriginY - (nrow+1) * dPixelWidth
-    dLongitude_left,  dLatitude_bot= reproject_coordinates(dOriginX, dOriginY,spatial_reference_source,spatial_reference_target)
+    
+    dX_left = dOriginX
 
-    dOriginX = dOriginX + (ncolumn +1) * dPixelWidth
-    dOriginY = dOriginY +  (nrow+1) * dPixelWidth
+    dX_right = dOriginX + (ncolumn +1)* dPixelWidth
 
-    dLongitude_right, dLatitude_top= reproject_coordinates(dOriginX, dOriginY,spatial_reference_source,spatial_reference_target)
+    dY_top = dOriginY
 
+    dY_bot = dOriginY - (nrow +1)* dPixelWidth
 
-    ncolumn= int( (dLongitude_right - dLongitude_left) / dResolution )
-    nrow= int( (dLatitude_top - dLatitude_bot) / dResolution )
+    ncolumn= int( (dX_right - dX_left) / dResolution )
+    nrow= int( (dY_top - dY_bot) / dResolution )
 
-    sResolution = '0.5'
-    sFilename_output = 'MOSART_'+ sResolution + '.json'
+    
+    sFilename_output = 'square_40k' + '.json'
     sWorkspace_out = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin'
 
     sFilename_output = os.path.join(sWorkspace_out, sFilename_output)
+    sFilename_shapefile = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/vector/mesh_id/crb_flowline_remove_small_line_split.shp'
 
-    create_lat_lon_mesh(dLongitude_left, dLatitude_bot, dResolution, ncolumn, nrow, sFilename_output)
+    create_square_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_output, sFilename_shapefile)
 
