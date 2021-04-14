@@ -106,13 +106,13 @@ if __name__ == '__main__':
     spatial_reference_target = osr.SpatialReference()  
     spatial_reference_target.ImportFromEPSG(4326)
 
-    dOriginY = dOriginY - (nrow+1) * dPixelWidth
-    dLongitude_left,  dLatitude_bot= reproject_coordinates(dOriginX, dOriginY,spatial_reference_source,spatial_reference_target)
+    dY_bot = dOriginY - (nrow+1) * dPixelWidth
+    dLongitude_left,  dLatitude_bot= reproject_coordinates(dOriginX, dY_bot,spatial_reference_source,spatial_reference_target)
 
-    dOriginX = dOriginX + (ncolumn +1) * dPixelWidth
-    dOriginY = dOriginY +  (nrow+1) * dPixelWidth
+    dX_right = dOriginX + (ncolumn +1) * dPixelWidth
+    
 
-    dLongitude_right, dLatitude_top= reproject_coordinates(dOriginX, dOriginY,spatial_reference_source,spatial_reference_target)
+    dLongitude_right, dLatitude_top= reproject_coordinates(dX_right, dOriginY,spatial_reference_source,spatial_reference_target)
 
 
     ncolumn= int( (dLongitude_right - dLongitude_left) / dResolution )

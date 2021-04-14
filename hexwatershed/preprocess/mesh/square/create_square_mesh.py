@@ -34,13 +34,10 @@ def create_square_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_ou
     pLayer_shapefile = pDataset_shapefile.GetLayer(0)
     pSrs = pLayer_shapefile.GetSpatialRef()
 
-    #pDriver_geotiff = gdal.GetDriverByName('GTiff')
-    #pDriver_geotiff.Register()
+    #pDriver_geotiff = gdal.GetDriverByName('GTiff')    
     #pDataset_geotiff = gdal.Open(sFilename_geotiff, gdal.GA_ReadOnly)
     #pProjection = pDataset_geotiff.GetProjection()
     #pSrs = osr.SpatialReference(wkt=pProjection)
-
-
 
     pLayer = pDataset.CreateLayer('cell', pSrs, ogr.wkbPolygon)
     # Add one attribute

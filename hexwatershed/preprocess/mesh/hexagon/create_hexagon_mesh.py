@@ -16,7 +16,7 @@ from hexwatershed.auxiliary.gdal_function import obtain_raster_metadata
 from hexwatershed.auxiliary.gdal_function import reproject_coordinates
 from hexwatershed.auxiliary.degree_to_meter import degree_to_meter
 
-def create_hexagon_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_output):
+def create_hexagon_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_output, sFilename_shapefile):
 
     
     if os.path.exists(sFilename_output): 
@@ -27,8 +27,11 @@ def create_hexagon_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_o
     pDriver = ogr.GetDriverByName('GeoJSON')
     #geojson
     pDataset = pDriver.CreateDataSource(sFilename_output)
-    pSrs = osr.SpatialReference()  
-    pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
+    
+    pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
+    pDataset_shapefile = pDriver_shapefile.Open(sFilename_shapefile, 0)
+    pLayer_shapefile = pDataset_shapefile.GetLayer(0)
+    pSrs = pLayer_shapefile.GetSpatialRef()
 
     pLayer = pDataset.CreateLayer('cell', pSrs, ogr.wkbPolygon)
     # Add one attribute
@@ -39,10 +42,16 @@ def create_hexagon_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_o
 
     
 
-    xleft = dLongitude_left
-    xspacing= dResolution
-    ybottom = dLatitude_bot
-    yspacing = dResolution
+    xleft = dX_left
+    ybottom = dY_bot
+
+    dArea = np.power(dResolution_meter,2.0)
+    #hexagon edge
+    dLength_edge = np.sqrt(  2.0 * dArea / (3.0* np.sqrt(3.0))  )
+    dX_shift = 0.5 * dLength_edge
+    dY_shift = 0.5 * dLength_edge * np.sqrt(3.0)
+    dX_spacing = dLength_edge * 1.5
+    dY_spacing = dLength_edge * np.sqrt(3.0)
 
     lID =0 
     #.........
@@ -52,18 +61,29 @@ def create_hexagon_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_o
     #...............
     for column in range(0, ncolumn):
         for row in range(0, nrow):
+            if column % 2 == 0 :
             #define a polygon here
-            x1 = xleft + (column * xspacing)
-            y1 = ybottom + (row * yspacing)
+                x1 = xleft + (column * dX_spacing)
+                y1 = ybottom + (row * dY_spacing)
+            else:
+                x1 = xleft + (column * dX_spacing) #- dX_shift
+                y1 = ybottom + (row * dY_spacing) - dY_shift
 
-            x2 = xleft + (column * xspacing)
-            y2 = ybottom + ((row + 1) * yspacing)
 
-            x3 = xleft + ((column + 1) * xspacing)
-            y3 = ybottom + ((row + 1) * yspacing)
+            x2 = x1 - dX_shift
+            y2 = y1 + dY_shift
 
-            x4 = xleft + ((column + 1) * xspacing)
-            y4 = ybottom + (row * yspacing)
+            x3 = x1 
+            y3 = y1 + dY_shift * 2.0
+
+            x4 = x1 + dLength_edge
+            y4 = y1 + dY_shift * 2.0
+
+            x5 = x4 + dX_shift
+            y5 = y1 + dY_shift
+
+            x6 = x1 + dLength_edge
+            y6 = y1         
            
 
             ring = ogr.Geometry(ogr.wkbLinearRing)
@@ -71,6 +91,8 @@ def create_hexagon_mesh(dX_left, dY_bot, dResolution, ncolumn, nrow, sFilename_o
             ring.AddPoint(x2, y2)
             ring.AddPoint(x3, y3)
             ring.AddPoint(x4, y4)
+            ring.AddPoint(x5, y5)
+            ring.AddPoint(x6, y6)
             ring.AddPoint(x1, y1)
             pPolygon = ogr.Geometry(ogr.wkbPolygon)
             pPolygon.AddGeometry(ring)
@@ -97,7 +119,7 @@ if __name__ == '__main__':
 
     #we can use the dem extent to setup 
     sFilename_geotiff = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/raster/dem/crbdem.tif'
-    dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, pSpatialRef = obtain_raster_metadata(sFilename_geotiff)
+    dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, pSpatialRef, pProjection = obtain_raster_metadata(sFilename_geotiff)
     
     spatial_reference_source = pSpatialRef
     spatial_reference_target = osr.SpatialReference()  
@@ -117,14 +139,24 @@ if __name__ == '__main__':
 
 
     dX_left = dOriginX
-    dY_bot = dOriginY
-    ncolumn =100
-    nrow = 100
+    dY_top = dOriginY
+
+    dArea = np.power(dResolution_meter,2.0)
+    #hexagon edge
+    dLength_edge = np.sqrt(  2.0 * dArea / (3.0* np.sqrt(3.0))  )
+    dLength_shift = 0.5 * dLength_edge * np.sqrt(3.0)
+    dX_spacing = dLength_edge * 1.5
+    dY_spacing = dLength_edge * np.sqrt(3.0)
+
+   
+    ncolumn= int( (dX_right - dX_left) / dX_spacing )
+    nrow= int( (dY_top - dY_bot) / dY_spacing )
 
 
     sFilename_output = 'hexagon.json'
     sWorkspace_out = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin'
 
     sFilename_output = os.path.join(sWorkspace_out, sFilename_output)
-    create_hexagon_mesh(dX_left, dY_bot, dResolution_meter, ncolumn, nrow, sFilename_output)
+    sFilename_shapefile = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/vector/mesh_id/crb_flowline_remove_small_line_split.shp'
+    create_hexagon_mesh(dX_left, dY_bot, dResolution_meter, ncolumn, nrow, sFilename_output, sFilename_shapefile)
 
