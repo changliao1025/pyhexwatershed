@@ -100,7 +100,7 @@ if __name__ == '__main__':
 
     #we can use the dem extent to setup 
     sFilename_geotiff = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/raster/dem/crbdem.tif'
-    dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, pSpatialRef = obtain_raster_metadata(sFilename_geotiff)
+    dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, pSpatialRef, pProjection = obtain_raster_metadata(sFilename_geotiff)
     
     spatial_reference_source = pSpatialRef
     spatial_reference_target = osr.SpatialReference()  

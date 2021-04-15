@@ -29,9 +29,17 @@ def intersect_flowline_with_mesh(sFilename_mesh, sFilename_flowline, sFilename_o
 
     pLayer1 = pDataset1.GetLayer(0)
     pSpatialRef1 = pLayer1.GetSpatialRef()
+    print( pSpatialRef1)
     pLayer2 = pDataset2.GetLayer(0)
     pSpatialRef2 = pLayer2.GetSpatialRef()
-    transform = osr.CoordinateTransformation(pSpatialRef1, pSpatialRef2)
+    
+    print( pSpatialRef2)
+    comparison = pSpatialRef1.IsSame(pSpatialRef2)
+    if(comparison != 1):
+        iFlag_transform =1
+        transform = osr.CoordinateTransformation(pSpatialRef1, pSpatialRef2)
+    else:
+        iFlag_transform =0
 
     pDataset3 = pDriver.CreateDataSource(sFilename_output)
 
@@ -46,7 +54,9 @@ def intersect_flowline_with_mesh(sFilename_mesh, sFilename_flowline, sFilename_o
     lID = 0
     for pFeature1 in pLayer1:       
         pGeometry1 = pFeature1.GetGeometryRef()
-        pGeometry1.Transform(transform)
+        if (iFlag_transform ==1): #projections are different
+            pGeometry1.Transform(transform)
+
         if (pGeometry1.IsValid()):
             pass
         else:
@@ -80,10 +90,10 @@ def intersect_flowline_with_mesh(sFilename_mesh, sFilename_flowline, sFilename_o
 
 
 if __name__ == '__main__':
-    sFilename_mesh = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin/MOSART_0.5.json'
+    sFilename_mesh = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin/hexagon.json'
 
   
     sFilename_flowline = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin/flowline.json'
-    sFilename_output = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin/flowline_intersect.json'
+    sFilename_output = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin/flowline_intersect_hexagon.json'
 
     intersect_flowline_with_mesh(sFilename_mesh, sFilename_flowline, sFilename_output)

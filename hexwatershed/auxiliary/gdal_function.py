@@ -25,7 +25,7 @@ def reproject_coordinates(x, y, spatial_reference_source,spatial_reference_targe
 
 def obtain_raster_metadata(sFilename_geotiff):
     pDriver = gdal.GetDriverByName('GTiff')
-    pDriver.Register()
+   
     pDataset = gdal.Open(sFilename_geotiff, gdal.GA_ReadOnly)
 
     if pDataset is None:
