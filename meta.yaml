@@ -1,0 +1,29 @@
+package:
+  name: "hexwatershed"
+  version: "20210415"
+
+source:
+  git_rev: v20210415
+  git_url: https://github.com/changliao1025/pyhexwatershed
+
+requirements:
+  host:
+    - python
+    - setuptools
+  build:
+    - python
+  run:
+    - python
+    - netCDF4
+    - gdal
+
+about:
+  home: https://github.com/changliao1025/pyhexwatershed
+  license: MIT
+  license_familY: MIT
+  license_file: LICENSE
+  summary: "HexWatershed"
+
+extra:
+  recipe-maintainers:
+    - changliao1025
