@@ -47,7 +47,7 @@ def obtain_raster_metadata(sFilename_geotiff):
         pPixelHeight = pGeotransform[5]       
         
         print( dPixelWidth, dOriginX, dOriginY, nrow, ncolumn)
-        return dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, pSpatialRef, pProjection
+        return dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, pSpatialRef, pProjection, pGeotransform
 
 def obtain_shapefile_metadata(sFilename_shapefile):
 

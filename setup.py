@@ -8,11 +8,11 @@ from setuptools import setup, find_packages, Command
 
 NAME = "hexwatershed"
 DESCRIPTION = \
-    "Python interface for the HexWatershed."
+    "Python interface for the HexWatershed model."
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.0.1"
+VERSION = "20210415"
 REQUIRES_PYTHON = ">=3.6.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -136,7 +136,7 @@ setup(
     keywords=KEYWORDS,
     url=URL,
     packages=find_packages(),
-    cmdclass={"build_external": build_external},
+    #cmdclass={"build_external": build_external},
     package_data={"hexwatershed": ["_bin/*", "_lib/*"]},
     install_requires=REQUIRED,
     classifiers=CLASSIFY

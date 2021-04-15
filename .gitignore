@@ -141,3 +141,5 @@ unused/
 *.off
 *.obj
 *.stl
+*.tif
+*.shp
