@@ -1,28 +1,30 @@
 import os
-#import json
+import json
 from osgeo import ogr, osr, gdal, gdalconst
-os.environ['PROJ_LIB'] = '/qfs/people/liao313/.conda/envs/gdalenv/share/proj'
-def convert_shapefile_to_json(sFilename_shapefile, sFilename_output):
-    
 
-    if os.path.exists(sFilename_output): 
+def convert_shapefile_to_json(sFilename_shapefile_in, sFilename_json_out):
+    """
+    convert a shpefile to json format.
+    This function should be used for stream flowline only.
+    """
+
+    if os.path.exists(sFilename_json_out): 
         #delete it if it exists
-        os.remove(sFilename_output)
+        os.remove(sFilename_json_out)
 
     pDriver = ogr.GetDriverByName('GeoJSON')
     #geojson
-    pDataset = pDriver.CreateDataSource(sFilename_output)
+    pDataset = pDriver.CreateDataSource(sFilename_json_out)
 
 
     pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
    
-    pDataset_shapefile = pDriver_shapefile.Open(sFilename_shapefile, 0)
+    pDataset_shapefile = pDriver_shapefile.Open(sFilename_shapefile_in, gdal.GA_ReadOnly)
     pLayer_shapefile = pDataset_shapefile.GetLayer(0)
-    pSrs = pLayer_shapefile.GetSpatialRef()
-    #pSrs = osr.SpatialReference()  
-    #pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
+    pSpatialRef_in = pLayer_shapefile.GetSpatialRef()
+    
 
-    pLayerOut = pDataset.CreateLayer('flowline', pSrs, ogr.wkbMultiLineString)
+    pLayerOut = pDataset.CreateLayer('flowline', pSpatialRef_in, ogr.wkbMultiLineString)
     # Add one attribute
     pLayerOut.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
     
@@ -47,10 +49,10 @@ def convert_shapefile_to_json(sFilename_shapefile, sFilename_output):
     
 
 if __name__ == '__main__':
-    sFilename_shapefile = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/vector/mesh_id/crb_flowline_remove_small_line_split.shp'
+    sFilename_shapefile_in = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/vector/mesh_id/crb_flowline_remove_small_line_split.shp'
 
-    sFilename_output = 'flowline.json'
+    sFilename_json_out = 'flowline.json'
     sWorkspace_out = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin'
-    sFilename_output = os.path.join(sWorkspace_out, sFilename_output)
+    sFilename_json_out = os.path.join(sWorkspace_out, sFilename_json_out)
     
-    convert_shapefile_to_json(sFilename_shapefile, sFilename_output)
+    convert_shapefile_to_json(sFilename_shapefile_in, sFilename_json_out)

@@ -6,9 +6,8 @@ from shutil import copy2
 
 import subprocess
 import datetime
-sSystem_paths = os.environ['PATH'].split(os.pathsep)
-sys.path.extend(sSystem_paths)
-from pyes.system.define_global_variables import *
+
+from pyearth.system.define_global_variables import *
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)

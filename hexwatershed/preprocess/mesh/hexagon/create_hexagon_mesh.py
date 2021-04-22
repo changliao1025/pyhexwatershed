@@ -7,10 +7,6 @@ import os, sys
 import numpy as np
 from osgeo import ogr, osr, gdal, gdalconst
 
-sSystem_paths = os.environ['PATH'].split(os.pathsep)
-sys.path.extend(sSystem_paths)
-sPath_pye3sm='/people/liao313/workspace/python/hexwatershed/pyhexwatershed'
-sys.path.append(sPath_pye3sm)
 
 from hexwatershed.auxiliary.gdal_function import obtain_raster_metadata
 from hexwatershed.auxiliary.gdal_function import reproject_coordinates
