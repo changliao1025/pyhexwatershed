@@ -2,9 +2,9 @@ import sys, os
 import numpy as np
 from osgeo import gdal, osr, ogr, gdalconst
 
-from hexwatershed.preprocess.stream.simplification.search_duplicate_pair import  search_duplicate_pair
+from hexwatershed.preprocess.stream.simplification.add_unique_line import  add_unique_line
 
-def remove_flowline_loop_json(sFilename_flowline_in, sFilename_flowline_out):
+def remove_flowline_loop(sFilename_flowline_in, sFilename_flowline_out):
 
     sDriverName = "GeoJSON"
     pDriver = ogr.GetDriverByName( sDriverName )
@@ -34,35 +34,29 @@ def remove_flowline_loop_json(sFilename_flowline_in, sFilename_flowline_out):
         pLayerDefn = pLayer_out.GetLayerDefn()
         pFeatureOut = ogr.Feature(pLayerDefn)
         lFeatureCount = pLayer_in.GetFeatureCount()
-        print ( "Number of features in %s: %d" %  (os.path.basename(sFilename_flowline_in),lFeatureCount) )        
- 
+        print ( "Number of features in %s: %d" %  (os.path.basename(sFilename_flowline_in),lFeatureCount) )    
         
         j = 0
-        aDic =[]
+        aLine =[]
         for pFeature_in in pLayer_in:            
             pGeometry_in = pFeature_in.GetGeometryRef()
      
-            npt = pGeometry_in.GetPointCount()
-            print(npt)
-            for i in np.arange(0, npt):
-                # GetPoint returns a tuple not a Geometry
-                pt = pGeometry_in.GetPoint(i)   
+            npt = pGeometry_in.GetPointCount()         
 
             aPt_pair = [ pGeometry_in.GetPoint(0), pGeometry_in.GetPoint(npt-1)]
 
-            iFlag, aDic = search_duplicate_pair(aDic, aPt_pair)
+            iFlag, aLine = add_unique_line(aLine, aPt_pair)
 
             j = j + 1
 
             if(iFlag ==1):
                 pass    
-            else:
-                #save this geomery
+            else:           
                 pFeatureOut.SetGeometry(pGeometry_in)
                 pFeatureOut.SetField("id", j)
                 pLayer_out.CreateFeature(pFeatureOut)
                 pass
-            #aFeature.append(pGeometry_in)
+            
 
             pass
      

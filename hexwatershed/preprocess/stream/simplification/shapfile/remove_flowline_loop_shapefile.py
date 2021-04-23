@@ -51,7 +51,7 @@ def remove_flowline_loops(sFilename_in, sFilename_out):
 
             aPt_pair = [ pGeometry.GetPoint(0), pGeometry.GetPoint(npt-1)]
             iFlag, aDic = search_duplicate_pair(aDic, aPt_pair)
-            j = j +1
+            j = j + 1
             if(iFlag ==1):
                 pass    
             else:

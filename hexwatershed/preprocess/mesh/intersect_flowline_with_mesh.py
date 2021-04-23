@@ -73,15 +73,9 @@ def intersect_flowline_with_mesh(sFilename_mesh, sFilename_flowline, sFilename_o
             iFlag_intersect = pGeometry2.Intersects( pGeometry1 )
             if( iFlag_intersect == True):
                 pGeometry3 = pGeometry2.Intersection(pGeometry1) 
-                #print('Found intersection')
                 
-                #print( pGeometry3.ExportToJson() )
-                #print(pGeometry3.GetGeometryName())
-                #print(lID)
                 pFeatureOut.SetGeometry(pGeometry3)
-                pFeatureOut.SetField("id", lID)
-
-                # Add new feature to output Layer
+                pFeatureOut.SetField("id", lID)                
                 pLayerOut.CreateFeature(pFeatureOut)    
                 lID = lID + 1
 

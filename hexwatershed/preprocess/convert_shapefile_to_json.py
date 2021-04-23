@@ -14,34 +14,35 @@ def convert_shapefile_to_json(sFilename_shapefile_in, sFilename_json_out):
 
     pDriver = ogr.GetDriverByName('GeoJSON')
     #geojson
-    pDataset = pDriver.CreateDataSource(sFilename_json_out)
+    pDataset_json = pDriver.CreateDataSource(sFilename_json_out)
 
 
     pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
    
     pDataset_shapefile = pDriver_shapefile.Open(sFilename_shapefile_in, gdal.GA_ReadOnly)
     pLayer_shapefile = pDataset_shapefile.GetLayer(0)
-    pSpatialRef_in = pLayer_shapefile.GetSpatialRef()
+    pSpatialRef_shapefile = pLayer_shapefile.GetSpatialRef()
     
 
-    pLayerOut = pDataset.CreateLayer('flowline', pSpatialRef_in, ogr.wkbMultiLineString)
+    pLayer_json = pDataset_json.CreateLayer('flowline', pSpatialRef_shapefile, ogr.wkbMultiLineString)
     # Add one attribute
-    pLayerOut.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
+    pLayer_json.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
     
-    pLayerDefn = pLayerOut.GetLayerDefn()
-    pFeatureOut = ogr.Feature(pLayerDefn)
+    pLayerDefn = pLayer_json.GetLayerDefn()
+    pFeature_json = ogr.Feature(pLayerDefn)
 
     lID = 0
-    for feature in pLayer_shapefile:
-        geom = feature.GetGeometryRef()
-        pFeatureOut.SetGeometry(geom)
-        pFeatureOut.SetField("id", lID)
+    for pFeature_shapefile in pLayer_shapefile:
+        pGeometry_shapefile = pFeature_shapefile.GetGeometryRef()
+        pFeature_json.SetGeometry(pGeometry_shapefile)
+        pFeature_json.SetField("id", lID)
         
-        # Add new feature to output Layer
-        pLayerOut.CreateFeature(pFeatureOut)        
+        # Add new pFeature_shapefile to output Layer
+        pLayer_json.CreateFeature(pFeature_json)        
         lID =  lID +1
-    
-    pDataset = pLayerOut = pFeatureOut  = None    
+        
+    pDataset_json.FlushCache()
+    pDataset_json = pLayer_json = pFeature_json  = None    
 
     return
 

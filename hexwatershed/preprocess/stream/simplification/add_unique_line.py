@@ -1,11 +1,11 @@
 import numpy as np
-def search_duplicate_pair(aDic, aPt_pair):
+def add_unique_line(aLine, aPt_pair):
 
-    nPair = len(aDic)
+    nPair = len(aLine)
     iFlag = 0 # not in the dictionary
     for i in np.arange(0, nPair):
-        start = aDic[i][0]
-        end = aDic[i][1]
+        start = aLine[i][0]
+        end = aLine[i][1]
         start_x = start[0]
         start_y = start[1]
         end_x = end[0]
@@ -27,7 +27,7 @@ def search_duplicate_pair(aDic, aPt_pair):
 
     if iFlag == 0:
         #add it into the dic
-        aDic.append(aPt_pair)
+        aLine.append(aPt_pair)
 
-    return iFlag, aDic
+    return iFlag, aLine
 
