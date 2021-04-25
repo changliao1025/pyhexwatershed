@@ -16,11 +16,6 @@ def prepare_flowline(sFilename_shapefile_in,sFilename_mesh_in, sWorkspace_out):
     #step 1: convert it to json format
     sFilename_json_out = sWorkspace_out + slash + 'flowline1.json'
     #convert_shapefile_to_json( sFilename_shapefile_in, sFilename_json_out)
-    #step 2: merge all as one single feature   
-   
-    sFilename_in = sFilename_json_out
-    sFilename_out = sWorkspace_out + slash + 'flowline2.json'
-    merge_flowline(sFilename_in,  sFilename_out )    
 
     #step 3: split into segment
     sFilename_in = sFilename_out
@@ -28,55 +23,57 @@ def prepare_flowline(sFilename_shapefile_in,sFilename_mesh_in, sWorkspace_out):
     split_flowline(sFilename_in,  sFilename_out)
 
     #connect disconnected vertex
-    sFilename_in = sFilename_out
-    sFilename_out = sWorkspace_out + slash + 'flowline3_connect.json'
+    sFilename_in = sFilename_json_out
+    sFilename_out = sWorkspace_out + slash + 'flowline1_connect.json'
     connect_disconnect_line(sFilename_in,  sFilename_out )
+    return
 
-    sFilename_in = sFilename_out
-    sFilename_out = sWorkspace_out + slash + 'flowline3_merge.json'
+    #step 2: merge all as one single feature   
+   
+    sFilename_in = sFilename_json_out
+    sFilename_out = sWorkspace_out + slash + 'flowline2.json'
     merge_flowline(sFilename_in,  sFilename_out )    
 
+    #sFilename_in = sFilename_out
+    #sFilename_out = sWorkspace_out + slash + 'flowline3_merge.json'
+    #merge_flowline(sFilename_in,  sFilename_out )    
+
     #step 3: split into segment
-    sFilename_in = sFilename_out
-    sFilename_out = sWorkspace_out + slash + 'flowline3_split.json'
-    split_flowline(sFilename_in,  sFilename_out)   
+    #sFilename_in = sFilename_out
+    #sFilename_out = sWorkspace_out + slash + 'flowline3_split.json'
+    #split_flowline(sFilename_in,  sFilename_out)   
 
-    sFilename_in = sFilename_out
-    sFilename_out = sWorkspace_out + slash + 'flowline4_vertex.json'
-    find_flowline_vertex(sFilename_in,  sFilename_out)
+    #sFilename_in = sFilename_out
+    #sFilename_out = sWorkspace_out + slash + 'flowline4_vertex.json'
+    #find_flowline_vertex(sFilename_in,  sFilename_out)
 
-    sFilename_in =  sWorkspace_out + slash + 'flowline3_split.json'
-    sFilename_in2 = sWorkspace_out + slash + 'flowline4_vertex.json'
-    sFilename_out = sWorkspace_out + slash + 'flowline4.json'
-    split_flowline2(sFilename_in, sFilename_in2, sFilename_out)
+    #sFilename_in =  sWorkspace_out + slash + 'flowline3_split.json'
+    #sFilename_in2 = sWorkspace_out + slash + 'flowline4_vertex.json'
+    #sFilename_out = sWorkspace_out + slash + 'flowline4.json'
+    #split_flowline2(sFilename_in, sFilename_in2, sFilename_out)
 
     #step 4: remove loops
     sFilename_in = sFilename_out    
     sFilename_out = sWorkspace_out + slash + 'flowline5.json'
     remove_flowline_loop(sFilename_in,  sFilename_out)
-    sFilename_in = sFilename_out    
-    sFilename_out = sWorkspace_out + slash + 'flowline5_2.json'
-    remove_flowline_loop(sFilename_in,  sFilename_out)
-    sFilename_in = sFilename_out    
-    sFilename_out = sWorkspace_out + slash + 'flowline5_3.json'
-    remove_flowline_loop(sFilename_in,  sFilename_out)
+    
 
     sFilename_in = sFilename_out
     sFilename_out = sWorkspace_out + slash + 'flowline6.json'
     merge_flowline(sFilename_in,  sFilename_out )
 
-    sFilename_in = sFilename_out
-    sFilename_out = sWorkspace_out + slash + 'flowline7.json'
-    split_flowline(sFilename_in,  sFilename_out)
+    #sFilename_in = sFilename_out
+    #sFilename_out = sWorkspace_out + slash + 'flowline7.json'
+    #split_flowline(sFilename_in,  sFilename_out)
     
-    sFilename_in = sFilename_out
-    sFilename_out = sWorkspace_out + slash + 'flowline7_vertex.json'
-    find_flowline_vertex(sFilename_in,  sFilename_out)
+    #sFilename_in = sFilename_out
+    #sFilename_out = sWorkspace_out + slash + 'flowline7_vertex.json'
+    #find_flowline_vertex(sFilename_in,  sFilename_out)
 
-    sFilename_in = sWorkspace_out + slash + 'flowline7.json'
-    sFilename_in2 = sWorkspace_out + slash + 'flowline7_vertex.json'
-    sFilename_out = sWorkspace_out + slash + 'flowline8.json'
-    split_flowline2(sFilename_in, sFilename_in2, sFilename_out)
+    #sFilename_in = sWorkspace_out + slash + 'flowline7.json'
+    #sFilename_in2 = sWorkspace_out + slash + 'flowline7_vertex.json'
+    #sFilename_out = sWorkspace_out + slash + 'flowline8.json'
+    #split_flowline2(sFilename_in, sFilename_in2, sFilename_out)
 
     #step 5: remove small headwater segment
     #step 6: intersect with mesh and simplify
