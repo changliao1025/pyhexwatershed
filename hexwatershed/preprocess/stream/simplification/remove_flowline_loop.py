@@ -6,6 +6,16 @@ from hexwatershed.preprocess.stream.simplification.add_unique_line import  add_u
 
 def remove_flowline_loop(sFilename_flowline_in, sFilename_flowline_out):
 
+    if  os.path.exists(sFilename_flowline_in): 
+        pass
+    else:
+        print('The input file does not exist')
+        return
+
+    if os.path.exists(sFilename_flowline_out): 
+        #delete it if it exists
+        os.remove(sFilename_flowline_out)
+
     sDriverName = "GeoJSON"
     pDriver = ogr.GetDriverByName( sDriverName )
 
@@ -47,7 +57,7 @@ def remove_flowline_loop(sFilename_flowline_in, sFilename_flowline_out):
 
             iFlag, aLine = add_unique_line(aLine, aPt_pair)
 
-            j = j + 1
+            
 
             if(iFlag ==1):
                 pass    
@@ -55,6 +65,7 @@ def remove_flowline_loop(sFilename_flowline_in, sFilename_flowline_out):
                 pFeatureOut.SetGeometry(pGeometry_in)
                 pFeatureOut.SetField("id", j)
                 pLayer_out.CreateFeature(pFeatureOut)
+                j = j + 1
                 pass
             
 

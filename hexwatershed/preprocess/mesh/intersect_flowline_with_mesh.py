@@ -2,19 +2,25 @@
 import os
 import json
 from osgeo import ogr, osr
-os.environ['PROJ_LIB'] = '/qfs/people/liao313/.conda/envs/gdalenv/share/proj'
+
 
 
 def intersect_flowline_with_mesh(sFilename_mesh, sFilename_flowline, sFilename_output):
 
-    pDriver = ogr.GetDriverByName('GeoJSON')
+    if  os.path.exists(sFilename_mesh) and  os.path.exists(sFilename_flowline) : 
+        pass
+    else:
+        print('The input file does not exist')
+        return
 
     if os.path.exists(sFilename_output): 
         #delete it if it exists
         os.remove(sFilename_output)
 
-    
-    #geojson
+    sDriverName = "GeoJSON"
+    pDriver = ogr.GetDriverByName( sDriverName )
+
+        #geojson
     
    
     pDataset1 = pDriver.Open(sFilename_mesh, 0)

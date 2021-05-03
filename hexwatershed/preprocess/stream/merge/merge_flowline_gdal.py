@@ -2,14 +2,15 @@ import os, sys
 from osgeo import ogr, osr, gdal, gdalconst
 import numpy as np
 
-def split_flowline(sFilename_in, sFilename_out):
 
+from hexwatershed.preprocess.stream.check_same_point  import check_same_point
+def merge_flowline_gdal(sFilename_in, sFilename_out):
     if  os.path.exists(sFilename_in): 
         pass
-    else:
+    else: 
         print('The input file does not exist')
         return
-
+        
     if os.path.exists(sFilename_out): 
         #delete it if it exists
         os.remove(sFilename_out)
@@ -29,34 +30,28 @@ def split_flowline(sFilename_in, sFilename_out):
     pLayerDefn_out = pLayer_out.GetLayerDefn()
     pFeature_out = ogr.Feature(pLayerDefn_out)
 
-    
+    newGeometry = None
     lID =0
     for pFeature_in in pLayer_in:
         pGeometry_in = pFeature_in.GetGeometryRef()
-
         sGeometry_type = pGeometry_in.GetGeometryName()
-        if(sGeometry_type == 'MULTILINESTRING'):
-            aLine = ogr.ForceToLineString(pGeometry_in)
-            for Line in aLine: 
-                pFeature_out.SetGeometry(Line)
-                pFeature_out.SetField("id", lID)
-                lID = lID + 1
-                # Add new pFeature_shapefile to output Layer
-                pLayer_out.CreateFeature(pFeature_out)    
-        else:
-            if sGeometry_type =='LINESTRING':
-                pFeature_out.SetGeometry(pGeometry_in)
-                pFeature_out.SetField("id", lID)
-                lID = lID + 1
-                # Add new pFeature_shapefile to output Layer
-                pLayer_out.CreateFeature(pFeature_out)    
+        if(sGeometry_type == 'LINESTRING'):
+            if newGeometry is None:
+               newGeometry = pGeometry_in.Clone()
             else:
-                print(sGeometry_type)
-                pass
-            
-    
+               newGeometry = newGeometry.Union(pGeometry_in)
+        else:
+            pass
+
+    #print (newGeometry)
+
+    pFeature_out.SetGeometry(newGeometry)
+    pFeature_out.SetField("id", lID)
+        
+    # Add new pFeature_shapefile to output Layer
+    pLayer_out.CreateFeature(pFeature_out)        
     pDataset_out.FlushCache()
+    
     pDataset_out = pLayer_out = pFeature_out = None    
 
     return 
-
