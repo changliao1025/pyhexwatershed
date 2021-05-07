@@ -39,7 +39,7 @@ def convert_shapefile_to_json(sFilename_shapefile_in, sFilename_json_out):
         
         # Add new pFeature_shapefile to output Layer
         pLayer_json.CreateFeature(pFeature_json)        
-        lID =  lID +1
+        lID =  lID + 1
         
     pDataset_json.FlushCache()
     pDataset_json = pLayer_json = pFeature_json  = None    
