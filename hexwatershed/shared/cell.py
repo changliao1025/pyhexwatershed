@@ -1,2 +1,0 @@
-class pycell(object):
-    
