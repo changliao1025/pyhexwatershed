@@ -88,11 +88,3 @@ def obtain_shapefile_metadata(sFilename_shapefile):
             print( pEnvelope )
         print(left_min, right_max, bot_min, top_max)
         return left_min, right_max, bot_min, top_max
-
-if __name__ == '__main__':
-    sFilename_shapefile = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/vector/mesh_id/crb_flowline_remove_small_line_split.shp'
-    obtain_shapefile_metadata(sFilename_shapefile)
-
-
-    sFilename_geotiff = '/qfs/people/liao313/data/hexwatershed/columbia_river_basin/raster/dem/crbdem.tif'
-    obtain_raster_metadata(sFilename_geotiff)
