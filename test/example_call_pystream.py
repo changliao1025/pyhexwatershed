@@ -1,0 +1,7 @@
+from pyhexwatershed.operation.preprocess.pystream_generate_mesh_and_flowline_op import pystream_generate_mesh_and_flowline_op
+from pyhexwatershed.case.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
+sFilename_configuration_in = '/qfs/people/liao313/workspace/python/pyhexwatershed/pyhexwatershed/config/susquehanna_mpas.json'
+oModel = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in)
+
+aCell = pystream_generate_mesh_and_flowline_op(oModel)
+

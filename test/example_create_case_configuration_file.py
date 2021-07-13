@@ -6,7 +6,7 @@ from pyhexwatershed.case.pyhexwatershed_read_model_configuration_file import pyh
 #aParameter=dict()
 
 #aParameter[]=
-sFilename_configuration = '/qfs/people/liao313/workspace/python/pyhexwatershed/pyhexwatershed/config/susquehanna.json'
+sFilename_configuration = '/qfs/people/liao313/workspace/python/pyhexwatershed/pyhexwatershed/config/hexwatershed_susquehanna_mpas.json'
 
 
 pyhexwatershed_generate_case_json_file(sFilename_configuration)

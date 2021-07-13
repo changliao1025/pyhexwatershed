@@ -1,7 +1,0 @@
-{
-    "iFlag_flowline": 1,
-    "iFlag_merge_reach": 1,
-    "iFlag_mesh_type": 4,
-    "iFlag_resample_method": 2,
-    "lMeshID_outlet": -1
-}
