@@ -12,7 +12,7 @@ from pyearth.system.define_global_variables import *
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
 sDate = '20210308'
-def create_hexwatershed_compset(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology,\
+def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology,\
     iCase_index,\
      lMeshID_outlet,\
     dAccumulation_threshold , \

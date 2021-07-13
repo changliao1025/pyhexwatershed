@@ -3,11 +3,11 @@ import json
 
 from osgeo import gdal, osr, ogr
 
-class pycompset(object):
+class hexwatershed(object):
     __metaclass__ = ABCMeta  
     iFlag_flowline=1
     iFlag_merge_reach=1
-    iFlag_mesh_type=3  #1: tri 2: square 3: lat/lon 4:hexagon 5:mpas    
+    iFlag_mesh_type=3    
     iFlag_resample_method=2 
     lMeshID_outlet = -1
     
