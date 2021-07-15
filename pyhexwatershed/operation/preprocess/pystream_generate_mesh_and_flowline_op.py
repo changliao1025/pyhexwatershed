@@ -5,6 +5,8 @@ from pystream.format.export_vertex_to_shapefile import export_vertex_to_shapefil
 from pystream.case.pystream_read_model_configuration_file import pystream_read_model_configuration_file
 from pystream.case.pycase import streamcase
 
+from pystream.operation.create_mesh_op import create_mesh_op
+
 
 def pystream_generate_mesh_and_flowline_op(oModel_in):
 
@@ -14,6 +16,10 @@ def pystream_generate_mesh_and_flowline_op(oModel_in):
     aParameter['sFilename_model_configuration'] = sFilename_pystream_config
     oModel = streamcase(aParameter)
 
+    aCell = create_mesh_op(oModel)
 
     intersect_flowline_with_mesh_with_postprocess_op(oModel)
+
+    #export mesh info
+    
 
