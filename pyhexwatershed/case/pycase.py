@@ -25,6 +25,8 @@ class hexwatershed(object):
     sFilename_dem=''
     sFilename_elevation=''
     sFilename_model_configuration=''
+    sFilename_mesh_info=''
+    sFilename_flowline_info=''
     
     sWorkspace_data=''
     sWorkspace_scratch=''
@@ -118,8 +120,11 @@ class hexwatershed(object):
         self.sFilename_dem = aParameter['sFilename_dem']
 
 
-        self.sFilename_mesh = self.sWorkspace_simulation_case + slash + aParameter['sFilename_mesh']           
+        self.sFilename_mesh = self.sWorkspace_simulation_case + slash + aParameter['sFilename_mesh']    
+
+        self.sFilename_mesh_info  =   self.sWorkspace_simulation_case + slash + aParameter['sFilename_mesh_info']    
         self.sFilename_elevation = self.sWorkspace_simulation_case + slash + aParameter['sFilename_elevation']
+        self.sFilename_flowline_info  =   self.sWorkspace_simulation_case + slash + aParameter['sFilename_flowline_info']    
 
         self.sWorkspace_data_project = self.sWorkspace_data +  slash + self.sWorkspace_project
 

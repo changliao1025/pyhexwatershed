@@ -10,13 +10,16 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
     if os.path.exists(sFilename_shapefile_out): 
         #delete it if it exists
         os.remove(sFilename_shapefile_out)
+    
+    aCell_out=list()
 
     ncell = len(aCell_in)
     pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
     pDriver_memory = gdal.GetDriverByName('MEM')
 
-    sFilename_shapefile_cut = sWorkspace_simulation_case + '/tmp_polygon.shp'
-
+    #sFilename_shapefile_cut = sWorkspace_simulation_case + '/tmp_polygon.shp'
+    sFilename_shapefile_cut = "/vsimem/tmp_polygon.shp"
+    
     pSrs = osr.SpatialReference()  
     pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
     pDataset_elevation = gdal.Open(sFilename_dem_in, gdal.GA_ReadOnly)
@@ -109,12 +112,16 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
                 if(len(aElevation) >0 and np.mean(aElevation)!=-9999):
                     pFeature2.SetGeometry(pPolygon)
                     pFeature2.SetField("id", lCellID)
-                    pFeature2.SetField("elev",  float(np.mean(aElevation) ) )
-                    pLayer2.CreateFeature(pFeature2)             
+                    dElevation =  float(np.mean(aElevation) )  
+                    pFeature2.SetField("elev",  dElevation )
+                    pLayer2.CreateFeature(pFeature2)    
+                    pCell.dElevation =    dElevation  
+                    pCell.dz = dElevation  
+                    aCell_out.append(pCell)
                 else:
                     pFeature2.SetField("elev", -9999.0)
 
     pDataset_out.FlushCache()
     
         
-    return
+    return aCell_out

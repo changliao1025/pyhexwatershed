@@ -28,13 +28,15 @@ def pyhexwatershed_generate_case_json_file(sFilename_json):
     aConfig['sRegion'] = 'susquehanna'
     aConfig['sModel'] = 'pyhexwatershed'
 
-    aConfig['iCase_index'] = 1
+    aConfig['iCase_index'] = 3
     aConfig['sMesh_type'] = 'mpas'
 
     aConfig['sDate']= '20210713'
 
     aConfig['sFilename_mesh'] = 'mpas.shp'
     
+    aConfig['flowline_info'] = 'flowline_info.json'
+    aConfig['sFilename_mesh_info'] = 'mesh_info.json'
     aConfig['sFilename_elevation']  = 'elevation.shp'
 
     aConfig['sFilename_dem']  = '/qfs/people/liao313/data/hexwatershed/susquehanna/raster/dem/dem_ext.tif'
