@@ -118,9 +118,8 @@ class hexwatershed(object):
         self.sFilename_dem = aParameter['sFilename_dem']
 
 
-        self.sFilename_mesh = self.sWorkspace_simulation_case + slash + aParameter['sFilename_mesh']
-        
-    
+        self.sFilename_mesh = self.sWorkspace_simulation_case + slash + aParameter['sFilename_mesh']           
+        self.sFilename_elevation = self.sWorkspace_simulation_case + slash + aParameter['sFilename_elevation']
 
         self.sWorkspace_data_project = self.sWorkspace_data +  slash + self.sWorkspace_project
 

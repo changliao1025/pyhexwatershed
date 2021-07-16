@@ -45,7 +45,6 @@ def obtain_elevation_based_on_mesh(sFilename_mesh, sFilename_elevation, sFilenam
     pDriver_json = ogr.GetDriverByName('GeoJSON')
     
     pDataset_mesh = pDriver_json.Open(sFilename_mesh, gdal.GA_ReadOnly)
-    #pDataset_out = pDriver_json.Open(sFilename_output, gdal.GA_Update)
     pDataset_out = pDriver_json.CreateDataSource(sFilename_output)
 
     if pDataset_elevation is None or pDataset_mesh is None:

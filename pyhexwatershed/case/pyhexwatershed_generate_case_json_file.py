@@ -35,11 +35,11 @@ def pyhexwatershed_generate_case_json_file(sFilename_json):
 
     aConfig['sFilename_mesh'] = 'mpas.shp'
     
-    aConfig['sFilename_elevation']  = 'elevation.json'
+    aConfig['sFilename_elevation']  = 'elevation.shp'
 
     aConfig['sFilename_dem']  = '/qfs/people/liao313/data/hexwatershed/susquehanna/raster/dem/dem_ext.tif'
 
-    aConfig['sFilename_pystream_config'] = '/qfs/people/liao313/workspace/python/pyhexwatershed/external/pystream/pystream/config/pystream_susquehanna_mpas.xml'
+    aConfig['sFilename_pystream_config'] = '/qfs/people/liao313/workspace/python/pystream/pystream/config/pystream_susquehanna_mpas.xml'
 
     aConfig['sFilename_spatial_reference'] = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_proj.shp'
     
