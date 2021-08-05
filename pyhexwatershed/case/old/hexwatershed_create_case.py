@@ -1,4 +1,3 @@
-
 import sys, os, stat
 import numpy as np
 from pathlib import Path
@@ -6,30 +5,40 @@ from shutil import copy2
 
 import subprocess
 import datetime
+import json
 
 from pyearth.system.define_global_variables import *
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
-sDate = '20210308'
-def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology,\
-    iCase_index,\
-     lMeshID_outlet,\
-    dAccumulation_threshold , \
-        sResolution, \
-            sFilename_dem, \
-                sMissing_value_dem):
+
+sFilename_hexwatershed = '/qfs/people/liao313/workspace/cplus/hexwatershed_dev/hexwatershed_dev2.5/bin/hexwatershed'
+
+
+def hexwatershed_create_case(iFlag_resample_method, \
+                             iFlag_stream_burning, \
+                             iFlag_stream_burning_topology,\
+                             iCase_index,\
+                             lMeshID_outlet,\
+                             dAccumulation_threshold , \
+                             sDate,\
+                             sRegion, \
+                             sResolution, \
+                             sFilename_dem, \
+                             sMissing_value_dem):
+
+    sWorkspace_job = '/qfs/people/liao313/jobs/hexwatershed/' +sRegion +'/simulation'
 
     if (sResolution == '20k' ):
-        if(iFlag_resample_method ==1):
+        if(iFlag_stream_burning ==1):
             lMeshID_outlet = 1166
             pass
-           
-        
+
+
 
     sCase = "{:03d}".format( iCase_index )
 
-    sCase_folder = sWorkspace_job + slash + 'case' + sDate + sCase
+    sCase_folder = sWorkspace_job + slash + 'hexwatershed' + sDate + sCase
 
     if (os.path.exists(sCase_folder)):
         sCommand = 'rm -rf '  + sCase_folder
@@ -40,7 +49,7 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_
         print(sCase_folder)
 
     Path(sCase_folder).mkdir(parents=True, exist_ok=True)
-    
+
 
     os.chdir(sCase_folder)
     #writen normal run script
@@ -65,7 +74,7 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_
     ofs.write(sLine)
     sLine = '#SBATCH -A ESMD\n'
     ofs.write(sLine)
-    sLine = '#SBATCH --job-name=hexwatershed' + '\n'
+    sLine = '#SBATCH --job-name=hex' + sCase + '\n'
     ofs.write(sLine)
     sLine = '#SBATCH -t 1:00:00' + '\n'
     ofs.write(sLine)
@@ -118,7 +127,7 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_
     ofs.write(sLine)
     sLine = 'iFlag_stream_burning_topology, ' +   "{:0d}".format( iFlag_stream_burning_topology )  + '\n'
     ofs.write(sLine)
-    
+
     sLine = 'iFlag_resample_method, ' +   "{:0d}".format( iFlag_resample_method )  + '\n'
     ofs.write(sLine)
     if (iFlag_stream_burning ==1):
@@ -126,6 +135,7 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_
         ofs.write(sLine)
     else:
         pass
+
     sLine = 'iCase, '  + sCase + '\n'
     ofs.write(sLine)
     sLine = 'dAccumulation_threshold, ' + "{:0d}".format( dAccumulation_threshold ) + '\n'
@@ -142,81 +152,5 @@ def create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_
     #p = subprocess.Popen(['/bin/bash', '-i', '-c', sCommand])
     p = subprocess.Popen(sCommand, shell= True)
     p.wait()
+
     return
-
-if __name__ == '__main__':
-
-
-    sRegion = 'columbia_river_basin'
-    #sRegion = 'susquehanna'
-
-    
-    
-    #crb
-    if sRegion == 'columbia_river_basin':
-        aResolution = ['5k', '10k', '20k', '40k']
-        aAccumulation_threshold =[1000, 250, 60, 15]
-        aMeshID_outlet =[19595, 4848, 1240, 324]
-        sFilename_dem='crbdem.tif'
-        sMissing_value_dem='-32768'
-    else: 
-        #susquehanna
-        if sRegion == 'susquehanna':
-            aResolution = ['5k', '10k', '20k']
-            aAccumulation_threshold =[100, 50, 10]
-            aMeshID_outlet =[4664, 1162, 297]
-            sFilename_dem='dem1.tif'
-            sMissing_value_dem='-9999'
-        else:
-
-            #aAccumulation_threshold =[1000, 250, 60, 15]
-            pass
-
-    nResolution  = len(aResolution)
-
-    sWorkspace_job = '/qfs/people/liao313/jobs/hexwatershed/' +sRegion +'/simulation'
-    sFilename_hexwatershed = '/qfs/people/liao313/workspace/cplus/hexwatershed_dev/hexwatershed_dev/bin/hexwatershed'
-    iCase_index = 1
-
-    iFlag_resample_method = 2
-    for i  in np.arange(nResolution):
-        
-        if i !=3 :
-            continue
-
-        iCase_index = i* nResolution + 1
-        dAccumulation_threshold = aAccumulation_threshold[i]
-        sResolution = aResolution[i]
-        
-        lMeshID_outlet = aMeshID_outlet[i]
-        iFlag_stream_burning_topology = 0
-        iFlag_stream_burning = 1
-        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology, \
-            iCase_index, \
-                    lMeshID_outlet,dAccumulation_threshold ,  sResolution, sFilename_dem, sMissing_value_dem)
-        iCase_index = iCase_index + 1
-
-        iFlag_stream_burning_topology = 1 
-        iFlag_stream_burning = 1
-        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology, \
-            iCase_index, \
-                     lMeshID_outlet,dAccumulation_threshold , sResolution, sFilename_dem, sMissing_value_dem)
-        
-
-        continue
-
-        iFlag_resample_method = 2
-        iFlag_stream_burning = 0
-        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology,iCase_index, \
-                     lMeshID_outlet,dAccumulation_threshold , sResolution, sFilename_dem, sMissing_value_dem)
-        iCase_index = iCase_index + 1
-
-        iFlag_resample_method = 2 
-        iFlag_stream_burning = 1
-        create_hexwatershed_case(iFlag_resample_method, iFlag_stream_burning, iFlag_stream_burning_topology,iCase_index, \
-                     lMeshID_outlet ,dAccumulation_threshold, sResolution, sFilename_dem, sMissing_value_dem)
-        iCase_index = iCase_index + 1
-
-
-
-    pass

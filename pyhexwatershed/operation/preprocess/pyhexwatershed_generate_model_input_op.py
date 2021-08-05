@@ -22,7 +22,7 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
     aParameter['sFilename_model_configuration'] = sFilename_pystream_config
     oPystream = streamcase(aParameter)
 
-    aCell = create_mesh_op(oPystream)
+    #aCell = create_mesh_op(oPystream)
 
     sWorkspace_simulation_case = oHexWatershed.sWorkspace_simulation_case
     sFilename_dem = oHexWatershed.sFilename_dem
@@ -32,7 +32,7 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
     #export_mesh_info_to_json(aCell, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
 
 
-    #preprocess_flowline_op(oPystream)
+    preprocess_flowline_op(oPystream)
     aCell_intersect, aFlowline = intersect_flowline_with_mesh_with_postprocess_op(oPystream)
 
     export_flowline_info_to_json(aCell_intersect, aFlowline, sFilename_json_out=oHexWatershed.sFilename_flowline_info)
