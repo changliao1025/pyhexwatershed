@@ -4,14 +4,10 @@ from pathlib import Path
 
 import subprocess
 
+from pyearth.system.define_global_variables import *
+from pyearth.visual.color.create_diverge_rgb_color_hex import create_diverge_rgb_color_hex
 
-sSystem_paths = os.environ['PATH'].split(os.pathsep)
-sys.path.extend(sSystem_paths)
-print(sSystem_paths)
-from pyes.system.define_global_variables import *
-from pyes.visual.color.create_diverge_rgb_color_hex import create_diverge_rgb_color_hex
-
-from pyes.visual.barplot.barplot_data_with_reference import barplot_data_with_reference
+from pyearth.visual.barplot.barplot_data_with_reference import barplot_data_with_reference
 
 sRegion = 'columboa_river_basin'
 
@@ -20,21 +16,21 @@ nResolution =len(aResolution)
 
 
 
-iFlag_outlet = 2
+iFlag_outlet =2
 
 if iFlag_outlet==1:
     #outlet
     #5k, case 1 2 3 4
-    a1 = np.array([26056.0, 26127, 26605, 26765])
+    a1 = np.array([26075.0, 26135, 26253, 26779])
     a1 = a1 * 24973500 # hexagon_area(5000)
 
-    a2 = np.array([6225.0, 6469, 6573, 6579])
+    a2 = np.array([6230.0, 6510, 6572, 6621])
     a2 = a2 * 100080000.0 #hexagon_area(10000)
 
-    a3 = np.array([1595, 1691, 1636, 1676])
+    a3 = np.array([1370, 1736, 1630, 1708])
     a3 = a3 * 399948000.0 # hexagon_area(20000)
 
-    a4 = np.array([348, 437, 284, 454])
+    a4 = np.array([354, 461, 285, 467])
     a4 = a4 * 1600000000.0 #hexagon_area(40000)
     #mosart(1/16,1/8,1/4 1/2)
     a5 = np.array([6.436525e+11, 6.543713e+11, 6.880888e+11,6.497589e+11 ] )
@@ -108,6 +104,6 @@ barplot_data_with_reference(aData, \
              ncolumn_in= 3,\
              aColor_in= aColor,\
              aHatch_in = aHatch,\
-                 sTitle_in = sTitle)
+             sTitle_in = sTitle)
 
 print('finished')

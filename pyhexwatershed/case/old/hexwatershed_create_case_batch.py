@@ -13,7 +13,7 @@ pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
 
 
-sDate = '20210806'
+sDate = '20210805'
 
 from pyhexwatershed.case.old.hexwatershed_create_case import hexwatershed_create_case
 
