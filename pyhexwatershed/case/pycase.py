@@ -19,63 +19,65 @@ class hexwatershed(object):
     iFlag_merge_reach=1
     iMesh_type=3    
     iFlag_resample_method=2 
-    lMeshID_outlet = -1
+
+
+    lMeshID_outlet = -1    
     
-    #sFilename_flowline=''
-    sFilename_dem=''
-    sFilename_elevation=''
+    sFilename_dem=''  
     sFilename_model_configuration=''
     sFilename_mesh_info=''
     sFilename_flowline_info=''
     
-    sWorkspace_data=''
-    sWorkspace_scratch=''
+    sWorkspace_data=''   
     
     sWorkspace_project=''
     
-    sWorkspace_simulation=''
-    sWorkspace_simulation_flowline=''
-    sWorkspace_simulation_case=''
+    sWorkspace_model_region=''    
+    sWorkspace_output_case=''
     
     sRegion=''
     sModel=''
     iMesh_type ='hexagon'
 
     sCase=''
-    sDate=''
-    
+    sDate=''    
 
     sFilename_spatial_reference=''
-    sFilename_flowline_pystream=''
+
+
     def __init__(self, aParameter):
         print('HexWatershed compset is being initialized')
         self.sFilename_model_configuration    = aParameter[ 'sFilename_model_configuration']
 
         self.sWorkspace_data = aParameter[ 'sWorkspace_data']
-        self.sWorkspace_scratch    = aParameter[ 'sWorkspace_scratch']
+        self.sWorkspace_output    = aParameter[ 'sWorkspace_output']
         self.sWorkspace_project= aParameter[ 'sWorkspace_project']
         self.sWorkspace_bin= aParameter[ 'sWorkspace_bin']
         
         self.sRegion               = aParameter[ 'sRegion']
         self.sModel                = aParameter[ 'sModel']
+        
+        
 
         #required with default variables
 
         #optional
+        if 'iFlag_save_elevation' in aParameter:
+            self.iFlag_save_elevation  = int(aParameter[ 'iFlag_save_elevation'])
         if 'iFlag_flowline' in aParameter:
             self.iFlag_flowline             = int(aParameter[ 'iFlag_flowline'])
 
         if 'iFlag_resample_method' in aParameter:
-            self.iFlag_resample_method             = int(aParameter[ 'iFlag_resample_method'])
+            self.iFlag_resample_method       = int(aParameter[ 'iFlag_resample_method'])
 
         if 'lMeshID_outlet' in aParameter:
             self.lMeshID_outlet             = int(aParameter[ 'lMeshID_outlet'])
         
         #test for numpy array
         
-        self.sWorkspace_simulation = self.sWorkspace_scratch + slash + '04model' + slash \
-            + self.sModel + slash + self.sRegion +  slash + 'simulation'
-        sPath = self.sWorkspace_simulation
+        self.sWorkspace_model_region = self.sWorkspace_output   + slash \
+            + self.sModel + slash + self.sRegion 
+        sPath = self.sWorkspace_model_region
         Path(sPath).mkdir(parents=True, exist_ok=True)
 
        
@@ -111,30 +113,25 @@ class hexwatershed(object):
                         else:
                             print('Unsupported mesh type?')
 
-        self.sWorkspace_simulation_case = self.sWorkspace_simulation + slash + sCase + slash + self.sMesh_type 
-        sPath = self.sWorkspace_simulation_case
+        self.sWorkspace_output_case = self.sWorkspace_model_region + slash + sCase + slash 
+        sPath = self.sWorkspace_output_case
         Path(sPath).mkdir(parents=True, exist_ok=True)
 
-
+        self.sWorkspace_data_project = self.sWorkspace_data +  slash + self.sWorkspace_project
         self.sFilename_spatial_reference = aParameter['sFilename_spatial_reference']
         self.sFilename_dem = aParameter['sFilename_dem']
-
-
-        self.sFilename_mesh = self.sWorkspace_simulation_case + slash + aParameter['sFilename_mesh']    
-
-        self.sFilename_mesh_info  =   self.sWorkspace_simulation_case + slash + aParameter['sFilename_mesh_info']    
-        self.sFilename_elevation = self.sWorkspace_simulation_case + slash + aParameter['sFilename_elevation']
-        self.sFilename_flowline_info  =   self.sWorkspace_simulation_case + slash + aParameter['sFilename_flowline_info']    
-
-        self.sWorkspace_data_project = self.sWorkspace_data +  slash + self.sWorkspace_project
-
-
-        self.sFilename_pystream_config = aParameter['sFilename_pystream_config']
+        self.sFilename_elevation = self.sWorkspace_output_case + slash + sMesh_type + "_elevation.shp"
+        self.sFilename_mesh = self.sWorkspace_output_case + slash + sMesh_type + ".shp"
+        self.sFilename_mesh_info  =   self.sWorkspace_output_case + slash + sMesh_type + "_mesh_info.json"   
+        
+        self.sFilename_flowline_info  =   self.sWorkspace_output_case + slash + sMesh_type + "_flowline_info.json"   
+        
+      
 
         return    
     def save_as_json(self, sFilename_output):
         jsonStr = json.dumps(self.__dict__, cls=NumpyArrayEncoder) 
-        #jsonStr = json.dumps(self.__dict__)
+        
 
         with open(sFilename_output, 'w', encoding='utf-8') as f:
             json.dump(self.__dict__, f, ensure_ascii=False, indent=4, cls=NumpyArrayEncoder)

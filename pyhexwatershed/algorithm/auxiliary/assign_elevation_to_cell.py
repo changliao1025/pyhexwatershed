@@ -6,7 +6,7 @@ from pyearth.gis.gdal.gdal_function import obtain_raster_metadata
 from pyearth.gis.gdal.gdal_function import reproject_coordinates
 from pyearth.gis.gdal.world2Pixel import world2Pixel
 
-def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_shapefile_out, sWorkspace_simulation_case):
+def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_shapefile_out, sWorkspace_output_case):
     if os.path.exists(sFilename_shapefile_out): 
         #delete it if it exists
         os.remove(sFilename_shapefile_out)
@@ -17,7 +17,7 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
     pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
     pDriver_memory = gdal.GetDriverByName('MEM')
 
-    #sFilename_shapefile_cut = sWorkspace_simulation_case + '/tmp_polygon.shp'
+    #sFilename_shapefile_cut = sWorkspace_output_case + '/tmp_polygon.shp'
     sFilename_shapefile_cut = "/vsimem/tmp_polygon.shp"
     
     pSrs = osr.SpatialReference()  
