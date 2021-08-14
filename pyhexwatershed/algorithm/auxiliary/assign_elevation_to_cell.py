@@ -11,7 +11,7 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
         #delete it if it exists
         os.remove(sFilename_shapefile_out)
     
-    aCell_out=list()
+    aCell_mid=list()
 
     ncell = len(aCell_in)
     pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
@@ -118,12 +118,36 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
                     #pLayer2.CreateFeature(pFeature2)    
                     pCell.dElevation =    dElevation  
                     pCell.dz = dElevation  
-                    aCell_out.append(pCell)
+                    aCell_mid.append(pCell)
                 else:
                     #pFeature2.SetField("elev", -9999.0)
                     pass
 
     #pDataset_out2.FlushCache()
-    
+
+    #update neighbor
+    ncell = len(aCell_mid)
+    aCellID  = list()
+    for i in range(ncell):
+        pCell = aCell_mid[i]
+        lCellID = pCell.lCellID
+        aCellID.append(lCellID)
+
+    aCell_out=list()
+    for i in range(ncell):
+        pCell = aCell_mid[i]
+        aNeighbor = pCell.aNeighbor
+        nNeighbor = pCell.nNeighbor
+        aNeighbor_new = list()
+        nNeighbor_new = 0 
+        for j in range(nNeighbor):
+            lNeighbor = int(aNeighbor[j])
+            if lNeighbor in aCellID:
+                nNeighbor_new = nNeighbor_new +1 
+                aNeighbor_new.append(lNeighbor)
+                
+        pCell.nNeighbor= len(aNeighbor_new)
+        pCell.aNeighbor = aNeighbor_new
+        aCell_out.append(pCell)
 
     return aCell_out
