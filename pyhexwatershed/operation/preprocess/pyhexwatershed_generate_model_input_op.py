@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from pyearth.system.define_global_variables import *
 from pystream.operation.intersect_flowline_with_mesh_with_postprocess_op import intersect_flowline_with_mesh_with_postprocess_op
 from pystream.format.export_vertex_to_shapefile import export_vertex_to_shapefile
@@ -30,18 +31,25 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
 
     
 
-    #aCell = create_mesh_op(oPystream)
+    aCell = create_mesh_op(oPystream)
 
     sWorkspace_output_case = oHexWatershed.sWorkspace_output_case
     sFilename_dem = oHexWatershed.sFilename_dem
     sFilename_elevation = oHexWatershed.sFilename_elevation
-    #aCell = assign_elevation_to_cell(iMesh_type, aCell, sFilename_dem, sFilename_elevation ,sWorkspace_output_case)
+    aCell = assign_elevation_to_cell(iMesh_type, aCell, sFilename_dem, sFilename_elevation ,sWorkspace_output_case)
 
     #export mesh info
-    #export_mesh_info_to_json(aCell, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
+    export_mesh_info_to_json(aCell, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
 
 
-    #preprocess_flowline_op(oPystream)
-    aCell_intersect, aFlowline = intersect_flowline_with_mesh_with_postprocess_op(oPystream)
-
+    preprocess_flowline_op(oPystream)
+    aCell_intersect, aFlowline, lCellID_outlet = intersect_flowline_with_mesh_with_postprocess_op(oPystream)
+    oHexWatershed.lCellID_outlet = lCellID_outlet
     export_flowline_info_to_json(aCell_intersect, aFlowline, sFilename_json_out=oHexWatershed.sFilename_flowline_info)
+
+    sPath = os.path.dirname(oHexWatershed.sFilename_model_configuration)
+
+    sName  = Path(oHexWatershed.sFilename_model_configuration).stem + '_new.json'
+    sFilename_configuration  =  sPath + slash + sName
+
+    oHexWatershed.save_as_json(sFilename_configuration)

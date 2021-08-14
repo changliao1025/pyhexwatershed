@@ -26,7 +26,7 @@ sRegion = 'columbia_river_basin'
 if sRegion == 'columbia_river_basin':
     aResolution = ['5k', '10k', '20k', '40k']
     aAccumulation_threshold =[1000, 250, 60, 15]
-    aMeshID_outlet =[19595, 4848, 1240, 324]
+    aCellID_outlet =[19595, 4848, 1240, 324]
     sFilename_dem='crbdem.tif'
     sMissing_value_dem='-32768'
 else:
@@ -34,7 +34,7 @@ else:
     if sRegion == 'susquehanna':
         aResolution = ['5k', '10k', '20k']
         aAccumulation_threshold =[100, 50, 10]
-        aMeshID_outlet =[4664, 1162, 297]
+        aCellID_outlet =[4664, 1162, 297]
         sFilename_dem='dem1.tif'
         sMissing_value_dem='-9999'
     else:
@@ -55,14 +55,14 @@ for i  in np.arange(nResolution):
     dAccumulation_threshold = aAccumulation_threshold[i]
     sResolution = aResolution[i]
 
-    lMeshID_outlet = aMeshID_outlet[i]
+    lCellID_outlet = aCellID_outlet[i]
     iFlag_stream_burning_topology = 0
     iFlag_stream_burning = 0
     hexwatershed_create_case(iFlag_resample_method, \
                              iFlag_stream_burning,\
                              iFlag_stream_burning_topology, \
                              iCase_index, \
-                             lMeshID_outlet,\
+                             lCellID_outlet,\
                              dAccumulation_threshold ,  \
                              sDate,\
                              sRegion, \
@@ -77,7 +77,7 @@ for i  in np.arange(nResolution):
                              iFlag_stream_burning,\
                              iFlag_stream_burning_topology, \
                              iCase_index, \
-                             lMeshID_outlet,\
+                             lCellID_outlet,\
                              dAccumulation_threshold ,  \
                              sDate,\
                              sRegion, \
@@ -92,7 +92,7 @@ for i  in np.arange(nResolution):
                              iFlag_stream_burning,\
                              iFlag_stream_burning_topology, \
                              iCase_index, \
-                             lMeshID_outlet,\
+                             lCellID_outlet,\
                              dAccumulation_threshold ,  \
                              sDate,\
                              sRegion, \
@@ -109,7 +109,7 @@ for i  in np.arange(nResolution):
                              iFlag_stream_burning,\
                              iFlag_stream_burning_topology, \
                              iCase_index, \
-                             lMeshID_outlet,\
+                             lCellID_outlet,\
                              dAccumulation_threshold ,  \
                              sDate,\
                              sRegion, \

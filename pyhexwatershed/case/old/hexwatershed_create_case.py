@@ -19,7 +19,7 @@ def hexwatershed_create_case(iFlag_resample_method, \
                              iFlag_stream_burning, \
                              iFlag_stream_burning_topology,\
                              iCase_index,\
-                             lMeshID_outlet,\
+                             lCellID_outlet,\
                              dAccumulation_threshold , \
                              sDate,\
                              sRegion, \
@@ -31,7 +31,7 @@ def hexwatershed_create_case(iFlag_resample_method, \
 
     if (sResolution == '20k' ):
         if(iFlag_stream_burning ==1):
-            lMeshID_outlet = 1166
+            lCellID_outlet = 1166
             pass
 
 
@@ -131,7 +131,7 @@ def hexwatershed_create_case(iFlag_resample_method, \
     sLine = 'iFlag_resample_method, ' +   "{:0d}".format( iFlag_resample_method )  + '\n'
     ofs.write(sLine)
     if (iFlag_stream_burning ==1):
-        sLine = 'lMeshID_outlet, ' + "{:0d}".format( lMeshID_outlet )   + '\n'
+        sLine = 'lCellID_outlet, ' + "{:0d}".format( lCellID_outlet )   + '\n'
         ofs.write(sLine)
     else:
         pass

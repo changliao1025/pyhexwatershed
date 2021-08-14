@@ -4,7 +4,7 @@ import json
 #once it's generated, you can modify it and use it for different simulations
 from pyhexwatershed.case.pycase import hexwatershed
 import numpy as np
-def pyhexwatershed_generate_case_json_file(sFilename_json):
+def pyhexwatershed_generate_template_configuration_json_file(sFilename_json):
    
     #sFilename_json = '/compyfs/liao313/04model/pyhexwatershed/columbia_river_basin/compset.json'
     if os.path.exists(sFilename_json): 
@@ -18,7 +18,7 @@ def pyhexwatershed_generate_case_json_file(sFilename_json):
     aConfig['iFlag_merge_reach'] = 1
     #aConfig['iMesh_type'] = 4 #mpas
     aConfig['iFlag_resample_method'] = 2
-    aConfig['lMeshID_outlet'] = -1
+    aConfig['lCellID_outlet'] = -1
     aConfig['sFilename_model_configuration']  = sFilename_json
 
     aConfig['sWorkspace_data'] = '/people/liao313/data'

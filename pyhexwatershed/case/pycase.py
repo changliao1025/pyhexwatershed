@@ -21,7 +21,7 @@ class hexwatershed(object):
     iFlag_resample_method=2 
 
 
-    lMeshID_outlet = -1    
+    lCellID_outlet = -1    
     
     sFilename_dem=''  
     sFilename_model_configuration=''
@@ -70,8 +70,8 @@ class hexwatershed(object):
         if 'iFlag_resample_method' in aParameter:
             self.iFlag_resample_method       = int(aParameter[ 'iFlag_resample_method'])
 
-        if 'lMeshID_outlet' in aParameter:
-            self.lMeshID_outlet             = int(aParameter[ 'lMeshID_outlet'])
+        if 'lCellID_outlet' in aParameter:
+            self.lCellID_outlet             = int(aParameter[ 'lCellID_outlet'])
         
         #test for numpy array
         
@@ -134,7 +134,7 @@ class hexwatershed(object):
         
 
         with open(sFilename_output, 'w', encoding='utf-8') as f:
-            json.dump(self.__dict__, f, ensure_ascii=False, indent=4, cls=NumpyArrayEncoder)
+            json.dump(self.__dict__, f,sort_keys=True, ensure_ascii=False, indent=4, cls=NumpyArrayEncoder)
         
         print(jsonStr)
         return

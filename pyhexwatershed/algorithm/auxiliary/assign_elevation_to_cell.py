@@ -31,7 +31,7 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
     
     pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
     #pDriver_json = ogr.GetDriverByName('GeoJSON')
-    pDataset_out = pDriver_shapefile.CreateDataSource(sFilename_shapefile_out)
+    #pDataset_out2 = pDriver_shapefile.CreateDataSource(sFilename_shapefile_out)
     
     #get raster extent 
     dX_left=dOriginX
@@ -40,11 +40,11 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
     dY_bot = dOriginY - nrow * dPixelWidth
     if iMesh_type ==4:
         #iFlag_transform=1        
-        pLayer2 = pDataset_out.CreateLayer('cell', pSpatialRef_target, ogr.wkbPolygon)
-        pLayer2.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64))
-        pLayer2.CreateField(ogr.FieldDefn('elev', ogr.OFTReal))
-        pLayerDefn = pLayer2.GetLayerDefn()
-        pFeature2 = ogr.Feature(pLayerDefn)
+        #pLayer2 = pDataset_out.CreateLayer('cell', pSpatialRef_target, ogr.wkbPolygon)
+        #pLayer2.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64))
+        #pLayer2.CreateField(ogr.FieldDefn('elev', ogr.OFTReal))
+        #pLayerDefn2 = pLayer2.GetLayerDefn()
+        #pFeature2 = ogr.Feature(pLayerDefn)
         for i in range(1, ncell+1):
             pCell=  aCell_in[i-1]
             lCellID = pCell.lCellID
@@ -72,12 +72,13 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
             #pPolygon.AssignSpatialReference(pSrs)
             if os.path.exists(sFilename_shapefile_cut):   
                 os.remove(sFilename_shapefile_cut)
+
             pDataset3 = pDriver_shapefile.CreateDataSource(sFilename_shapefile_cut)
-            pLayerOut = pDataset3.CreateLayer('cell', pSpatialRef_target, ogr.wkbPolygon)    
-            pLayerDefn = pLayerOut.GetLayerDefn()
-            pFeatureOut = ogr.Feature(pLayerDefn)
-            pFeatureOut.SetGeometry(pPolygon)  
-            pLayerOut.CreateFeature(pFeatureOut)    
+            pLayerOut3 = pDataset3.CreateLayer('cell', pSpatialRef_target, ogr.wkbPolygon)    
+            pLayerDefn3 = pLayerOut3.GetLayerDefn()
+            pFeatureOut3 = ogr.Feature(pLayerDefn3)
+            pFeatureOut3.SetGeometry(pPolygon)  
+            pLayerOut3.CreateFeature(pFeatureOut3)    
             pDataset3.FlushCache()
 
             #if iFlag_transform ==1: #projections are different
@@ -110,18 +111,19 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
                 aElevation = aData_out[np.where(aData_out !=dMissing_value)]                
 
                 if(len(aElevation) >0 and np.mean(aElevation)!=-9999):
-                    pFeature2.SetGeometry(pPolygon)
-                    pFeature2.SetField("id", lCellID)
+                    #pFeature2.SetGeometry(pPolygon)
+                    #pFeature2.SetField("id", lCellID)
                     dElevation =  float(np.mean(aElevation) )  
-                    pFeature2.SetField("elev",  dElevation )
-                    pLayer2.CreateFeature(pFeature2)    
+                    #pFeature2.SetField("elev",  dElevation )
+                    #pLayer2.CreateFeature(pFeature2)    
                     pCell.dElevation =    dElevation  
                     pCell.dz = dElevation  
                     aCell_out.append(pCell)
                 else:
-                    pFeature2.SetField("elev", -9999.0)
+                    #pFeature2.SetField("elev", -9999.0)
+                    pass
 
-    pDataset_out.FlushCache()
+    #pDataset_out2.FlushCache()
     
-        
+
     return aCell_out
