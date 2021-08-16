@@ -5,3 +5,5 @@ oModel = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in
 
 pyhexwatershed_generate_model_input_op(oModel)
 
+print("Finished")
+

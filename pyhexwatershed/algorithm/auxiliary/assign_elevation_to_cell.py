@@ -45,8 +45,8 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
         #pLayer2.CreateField(ogr.FieldDefn('elev', ogr.OFTReal))
         #pLayerDefn2 = pLayer2.GetLayerDefn()
         #pFeature2 = ogr.Feature(pLayerDefn)
-        for i in range(1, ncell+1):
-            pCell=  aCell_in[i-1]
+        for i in range( ncell):
+            pCell=  aCell_in[i]
             lCellID = pCell.lCellID
             dLon_center = pCell.dLon_center
             dLat_center = pCell.dLat_center
@@ -121,6 +121,7 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
                     aCell_mid.append(pCell)
                 else:
                     #pFeature2.SetField("elev", -9999.0)
+                    pCell.dElevation=-9999.0
                     pass
 
     #pDataset_out2.FlushCache()

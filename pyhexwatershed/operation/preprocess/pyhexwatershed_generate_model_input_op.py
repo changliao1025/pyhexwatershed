@@ -12,6 +12,8 @@ from pystream.operation.preprocess_flowline_op import preprocess_flowline_op
 from pystream.format.export_mesh_info_to_json import export_mesh_info_to_json
 from pystream.format.export_flowline_info_to_json import export_flowline_info_to_json
 from pyhexwatershed.algorithm.auxiliary.assign_elevation_to_cell import assign_elevation_to_cell
+
+from pyhexwatershed.algorithm.topology.rebuild_cell_neighbor import rebuild_cell_neighbor
 def pyhexwatershed_generate_model_input_op(oHexWatershed):
 
     iMesh_type = oHexWatershed.iMesh_type   
@@ -27,25 +29,28 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
         sDate_in = oHexWatershed.sDate,\
             sWorkspace_output_in = sWorkspace_pystream_output)
     
-    
-
-    
-
-    aCell = create_mesh_op(oPystream)
+    #include all cells
+    aCell_original = create_mesh_op(oPystream)
 
     sWorkspace_output_case = oHexWatershed.sWorkspace_output_case
     sFilename_dem = oHexWatershed.sFilename_dem
     sFilename_elevation = oHexWatershed.sFilename_elevation
-    aCell = assign_elevation_to_cell(iMesh_type, aCell, sFilename_dem, sFilename_elevation ,sWorkspace_output_case)
-
-    #export mesh info
-    export_mesh_info_to_json(aCell, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
-
+    #only cell with elevation
+    aCell_elevation = assign_elevation_to_cell(iMesh_type, aCell_original, sFilename_dem, sFilename_elevation ,sWorkspace_output_case)
 
     preprocess_flowline_op(oPystream)
-    aCell_intersect, aFlowline, lCellID_outlet = intersect_flowline_with_mesh_with_postprocess_op(oPystream)
+    #cell using mesh shapefile, same with aCell_elevation
+    aCell,aCell_intersect, aFlowline, lCellID_outlet = intersect_flowline_with_mesh_with_postprocess_op(oPystream)
+
+    #rebuild neighbor
+    aCell = rebuild_cell_neighbor(aCell_elevation, aCell)
+
+   
     oHexWatershed.lCellID_outlet = lCellID_outlet
-    export_flowline_info_to_json(aCell_intersect, aFlowline, sFilename_json_out=oHexWatershed.sFilename_flowline_info)
+    export_flowline_info_to_json(aCell, aCell_intersect, aFlowline, sFilename_json_out=oHexWatershed.sFilename_flowline_info)
+
+    #export mesh info
+    export_mesh_info_to_json(aCell, aFlowline, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
 
     sPath = os.path.dirname(oHexWatershed.sFilename_model_configuration)
 

@@ -7,6 +7,8 @@ from pyearth.system.define_global_variables import *
 from osgeo import gdal, osr, ogr
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
+
+
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
@@ -15,10 +17,12 @@ class NumpyArrayEncoder(JSONEncoder):
 
 class hexwatershed(object):
     __metaclass__ = ABCMeta  
-    iFlag_flowline=1
-    iFlag_merge_reach=1
-    iMesh_type=3    
     iFlag_resample_method=2 
+    iFlag_flowline=1
+    iFlag_stream_burning_topology=1
+    iFlag_merge_reach=1
+    iMesh_type=4    
+    
 
 
     lCellID_outlet = -1    
@@ -57,21 +61,35 @@ class hexwatershed(object):
         self.sRegion               = aParameter[ 'sRegion']
         self.sModel                = aParameter[ 'sModel']
         
-        
-
         #required with default variables
 
-        #optional
-        if 'iFlag_save_elevation' in aParameter:
-            self.iFlag_save_elevation  = int(aParameter[ 'iFlag_save_elevation'])
-        if 'iFlag_flowline' in aParameter:
-            self.iFlag_flowline             = int(aParameter[ 'iFlag_flowline'])
 
         if 'iFlag_resample_method' in aParameter:
             self.iFlag_resample_method       = int(aParameter[ 'iFlag_resample_method'])
 
+        if 'iFlag_flowline' in aParameter:
+            self.iFlag_flowline             = int(aParameter[ 'iFlag_flowline'])
+
+
+        if 'iFlag_stream_burning_topology' in aParameter:
+            self.iFlag_stream_burning_topology       = int(aParameter[ 'iFlag_stream_burning_topology'])
+
+        #optional
+        if 'iFlag_save_elevation' in aParameter:
+            self.iFlag_save_elevation  = int(aParameter[ 'iFlag_save_elevation'])
+
+
         if 'lCellID_outlet' in aParameter:
             self.lCellID_outlet             = int(aParameter[ 'lCellID_outlet'])
+
+        if 'dMissing_value_dem' in aParameter:
+            self.dMissing_value_dem             = float(aParameter[ 'dMissing_value_dem'])
+
+        if 'dBreach_threshold' in aParameter:
+            self.dBreach_threshold             = float(aParameter[ 'dBreach_threshold'])
+
+        if 'dAccumulation_threshold' in aParameter:
+            self.dAccumulation_threshold             = float(aParameter[ 'dAccumulation_threshold'])
         
         #test for numpy array
         
