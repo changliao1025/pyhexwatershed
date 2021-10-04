@@ -19,9 +19,12 @@ class hexwatershed(object):
     __metaclass__ = ABCMeta  
     iFlag_resample_method=2 
     iFlag_flowline=1
+    iFlag_global = 0
     iFlag_stream_burning_topology=1
     iFlag_merge_reach=1
     iMesh_type=4    
+
+    iFlag_use_mesh_dem=0
     
 
 
@@ -70,6 +73,11 @@ class hexwatershed(object):
         if 'iFlag_flowline' in aParameter:
             self.iFlag_flowline             = int(aParameter[ 'iFlag_flowline'])
 
+        if 'iFlag_global' in aParameter:
+            self.iFlag_global             = int(aParameter[ 'iFlag_global'])
+
+        if 'iFlag_use_mesh_dem' in aParameter:
+            self.iFlag_use_mesh_dem             = int(aParameter[ 'iFlag_use_mesh_dem'])
 
         if 'iFlag_stream_burning_topology' in aParameter:
             self.iFlag_stream_burning_topology       = int(aParameter[ 'iFlag_stream_burning_topology'])
@@ -77,7 +85,6 @@ class hexwatershed(object):
         #optional
         if 'iFlag_save_elevation' in aParameter:
             self.iFlag_save_elevation  = int(aParameter[ 'iFlag_save_elevation'])
-
 
         if 'lCellID_outlet' in aParameter:
             self.lCellID_outlet             = int(aParameter[ 'lCellID_outlet'])

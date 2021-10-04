@@ -9,6 +9,8 @@
     "sJob": "hex",
     "iFlag_resample_method": 2,
     "iFlag_flowline": 1,
+    "iFlag_global": 1,
+    "iFlag_use_mesh_dem":0,
     "iFlag_rotation": 0,
     "iFlag_disconnected": 0,
     "iFlag_stream_burning_topology": 1, 

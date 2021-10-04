@@ -41,7 +41,7 @@ def pyhexwatershed_generate_template_configuration_json_file(sFilename_json):
 
     aConfig['sFilename_dem']  = '/qfs/people/liao313/data/hexwatershed/susquehanna/raster/dem/dem_ext.tif'
 
-    aConfig['sFilename_pystream_config'] = '/qfs/people/liao313/workspace/python/pystream/pystream/config/pystream_susquehanna_mpas.xml'
+    aConfig['sFilename_pystream_config'] = '/qfs/people/liao313/workspace/python/pyflowline/pyflowline/config/pystream_susquehanna_mpas.xml'
 
     aConfig['sFilename_spatial_reference'] = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_proj.shp'
     

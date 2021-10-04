@@ -130,7 +130,7 @@ dmypy.json
 
 # python things
 unused/
-./external/pystream
+./external/pyflowline
 ./external/hexwatershed
 .vscode/
 .core*
