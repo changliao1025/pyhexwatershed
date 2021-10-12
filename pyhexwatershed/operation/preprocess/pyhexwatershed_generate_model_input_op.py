@@ -4,7 +4,7 @@ from pyearth.system.define_global_variables import *
 from pyflowline.operation.intersect_flowline_with_mesh_with_postprocess_op import intersect_flowline_with_mesh_with_postprocess_op
 from pyflowline.format.export_vertex_to_shapefile import export_vertex_to_shapefile
 from pyflowline.case.pyflowline_read_model_configuration_file import pyflowline_read_model_configuration_file
-from pyflowline.case.pycase import streamcase
+from pyflowline.case.pycase import flowlinecase
 
 from pyflowline.operation.create_mesh_op import create_mesh_op
 from pyflowline.operation.preprocess_flowline_op import preprocess_flowline_op
@@ -26,6 +26,8 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
     sWorkspace_pyflowline_output = sWorkspace_output_case + slash + 'pyflowline'
 
     oPyflowline = pyflowline_read_model_configuration_file(sFilename_pyflowline_config,\
+        iFlag_use_mesh_dem_in = iFlag_use_mesh_dem,\
+        iFlag_standalone_in=0,\
         iCase_index_in = oHexWatershed.iCase_index ,
         sDate_in = oHexWatershed.sDate,\
         sWorkspace_output_in = sWorkspace_pyflowline_output)
