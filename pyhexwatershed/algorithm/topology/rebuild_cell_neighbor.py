@@ -36,8 +36,8 @@ def rebuild_cell_neighbor(aCell_elevation_in, aCell_in):
                 nNeighbor_new = nNeighbor_new +1 
                 aNeighbor_new.append(lNeighbor)
                 
-        pCell.nNeighbor= len(aNeighbor_new)
-        pCell.aNeighbor = aNeighbor_new
+        pCell.nNeighbor_land= len(aNeighbor_new)
+        pCell.aNeighbor_land = aNeighbor_new
         aCell_out.append(pCell)
     
     return aCell_out
