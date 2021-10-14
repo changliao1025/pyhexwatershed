@@ -34,6 +34,7 @@ class hexwatershed(object):
     sFilename_model_configuration=''
     sFilename_mesh_info=''
     sFilename_flowline_info=''
+    sFilename_basins=''
     
     sWorkspace_data=''   
     
@@ -150,6 +151,9 @@ class hexwatershed(object):
         self.sFilename_mesh_info  =   self.sWorkspace_output_case + slash + sMesh_type + "_mesh_info.json"   
         
         self.sFilename_flowline_info  =   self.sWorkspace_output_case + slash + sMesh_type + "_flowline_info.json"   
+
+        if 'sFilename_basins' in aParameter:
+            self.sFilename_basins = aParameter['sFilename_basins']
         
       
 

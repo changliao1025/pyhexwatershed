@@ -46,7 +46,7 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
         aCell_elevation = aCell_original
         pass
 
-    #aFlowline = preprocess_flowline_op(oPyflowline)
+    aFlowline = preprocess_flowline_op(oPyflowline)
     #cell using mesh shapefile, same with aCell_elevation
     aCell, aCell_intersect, aFlowline, aCellID_outlet = intersect_flowline_with_mesh_with_postprocess_op(oPyflowline)
 
@@ -60,8 +60,11 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
     #export mesh info
     export_mesh_info_to_json(aCell, aFlowline, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
 
+    sPath = os.path.dirname(oHexWatershed.sFilename_basin)
+    sName  = Path(oHexWatershed.sFilename_basin).stem + '_new.json'
+    oHexWatershed.sFilename_basin  =  sPath + slash + sName
+    
     sPath = os.path.dirname(oHexWatershed.sFilename_model_configuration)
-
     sName  = Path(oHexWatershed.sFilename_model_configuration).stem + '_new.json'
     sFilename_configuration  =  sPath + slash + sName
 
