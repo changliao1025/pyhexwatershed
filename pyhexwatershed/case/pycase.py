@@ -26,9 +26,7 @@ class hexwatershed(object):
 
     iFlag_use_mesh_dem=0
     
-
-
-    lCellID_outlet = -1    
+    #lCellID_outlet = -1    
     
     sFilename_dem=''  
     sFilename_model_configuration=''
@@ -87,8 +85,8 @@ class hexwatershed(object):
         if 'iFlag_save_elevation' in aParameter:
             self.iFlag_save_elevation  = int(aParameter[ 'iFlag_save_elevation'])
 
-        if 'lCellID_outlet' in aParameter:
-            self.lCellID_outlet             = int(aParameter[ 'lCellID_outlet'])
+        #if 'lCellID_outlet' in aParameter:
+        #    self.lCellID_outlet             = int(aParameter[ 'lCellID_outlet'])
 
         if 'dMissing_value_dem' in aParameter:
             self.dMissing_value_dem             = float(aParameter[ 'dMissing_value_dem'])
@@ -154,21 +152,25 @@ class hexwatershed(object):
 
         if 'sFilename_basins' in aParameter:
             self.sFilename_basins = aParameter['sFilename_basins']
+        else:
+            self.sFilename_basins = ''
         
       
 
         return    
     def save_as_json(self, sFilename_output):
-        jsonStr = json.dumps(self.__dict__, cls=NumpyArrayEncoder) 
+        #jsonStr = json.dumps(self.__dict__, cls=NumpyArrayEncoder) 
         
 
         with open(sFilename_output, 'w', encoding='utf-8') as f:
-            json.dump(self.__dict__, f,sort_keys=True, ensure_ascii=False, indent=4, cls=NumpyArrayEncoder)
+            json.dump(self.__dict__, f,sort_keys=True, \
+                ensure_ascii=False, \
+                indent=4, cls=NumpyArrayEncoder)
         
-        print(jsonStr)
+        #print(jsonStr)
         return
 
-        return
+     
     def setup(self):
         return
     def run(self):

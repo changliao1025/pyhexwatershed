@@ -33,6 +33,7 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
         sWorkspace_output_in = sWorkspace_pyflowline_output)
     
     #include all cells
+    aCell_original= list()
     aCell_original = create_mesh_op(oPyflowline)
 
     sWorkspace_output_case = oHexWatershed.sWorkspace_output_case
@@ -58,11 +59,12 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
     export_flowline_info_to_json(aCell, aCell_intersect, aFlowline, sFilename_json_out=oHexWatershed.sFilename_flowline_info)
 
     #export mesh info
-    export_mesh_info_to_json(aCell, aFlowline, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
+    export_mesh_info_to_json(aCell, aFlowline,aCellID_outlet, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
 
-    sPath = os.path.dirname(oHexWatershed.sFilename_basin)
-    sName  = Path(oHexWatershed.sFilename_basin).stem + '_new.json'
-    oHexWatershed.sFilename_basin  =  sPath + slash + sName
+    sPath = os.path.dirname(oHexWatershed.sFilename_basins)
+    sName  = Path(oHexWatershed.sFilename_basins).stem + '_new.json'
+    oHexWatershed.sFilename_basins  =  sPath + slash + sName
+    print(oHexWatershed.sFilename_basins)
     
     sPath = os.path.dirname(oHexWatershed.sFilename_model_configuration)
     sName  = Path(oHexWatershed.sFilename_model_configuration).stem + '_new.json'
