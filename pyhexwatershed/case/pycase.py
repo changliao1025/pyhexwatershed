@@ -22,7 +22,8 @@ class hexwatershed(object):
     iFlag_global = 0
     iFlag_stream_burning_topology=1
     iFlag_merge_reach=1
-    iMesh_type=4    
+    iMesh_type=4   
+    iFlag_save_mesh = 0 
 
     iFlag_use_mesh_dem=0
     
@@ -65,7 +66,6 @@ class hexwatershed(object):
         
         #required with default variables
 
-
         if 'iFlag_resample_method' in aParameter:
             self.iFlag_resample_method       = int(aParameter[ 'iFlag_resample_method'])
 
@@ -80,6 +80,9 @@ class hexwatershed(object):
 
         if 'iFlag_stream_burning_topology' in aParameter:
             self.iFlag_stream_burning_topology       = int(aParameter[ 'iFlag_stream_burning_topology'])
+
+        if 'iFlag_save_mesh' in aParameter:
+            self.iFlag_save_mesh             = int(aParameter[ 'iFlag_save_mesh'])
 
         #optional
         if 'iFlag_save_elevation' in aParameter:

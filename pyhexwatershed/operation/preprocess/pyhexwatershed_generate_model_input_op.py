@@ -33,8 +33,11 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
         sWorkspace_output_in = sWorkspace_pyflowline_output)
     
     #include all cells
-    aCell_original= list()
-    aCell_original = create_mesh_op(oPyflowline)
+    aCell_original = list()
+    aFlowline = list()
+    aCellID_outlet = list()
+    if oPyflowline.iFlag_create_mesh ==1:
+        aCell_original = create_mesh_op(oPyflowline)
 
     sWorkspace_output_case = oHexWatershed.sWorkspace_output_case
     sFilename_dem = oHexWatershed.sFilename_dem
@@ -47,19 +50,27 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
         aCell_elevation = aCell_original
         pass
 
-    aFlowline = preprocess_flowline_op(oPyflowline)
+    if oPyflowline.iFlag_simplification ==1:
+        aFlowline = preprocess_flowline_op(oPyflowline)
+    
+    
     #cell using mesh shapefile, same with aCell_elevation
-    aCell, aCell_intersect, aFlowline, aCellID_outlet = intersect_flowline_with_mesh_with_postprocess_op(oPyflowline)
+    if oPyflowline.iFlag_intersect ==1:
+        aCell, aCell_intersect, aFlowline, aCellID_outlet = intersect_flowline_with_mesh_with_postprocess_op(oPyflowline)
 
     #rebuild neighbor
-    aCell = rebuild_cell_neighbor(aCell_elevation, aCell)
+    if oHexWatershed.iFlag_global == 0:
+        aCell = rebuild_cell_neighbor(aCell_elevation, aCell)
+    else:
+        aCell = aCell_elevation
 
    
-    #oHexWatershed.lCellID_outlet = lCellID_outlet
-    export_flowline_info_to_json(aCell, aCell_intersect, aFlowline, sFilename_json_out=oHexWatershed.sFilename_flowline_info)
+    if oPyflowline.iFlag_simplification == 1:
+        export_flowline_info_to_json(aCell, aCell_intersect, aFlowline, sFilename_json_out=oHexWatershed.sFilename_flowline_info)
 
     #export mesh info
-    export_mesh_info_to_json(aCell, aFlowline,aCellID_outlet, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
+    iFlag_flowline = oPyflowline.iFlag_flowline
+    export_mesh_info_to_json(iFlag_flowline, aCell, aFlowline, aCellID_outlet, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
 
     sPath = os.path.dirname(oHexWatershed.sFilename_basins)
     sName  = Path(oHexWatershed.sFilename_basins).stem + '_new.json'
