@@ -69,6 +69,7 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
         export_flowline_info_to_json(aCell, aCell_intersect, aFlowline, sFilename_json_out=oHexWatershed.sFilename_flowline_info)
 
     #export mesh info
+    print('Exporting mesh info', len(aCell))
     iFlag_flowline = oPyflowline.iFlag_flowline
     export_mesh_info_to_json(iFlag_flowline, aCell, aFlowline, aCellID_outlet, sFilename_json_out=oHexWatershed.sFilename_mesh_info)
 

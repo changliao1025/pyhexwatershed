@@ -21,13 +21,16 @@ class hexwatershed(object):
     iFlag_flowline=1
     iFlag_global = 0
     iFlag_stream_burning_topology=1
+    iFlag_create_mesh= 1
+    iFlag_simplification= 0
+    iFlag_intersect= 0
     iFlag_merge_reach=1
     iMesh_type=4   
     iFlag_save_mesh = 0 
 
     iFlag_use_mesh_dem=0
     
-    #lCellID_outlet = -1    
+   
     
     sFilename_dem=''  
     sFilename_model_configuration=''
@@ -71,6 +74,15 @@ class hexwatershed(object):
 
         if 'iFlag_flowline' in aParameter:
             self.iFlag_flowline             = int(aParameter[ 'iFlag_flowline'])
+
+        if 'iFlag_create_mesh' in aParameter:
+            self.iFlag_create_mesh             = int(aParameter[ 'iFlag_create_mesh'])
+
+        if 'iFlag_simplification' in aParameter:
+            self.iFlag_simplification             = int(aParameter[ 'iFlag_simplification'])
+
+        if 'iFlag_intersect' in aParameter:
+            self.iFlag_intersect             = int(aParameter[ 'iFlag_intersect'])
 
         if 'iFlag_global' in aParameter:
             self.iFlag_global             = int(aParameter[ 'iFlag_global'])

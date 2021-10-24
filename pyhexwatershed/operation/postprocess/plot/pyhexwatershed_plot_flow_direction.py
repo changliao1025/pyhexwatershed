@@ -18,6 +18,7 @@ def pyhexwatershed_plot_flow_direction(oHexwatershed_in):
     pLayer = pDataset.CreateLayer('flowdir', pSrs, ogr.wkbLineString)
     # Add one attribute
     pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
+    pLayer.CreateField(ogr.FieldDefn('fac', ogr.OFTReal)) #long type for high resolution
     
     pLayerDefn = pLayer.GetLayerDefn()
     pFeature = ogr.Feature(pLayerDefn)
@@ -26,7 +27,7 @@ def pyhexwatershed_plot_flow_direction(oHexwatershed_in):
     with open(sFilename_json) as json_file:
         data = json.load(json_file)  
 
-        print(type(data))
+        #print(type(data))
 
         nedge = len(data)
         lID =0 
@@ -36,6 +37,7 @@ def pyhexwatershed_plot_flow_direction(oHexwatershed_in):
             lCellID_downslope = int(pedge['lCellID_downslope'])
             x_start=float(pedge['dLon_center'])
             y_start=float(pedge['dLat_center'])
+            dfac = float(pedge['DrainageArea'])
             for j in range(nedge):
                 pedge2 = data[j]
                 lCellID2 = int(pedge2['lCellID'])
@@ -48,6 +50,7 @@ def pyhexwatershed_plot_flow_direction(oHexwatershed_in):
                     pLine.AddPoint(x_end, y_end)
                     pFeature.SetGeometry(pLine)
                     pFeature.SetField("id", lID)
+                    pFeature.SetField("fac", dfac)
 
                     pLayer.CreateFeature(pFeature)
                     lID =lID +1
