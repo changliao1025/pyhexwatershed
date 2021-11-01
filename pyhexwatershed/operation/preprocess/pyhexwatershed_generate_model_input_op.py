@@ -12,6 +12,7 @@ from pyflowline.operation.preprocess_flowline_op import preprocess_flowline_op
 from pyflowline.format.export_mesh_info_to_json import export_mesh_info_to_json
 from pyflowline.format.export_flowline_info_to_json import export_flowline_info_to_json
 from pyhexwatershed.algorithm.auxiliary.assign_elevation_to_cell import assign_elevation_to_cell
+from pyhexwatershed.algorithm.auxiliary.pass_elevation_to_cell import pass_elevation_to_cell
 
 from pyhexwatershed.algorithm.topology.rebuild_cell_neighbor import rebuild_cell_neighbor
 def pyhexwatershed_generate_model_input_op(oHexWatershed):
@@ -59,10 +60,13 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
         aCell, aCell_intersect, aFlowline, aCellID_outlet = intersect_flowline_with_mesh_with_postprocess_op(oPyflowline)
 
     #rebuild neighbor
-    if oHexWatershed.iFlag_global == 0:
-        aCell = rebuild_cell_neighbor(aCell_elevation, aCell)
-    else:
-        aCell = aCell_elevation
+    aCell = aCell_elevation
+    if oHexWatershed.iFlag_global == 0:  #watershed scale
+        #aCell = rebuild_cell_neighbor(aCell_elevation, aCell)
+        pass
+    else:  #global scale
+        #aCell = pass_elevation_to_cell(aCell_elevation, aCell_intersect) #global scale
+        pass
 
    
     if oPyflowline.iFlag_simplification == 1:

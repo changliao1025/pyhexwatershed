@@ -18,7 +18,10 @@ def pyhexwatershed_plot_flow_direction(oHexwatershed_in):
     pLayer = pDataset.CreateLayer('flowdir', pSrs, ogr.wkbLineString)
     # Add one attribute
     pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
-    pLayer.CreateField(ogr.FieldDefn('fac', ogr.OFTReal)) #long type for high resolution
+    pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
+    pFac_field.SetWidth(20)
+    pFac_field.SetPrecision(2)
+    pLayer.CreateField(pFac_filed) #long type for high resolution
     
     pLayerDefn = pLayer.GetLayerDefn()
     pFeature = ogr.Feature(pLayerDefn)
