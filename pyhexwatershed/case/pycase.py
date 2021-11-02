@@ -20,6 +20,7 @@ class hexwatershed(object):
     iFlag_resample_method=2 
     iFlag_flowline=1
     iFlag_global = 0
+    iFlag_multiple_outlet = 0
     iFlag_stream_burning_topology=1
     iFlag_create_mesh= 1
     iFlag_simplification= 0
@@ -86,6 +87,9 @@ class hexwatershed(object):
 
         if 'iFlag_global' in aParameter:
             self.iFlag_global             = int(aParameter[ 'iFlag_global'])
+
+        if 'iFlag_multiple_outlet' in aParameter:
+            self.iFlag_multiple_outlet             = int(aParameter[ 'iFlag_multiple_outlet'])    
 
         if 'iFlag_use_mesh_dem' in aParameter:
             self.iFlag_use_mesh_dem             = int(aParameter[ 'iFlag_use_mesh_dem'])

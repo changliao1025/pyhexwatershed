@@ -60,13 +60,20 @@ def pyhexwatershed_generate_model_input_op(oHexWatershed):
         aCell, aCell_intersect, aFlowline, aCellID_outlet = intersect_flowline_with_mesh_with_postprocess_op(oPyflowline)
 
     #rebuild neighbor
-    aCell = aCell_elevation
+    
     if oHexWatershed.iFlag_global == 0:  #watershed scale
-        #aCell = rebuild_cell_neighbor(aCell_elevation, aCell)
+        if oPyflowline.iFlag_intersect ==1:
+            aCell = rebuild_cell_neighbor(aCell_elevation, aCell)
+        else:
+            aCell = aCell_elevation
         pass
     else:  #global scale
-        #aCell = pass_elevation_to_cell(aCell_elevation, aCell_intersect) #global scale
+        if oPyflowline.iFlag_intersect ==1:
+            aCell = pass_elevation_to_cell(aCell_elevation, aCell_intersect) #global scale
+        else:
+            aCell = aCell_elevation
         pass
+        
 
    
     if oPyflowline.iFlag_simplification == 1:
