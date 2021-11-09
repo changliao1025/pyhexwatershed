@@ -48,8 +48,8 @@ def assign_elevation_to_cell(iMesh_type, aCell_in, sFilename_dem_in, sFilename_s
         for i in range( ncell):
             pCell=  aCell_in[i]
             lCellID = pCell.lCellID
-            dLon_center = pCell.dLon_center
-            dLat_center = pCell.dLat_center
+            dLongitude_center = pCell.dLongitude_center
+            dLatitude_center = pCell.dLatitude_center
             nVertex = pCell.nVertex
 
             ring = ogr.Geometry(ogr.wkbLinearRing)

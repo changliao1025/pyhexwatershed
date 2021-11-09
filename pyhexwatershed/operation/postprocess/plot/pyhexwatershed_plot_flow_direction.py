@@ -38,15 +38,15 @@ def pyhexwatershed_plot_flow_direction(oHexwatershed_in):
             pedge = data[i]
             lCellID = int(pedge['lCellID'])
             lCellID_downslope = int(pedge['lCellID_downslope'])
-            x_start=float(pedge['dLon_center'])
-            y_start=float(pedge['dLat_center'])
+            x_start=float(pedge['dLongitude_center'])
+            y_start=float(pedge['dLatitude_center'])
             dfac = float(pedge['DrainageArea'])
             for j in range(nedge):
                 pedge2 = data[j]
                 lCellID2 = int(pedge2['lCellID'])
                 if lCellID2 == lCellID_downslope:
-                    x_end=float(pedge2['dLon_center'])
-                    y_end=float(pedge2['dLat_center'])
+                    x_end=float(pedge2['dLongitude_center'])
+                    y_end=float(pedge2['dLatitude_center'])
 
                     pLine = ogr.Geometry(ogr.wkbLineString)
                     pLine.AddPoint(x_start, y_start)

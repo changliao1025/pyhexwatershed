@@ -1,0 +1,6 @@
+from pyhexwatershed.operation.postprocess.plot.pyhexwatershed_plot_slope import pyhexwatershed_plot_slope
+from pyhexwatershed.case.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
+sFilename_configuration_in = '/qfs/people/liao313/workspace/python/pyhexwatershed/pyhexwatershed/config/hexwatershed_susquehanna_mpas.json'
+oModel = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in)
+pyhexwatershed_plot_slope(oModel)
+print("Finished")

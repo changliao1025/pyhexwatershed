@@ -4,7 +4,7 @@ import datetime
 from json import JSONEncoder
 import numpy as np
 from pyearth.system.define_global_variables import *
-from osgeo import gdal, osr, ogr
+
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
 

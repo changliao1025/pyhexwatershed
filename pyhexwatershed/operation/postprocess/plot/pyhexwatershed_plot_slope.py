@@ -23,12 +23,12 @@ desired_proj = ccrs.Orthographic(central_longitude=-75, central_latitude=42, glo
 
 #desired_proj = ccrs.PlateCarree()
 
-def pyhexwatershed_plot_elevation(oHexwatershed_in):
+def pyhexwatershed_plot_slope(oHexwatershed_in):
 
     sWorkspace_output_case = oHexwatershed_in.sWorkspace_output_case
 
     sFilename_json = sWorkspace_output_case + slash + 'hexwatershed' + slash + 'hexwatershed.json'
-    sFilename_out = sWorkspace_output_case + slash + 'hexwatershed' + slash + 'elevation.png'
+    sFilename_out = sWorkspace_output_case + slash + 'hexwatershed' + slash + 'slope_between.png'
     #sFilename_mesh = sWorkspace_output_case + slash +  'mpas_mesh_info.json'
 
     #ax = plt.subplot( 1, projection=desired_proj)
@@ -44,7 +44,7 @@ def pyhexwatershed_plot_elevation(oHexwatershed_in):
     #    ncell0 = len(mesh_data)
     
     aPatch=[]
-    aElevation=[]
+    aSlope_between=[]
     with open(sFilename_json) as json_file:
         data = json.load(json_file)        
 
@@ -53,12 +53,12 @@ def pyhexwatershed_plot_elevation(oHexwatershed_in):
         for i in range(ncell):
             pcell = data[i]
            
-            delev = float(pcell['Elevation'])
-            aElevation.append(delev)
+            delev = float(pcell['dSlope_between'])
+            aSlope_between.append(delev)
 
-    aElevation = np.array(aElevation)
-    dElev_min = np.min(aElevation)
-    dElev_max = np.max(aElevation)
+    aSlope_between = np.array(aSlope_between)
+    dElev_min = np.min(aSlope_between)
+    dElev_max = np.max(aSlope_between)
 
     dLat_min = 90
     dLat_max = -90
@@ -80,7 +80,7 @@ def pyhexwatershed_plot_elevation(oHexwatershed_in):
             x_start=float(pcell['dLongitude_center_degree'])
             y_start=float(pcell['dLatitude_center_degree'])
             dfac = float(pcell['DrainageArea'])
-            delev = float(pcell['Elevation'])
+            delev = float(pcell['dSlope_between'])
 
             avertex = pcell['vVertex']
             nvertex = len(avertex)
@@ -108,20 +108,17 @@ def pyhexwatershed_plot_elevation(oHexwatershed_in):
             rgba = cmap(color_index)
             polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgba, alpha=0.8, edgecolor=rgba,transform=ccrs.PlateCarree() )
             #aPatch.append(polygon)
-        
-    
             ax.add_patch(polygon)                   
                     
-
-       
     #trasform elevation
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
-    sm.set_array(aElevation)
+    sm.set_array(aSlope_between)
     fig.colorbar(sm, ax=ax)
     
-    
+    dDiff_lon = dLon_max - dLon_min
+    dDiff_lat = dLat_max - dLat_min
    
-    ax.set_extent([dLon_min, dLon_max, dLat_min, dLat_max])
+    ax.set_extent([dLon_min + 0.5 * dDiff_lon , dLon_max - 0.2 * dDiff_lon, dLat_min- 0.1 * dDiff_lat , dLat_max -  0.75 * dDiff_lat])
     ax.coastlines()#resolution='110m')
     ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
                   linewidth=1, color='gray', alpha=0.3, linestyle='--')
