@@ -21,7 +21,7 @@ def rebuild_cell_neighbor(aCell_elevation_in, aCell_in):
                 aCellID.append(lCellID)
                 pCell.aNeighbor = pCell_elevation.aNeighbor
                 pCell.nNeighbor = pCell_elevation.nNeighbor
-                pCell.dElevation = pCell_elevation.dElevation
+                pCell.dElevation_mean = pCell_elevation.dElevation_mean
                 aCell_mid.append(pCell)
                 break        
     

@@ -2,7 +2,7 @@ import sys, os, stat
 import numpy as np
 from pathlib import Path
 import json
-import subprocess
+
 
 from pyearth.system.define_global_variables import *
 from pyearth.visual.color.create_diverge_rgb_color_hex import create_diverge_rgb_color_hex
@@ -14,10 +14,7 @@ from matplotlib.collections import PatchCollection
 
 import cartopy.crs as ccrs
 
-#desired_proj = ccrs.NearsidePerspective(
-#                        central_latitude=42.0,
- #                       central_longitude=-75.0,
-  #                      satellite_height=10000.0)
+
 
 desired_proj = ccrs.Orthographic(central_longitude=-75, central_latitude=42, globe=None)
 
@@ -64,6 +61,11 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
     dLat_max = -90
     dLon_min = 180
     dLon_max = -180
+
+    dLon_left = 0
+    dLon_right = 0
+    dLat_bot=0
+    dLat_top = 0
 
     cmap = matplotlib.cm.get_cmap('Spectral')
     norm=plt.Normalize(dElev_min,dElev_max)
