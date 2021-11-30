@@ -20,9 +20,10 @@ def rebuild_cell_neighbor(aCell_elevation_in, aCell_in):
             pCell_elevation = aCell_elevation_in[j]
             if lCellID == pCell_elevation.lCellID:
                 aCellID.append(lCellID)
-                
+                #copy content
                 pCell.nNeighbor = pCell_elevation.nNeighbor
                 pCell.dElevation_mean = pCell_elevation.dElevation_mean
+                pCell.dElevation_profile0 = pCell_elevation.dElevation_profile0 #for mpas
                 pCell.aEdge = pCell_elevation.aEdge
                 pCell.aNeighbor = pCell_elevation.aNeighbor
                 pCell.aNeighbor_distance = pCell_elevation.aNeighbor_distance

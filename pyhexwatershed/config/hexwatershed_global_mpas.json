@@ -18,7 +18,7 @@
     "iFlag_rotation": 0,
     "iFlag_stream_burning_topology": 1, 
     "iFlag_save_mesh" :0 ,
-    "iFlag_save_elevation": 2,
+    "iFlag_save_elevation": 1,
     "iCase_index": 4,
     "iMesh_type": 4,  
     "nOutlet": 13,

@@ -8,7 +8,7 @@
     "iFlag_global": 1,
     "iFlag_intersect": 0,
     "iFlag_resample_method": 2,
-    "iFlag_save_elevation": 2,
+    "iFlag_save_elevation": 1,
     "iFlag_save_mesh": 0,
     "iFlag_simplification": 0,
     "iFlag_stream_burning_topology": 1,

@@ -21,6 +21,7 @@ class hexwatershed(object):
     iFlag_flowline=1
     iFlag_global = 0
     iFlag_multiple_outlet = 0
+    iFlag_elevation_profile = 0
     iFlag_stream_burning_topology=1
     iFlag_create_mesh= 1
     iFlag_simplification= 0
@@ -103,6 +104,9 @@ class hexwatershed(object):
         #optional
         if 'iFlag_save_elevation' in aParameter:
             self.iFlag_save_elevation  = int(aParameter[ 'iFlag_save_elevation'])
+
+        if 'iFlag_elevation_profile' in aParameter:
+            self.iFlag_elevation_profile  = int(aParameter[ 'iFlag_elevation_profile'])
 
         #if 'lCellID_outlet' in aParameter:
         #    self.lCellID_outlet             = int(aParameter[ 'lCellID_outlet'])
