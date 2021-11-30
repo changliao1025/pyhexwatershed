@@ -28,11 +28,11 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
     sFilename_out = sWorkspace_output_case + slash + 'hexwatershed' + slash + 'slope_between.png'
     #sFilename_mesh = sWorkspace_output_case + slash +  'mpas_mesh_info.json'
 
-    #ax = plt.subplot( 1, projection=desired_proj)
+    
     fig = plt.figure( dpi=300 )
     fig.set_figwidth( 12 )
     fig.set_figheight( 12 )
-    ax = fig.add_axes([0.1, 0.5, 0.8, 0.4] , projection=desired_proj )
+    ax = fig.add_axes([0.1, 0.15, 0.75, 0.6] , projection=desired_proj )
     #ax = plt.subplot(2, 1,  1, projection=desired_proj)
     ax.set_global()
     
@@ -42,6 +42,7 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
     
     aPatch=[]
     aSlope_between=[]
+    sSlope_key = 'dSlope_profile'
     with open(sFilename_json) as json_file:
         data = json.load(json_file)        
 
@@ -50,12 +51,12 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
         for i in range(ncell):
             pcell = data[i]
            
-            delev = float(pcell['dSlope_between'])
-            aSlope_between.append(delev)
+            dSlope = float(pcell[sSlope_key])
+            aSlope_between.append(dSlope)
 
     aSlope_between = np.array(aSlope_between)
-    dElev_min = np.min(aSlope_between)
-    dElev_max = np.max(aSlope_between)
+    dSlope_min = np.min(aSlope_between)
+    dSlope_max = np.max(aSlope_between)
 
     dLat_min = 90
     dLat_max = -90
@@ -68,7 +69,7 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
     dLat_top = 0
 
     cmap = matplotlib.cm.get_cmap('Spectral')
-    norm=plt.Normalize(dElev_min,dElev_max)
+    norm=plt.Normalize(dSlope_min,dSlope_max)
 
     with open(sFilename_json) as json_file:
         data = json.load(json_file)        
@@ -82,7 +83,7 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
             x_start=float(pcell['dLongitude_center_degree'])
             y_start=float(pcell['dLatitude_center_degree'])
             dfac = float(pcell['DrainageArea'])
-            delev = float(pcell['dSlope_between'])
+            dSlope = float(pcell[sSlope_key])
 
             avertex = pcell['vVertex']
             nvertex = len(avertex)
@@ -91,8 +92,8 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
             #get the vertex
             
             for k in range(nvertex):
-                aLocation[k,0] = avertex[k]['dLongitude']
-                aLocation[k,1] = avertex[k]['dLatitude']
+                aLocation[k,0] = avertex[k]['dLongitude_degree']
+                aLocation[k,1] = avertex[k]['dLatitude_degree']
 
                 if aLocation[k,0] > dLon_max:
                     dLon_max = aLocation[k,0]
@@ -106,7 +107,7 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
                 if aLocation[k,1] < dLat_min:
                     dLat_min = aLocation[k,1]
 
-            color_index = (delev-dElev_min ) /(dElev_max - dElev_min )
+            color_index = (dSlope-dSlope_min ) /(dSlope_max - dSlope_min )
             rgba = cmap(color_index)
             polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgba, alpha=0.8, edgecolor=rgba,transform=ccrs.PlateCarree() )
             #aPatch.append(polygon)
@@ -115,12 +116,15 @@ def pyhexwatershed_plot_slope(oHexwatershed_in):
     #trasform elevation
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array(aSlope_between)
-    fig.colorbar(sm, ax=ax)
+    fig.colorbar(sm, ax=ax, location = 'right')
     
     dDiff_lon = dLon_max - dLon_min
     dDiff_lat = dLat_max - dLat_min
    
-    ax.set_extent([dLon_min + 0.5 * dDiff_lon , dLon_max - 0.2 * dDiff_lon, dLat_min- 0.1 * dDiff_lat , dLat_max -  0.75 * dDiff_lat])
+    ax.set_extent([dLon_min  , dLon_max , dLat_min , dLat_max ])
+
+    #ax.set_extent([dLon_min + 0.5 * dDiff_lon , dLon_max - 0.2 * dDiff_lon, dLat_min- 0.1 * dDiff_lat , dLat_max -  0.75 * dDiff_lat])
+
     ax.coastlines()#resolution='110m')
     ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
                   linewidth=1, color='gray', alpha=0.3, linestyle='--')

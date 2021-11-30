@@ -5,8 +5,9 @@ def rebuild_cell_neighbor(aCell_elevation_in, aCell_in):
     aCell_elevation_in: cells with valid elevation
     aCell_in: all cells
     '''
-    ncell_all = len(aCell_in)
     ncell_elev = len(aCell_elevation_in)
+    ncell_all = len(aCell_in)
+    
     aCell_out = list()    
     aCellID  = list()  #cell that has elevation
     aCell_mid = list()
@@ -19,9 +20,13 @@ def rebuild_cell_neighbor(aCell_elevation_in, aCell_in):
             pCell_elevation = aCell_elevation_in[j]
             if lCellID == pCell_elevation.lCellID:
                 aCellID.append(lCellID)
-                pCell.aNeighbor = pCell_elevation.aNeighbor
+                
                 pCell.nNeighbor = pCell_elevation.nNeighbor
                 pCell.dElevation_mean = pCell_elevation.dElevation_mean
+                pCell.aEdge = pCell_elevation.aEdge
+                pCell.aNeighbor = pCell_elevation.aNeighbor
+                pCell.aNeighbor_distance = pCell_elevation.aNeighbor_distance
+                
                 aCell_mid.append(pCell)
                 break        
     
