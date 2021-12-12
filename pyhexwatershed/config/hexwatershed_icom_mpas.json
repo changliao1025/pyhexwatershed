@@ -20,7 +20,7 @@
     "iFlag_stream_burning_topology": 1, 
     "iFlag_save_elevation": 1,
     "iFlag_elevation_profile":1,
-    "iCase_index": 1,
+    "iCase_index": 2,
     "iMesh_type": 4,  
     "nOutlet": 13,
     "dMissing_value_dem": -9999,

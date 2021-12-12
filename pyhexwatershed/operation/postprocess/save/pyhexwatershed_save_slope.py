@@ -26,7 +26,7 @@ def pyhexwatershed_save_slope(oHexwatershed_in):
 
     pSlp_field = ogr.FieldDefn('slp', ogr.OFTReal)
     pSlp_field.SetWidth(20)
-    pSlp_field.SetPrecision(6)
+    pSlp_field.SetPrecision(8)
     pLayer.CreateField(pSlp_field) #long type for high resolution
     
     pLayerDefn = pLayer.GetLayerDefn()

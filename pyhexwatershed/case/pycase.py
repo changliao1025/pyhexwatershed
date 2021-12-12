@@ -31,7 +31,7 @@ class hexwatershed(object):
     iFlag_save_mesh = 0 
 
     iFlag_use_mesh_dem=0
-    
+    nOutlet=1
    
     
     sFilename_dem=''  
@@ -108,8 +108,8 @@ class hexwatershed(object):
         if 'iFlag_elevation_profile' in aParameter:
             self.iFlag_elevation_profile  = int(aParameter[ 'iFlag_elevation_profile'])
 
-        #if 'lCellID_outlet' in aParameter:
-        #    self.lCellID_outlet             = int(aParameter[ 'lCellID_outlet'])
+        if 'nOutlet' in aParameter:
+            self.nOutlet             = int(aParameter[ 'nOutlet'])
 
         if 'dMissing_value_dem' in aParameter:
             self.dMissing_value_dem             = float(aParameter[ 'dMissing_value_dem'])
