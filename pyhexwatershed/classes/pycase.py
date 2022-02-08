@@ -7,6 +7,8 @@ from json import JSONEncoder
 
 from pathlib import Path
 import numpy as np
+from pyflowline.classes.pycase import flowlinecase
+from pyflowline.pyflowline_read_model_configuration_file import pyflowline_read_model_configuration_file
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
@@ -65,6 +67,7 @@ class hexwatershedcase(object):
     sDate=''    
 
     sFilename_spatial_reference=''
+    pPyFlowline = None
 
 
     def __init__(self, aParameter):
@@ -207,6 +210,9 @@ class hexwatershedcase(object):
         else:
             self.sFilename_basins = ''              
 
+
+        oPyflowline = pyflowline_read_model_configuration_file(self.sFilename_model_configuration)
+        self.pPyFlowline = oPyflowline
         return    
 
     def tojson(self):
@@ -216,7 +222,7 @@ class hexwatershedcase(object):
                     ensure_ascii=True, \
                         cls=CaseClassEncoder)
         return sJson
-        
+
     def export_config_to_json(self, sFilename_output):
         #jsonStr = json.dumps(self.__dict__, cls=NumpyArrayEncoder) 
         
@@ -231,6 +237,13 @@ class hexwatershedcase(object):
 
      
     def setup(self):
+
+
+        return
+    def run_pyflowline(self):
+
+
+
         return
     def run(self):
         return
