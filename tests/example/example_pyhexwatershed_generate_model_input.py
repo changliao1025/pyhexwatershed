@@ -1,5 +1,5 @@
 from pyhexwatershed.operation.preprocess.pyhexwatershed_generate_model_input_op import pyhexwatershed_generate_model_input_op
-from pyhexwatershed.classes.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
+from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
 
 
 #sFilename_configuration_in = '/qfs/people/liao313/workspace/python/pyhexwatershed/pyhexwatershed/config/hexwatershed_susquehanna_mpas.json'

@@ -1,21 +1,32 @@
+import os
 from abc import ABCMeta, abstractmethod
-import json
 import datetime
+import json
+
 from json import JSONEncoder
+
+from pathlib import Path
 import numpy as np
-from pyearth.system.define_global_variables import *
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
 
 
-class NumpyArrayEncoder(JSONEncoder):
+class CaseClassEncoder(JSONEncoder):
     def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.float32):
+            return float(obj)
         if isinstance(obj, np.ndarray):
             return obj.tolist()
+        if isinstance(obj, list):
+            pass  
+         
+            
         return JSONEncoder.default(self, obj)
 
-class hexwatershed(object):
+class hexwatershedcase(object):
     __metaclass__ = ABCMeta  
     iFlag_resample_method=2 
     iFlag_flowline=1
@@ -31,8 +42,7 @@ class hexwatershed(object):
     iFlag_save_mesh = 0 
 
     iFlag_use_mesh_dem=0
-    nOutlet=1
-   
+    nOutlet=1  
     
     sFilename_dem=''  
     sFilename_model_configuration=''
@@ -61,13 +71,23 @@ class hexwatershed(object):
         print('HexWatershed compset is being initialized')
         self.sFilename_model_configuration    = aParameter[ 'sFilename_model_configuration']
 
-        self.sWorkspace_data = aParameter[ 'sWorkspace_data']
-        self.sWorkspace_output    = aParameter[ 'sWorkspace_output']
-        self.sWorkspace_project= aParameter[ 'sWorkspace_project']
-        self.sWorkspace_bin= aParameter[ 'sWorkspace_bin']
+        if 'sWorkspace_data' in aParameter:
+            self.sWorkspace_data = aParameter[ 'sWorkspace_data']
         
-        self.sRegion               = aParameter[ 'sRegion']
-        self.sModel                = aParameter[ 'sModel']
+        if 'sWorkspace_output' in aParameter:
+            self.sWorkspace_output    = aParameter[ 'sWorkspace_output']
+
+        if 'sWorkspace_project' in aParameter:
+            self.sWorkspace_project= aParameter[ 'sWorkspace_project']
+
+        if 'sWorkspace_bin' in aParameter:
+            self.sWorkspace_bin= aParameter[ 'sWorkspace_bin']
+
+        if 'sRegion' in aParameter:
+            self.sRegion               = aParameter[ 'sRegion']
+
+        if 'sModel' in aParameter:
+            self.sModel                = aParameter[ 'sModel']
         
         #required with default variables
 
@@ -120,27 +140,40 @@ class hexwatershed(object):
         if 'dAccumulation_threshold' in aParameter:
             self.dAccumulation_threshold             = float(aParameter[ 'dAccumulation_threshold'])
         
-        #test for numpy array
-        
-        self.sWorkspace_model_region = self.sWorkspace_output   + slash \
-            + self.sModel + slash + self.sRegion 
-        sPath = self.sWorkspace_model_region
-        Path(sPath).mkdir(parents=True, exist_ok=True)
+        if 'sFilename_spatial_reference' in aParameter:
+            self.sFilename_spatial_reference = aParameter['sFilename_spatial_reference']
 
-       
-        iCase_index = int(aParameter['iCase_index'])
+        if 'sFilename_dem' in aParameter:
+            self.sFilename_dem = aParameter['sFilename_dem']
+
+        if 'sFilename_mesh_netcdf' in aParameter:
+            self.sFilename_mesh_netcdf = aParameter['sFilename_mesh_netcdf']
+
+        if 'iCase_index' in aParameter:
+            iCase_index = int(aParameter['iCase_index'])
+        else:
+            iCase_index = 1
         sCase_index = "{:03d}".format( iCase_index )
+        self.iCase_index =   iCase_index
+        sCase = self.sModel  + self.sDate + sCase_index
+        self.sCase = sCase
+
+        sPath = str(Path(self.sWorkspace_output)  /  sCase)
+        self.sWorkspace_output = sPath
+        Path(sPath).mkdir(parents=True, exist_ok=True)
+       
+        
         sDate   = aParameter[ 'sDate']
         if sDate is not None:
             self.sDate= sDate
         else:
             self.sDate = sDate_default
 
-        self.iCase_index =   iCase_index
-        sCase = self.sModel  + self.sDate + sCase_index
-        self.sCase = sCase
-
-        self.sMesh_type =  aParameter['sMesh_type']
+        
+        if 'sMesh_type' in aParameter:
+            self.sMesh_type =  aParameter['sMesh_type']
+        else:
+            self.sMesh_type = 'hexagon'
         
         sMesh_type = self.sMesh_type
         if sMesh_type =='hexagon': #hexagon
@@ -160,35 +193,38 @@ class hexwatershed(object):
                         else:
                             print('Unsupported mesh type?')
 
-        self.sWorkspace_output_case = self.sWorkspace_model_region + slash + sCase + slash 
-        sPath = self.sWorkspace_output_case
-        Path(sPath).mkdir(parents=True, exist_ok=True)
-
-        self.sWorkspace_data_project = self.sWorkspace_data +  slash + self.sWorkspace_project
-        self.sFilename_spatial_reference = aParameter['sFilename_spatial_reference']
-        self.sFilename_dem = aParameter['sFilename_dem']
-        self.sFilename_elevation = self.sWorkspace_output_case + slash + sMesh_type + "_elevation.shp"
-        self.sFilename_mesh = self.sWorkspace_output_case + slash + sMesh_type + ".shp"
-        self.sFilename_mesh_info  =   self.sWorkspace_output_case + slash + sMesh_type + "_mesh_info.json"   
         
-        self.sFilename_flowline_info  =   self.sWorkspace_output_case + slash + sMesh_type + "_flowline_info.json"   
 
+        self.sWorkspace_data_project = str(Path(self.sWorkspace_data ) / self.sWorkspace_project)
+        
+        self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + "_elevation.json" )
+        self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + ".json" )
+        self.sFilename_mesh_info  =  os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + "_mesh_info.json"  ) 
+        
+        
         if 'sFilename_basins' in aParameter:
             self.sFilename_basins = aParameter['sFilename_basins']
         else:
-            self.sFilename_basins = ''
-        
-      
+            self.sFilename_basins = ''              
 
         return    
-    def save_as_json(self, sFilename_output):
+
+    def tojson(self):
+        sJson = json.dumps(self.__dict__, \
+            sort_keys=True, \
+                indent = 4, \
+                    ensure_ascii=True, \
+                        cls=CaseClassEncoder)
+        return sJson
+        
+    def export_config_to_json(self, sFilename_output):
         #jsonStr = json.dumps(self.__dict__, cls=NumpyArrayEncoder) 
         
 
         with open(sFilename_output, 'w', encoding='utf-8') as f:
             json.dump(self.__dict__, f,sort_keys=True, \
                 ensure_ascii=False, \
-                indent=4, cls=NumpyArrayEncoder)
+                indent=4, cls=CaseClassEncoder)
         
         #print(jsonStr)
         return

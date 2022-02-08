@@ -2,7 +2,7 @@ import os, sys
 #use this function to generate an initial json file for hexwatershed
 import json
 #once it's generated, you can modify it and use it for different simulations
-from pyhexwatershed.classes.pycase import hexwatershed
+from pyhexwatershed.classes.pycase import hexwatershedcase
 import numpy as np
 def pyhexwatershed_generate_template_configuration_json_file(sFilename_json):
    

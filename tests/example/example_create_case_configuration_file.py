@@ -2,7 +2,7 @@ from pyhexwatershed.classes.pycase import hexwatershed
 
 from pyhexwatershed.classes.pyhexwatershed_generate_case_json_file import pyhexwatershed_generate_case_json_file
 
-from pyhexwatershed.classes.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
+from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
 #aParameter=dict()
 
 #aParameter[]=
