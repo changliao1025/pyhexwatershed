@@ -24,7 +24,8 @@ class CaseClassEncoder(JSONEncoder):
             return obj.tolist()
         if isinstance(obj, list):
             pass  
-         
+        if isinstance(obj, flowlinecase):
+            return -1 
             
         return JSONEncoder.default(self, obj)
 
@@ -45,7 +46,13 @@ class hexwatershedcase(object):
 
     iFlag_use_mesh_dem=0
     nOutlet=1  
-    
+    dResolution_degree=0.0
+    dResolution_meter=0.0
+    dThreshold_small_river=0.0
+    dLongitude_left = -180
+    dLongitude_right = 180
+    dLatitude_bot = -90
+    dLatitude_top = 90
     sFilename_dem=''  
     sFilename_model_configuration=''
     sFilename_mesh_info=''
@@ -57,7 +64,7 @@ class hexwatershedcase(object):
     sWorkspace_project=''
     
     sWorkspace_model_region=''    
-    sWorkspace_output_case=''
+    
     
     sRegion=''
     sModel=''
@@ -68,6 +75,9 @@ class hexwatershedcase(object):
 
     sFilename_spatial_reference=''
     pPyFlowline = None
+    sWorkspace_output_pyflowline=''
+    sWorkspace_output_hexwatershed=''
+    aBasin = list()
 
 
     def __init__(self, aParameter):
@@ -195,23 +205,51 @@ class hexwatershedcase(object):
                             self.iMesh_type = 5
                         else:
                             print('Unsupported mesh type?')
+                            
+        if 'dResolution_degree' in aParameter:
+            self.dResolution_degree = float(aParameter['dResolution_degree']) 
 
+        if 'dResolution_meter' in aParameter:
+            self.dResolution_meter = float(aParameter['dResolution_meter']) 
+        else:
+            print('Please specify resolution.')
+
+        if 'dLongitude_left' in aParameter:
+            self.dLongitude_left = float(aParameter['dLongitude_left']) 
+
+        if 'dLongitude_right' in aParameter:
+            self.dLongitude_right = float(aParameter['dLongitude_right']) 
+
+        if 'dLatitude_bot' in aParameter:
+            self.dLatitude_bot = float(aParameter['dLatitude_bot']) 
+
+        if 'dLatitude_top' in aParameter:
+            self.dLatitude_top = float(aParameter['dLatitude_top']) 
+
+        if 'sJob' in aParameter:
+            self.sJob =  aParameter['sJob'] 
         
-
         self.sWorkspace_data_project = str(Path(self.sWorkspace_data ) / self.sWorkspace_project)
-        
         self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + "_elevation.json" )
         self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + ".json" )
         self.sFilename_mesh_info  =  os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + "_mesh_info.json"  ) 
-        
-        
+                
         if 'sFilename_basins' in aParameter:
             self.sFilename_basins = aParameter['sFilename_basins']
         else:
             self.sFilename_basins = ''              
 
+        sPath = str(Path(self.sWorkspace_output)  /  sCase / 'hexwatershed')
+        self.sWorkspace_output_hexwatershed = sPath
+        Path(sPath).mkdir(parents=True, exist_ok=True)
 
-        oPyflowline = pyflowline_read_model_configuration_file(self.sFilename_model_configuration)
+        sPath = str(Path(self.sWorkspace_output)  /  sCase / 'pyflowline')
+        self.sWorkspace_output_pyflowline = sPath
+        Path(sPath).mkdir(parents=True, exist_ok=True)
+        
+        oPyflowline = flowlinecase(aParameter ,  iFlag_standalone_in = 0,\
+             sModel_in = 'pyflowline',\
+                     sWorkspace_output_in = self.sWorkspace_output_pyflowline)
         self.pPyFlowline = oPyflowline
         return    
 
@@ -224,8 +262,7 @@ class hexwatershedcase(object):
         return sJson
 
     def export_config_to_json(self, sFilename_output):
-        #jsonStr = json.dumps(self.__dict__, cls=NumpyArrayEncoder) 
-        
+        #jsonStr = json.dumps(self.__dict__, cls=NumpyArrayEncoder)         
 
         with open(sFilename_output, 'w', encoding='utf-8') as f:
             json.dump(self.__dict__, f,sort_keys=True, \

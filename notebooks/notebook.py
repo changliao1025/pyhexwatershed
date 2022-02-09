@@ -42,9 +42,8 @@ else:
         print(oPyhexwatershed.tojson())
 
 #pyhexwatershed can process multiple basins within one singel run
-
+exit()
 oPyhexwatershed.setup()
-
 oPyhexwatershed.run_pyflowline()
 oPyhexwatershed.run()
 #oPyhexwatershed.plot_study_area()
