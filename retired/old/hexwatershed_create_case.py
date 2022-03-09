@@ -7,12 +7,12 @@ import subprocess
 import datetime
 import json
 
-from pyearth.system.define_global_variables import *
+
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
 
-sFilename_hexwatershed = '/qfs/people/liao313/workspace/cplus/hexwatershed_dev/hexwatershed_dev2.5/bin/hexwatershed'
+
 
 
 def hexwatershed_create_case(iFlag_resample_method, \
@@ -33,8 +33,6 @@ def hexwatershed_create_case(iFlag_resample_method, \
         if(iFlag_stream_burning ==1):
             lCellID_outlet = 1166
             pass
-
-
 
     sCase = "{:03d}".format( iCase_index )
 

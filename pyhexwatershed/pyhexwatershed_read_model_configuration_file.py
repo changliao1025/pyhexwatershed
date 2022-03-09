@@ -19,24 +19,28 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
     
     # Opening JSON file
     with open(sFilename_configuration_in) as json_file:
-        data = json.load(json_file)        
+        aConfig = json.load(json_file)        
    
     if sDate_in is not None:
         sDate = sDate_in
     else:
-        sDate = data["sDate"]
+        sDate = aConfig["sDate"]
         pass
 
     if iCase_index_in is not None:        
         iCase_index = iCase_index_in
     else:       
-        iCase_index = int( data['iCase_index'])
+        iCase_index = int( aConfig['iCase_index'])
         pass  
 
-    data["sDate"] = sDate
-    data["iCase_index"] = iCase_index
+    aConfig["sDate"] = sDate
+    aConfig["iCase_index"] = iCase_index
     
-    oHexwatershed = hexwatershedcase(data)
-    #oHexwatershed.pPyflowline = flowlinecase(data)
+    oPyhexwatershed = hexwatershedcase(aConfig)
+    oPyflowline = flowlinecase(aConfig ,  iFlag_standalone_in = 0,\
+             sModel_in = 'pyflowline',\
+                     sWorkspace_output_in = oPyhexwatershed.sWorkspace_output_pyflowline)
     
-    return oHexwatershed
+    oPyhexwatershed.pPyFlowline = oPyflowline
+    
+    return oPyhexwatershed
