@@ -41,9 +41,9 @@ else:
         print(oPyhexwatershed.tojson())
 
 #create the case
-oPyhexwatershed.creat_case()
+oPyhexwatershed.creat_hpc_job()
 #optionally, you can also submit it
-oPyhexwatershed.submit_case()
+oPyhexwatershed.submit_hpc_job()
 
 print('Finished')
 

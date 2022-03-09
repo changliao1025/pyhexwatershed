@@ -11,10 +11,8 @@ sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:
 
 def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
      iCase_index_in=None, \
-         sJob_in=None,\
-         aVariable_in = None, \
-             aValue_in = None, \
-                 sDate_in = None):
+                 sDate_in = None,\
+                     sMesh_type_in=None):
 
     
     # Opening JSON file
@@ -27,6 +25,12 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
         sDate = aConfig["sDate"]
         pass
 
+    if sMesh_type_in is not None:
+        sMesh_type = sMesh_type_in
+    else:
+        sMesh_type = aConfig["sMesh_type"]
+        pass
+
     if iCase_index_in is not None:        
         iCase_index = iCase_index_in
     else:       
@@ -34,6 +38,7 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
         pass  
 
     aConfig["sDate"] = sDate
+    aConfig["sMesh_type"] = sMesh_type
     aConfig["iCase_index"] = iCase_index
     
     oPyhexwatershed = hexwatershedcase(aConfig)
