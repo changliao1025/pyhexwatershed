@@ -64,7 +64,7 @@ class hexwatershedcase(object):
     sWorkspace_data=''   
     sWorkspace_project=''    
     sWorkspace_model_region=''    
-    sPath_bin=''
+    sWorkspace_bin=''
     
     sRegion=''
     sModel=''
@@ -235,8 +235,8 @@ class hexwatershedcase(object):
         if 'sFilename_hexwatershed' in aConfig_in:
             self.sFilename_hexwatershed= aConfig_in['sFilename_hexwatershed'] 
 
-        if 'sPath_bin' in aConfig_in:
-            self.sPath_bin = aConfig_in['sPath_bin']
+        if 'sWorkspace_bin' in aConfig_in:
+            self.sWorkspace_bin = aConfig_in['sWorkspace_bin']
         else:
             print('The path to the hexwatershed binary is not specified.')
         
@@ -295,6 +295,14 @@ class hexwatershedcase(object):
     def run_hexwatershed(self):
         #call hexwatershed binary
 
+        sFilename_hexwatershed = os.path.join(self.sWorkspace_output, "hexwatershed" )
+
+        sFilename_configuration = self.sFilename_model_configuration
+        sCommand = sFilename_hexwatershed + " "  + sFilename_configuration
+        print(sCommand)
+        p = subprocess.Popen(sCommand, shell= True)
+
+
         
 
         return
@@ -305,7 +313,7 @@ class hexwatershedcase(object):
     def export(self):
         return
 
-    def creat_hpc_job(self):
+    def create_hpc_job(self):
         """create a HPC job for this simulation
         """
 
@@ -400,10 +408,10 @@ class hexwatershedcase(object):
         os.chmod(sFilename_pyflowline, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)
 
         
-        sFilename_hexwatershed = os.path.join(str(Path(self.sPath_bin)  ) ,  self.sFilename_hexwatershed )
+        sFilename_hexwatershed = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed )
         #copy the binary file
         sFilename_new = os.path.join(str(Path(self.sWorkspace_output)  ) ,  "hexwatershed" )
-        #copy2(sFilename_hexwatershed, sFilename_new)
+        copy2(sFilename_hexwatershed, sFilename_new)
         #os.chmod(sFilename_new, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)
         
      

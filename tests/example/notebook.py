@@ -40,7 +40,7 @@ else:
 
 sPath = str(Path().resolve())
 iFlag_option = 1
-iFlag_submit = 1
+iFlag_submit = 2
 if iFlag_option ==1:
     sFilename_configuration_in = sPath +  '/tests/configurations/template.json' 
     sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
@@ -68,10 +68,11 @@ else:
         print(oPyhexwatershed.tojson())
 
 if iFlag_submit == 1:
-    oPyhexwatershed.creat_case()
+    oPyhexwatershed.create_hpc_job()
+    oPyhexwatershed.submit_hpc_job()
 else:
-    oPyhexwatershed.setup()
-    oPyhexwatershed.run_pyflowline()
+    #oPyhexwatershed.setup()
+    #oPyhexwatershed.run_pyflowline()
     oPyhexwatershed.run_hexwatershed()
     oPyhexwatershed.analyze()
     oPyhexwatershed.export()
