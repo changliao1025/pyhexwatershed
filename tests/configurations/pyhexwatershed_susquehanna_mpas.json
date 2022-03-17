@@ -1,10 +1,9 @@
 {
     "sFilename_model_configuration": "/qfs/people/liao313/workspace/python/pyhexwatershed/tests/configurations/pyhexwatershed_susquehanna_mpas.json",
     "sModel": "pyhexwatershed",
-    "sRegion": "susquehanna",
-    "sWorkspace_data": "/people/liao313/data",    
+    "sRegion": "susquehanna",  
     "sWorkspace_bin": "/people/liao313/bin",  
-    "sWorkspace_project": "/hexwatershed/susquehanna",
+    "sWorkspace_input": "/qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/input",
     "sWorkspace_output": "/compyfs/liao313/04model/pyhexwatershed/susquehanna",
     "sJob": "hexwatershed",
     "iFlag_create_mesh": 1,
@@ -31,10 +30,11 @@
     "dLatitude_top": 43.00334,
     "dResolution_degree": 5000,
     "dResolution_meter": 50000,
-    "sDate": "20220110",        
+    "sDate": "20220315",        
     "sMesh_type": "mpas",       
+    "sFilename_hexwatershed": "hexwatershed",
     "sFilename_spatial_reference": "/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_proj.shp",
     "sFilename_dem": "/qfs/people/liao313/data/hexwatershed/susquehanna/raster/dem/dem_ext.tif",
     "sFilename_mesh_netcdf": "/qfs/people/liao313/data/icom/mesh/delaware_lnd_60_30_5_2_v2/lnd_cull_mesh.nc",    
-    "sFilename_basins": "/qfs/people/liao313/workspace/python/pyflowline/tests/configurations/pyflowline_susquehanna_basins.json"    
+    "sFilename_basins": "/qfs/people/liao313/workspace/python/pyhexwatershed/tests/configurations/pyflowline_susquehanna_basins.json"    
 }

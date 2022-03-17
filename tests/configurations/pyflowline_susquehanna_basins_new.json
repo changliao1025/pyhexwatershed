@@ -1,0 +1,35 @@
+[
+    {
+        "dAccumulation_threshold": 100000.0,
+        "dLatitude_outlet_degree": 39.5598198228956,
+        "dLength_flowline_filtered": 1084025.1291874514,
+        "dLongitude_outlet_degree": -76.0889940311555,
+        "dThreshold_small_river": 10000.0,
+        "iFlag_dam": 0,
+        "iFlag_disconnected": 0,
+        "lBasinID": 1,
+        "lCellID_outlet": 152661,
+        "pVertex_outlet": {
+            "dLatitude_degree": 39.545934484148,
+            "dLongitude_degree": -76.076810427196
+        },
+        "sBasinID": "001",
+        "sFilename_area_of_difference": "area_of_difference.json",
+        "sFilename_basin_info": "basin_info.json",
+        "sFilename_confluence_conceptual_info": "confluence_conceptual_info.json",
+        "sFilename_confluence_simplified_info": "confluence_simplified_info.json",
+        "sFilename_dam": "/qfs/people/liao313/data/hexwatershed/susquehanna/auxiliary/ICoM_dams.csv",
+        "sFilename_flowline_conceptual": "flowline_conceptual.json",
+        "sFilename_flowline_conceptual_info": "flowline_conceptual_info.json",
+        "sFilename_flowline_edge": "flowline_edge.json",
+        "sFilename_flowline_filter": "/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/streamord7above.shp",
+        "sFilename_flowline_filter_json": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/pyhexwatershed20220315001/pyflowline/001/flowline_filter.json",
+        "sFilename_flowline_intersect": "flowline_intersect_mesh.json",
+        "sFilename_flowline_raw": "/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/allflowline.shp",
+        "sFilename_flowline_segment_index_before_intersect": "flowline_segment_index_before_intersect.json",
+        "sFilename_flowline_simplified": "flowline_simplified.json",
+        "sFilename_flowline_simplified_info": "flowline_simplified_info.json",
+        "sFilename_flowline_topo": "/qfs/people/liao313/data/hexwatershed/susquehanna/auxiliary/flowline.csv",
+        "sWorkspace_output_basin": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/pyhexwatershed20220315001/pyflowline/001"
+    }
+]

@@ -5,7 +5,7 @@ from os.path import realpath
 
 
 from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
-from pyhexwatershed.pyhexwatershed_generate_template_configuration_json_file import pyhexwatershed_generate_template_configuration_json_file
+from pyhexwatershed.pyhexwatershed_generate_template_configuration_file import pyhexwatershed_generate_template_configuration_json_file
 
 #setup a few keyword
 sMesh_type = 'mpas'

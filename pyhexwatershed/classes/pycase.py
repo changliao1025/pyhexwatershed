@@ -61,8 +61,7 @@ class hexwatershedcase(object):
     sFilename_flowline_info=''
     sFilename_basins=''
     
-    sWorkspace_data=''   
-    sWorkspace_project=''    
+ 
     sWorkspace_model_region=''    
     sWorkspace_bin=''
     
@@ -240,7 +239,7 @@ class hexwatershedcase(object):
         else:
             print('The path to the hexwatershed binary is not specified.')
         
-        self.sWorkspace_data_project = str(Path(self.sWorkspace_data ) / self.sWorkspace_project)
+      
         self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + "_elevation.json" )
         self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + ".json" )
         self.sFilename_mesh_info  =  os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + "_mesh_info.json"  ) 
@@ -262,26 +261,49 @@ class hexwatershedcase(object):
         return    
 
     def tojson(self):
-        sJson = json.dumps(self.__dict__, \
+        aSkip = ['aBasin']      
+
+        obj = self.__dict__.copy()
+        for sKey in aSkip:
+            obj.pop(sKey, None)
+            pass
+
+        sJson = json.dumps(obj,\
             sort_keys=True, \
-                indent = 4, \
-                    ensure_ascii=True, \
-                        cls=CaseClassEncoder)
+            indent = 4, \
+            ensure_ascii=True, \
+            cls=CaseClassEncoder)
         return sJson
 
-    def export_config_to_json(self, sFilename_output):
-        #jsonStr = json.dumps(self.__dict__, cls=NumpyArrayEncoder)         
+    def export_config_to_json(self):        
 
-        with open(sFilename_output, 'w', encoding='utf-8') as f:
-            json.dump(self.__dict__, f,sort_keys=True, \
+        sPath = os.path.dirname(self.sFilename_model_configuration)
+        sName  = Path(self.sFilename_model_configuration).stem + '.json'
+        sFilename_configuration  =  os.path.join( self.sWorkspace_output_hexwatershed,  sName )
+
+        aSkip = ['aBasin', \
+                'aFlowline_simplified','aFlowline_conceptual','aCellID_outlet',
+                'aCell']
+        obj = self.__dict__.copy()
+        for sKey in aSkip:
+            obj.pop(sKey, None)
+            pass
+
+        with open(sFilename_configuration, 'w', encoding='utf-8') as f:
+            json.dump(obj, f,sort_keys=True, \
                 ensure_ascii=False, \
                 indent=4, cls=CaseClassEncoder)
         
-        #print(jsonStr)
+   
         return
      
     def setup(self):
         self.pPyFlowline.setup()
+
+        sFilename_hexwatershed = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed )
+        #copy the binary file
+        sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed" )
+        copy2(sFilename_hexwatershed, sFilename_new)
 
 
         return
@@ -295,7 +317,7 @@ class hexwatershedcase(object):
     def run_hexwatershed(self):
         #call hexwatershed binary
 
-        sFilename_hexwatershed = os.path.join(self.sWorkspace_output, "hexwatershed" )
+        sFilename_hexwatershed = os.path.join(self.sWorkspace_output_hexwatershed, "hexwatershed" )
 
         sFilename_configuration = self.sFilename_model_configuration
         sCommand = sFilename_hexwatershed + " "  + sFilename_configuration
@@ -311,6 +333,8 @@ class hexwatershedcase(object):
         return
 
     def export(self):
+        
+        
         return
 
     def create_hpc_job(self):
@@ -408,10 +432,7 @@ class hexwatershedcase(object):
         os.chmod(sFilename_pyflowline, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)
 
         
-        sFilename_hexwatershed = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed )
-        #copy the binary file
-        sFilename_new = os.path.join(str(Path(self.sWorkspace_output)  ) ,  "hexwatershed" )
-        copy2(sFilename_hexwatershed, sFilename_new)
+        
         #os.chmod(sFilename_new, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)
         
      

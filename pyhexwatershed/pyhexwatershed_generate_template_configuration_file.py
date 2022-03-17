@@ -6,16 +6,16 @@ import numpy as np
 #once it's generated, you can modify it and use it for different simulations
 from pyflowline.classes.pycase import flowlinecase
 from pyflowline.classes.basin import pybasin
-from pyflowline.pyflowline_generate_template_configuration_json_file import pyflowline_generate_basin_template_configuration_json_file
+from pyflowline.pyflowline_generate_template_configuration_file import pyflowline_generate_basin_template_configuration_file
 from pyhexwatershed.classes.pycase import hexwatershedcase
 
-def pyhexwatershed_generate_template_configuration_json_file(sFilename_json, sWorkspace_data_in,sPath_bin_in , iFlag_use_mesh_dem_in=None,  iFlag_use_shapefile_extent_in=None, iCase_index_in=None, dResolution_degree_in = None,dResolution_meter_in = None,sDate_in = None,sMesh_type_in = None,  sModel_in = None,sWorkspace_output_in = None,):
+def pyhexwatershed_generate_template_configuration_file(sFilename_json, sWorkspace_bin, sWorkspace_input, sWorkspace_output, iFlag_use_mesh_dem_in=None,  iFlag_use_shapefile_extent_in=None, iCase_index_in=None, dResolution_degree_in = None,dResolution_meter_in = None,sDate_in = None,sMesh_type_in = None,  sModel_in = None,sWorkspace_output_in = None,):
     """generate hexwatershed config file
 
     Args:
         sFilename_json (_type_): _description_
         sWorkspace_data_in (_type_): _description_
-        sPath_bin_in (_type_): _description_. Defaults to None.
+        sWorkspace_bin_in (_type_): _description_. Defaults to None.
         iFlag_use_mesh_dem_in (_type_, optional): _description_. Defaults to None.
         iFlag_use_shapefile_extent_in (_type_, optional): _description_. Defaults to None.
         iCase_index_in (_type_, optional): _description_. Defaults to None.
@@ -55,20 +55,30 @@ def pyhexwatershed_generate_template_configuration_json_file(sFilename_json, sWo
         sDate = sDate_in
     else:
         sDate = '20220202'
-        pass
+        pass    
     
-    
-    
-    sPath_data_input = str(Path(sWorkspace_data_in)  /  'input')
     nBasin =1
-    sWorkspace_output = "/compyfs/liao313/04model/pyhexwatershed/susquehanna"
+    
  
     #use a dict to initialize the class
     aConfig = {}
     aConfig['iFlag_use_shapefile_extent'] = iFlag_use_shapefile_extent 
     aConfig['iFlag_flowline'] = 1
     aConfig['iFlag_merge_reach'] = 1    
-    aConfig['iFlag_resample_method'] = 2     
+    
+    aConfig['iFlag_use_mesh_dem'] = iFlag_use_mesh_dem
+    aConfig['iFlag_save_mesh'] = 1
+
+    aConfig['iFlag_simplification']=1
+    aConfig['iFlag_create_mesh']=1
+    aConfig['iFlag_intersect']=1
+    aConfig['iFlag_resample_method']=1
+    aConfig['iFlag_global']=0
+    aConfig['iFlag_multiple_outlet']=0
+    aConfig['iFlag_elevation_profile']=1
+    aConfig['iFlag_rotation']=0
+    aConfig['iFlag_stream_burning_topology']=1
+    aConfig['iFlag_save_elevation']=1
 
     aConfig['nOutlet'] = nBasin
     aConfig['dResolution_degree'] = 0.5
@@ -79,31 +89,32 @@ def pyhexwatershed_generate_template_configuration_json_file(sFilename_json, sWo
     aConfig['dLatitude_top'] = 90
 
     aConfig['sFilename_model_configuration']  = sFilename_json 
-    aConfig['sWorkspace_data'] = str(Path(sWorkspace_data_in)  /  'input')
-    aConfig['sWorkspace_output'] = str(Path(sWorkspace_data_in)  /  'output')
+    aConfig['sWorkspace_input'] = sWorkspace_input
+    aConfig['sWorkspace_output'] = sWorkspace_output
   
-    aConfig['sWorkspace_project'] = ''
-    aConfig['sWorkspace_bin'] = '' #the complied version of hexwatershed, this may be compiled on real time
+    aConfig['dAccumulation_threshold'] = 100000
+   
     aConfig['sRegion'] = 'susquehanna'
     aConfig['sModel'] = 'pyhexwatershed'
 
     aConfig['iCase_index'] = iCase_index
     aConfig['sMesh_type'] = sMesh_type
   
-    aConfig['sFilename_dem']  = str(Path(sPath_data_input)  /  'dem_ext.tif')
+    aConfig['sFilename_dem']  = str(Path(sWorkspace_input)  /  'dem_ext.tif')
+    aConfig['sFilename_hexwatershed'] = 'hexwatershed'
 
     aConfig['sFilename_pyflowline_config'] = sFilename_json
 
     aConfig['sJob'] = 'pyhexwatershed'
     aConfig['sDate']= sDate
-    aConfig['sFilename_mesh_netcdf'] = str(Path(sPath_data_input)  /  'lnd_cull_mesh.nc')
+    aConfig['sFilename_mesh_netcdf'] = str(Path(sWorkspace_input)  /  'lnd_cull_mesh.nc')
     aConfig['flowline_info'] = 'flowline_info.json'
     aConfig['sFilename_mesh_info'] = 'mesh_info.json'
     aConfig['sFilename_elevation'] = 'elevation.json'
-    aConfig['sPath_bin'] = sPath_bin_in
+    aConfig['sWorkspace_bin'] = sWorkspace_bin
 
    
-    aConfig['sFilename_spatial_reference'] = str(Path(sPath_data_input)  /  'boundary_proj.shp')
+    aConfig['sFilename_spatial_reference'] = str(Path(sWorkspace_input)  /  'boundary_proj.shp')
     
     #pyhexwatershed
     oPyhexwatershed = hexwatershedcase(aConfig)
@@ -115,8 +126,9 @@ def pyhexwatershed_generate_template_configuration_json_file(sFilename_json, sWo
     sDirname = os.path.dirname(sFilename_json)
     sFilename =  Path(sFilename_json).stem + '_basins.json'
     sFilename_basins_json = os.path.join(sDirname, sFilename)
-    sPath_input = str(Path(sWorkspace_data_in)  /  'input')
-    aBasin = pyflowline_generate_basin_template_configuration_json_file(sFilename_basins_json, nBasin, sPath_input , oPyflowline.sWorkspace_output)
+  
+
+    aBasin = pyflowline_generate_basin_template_configuration_file(sFilename_basins_json, nBasin, sWorkspace_input , oPyflowline.sWorkspace_output)
     oPyflowline.sFilename_basins = sFilename_basins_json
     oPyflowline.aBasin = aBasin
     oPyhexwatershed.pPyFlowline = oPyflowline
