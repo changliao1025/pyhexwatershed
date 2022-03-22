@@ -239,10 +239,6 @@ class hexwatershedcase(object):
         else:
             print('The path to the hexwatershed binary is not specified.')
         
-      
-        self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + "_elevation.json" )
-        self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + ".json" )
-        self.sFilename_mesh_info  =  os.path.join(str(Path(self.sWorkspace_output)  ) , sMesh_type + "_mesh_info.json"  ) 
                 
         if 'sFilename_basins' in aConfig_in:
             self.sFilename_basins = aConfig_in['sFilename_basins']
@@ -256,6 +252,10 @@ class hexwatershedcase(object):
         sPath = str(Path(self.sWorkspace_output)   / 'pyflowline')
         self.sWorkspace_output_pyflowline = sPath
         Path(sPath).mkdir(parents=True, exist_ok=True)
+
+        self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_elevation.json" )
+        self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + ".json" )
+        self.sFilename_mesh_info  =  os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_mesh_info.json"  ) 
         
         
         return    
