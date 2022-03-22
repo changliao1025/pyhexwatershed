@@ -23,26 +23,25 @@ parser.add_argument("--sDate", help = "sDate",  type = str)
 #python notebook.py --sMesh_type hexagon --iCase_index 1 --dResolution_meter 50000 --sDate 20220201
 pArgs = parser.parse_args()
 
+sMesh_type = 'mpas'
+iCase_index = 1
+dResolution_meter=5000
+sDate='20220315'
 sPath = str( Path().resolve() )
 iFlag_option = 1
 sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
 sWorkspace_input =  str(Path(sWorkspace_data)  /  'input')
 sWorkspace_output=  str(Path(sWorkspace_data)  /  'output')
-if len(sys.argv) == 1:
-    sMesh_type = 'mpas'
-    iCase_index = 13
-    dResolution_meter=5000
-    sDate='20220308'
+
+if len(sys.argv)> 1:
+    sMesh_type = pArgs.sMesh_type
+    iCase_index = pArgs.iCase_index
+    dResolution_meter=pArgs.dResolution_meter
+    sDate = pArgs.sDate
+    print(sMesh_type, iCase_index, dResolution_meter, sDate)
 else:
-    if len(sys.argv)> 1:
-        sMesh_type = pArgs.sMesh_type
-        iCase_index = pArgs.iCase_index
-        dResolution_meter=pArgs.dResolution_meter
-        sDate = pArgs.sDate
-        print(sMesh_type, iCase_index, dResolution_meter, sDate)
-    else:
-        print(len(sys.argv), 'Missing arguaments')
-        pass
+    print(len(sys.argv), 'Missing arguaments')
+    pass
 
 sPath = str(Path().resolve())
 
@@ -84,9 +83,9 @@ else:
     oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
     oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
     #oPyhexwatershed.run_pyflowline()
-    oPyhexwatershed.export_config_to_json()
-    oPyhexwatershed.run_hexwatershed()
-    oPyhexwatershed.analyze()
+    #oPyhexwatershed.export_config_to_json()
+    #oPyhexwatershed.run_hexwatershed()
+    #oPyhexwatershed.analyze()
     oPyhexwatershed.export()
 
 print('Finished')
