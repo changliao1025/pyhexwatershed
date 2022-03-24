@@ -275,35 +275,37 @@ class hexwatershedcase(object):
             indent = 4, \
             ensure_ascii=True, \
             cls=CaseClassEncoder)
-            
+
         return sJson
 
     def export_config_to_json(self):  
 
+        self.pPyFlowline.export_basin_config_to_json()
+
+        self.sFilename_model_configuration = os.path.join(self.sWorkspace_output, 'configuration.json')
+        self.sFilename_basins = self.pPyFlowline.sFilename_basins
 
         #save the configuration to a new file, which has the full path
-        #sPath = os.path.dirname(self.sFilename_model_configuration)
-        sName  = Path(self.sFilename_model_configuration).stem + '.json'
-        sFilename_configuration  =  os.path.join( self.sWorkspace_output_hexwatershed, sName )
+        
+        sFilename_configuration  =  self.sFilename_model_configuration
 
         aSkip = [ 'aBasin', \
                 'aFlowline_simplified','aFlowline_conceptual','aCellID_outlet',
                 'aCell' ]
+
         obj = self.__dict__.copy()
         for sKey in aSkip:
             obj.pop(sKey, None)
             pass
-
         with open(sFilename_configuration, 'w', encoding='utf-8') as f:
             json.dump(obj, f,sort_keys=True, \
                 ensure_ascii=False, \
-                indent=4, cls=CaseClassEncoder)
-        
+                indent=4, cls=CaseClassEncoder)        
    
         return
      
     def setup(self):
-        #self.pPyFlowline.setup()
+        self.pPyFlowline.setup()
 
         sFilename_hexwatershed = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed )
         #copy the binary file
@@ -333,9 +335,9 @@ class hexwatershedcase(object):
         return
     def generate_bash_script(self):
 
-        sPath = os.path.dirname(self.sFilename_model_configuration)
-        sName  = Path(self.sFilename_model_configuration).stem + '.json'
-        sFilename_configuration  =  os.path.join( self.sWorkspace_output_hexwatershed,  sName )
+       
+        sName  = 'configuration.json'
+        sFilename_configuration  =  os.path.join( self.sWorkspace_output,  sName )
 
         os.chdir(self.sWorkspace_output_hexwatershed)
         #writen normal run script

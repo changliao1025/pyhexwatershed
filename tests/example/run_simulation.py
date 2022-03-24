@@ -24,7 +24,7 @@ parser.add_argument("--sDate", help = "sDate",  type = str)
 pArgs = parser.parse_args()
 
 sMesh_type = 'mpas'
-iCase_index = 2
+iCase_index = 3
 dResolution_meter=5000
 sDate='20220315'
 sPath = str( Path().resolve() )
@@ -82,7 +82,7 @@ else:
     oPyhexwatershed.pPyFlowline.dLongitude_right= -74.5
     oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
     oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
-    #oPyhexwatershed.run_pyflowline()
+    oPyhexwatershed.run_pyflowline()
     oPyhexwatershed.export_config_to_json()
     oPyhexwatershed.run_hexwatershed()
     oPyhexwatershed.analyze()
