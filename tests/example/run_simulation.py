@@ -24,7 +24,7 @@ parser.add_argument("--sDate", help = "sDate",  type = str)
 pArgs = parser.parse_args()
 
 sMesh_type = 'mpas'
-iCase_index = 1
+iCase_index = 2
 dResolution_meter=5000
 sDate='20220315'
 sPath = str( Path().resolve() )
@@ -68,7 +68,7 @@ if os.path.isfile(sFilename_configuration_in):
 else:
     print('This shapefile does not exist: ', sFilename_configuration_in )
     exit()
-oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in)     
+oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in, iCase_index_in=iCase_index)     
 print(oPyhexwatershed.tojson())
 
 if iFlag_submit == 1:
@@ -77,15 +77,15 @@ if iFlag_submit == 1:
 else:
     oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620
     oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093
-    #oPyhexwatershed.setup()
+    oPyhexwatershed.setup()
     oPyhexwatershed.pPyFlowline.dLongitude_left= -79
     oPyhexwatershed.pPyFlowline.dLongitude_right= -74.5
     oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
     oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
     #oPyhexwatershed.run_pyflowline()
-    #oPyhexwatershed.export_config_to_json()
-    #oPyhexwatershed.run_hexwatershed()
-    #oPyhexwatershed.analyze()
+    oPyhexwatershed.export_config_to_json()
+    oPyhexwatershed.run_hexwatershed()
+    oPyhexwatershed.analyze()
     oPyhexwatershed.export()
 
 print('Finished')

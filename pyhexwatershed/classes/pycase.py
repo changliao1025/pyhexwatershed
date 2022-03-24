@@ -299,12 +299,14 @@ class hexwatershedcase(object):
         return
      
     def setup(self):
-        self.pPyFlowline.setup()
+        #self.pPyFlowline.setup()
 
         sFilename_hexwatershed = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed )
         #copy the binary file
         sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed" )
         copy2(sFilename_hexwatershed, sFilename_new)
+
+        os.chmod(sFilename_new, stat.S_IRWXU )
 
 
         return
@@ -316,26 +318,53 @@ class hexwatershedcase(object):
         return
     
     def run_hexwatershed(self):
-        #call hexwatershed binary
-
-        sFilename_hexwatershed = os.path.join(self.sWorkspace_output_hexwatershed, "hexwatershed" )
-
-        sFilename_configuration = self.sFilename_model_configuration
-        sCommand = sFilename_hexwatershed + " "  + sFilename_configuration
+        #run thebmodel using basg
+        self.generate_bash_script()
+        os.chdir(self.sWorkspace_output_hexwatershed)
+        
+        sCommand = "./run.sh"
         print(sCommand)
         p = subprocess.Popen(sCommand, shell= True)
 
+        return
+    def generate_bash_script(self):
+
+        sPath = os.path.dirname(self.sFilename_model_configuration)
+        sName  = Path(self.sFilename_model_configuration).stem + '.json'
+        sFilename_configuration  =  os.path.join( self.sWorkspace_output_hexwatershed,  sName )
+
+        os.chdir(self.sWorkspace_output_hexwatershed)
+        #writen normal run script
+        sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run.sh" )
+        ofs = open(sFilename_bash, 'w')
+        sLine = '#!/bin/bash\n'
+        ofs.write(sLine)
+        
+        
+        sLine = 'module load gcc/8.1.0' + '\n'
+        ofs.write(sLine)
+        sLine = 'cd ' + self.sWorkspace_output_hexwatershed+ '\n'
+        ofs.write(sLine)
+        sLine = './hexwatershed ' + sFilename_configuration + '\n'
+        ofs.write(sLine)
+        ofs.close()
+
+
+
+        os.chmod(sFilename_bash, stat.S_IRWXU )
 
         
-
         return
     
     def analyze(self):
         return
 
     def export(self):
-        self.pyhexwatershed_save_flow_direction()
+        
+        self.pyhexwatershed_save_elevation()
         self.pyhexwatershed_save_slope()
+        self.pyhexwatershed_save_flow_direction()
+        
         
         return
 
@@ -476,6 +505,83 @@ class hexwatershedcase(object):
 
             pDataset = pLayer = pFeature  = None      
         pass        
+    
+    def pyhexwatershed_save_elevation(self):
+
+        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
+
+        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'elevation.json')
+        if os.path.exists(sFilename_geojson):
+            os.remove(sFilename_geojson)
+
+        pDriver_geojson = ogr.GetDriverByName('GeoJSON')
+        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)
+        
+    
+        pSrs = osr.SpatialReference()  
+        pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
+
+        pLayer = pDataset.CreateLayer('ele', pSrs, geom_type=ogr.wkbPolygon)
+        # Add one attribute
+        pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution       
+        pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
+        pFac_field.SetWidth(20)
+        pFac_field.SetPrecision(2)
+        pLayer.CreateField(pFac_field) #long type for high resolution
+
+        pSlp_field = ogr.FieldDefn('elev', ogr.OFTReal)
+        pSlp_field.SetWidth(20)
+        pSlp_field.SetPrecision(8)
+        pLayer.CreateField(pSlp_field) #long type for high resolution
+
+        pSlp_field = ogr.FieldDefn('elep', ogr.OFTReal)
+        pSlp_field.SetWidth(20)
+        pSlp_field.SetPrecision(8)
+        pLayer.CreateField(pSlp_field) #long type for high resolution
+
+        pLayerDefn = pLayer.GetLayerDefn()
+        pFeature = ogr.Feature(pLayerDefn)
+
+        with open(sFilename_json) as json_file:
+            data = json.load(json_file)  
+            ncell = len(data)
+            lID =0 
+            for i in range(ncell):
+                pcell = data[i]
+                lCellID = int(pcell['lCellID'])
+                lCellID_downslope = int(pcell['lCellID_downslope'])
+                x_start=float(pcell['dLongitude_center_degree'])
+                y_start=float(pcell['dLatitude_center_degree'])
+                dfac = float(pcell['DrainageArea'])
+                dElev = float(pcell['Elevation'])
+                dElep = float(pcell['Elevation_profile'])
+                vVertex = pcell['vVertex']
+                nvertex = len(vVertex)
+                pPolygon = ogr.Geometry(ogr.wkbPolygon)
+                ring = ogr.Geometry(ogr.wkbLinearRing)
+
+                for j in range(nvertex):
+                    x = vVertex[j]['dLongitude_degree']
+                    y = vVertex[j]['dLatitude_degree']
+                    ring.AddPoint(x, y)
+
+                x = vVertex[0]['dLongitude_degree']
+                y = vVertex[0]['dLatitude_degree']
+                ring.AddPoint(x, y)
+                pPolygon.AddGeometry(ring)
+                pFeature.SetGeometry(pPolygon)
+                pFeature.SetField("id", lCellID)                
+                pFeature.SetField("fac", dfac)
+                pFeature.SetField("elev", dElev)
+                pFeature.SetField("elep", dElep)
+                pLayer.CreateFeature(pFeature)
+
+
+
+
+            pDataset = pLayer = pFeature  = None      
+        pass        
+    
     def create_hpc_job(self):
         """create a HPC job for this simulation
         """
