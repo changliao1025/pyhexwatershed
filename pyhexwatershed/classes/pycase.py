@@ -262,6 +262,7 @@ class hexwatershedcase(object):
         return    
 
     def tojson(self):
+
         aSkip = ['aBasin']      
 
         obj = self.__dict__.copy()
@@ -274,17 +275,20 @@ class hexwatershedcase(object):
             indent = 4, \
             ensure_ascii=True, \
             cls=CaseClassEncoder)
+            
         return sJson
 
-    def export_config_to_json(self):        
+    def export_config_to_json(self):  
 
-        sPath = os.path.dirname(self.sFilename_model_configuration)
+
+        #save the configuration to a new file, which has the full path
+        #sPath = os.path.dirname(self.sFilename_model_configuration)
         sName  = Path(self.sFilename_model_configuration).stem + '.json'
-        sFilename_configuration  =  os.path.join( self.sWorkspace_output_hexwatershed,  sName )
+        sFilename_configuration  =  os.path.join( self.sWorkspace_output_hexwatershed, sName )
 
-        aSkip = ['aBasin', \
+        aSkip = [ 'aBasin', \
                 'aFlowline_simplified','aFlowline_conceptual','aCellID_outlet',
-                'aCell']
+                'aCell' ]
         obj = self.__dict__.copy()
         for sKey in aSkip:
             obj.pop(sKey, None)
