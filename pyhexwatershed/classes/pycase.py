@@ -331,6 +331,7 @@ class hexwatershedcase(object):
         sCommand = "./run.sh"
         print(sCommand)
         p = subprocess.Popen(sCommand, shell= True)
+        p.wait()
 
         return
     def generate_bash_script(self):
