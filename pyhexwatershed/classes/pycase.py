@@ -14,7 +14,7 @@ import numpy as np
 from pyflowline.classes.pycase import flowlinecase
 from pyflowline.pyflowline_read_model_configuration_file import pyflowline_read_model_configuration_file
 
-from pyhexwatershed.algorithm.auxiliary.gdal_function import obtain_raster_metadata_geotiff, reproject_coordinates
+from pyhexwatershed.algorithm.auxiliary.gdal_function import gdal_read_geotiff_file, reproject_coordinates, reproject_coordinates_batch
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
@@ -338,25 +338,27 @@ class hexwatershedcase(object):
 
         return
     
-    def assign_elevation_to_cells(self, sFilename_dem_in):
+    def assign_elevation_to_cells(self):
         iMesh_type=self.iMesh_type
+        iFlag_resample_method= self.iFlag_resample_method
+        sFilename_dem_in = self.sFilename_dem
         aCell_in=self.pPyFlowline.aCell
         aCell_mid=list()
 
         ncell = len(aCell_in)
         
-        #pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
+        pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
         pDriver_json = ogr.GetDriverByName('GeoJSON')
         pDriver_memory = gdal.GetDriverByName('MEM')
 
-        sFilename_shapefile_cut = "/vsimem/tmp_polygon.json"
+        sFilename_shapefile_cut = "/vsimem/tmp_polygon.shp"
 
         pSrs = osr.SpatialReference()  
         pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
         pDataset_elevation = gdal.Open(sFilename_dem_in, gdal.GA_ReadOnly)
 
-        dPixelWidth, dOriginX, dOriginY, \
-            nrow, ncolumn, pSpatialRef_target, pProjection, pGeotransform = obtain_raster_metadata_geotiff(sFilename_dem_in)
+        aDem_in, dPixelWidth, dOriginX, dOriginY, \
+            nrow, ncolumn, pSpatialRef_target, pProjection, pGeotransform = gdal_read_geotiff_file(sFilename_dem_in)
 
         transform = osr.CoordinateTransformation(pSrs, pSpatialRef_target) 
 
@@ -365,46 +367,52 @@ class hexwatershedcase(object):
         dX_right = dOriginX + ncolumn * dPixelWidth
         dY_top = dOriginY
         dY_bot = dOriginY - nrow * dPixelWidth
-        if iMesh_type == 4: #mpas mesh
+        if iFlag_resample_method == 2: #zonal mean
             for i in range( ncell):
                 pCell=  aCell_in[i]
                 lCellID = pCell.lCellID
-                dLongitude_center = pCell.dLongitude_center
-                dLatitude_center = pCell.dLatitude_center
+                dLongitude_center_degree = pCell.dLongitude_center_degree
+                dLatitude_center_degree = pCell.dLatitude_center_degree
                 nVertex = pCell.nVertex
 
                 ring = ogr.Geometry(ogr.wkbLinearRing)
+                aX= list()
+                aY=list()
                 for j in range(nVertex):
-                    x1 = pCell.aVertex[j].dLongitude
-                    y1 = pCell.aVertex[j].dLatitude
-                    x1,y1 = reproject_coordinates(x1,y1,pSrs,pSpatialRef_target)
+                    aX.append( pCell.aVertex[j].dLongitude_center_degree )
+                    aY.append( pCell.aVertex[j].dLatitude_center_degree )                               
+                    pass
+                aX.append( pCell.aVertex[0].dLongitude_center_degree )
+                aY.append( pCell.aVertex[0].dLongitude_center_degree )
+                aX_out,aY_out = reproject_coordinates_batch(x1,y1,pSrs,pSpatialRef_target)   
+                for j in range(nVertex + 1):
+                    x1 = aX_out[j]
+                    y1 = aY_out[j]                    
                     ring.AddPoint(x1, y1)                
-                    pass        
-                x1 = pCell.aVertex[0].dLongitude
-                y1 = pCell.aVertex[0].dLatitude
-                x1,y1 = reproject_coordinates(x1,y1,pSrs,pSpatialRef_target)    
-                ring.AddPoint(x1, y1)        
+                    pass                      
+       
                 pPolygon = ogr.Geometry(ogr.wkbPolygon)
                 pPolygon.AddGeometry(ring)
-                #pPolygon.AssignSpatialReference(pSrs)
+                #pPolygon.AssignSpatialReference(pSpatialRef_target)
                 if os.path.exists(sFilename_shapefile_cut):   
                     os.remove(sFilename_shapefile_cut)
 
-                pDataset3 = pDriver_json.CreateDataSource(sFilename_shapefile_cut)
+                pDataset3 = pDriver_shapefile.CreateDataSource(sFilename_shapefile_cut)
                 pLayerOut3 = pDataset3.CreateLayer('cell', pSpatialRef_target, ogr.wkbPolygon)    
                 pLayerDefn3 = pLayerOut3.GetLayerDefn()
                 pFeatureOut3 = ogr.Feature(pLayerDefn3)
                 pFeatureOut3.SetGeometry(pPolygon)  
                 pLayerOut3.CreateFeature(pFeatureOut3)    
                 pDataset3.FlushCache()
+
                 minX, maxX, minY, maxY = pPolygon.GetEnvelope()
                 iNewWidth = int( (maxX - minX) / abs(dPixelWidth)  )
                 iNewHeigh = int( (maxY - minY) / abs(dPixelWidth) )
                 newGeoTransform = (minX, dPixelWidth, 0,    maxY, 0, -dPixelWidth)  
 
                 if minX > dX_right or maxX < dX_left \
-                    or minY > dY_top or maxY < dY_bot:
-                    #print(lCellID)
+                    or minY > dY_top or maxY < dY_bot:        
+                    #this polygon is out of bound            
                     continue
                 else:         
                     pDataset_clip = pDriver_memory.Create('', iNewWidth, iNewHeigh, 1, gdalconst.GDT_Float32)
@@ -421,23 +429,46 @@ class hexwatershedcase(object):
 
                     aElevation = aData_out[np.where(aData_out !=dMissing_value)]                
 
-                    if(len(aElevation) >0 and np.mean(aElevation)!=-9999):
-                        #pFeature2.SetGeometry(pPolygon)
-                        #pFeature2.SetField("id", lCellID)
-                        dElevation =  float(np.mean(aElevation) )  
-                        #pFeature2.SetField("elev",  dElevation )
-                        #pLayer2.CreateFeature(pFeature2)    
+                    if(len(aElevation) >0 and np.mean(aElevation)!=-9999):                        
+                        dElevation =  float(np.mean(aElevation) )                          
                         pCell.dElevation =    dElevation  
                         pCell.dz = dElevation  
                         aCell_mid.append(pCell)
-                    else:
-                        #pFeature2.SetField("elev", -9999.0)
+                    else:                    
                         pCell.dElevation=-9999.0
                         pass
+        
+        else:
+            #the nearest resample method
+            for i in range( ncell):
+                pCell=  aCell_in[i]
+                lCellID = pCell.lCellID
+                dLongitude_center_degree = pCell.dLongitude_center_degree
+                dLatitude_center_degree = pCell.dLatitude_center_degree
+                x1 = dLongitude_center_degree
+                y1 = dLatitude_center_degree
+                dX_out,dY_out = reproject_coordinates(x1,y1,pSrs,pSpatialRef_target)   
+                dDummy1 = (dX_out - dX_left) / dPixelWidth
+                lColumn_index = int(dDummy1)
+                dDummy2 = (dY_top - dY_out) / dPixelWidth
+                lRow_index = int(dDummy2)
 
-        #pDataset_out2.FlushCache()
+                if lColumn_index >= ncolumn or lColumn_index < 0 \
+                    or lRow_index >= nrow or lRow_index < 0:        
+                    #this pixel is out of bound            
+                    continue
+                else:         
+                    dElevation = aDem_in[lRow_index, lColumn_index]     
+                    if( dElevation!=-9999):     
+                        pCell.dElevation =    dElevation  
+                        pCell.dz = dElevation  
+                        aCell_mid.append(pCell)
+                    else:                    
+                        pCell.dElevation=-9999.0
+                        pass
+            pass
 
-        #update neighbor
+        #update neighbor because not all cells have elevation now
         ncell = len(aCell_mid)
         aCellID  = list()
         for i in range(ncell):
@@ -462,6 +493,8 @@ class hexwatershedcase(object):
             pCell.aNeighbor = aNeighbor_new
             aCell_out.append(pCell)
 
+        #now update the cell information
+        self.pPyFlowline.aCell= aCell_out
         return aCell_out
     
     def generate_bash_script(self):

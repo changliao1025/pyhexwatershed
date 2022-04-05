@@ -187,3 +187,70 @@ def obtain_shapefile_metadata(sFilename_shapefile_in):
 
         return left_min, right_max, bot_min, top_max
 
+
+def gdal_read_geotiff_file(sFilename_in):
+    """Read a Geotiff format raster file.
+
+    Args:
+        sFilename_in (string): The file name
+
+    Returns:
+        tuple: aData_out, pPixelWidth, dOriginX, dOriginY, nrow, ncolumn, dMissing_value , pGeotransform, pProjection,  pSpatial_reference
+    """
+    
+    if os.path.exists(sFilename_in):
+        pass
+    else:
+        print('The file does not exist!')
+        return
+
+    sDriverName='GTiff'
+    pDriver = gdal.GetDriverByName(sDriverName)  
+
+    if pDriver is None:
+        print ("%s pDriver not available.\n" % sDriverName)
+    else:
+        print  ("%s pDriver IS available.\n" % sDriverName)  
+
+    pDataset = gdal.Open(sFilename_in, gdal.GA_ReadOnly)
+
+    if pDataset is None:
+        print("Couldn't open this file: " + sFilename_in)
+        sys.exit("Try again!")
+    else:       
+        pProjection = pDataset.GetProjection()
+
+        pDataset.GetMetadata()
+       
+        ncolumn = pDataset.RasterXSize
+        nrow = pDataset.RasterYSize
+        nband = pDataset.RasterCount
+
+        pGeotransform = pDataset.GetGeoTransform()
+        dOriginX = pGeotransform[0]
+        dOriginY = pGeotransform[3]
+        dPixelWidth = pGeotransform[1]
+        pPixelHeight = pGeotransform[5]
+
+        pBand = pDataset.GetRasterBand(1)
+
+        # Data type of the values
+        gdal.GetDataTypeName(pBand.DataType)
+        # Compute statistics if needed
+        if pBand.GetMinimum() is None or pBand.GetMaximum() is None:
+            pBand.ComputeStatistics(0)
+
+        dMissing_value = pBand.GetNoDataValue()
+       
+        aData_out = pBand.ReadAsArray(0, 0, ncolumn, nrow)
+    
+        #we will use one of them to keep the consistency
+        pSpatial_reference = osr.SpatialReference(wkt=pProjection)
+       
+
+        pDataset = None
+        pBand = None      
+        pBand = None
+
+        return aData_out, dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, dMissing_value, pGeotransform, pProjection,  pSpatial_reference
+
