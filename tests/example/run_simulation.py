@@ -88,8 +88,17 @@ else:
                 #non-mpas mesh
                 #in this case, we need to use the dem data
                 if oPyhexwatershed.iFlag_use_mesh_dem == 0:
-
+                    
                     #use dem
+                    oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620
+                    oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093
+                    #oPyhexwatershed.setup()
+                    oPyhexwatershed.pPyFlowline.dLongitude_left= -79
+                    oPyhexwatershed.pPyFlowline.dLongitude_right= -74.5
+                    oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
+                    oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
+                    aCell = oPyhexwatershed.run_pyflowline()
+                    oPyhexwatershed.export_config_to_json()
                     pass
                 else:
                     #some configuration is wrong

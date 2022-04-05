@@ -11,10 +11,10 @@ from pyflowline.operation.preprocess_flowline_op import preprocess_flowline_op
 
 from pyflowline.format.export_mesh_info_to_json import export_mesh_info_to_json
 from pyflowline.format.export_flowline_info_to_json import export_flowline_info_to_json
-from pyhexwatershed.algorithm.auxiliary.assign_elevation_to_cell import assign_elevation_to_cell
-from pyhexwatershed.algorithm.auxiliary.pass_elevation_to_cell import pass_elevation_to_cell
+from retired.assign_elevation_to_cell import assign_elevation_to_cell
+from retired.pass_elevation_to_cell import pass_elevation_to_cell
 
-from pyhexwatershed.algorithm.topology.rebuild_cell_neighbor import rebuild_cell_neighbor
+from retired.operation.rebuild_cell_neighbor import rebuild_cell_neighbor
 def pyhexwatershed_generate_model_input_op(oHexWatershed):
     iFlag_use_mesh_dem = oHexWatershed.iFlag_use_mesh_dem
 

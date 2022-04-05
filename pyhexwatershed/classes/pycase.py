@@ -10,8 +10,11 @@ from json import JSONEncoder
 from pathlib import Path
 from osgeo import gdal, ogr, osr, gdalconst
 import numpy as np
+
 from pyflowline.classes.pycase import flowlinecase
 from pyflowline.pyflowline_read_model_configuration_file import pyflowline_read_model_configuration_file
+
+from pyhexwatershed.algorithm.auxiliary.gdal_function import obtain_raster_metadata_geotiff, reproject_coordinates
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
@@ -287,7 +290,7 @@ class hexwatershedcase(object):
 
         #save the configuration to a new file, which has the full path
         
-        sFilename_configuration  =  self.sFilename_model_configuration
+        sFilename_configuration = self.sFilename_model_configuration
 
         aSkip = [ 'aBasin', \
                 'aFlowline_simplified','aFlowline_conceptual','aCellID_outlet',
@@ -324,7 +327,7 @@ class hexwatershedcase(object):
         return
     
     def run_hexwatershed(self):
-        #run thebmodel using basg
+        #run the model using bash
         self.generate_bash_script()
         os.chdir(self.sWorkspace_output_hexwatershed)
         
@@ -334,6 +337,133 @@ class hexwatershedcase(object):
         p.wait()
 
         return
+    
+    def assign_elevation_to_cells(self, sFilename_dem_in):
+        iMesh_type=self.iMesh_type
+        aCell_in=self.pPyFlowline.aCell
+        aCell_mid=list()
+
+        ncell = len(aCell_in)
+        
+        #pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
+        pDriver_json = ogr.GetDriverByName('GeoJSON')
+        pDriver_memory = gdal.GetDriverByName('MEM')
+
+        sFilename_shapefile_cut = "/vsimem/tmp_polygon.json"
+
+        pSrs = osr.SpatialReference()  
+        pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
+        pDataset_elevation = gdal.Open(sFilename_dem_in, gdal.GA_ReadOnly)
+
+        dPixelWidth, dOriginX, dOriginY, \
+            nrow, ncolumn, pSpatialRef_target, pProjection, pGeotransform = obtain_raster_metadata_geotiff(sFilename_dem_in)
+
+        transform = osr.CoordinateTransformation(pSrs, pSpatialRef_target) 
+
+        #get raster extent 
+        dX_left=dOriginX
+        dX_right = dOriginX + ncolumn * dPixelWidth
+        dY_top = dOriginY
+        dY_bot = dOriginY - nrow * dPixelWidth
+        if iMesh_type == 4: #mpas mesh
+            for i in range( ncell):
+                pCell=  aCell_in[i]
+                lCellID = pCell.lCellID
+                dLongitude_center = pCell.dLongitude_center
+                dLatitude_center = pCell.dLatitude_center
+                nVertex = pCell.nVertex
+
+                ring = ogr.Geometry(ogr.wkbLinearRing)
+                for j in range(nVertex):
+                    x1 = pCell.aVertex[j].dLongitude
+                    y1 = pCell.aVertex[j].dLatitude
+                    x1,y1 = reproject_coordinates(x1,y1,pSrs,pSpatialRef_target)
+                    ring.AddPoint(x1, y1)                
+                    pass        
+                x1 = pCell.aVertex[0].dLongitude
+                y1 = pCell.aVertex[0].dLatitude
+                x1,y1 = reproject_coordinates(x1,y1,pSrs,pSpatialRef_target)    
+                ring.AddPoint(x1, y1)        
+                pPolygon = ogr.Geometry(ogr.wkbPolygon)
+                pPolygon.AddGeometry(ring)
+                #pPolygon.AssignSpatialReference(pSrs)
+                if os.path.exists(sFilename_shapefile_cut):   
+                    os.remove(sFilename_shapefile_cut)
+
+                pDataset3 = pDriver_json.CreateDataSource(sFilename_shapefile_cut)
+                pLayerOut3 = pDataset3.CreateLayer('cell', pSpatialRef_target, ogr.wkbPolygon)    
+                pLayerDefn3 = pLayerOut3.GetLayerDefn()
+                pFeatureOut3 = ogr.Feature(pLayerDefn3)
+                pFeatureOut3.SetGeometry(pPolygon)  
+                pLayerOut3.CreateFeature(pFeatureOut3)    
+                pDataset3.FlushCache()
+                minX, maxX, minY, maxY = pPolygon.GetEnvelope()
+                iNewWidth = int( (maxX - minX) / abs(dPixelWidth)  )
+                iNewHeigh = int( (maxY - minY) / abs(dPixelWidth) )
+                newGeoTransform = (minX, dPixelWidth, 0,    maxY, 0, -dPixelWidth)  
+
+                if minX > dX_right or maxX < dX_left \
+                    or minY > dY_top or maxY < dY_bot:
+                    #print(lCellID)
+                    continue
+                else:         
+                    pDataset_clip = pDriver_memory.Create('', iNewWidth, iNewHeigh, 1, gdalconst.GDT_Float32)
+                    pDataset_clip.SetGeoTransform( newGeoTransform )
+                    pDataset_clip.SetProjection( pProjection)   
+                    pWrapOption = gdal.WarpOptions( cropToCutline=True,cutlineDSName = sFilename_shapefile_cut , \
+                            width=iNewWidth,   \
+                                height=iNewHeigh,      \
+                                    dstSRS=pProjection , format = 'MEM' )
+                    pDataset_clip = gdal.Warp('',pDataset_elevation, options=pWrapOption)
+                    pBand = pDataset_clip.GetRasterBand( 1 )
+                    dMissing_value = pBand.GetNoDataValue()
+                    aData_out = pBand.ReadAsArray(0,0,iNewWidth, iNewHeigh)
+
+                    aElevation = aData_out[np.where(aData_out !=dMissing_value)]                
+
+                    if(len(aElevation) >0 and np.mean(aElevation)!=-9999):
+                        #pFeature2.SetGeometry(pPolygon)
+                        #pFeature2.SetField("id", lCellID)
+                        dElevation =  float(np.mean(aElevation) )  
+                        #pFeature2.SetField("elev",  dElevation )
+                        #pLayer2.CreateFeature(pFeature2)    
+                        pCell.dElevation =    dElevation  
+                        pCell.dz = dElevation  
+                        aCell_mid.append(pCell)
+                    else:
+                        #pFeature2.SetField("elev", -9999.0)
+                        pCell.dElevation=-9999.0
+                        pass
+
+        #pDataset_out2.FlushCache()
+
+        #update neighbor
+        ncell = len(aCell_mid)
+        aCellID  = list()
+        for i in range(ncell):
+            pCell = aCell_mid[i]
+            lCellID = pCell.lCellID
+            aCellID.append(lCellID)
+
+        aCell_out=list()
+        for i in range(ncell):
+            pCell = aCell_mid[i]
+            aNeighbor = pCell.aNeighbor
+            nNeighbor = pCell.nNeighbor
+            aNeighbor_new = list()
+            nNeighbor_new = 0 
+            for j in range(nNeighbor):
+                lNeighbor = int(aNeighbor[j])
+                if lNeighbor in aCellID:
+                    nNeighbor_new = nNeighbor_new +1 
+                    aNeighbor_new.append(lNeighbor)
+
+            pCell.nNeighbor= len(aNeighbor_new)
+            pCell.aNeighbor = aNeighbor_new
+            aCell_out.append(pCell)
+
+        return aCell_out
+    
     def generate_bash_script(self):
 
        
