@@ -75,18 +75,42 @@ if iFlag_submit == 1:
     oPyhexwatershed.create_hpc_job()
     #oPyhexwatershed.submit_hpc_job()
 else:
-    oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620
-    oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093
-    #oPyhexwatershed.setup()
-    oPyhexwatershed.pPyFlowline.dLongitude_left= -79
-    oPyhexwatershed.pPyFlowline.dLongitude_right= -74.5
-    oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
-    oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
-    oPyhexwatershed.run_pyflowline()
-    #oPyhexwatershed.export_config_to_json()
-    #oPyhexwatershed.run_hexwatershed()
-    oPyhexwatershed.analyze()
-    oPyhexwatershed.export()
+    if oPyhexwatershed.iFlag_global==1:
+        #global simulation
+        pass
+    else:
+        #regional simulation
+        if oPyhexwatershed.iFlag_multiple_outlet ==1:
+            pass
+        else:
+            #single basin example
+            if oPyhexwatershed.iMesh_type !=4:
+                #non-mpas mesh
+                #in this case, we need to use the dem data
+                if oPyhexwatershed.iFlag_use_mesh_dem == 1:
+
+                    pass
+                else:
+                    print('A dem is needed to retrieve the elevation')
+                    pass
+                pass
+            else:
+                #mpas mesh has elevation built-in
+                oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620
+                oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093
+                #oPyhexwatershed.setup()
+                oPyhexwatershed.pPyFlowline.dLongitude_left= -79
+                oPyhexwatershed.pPyFlowline.dLongitude_right= -74.5
+                oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
+                oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
+                oPyhexwatershed.run_pyflowline()
+                #oPyhexwatershed.export_config_to_json()
+                #oPyhexwatershed.run_hexwatershed()
+                oPyhexwatershed.analyze()
+                oPyhexwatershed.export()
+            pass
+        pass
+            
 
 print('Finished')
 
