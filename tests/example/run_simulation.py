@@ -87,10 +87,12 @@ else:
             if oPyhexwatershed.iMesh_type !=4:
                 #non-mpas mesh
                 #in this case, we need to use the dem data
-                if oPyhexwatershed.iFlag_use_mesh_dem == 1:
+                if oPyhexwatershed.iFlag_use_mesh_dem == 0:
 
+                    #use dem
                     pass
                 else:
+                    #some configuration is wrong
                     print('A dem is needed to retrieve the elevation')
                     pass
                 pass
@@ -104,8 +106,8 @@ else:
                 oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
                 oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
                 oPyhexwatershed.run_pyflowline()
-                #oPyhexwatershed.export_config_to_json()
-                #oPyhexwatershed.run_hexwatershed()
+                oPyhexwatershed.export_config_to_json()
+                oPyhexwatershed.run_hexwatershed()
                 oPyhexwatershed.analyze()
                 oPyhexwatershed.export()
             pass
