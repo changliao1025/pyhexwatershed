@@ -646,10 +646,10 @@ class hexwatershedcase(object):
         ofs_pyflowline.write(sLine)
         sLine = 'source /share/apps/anaconda3/2019.03/etc/profile.d/conda.sh' + '\n'
         ofs_pyflowline.write(sLine)
-        sLine = 'conda activate pyflowlineenv' + '\n'
+        sLine = 'conda activate hexwatershedenv' + '\n'
         ofs_pyflowline.write(sLine)
 
-        sLine = 'cat << EOF > run_pyflowline.py' + '\n' 
+        sLine = 'cat << EOF > run_hexwatershed.py' + '\n' 
         ofs_pyflowline.write(sLine)    
         sLine = '#!/qfs/people/liao313/.conda/envs/hexwatershedenv/bin/' + 'python3' + '\n' 
         ofs_pyflowline.write(sLine) 
@@ -663,6 +663,11 @@ class hexwatershedcase(object):
             'iCase_index_in='+ str(self.iCase_index) + ',' +  'sMesh_type_in="'+ str(self.sMesh_type) +'"' \
            + ')'  +   '\n'   
         ofs_pyflowline.write(sLine)
+
+        sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620'
+        ofs_pyflowline.write(sLine)
+        sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093'
+        ofs_pyflowline.write(sLine)
         
         sLine = 'oPyhexwatershed.pPyflowline.setup()' + '\n'   
         ofs_pyflowline.write(sLine)
@@ -674,19 +679,15 @@ class hexwatershedcase(object):
         ofs_pyflowline.write(sLine)
         sLine = 'EOF\n'
         ofs_pyflowline.write(sLine)
-        sLine = 'chmod 755 ' + 'run_pyflowline.py' + '\n'   
+        sLine = 'chmod 755 ' + 'run_hexwatershed.py' + '\n'   
         ofs_pyflowline.write(sLine)
 
 
-        sLine = './run_pyflowline.py'
+        sLine = './run_hexwatershed.py'
         ofs_pyflowline.write(sLine)
         ofs_pyflowline.close()
         os.chmod(sFilename_pyflowline, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)
-
-        
-        
-        #os.chmod(sFilename_new, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)
-        
+  
      
         return
 

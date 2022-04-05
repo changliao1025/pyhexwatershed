@@ -24,7 +24,7 @@ parser.add_argument("--sDate", help = "sDate",  type = str)
 pArgs = parser.parse_args()
 
 sMesh_type = 'mpas'
-iCase_index = 4
+iCase_index = 5
 dResolution_meter=5000
 sDate='20220315'
 sPath = str( Path().resolve() )
@@ -45,7 +45,7 @@ else:
 
 sPath = str(Path().resolve())
 
-iFlag_submit = 0
+iFlag_submit = 1
 
 
 #an example configuration file is provided with the repository, but you need to update this file based on your own case study
@@ -73,7 +73,7 @@ print(oPyhexwatershed.tojson())
 
 if iFlag_submit == 1:
     oPyhexwatershed.create_hpc_job()
-    oPyhexwatershed.submit_hpc_job()
+    #oPyhexwatershed.submit_hpc_job()
 else:
     oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620
     oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093
@@ -82,7 +82,7 @@ else:
     oPyhexwatershed.pPyFlowline.dLongitude_right= -74.5
     oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
     oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
-    #oPyhexwatershed.run_pyflowline()
+    oPyhexwatershed.run_pyflowline()
     #oPyhexwatershed.export_config_to_json()
     #oPyhexwatershed.run_hexwatershed()
     oPyhexwatershed.analyze()
