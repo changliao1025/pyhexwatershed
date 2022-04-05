@@ -23,10 +23,10 @@ parser.add_argument("--sDate", help = "sDate",  type = str)
 #python notebook.py --sMesh_type hexagon --iCase_index 1 --dResolution_meter 50000 --sDate 20220201
 pArgs = parser.parse_args()
 
-sMesh_type = 'mpas'
-iCase_index = 5
-dResolution_meter=5000
-sDate='20220315'
+sMesh_type = 'hexagon'
+iCase_index = 1
+dResolution_meter=10000
+sDate='20220404'
 sPath = str( Path().resolve() )
 iFlag_option = 1
 sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
@@ -45,7 +45,7 @@ else:
 
 sPath = str(Path().resolve())
 
-iFlag_submit = 1
+iFlag_submit = 0
 
 
 #an example configuration file is provided with the repository, but you need to update this file based on your own case study
@@ -68,7 +68,8 @@ if os.path.isfile(sFilename_configuration_in):
 else:
     print('This shapefile does not exist: ', sFilename_configuration_in )
     exit()
-oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in, iCase_index_in=iCase_index)     
+oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
+    iCase_index_in=iCase_index, sDate_in= sDate, sMesh_type_in= sMesh_type)     
 print(oPyhexwatershed.tojson())
 
 if iFlag_submit == 1:

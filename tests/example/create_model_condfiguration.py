@@ -23,10 +23,10 @@ parser.add_argument("--sDate", help = "sDate",  type = str)
 #python notebook.py --sMesh_type hexagon --iCase_index 1 --dResolution_meter 50000 --sDate 20220201
 pArgs = parser.parse_args()
 if len(sys.argv) == 1:
-    sMesh_type = 'mpas'
+    sMesh_type = 'hexagon'
     iCase_index = 1
-    dResolution_meter=5000
-    sDate='20220315'
+    dResolution_meter=10000
+    sDate='20220404'
 else:
     if len(sys.argv)> 1:
         sMesh_type = pArgs.sMesh_type
@@ -44,9 +44,10 @@ iFlag_option = 1
 sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
 sWorkspace_input =  str(Path(sWorkspace_data)  /  'input')
 sWorkspace_output=  str(Path(sWorkspace_data)  /  'output')
+sWorkspace_output = '/compyfs/liao313/04model/pyhexwatershed/susquehanna'
 sWorkspace_bin = realpath( sPath +  '/bin' )
 
-sFilename_configuration_in = sPath +  '/tests/configurations/template.json' 
+sFilename_configuration_in = sPath +  '/tests/configurations/pyhexwatershed_susquehanna_hexagon.json' 
 sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
 oPyhexwatershed = pyhexwatershed_generate_template_configuration_file(sFilename_configuration_in,sWorkspace_bin, sWorkspace_input, sWorkspace_output, iFlag_use_mesh_dem_in = 1, sMesh_type_in=sMesh_type, iCase_index_in = iCase_index, sDate_in = sDate)
 print(oPyhexwatershed.tojson())

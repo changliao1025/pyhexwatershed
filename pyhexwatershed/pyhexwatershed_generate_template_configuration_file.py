@@ -133,12 +133,12 @@ def pyhexwatershed_generate_template_configuration_file(sFilename_json, sWorkspa
     oPyflowline.aBasin = aBasin
     oPyhexwatershed.pPyFlowline = oPyflowline
 
-    oPyhexwatershed.sFilename_basins = sFilename_basins_json
-    sWorkspace_output_real = oPyhexwatershed.sWorkspace_output
-    oPyhexwatershed.sWorkspace_output=sWorkspace_output
+    oPyhexwatershed.sFilename_basins = sFilename_basins_json    
+
+    
     oPyhexwatershed.export_config_to_json(sFilename_json)
 
-    oPyhexwatershed.sWorkspace_output = sWorkspace_output_real
+    
 
     return oPyhexwatershed
 

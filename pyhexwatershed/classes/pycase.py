@@ -281,16 +281,20 @@ class hexwatershedcase(object):
 
         return sJson
 
-    def export_config_to_json(self):  
+    def export_config_to_json(self, sFilename_out=None):  
 
         self.pPyFlowline.export_basin_config_to_json()
 
         self.sFilename_model_configuration = os.path.join(self.sWorkspace_output, 'configuration.json')
         self.sFilename_basins = self.pPyFlowline.sFilename_basins
 
-        #save the configuration to a new file, which has the full path
-        
-        sFilename_configuration = self.sFilename_model_configuration
+        #save the configuration to a new file, which has the full path        
+      
+
+        if sFilename_out is not None:
+            sFilename_configuration = sFilename_out
+        else:
+            sFilename_configuration = self.sFilename_model_configuration
 
         aSkip = [ 'aBasin', \
                 'aFlowline_simplified','aFlowline_conceptual','aCellID_outlet',
@@ -303,8 +307,11 @@ class hexwatershedcase(object):
         with open(sFilename_configuration, 'w', encoding='utf-8') as f:
             json.dump(obj, f,sort_keys=True, \
                 ensure_ascii=False, \
-                indent=4, cls=CaseClassEncoder)        
-   
+                indent=4, cls=CaseClassEncoder)     
+
+        #make a copy       
+        copy2(sFilename_configuration, self.sFilename_model_configuration)      
+        
         return
      
     def setup(self):
