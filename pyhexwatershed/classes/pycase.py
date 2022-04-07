@@ -319,6 +319,8 @@ class hexwatershedcase(object):
         self.pPyFlowline.setup()
 
         sFilename_hexwatershed = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed )
+        #for debug
+        sFilename_hexwatershed = '/qfs/people/liao313/bin/hexwatershed'
         #copy the binary file
         sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed" )
         copy2(sFilename_hexwatershed, sFilename_new)
@@ -387,12 +389,12 @@ class hexwatershedcase(object):
                 aX= list()
                 aY=list()
                 for j in range(nVertex):
-                    aX.append( pCell.aVertex[j].dLongitude_center_degree )
-                    aY.append( pCell.aVertex[j].dLatitude_center_degree )                               
+                    aX.append( pCell.aVertex[j].dLongitude_degree )
+                    aY.append( pCell.aVertex[j].dLatitude_degree )                               
                     pass
-                aX.append( pCell.aVertex[0].dLongitude_center_degree )
-                aY.append( pCell.aVertex[0].dLongitude_center_degree )
-                aX_out,aY_out = reproject_coordinates_batch(x1,y1,pSrs,pSpatialRef_target)   
+                aX.append( pCell.aVertex[0].dLongitude_degree )
+                aY.append( pCell.aVertex[0].dLatitude_degree )
+                aX_out,aY_out = reproject_coordinates_batch(aX,aY,pSrs,pSpatialRef_target)   
                 for j in range(nVertex + 1):
                     x1 = aX_out[j]
                     y1 = aY_out[j]                    
@@ -439,11 +441,11 @@ class hexwatershedcase(object):
 
                     if(len(aElevation) >0 and np.mean(aElevation)!=-9999):                        
                         dElevation =  float(np.mean(aElevation) )                          
-                        pCell.dElevation =    dElevation  
+                        pCell.dElevation_mean =    dElevation  
                         pCell.dz = dElevation  
                         aCell_mid.append(pCell)
                     else:                    
-                        pCell.dElevation=-9999.0
+                        pCell.dElevation_mean=-9999.0
                         pass
         
         else:
@@ -468,11 +470,11 @@ class hexwatershedcase(object):
                 else:         
                     dElevation = aDem_in[lRow_index, lColumn_index]     
                     if( dElevation!=-9999):     
-                        pCell.dElevation =    dElevation  
+                        pCell.dElevation_mean =    dElevation  
                         pCell.dz = dElevation  
                         aCell_mid.append(pCell)
                     else:                    
-                        pCell.dElevation=-9999.0
+                        pCell.dElevation_mean=-9999.0
                         pass
             pass
 
@@ -488,17 +490,23 @@ class hexwatershedcase(object):
         for i in range(ncell):
             pCell = aCell_mid[i]
             aNeighbor = pCell.aNeighbor
+            aNeighbor_distance = pCell.aNeighbor_distance
             nNeighbor = pCell.nNeighbor
             aNeighbor_new = list()
+            aNeighbor_distance_new = list()
             nNeighbor_new = 0 
             for j in range(nNeighbor):
                 lNeighbor = int(aNeighbor[j])
                 if lNeighbor in aCellID:
                     nNeighbor_new = nNeighbor_new +1 
                     aNeighbor_new.append(lNeighbor)
+                    aNeighbor_distance_new.append(aNeighbor_distance[j])
 
             pCell.nNeighbor= len(aNeighbor_new)
             pCell.aNeighbor = aNeighbor_new
+            pCell.nNeighbor_land= len(aNeighbor_new)
+            pCell.aNeighbor_land = aNeighbor_new
+            pCell.aNeighbor_distance = aNeighbor_distance_new
             aCell_out.append(pCell)
 
         #now update the cell information

@@ -18,13 +18,13 @@
         "sFilename_flowline_conceptual_info": "flowline_conceptual_info.json",
         "sFilename_flowline_edge": "flowline_edge.json",
         "sFilename_flowline_filter": "/qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/input/streamord7above.shp",
-        "sFilename_flowline_filter_json": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/pyhexwatershed20220404002/pyflowline/001/flowline_filter.json",
+        "sFilename_flowline_filter_json": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/pyhexwatershed20220404003/pyflowline/001/flowline_filter.json",
         "sFilename_flowline_intersect": "flowline_intersect_mesh.json",
         "sFilename_flowline_raw": "/qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/input/allflowline.shp",
         "sFilename_flowline_segment_index_before_intersect": "flowline_segment_index_before_intersect.json",
         "sFilename_flowline_simplified": "flowline_simplified.json",
         "sFilename_flowline_simplified_info": "flowline_simplified_info.json",
         "sFilename_flowline_topo": "/qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/input/flowline.csv",
-        "sWorkspace_output_basin": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/pyhexwatershed20220404002/pyflowline/001"
+        "sWorkspace_output_basin": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/pyhexwatershed20220404003/pyflowline/001"
     }
 ]

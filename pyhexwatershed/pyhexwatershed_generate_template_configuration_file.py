@@ -46,6 +46,8 @@ def pyhexwatershed_generate_template_configuration_file(sFilename_json, sWorkspa
     else:       
         iFlag_use_shapefile_extent = 0
 
+
+
     if sMesh_type_in is not None:
         sMesh_type = sMesh_type_in
     else:
@@ -56,6 +58,12 @@ def pyhexwatershed_generate_template_configuration_file(sFilename_json, sWorkspa
     else:
         sDate = '20220202'
         pass    
+
+    if dResolution_meter_in is not None:
+        dResolution_meter = dResolution_meter_in
+    else:
+        dResolution_meter = 10000
+        pass  
     
     nBasin =1
     
@@ -72,17 +80,17 @@ def pyhexwatershed_generate_template_configuration_file(sFilename_json, sWorkspa
     aConfig['iFlag_simplification']=1
     aConfig['iFlag_create_mesh']=1
     aConfig['iFlag_intersect']=1
-    aConfig['iFlag_resample_method']=1
+    aConfig['iFlag_resample_method']=2
     aConfig['iFlag_global']=0
     aConfig['iFlag_multiple_outlet']=0
-    aConfig['iFlag_elevation_profile']=1
+    aConfig['iFlag_elevation_profile']=0
     aConfig['iFlag_rotation']=0
     aConfig['iFlag_stream_burning_topology']=1
     aConfig['iFlag_save_elevation']=1
 
     aConfig['nOutlet'] = nBasin
     aConfig['dResolution_degree'] = 0.5
-    aConfig['dResolution_meter'] = 10000
+    aConfig['dResolution_meter'] =dResolution_meter
     aConfig['dLongitude_left'] = -180
     aConfig['dLongitude_right'] = 180
     aConfig['dLatitude_bot'] = -90
