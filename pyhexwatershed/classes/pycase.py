@@ -309,8 +309,9 @@ class hexwatershedcase(object):
                 ensure_ascii=False, \
                 indent=4, cls=CaseClassEncoder)     
 
-        #make a copy       
-        copy2(sFilename_configuration, self.sFilename_model_configuration)      
+        #make a copy  
+        if sFilename_out is not None:
+            copy2(sFilename_configuration, self.sFilename_model_configuration)      
         
         return
      
@@ -365,9 +366,9 @@ class hexwatershedcase(object):
         pDataset_elevation = gdal.Open(sFilename_dem_in, gdal.GA_ReadOnly)
 
         aDem_in, dPixelWidth, dOriginX, dOriginY, \
-            nrow, ncolumn, pSpatialRef_target, pProjection, pGeotransform = gdal_read_geotiff_file(sFilename_dem_in)
+            nrow, ncolumn,dMissing_value, pSpatialRef_target, pProjection, pGeotransform = gdal_read_geotiff_file(sFilename_dem_in)
 
-        transform = osr.CoordinateTransformation(pSrs, pSpatialRef_target) 
+        #transform = osr.CoordinateTransformation(pSrs, pSpatialRef_target) 
 
         #get raster extent 
         dX_left=dOriginX

@@ -252,5 +252,5 @@ def gdal_read_geotiff_file(sFilename_in):
         pBand = None      
         pBand = None
 
-        return aData_out, dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, dMissing_value, pGeotransform, pProjection,  pSpatial_reference
+        return aData_out, dPixelWidth, dOriginX, dOriginY, nrow, ncolumn, dMissing_value,   pSpatial_reference, pProjection, pGeotransform
 

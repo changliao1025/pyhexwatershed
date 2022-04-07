@@ -100,8 +100,10 @@ else:
                     oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
                     oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
                     aCell = oPyhexwatershed.run_pyflowline()
-                    oPyhexwatershed.assign_elevation_to_cells()
+                    aCell_out = oPyhexwatershed.assign_elevation_to_cells()
+                    oPyhexwatershed.pPyFlowline.export()
                     oPyhexwatershed.export_config_to_json()
+
                     oPyhexwatershed.run_hexwatershed()
                     oPyhexwatershed.analyze()
                     oPyhexwatershed.export()

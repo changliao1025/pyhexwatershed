@@ -49,7 +49,7 @@ sWorkspace_bin = realpath( sPath +  '/bin' )
 
 sFilename_configuration_in = sPath +  '/tests/configurations/pyhexwatershed_susquehanna_hexagon.json' 
 sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
-oPyhexwatershed = pyhexwatershed_generate_template_configuration_file(sFilename_configuration_in,sWorkspace_bin, sWorkspace_input, sWorkspace_output, iFlag_use_mesh_dem_in = 1, sMesh_type_in=sMesh_type, iCase_index_in = iCase_index, sDate_in = sDate)
+oPyhexwatershed = pyhexwatershed_generate_template_configuration_file(sFilename_configuration_in,sWorkspace_bin, sWorkspace_input, sWorkspace_output, iFlag_use_mesh_dem_in = 0, sMesh_type_in=sMesh_type, iCase_index_in = iCase_index, sDate_in = sDate)
 print(oPyhexwatershed.tojson())
 
 
