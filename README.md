@@ -1,8 +1,11 @@
-## `HexWatershed: a mesh independent flow direction model for hydrologic models`
+## `HexWatershed`
 
 [![DOI](https://zenodo.org/badge/235201194.svg)](https://zenodo.org/badge/latestdoi/235201194)
 
-This Python package provides a <a href="http://www.python.org">`Python`</a> based interface to the underlying `HexWatershed` model.
+HexWatershed: a mesh independent flow direction model for hydrologic models`
+
+
+This Python package provides a <a href="http://www.python.org">`Python`</a> interface to the underlying `HexWatershed` model.
 
 `HexWatershed` has been compiled and tested on various `64-bit` `Linux` and `Mac` based platforms. 
 
