@@ -36,7 +36,9 @@ https://doi.org/10.1016/j.advwatres.2021.104099.
 
 * Liao, C., Tesfa, T., Duan, Z., & Leung, L. R. (2020). Watershed delineation on a hexagonal mesh grid. Environmental Modelling & Software, 128, 104702. https://doi.org/10.1016/j.envsoft.2020.104702
 
-* Liao. C. (2022) Pyflowline: a mesh-independent river networks generator for hydrologic models. Zenodo.
+* Liao. C. (2022) Pyflowline: a mesh independent river networks generator for hydrologic models. Zenodo.
 https://doi.org/10.5281/zenodo.6407299
+
+* Liao. C. (2022). HexWatershed: a mesh independent flow direction model for hydrologic models (0.1.1). Zenodo. https://doi.org/10.5281/zenodo.6425881
 
 
