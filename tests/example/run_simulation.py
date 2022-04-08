@@ -23,8 +23,8 @@ parser.add_argument("--sDate", help = "sDate",  type = str)
 #python notebook.py --sMesh_type hexagon --iCase_index 1 --dResolution_meter 50000 --sDate 20220201
 pArgs = parser.parse_args()
 
-sMesh_type = 'square'
-iCase_index = 3
+sMesh_type = 'hexagon'
+iCase_index = 2
 dResolution_meter=5000
 sDate='20220404'
 sPath = str( Path().resolve() )
@@ -103,7 +103,7 @@ else:
                     aCell_out = oPyhexwatershed.assign_elevation_to_cells()
                     oPyhexwatershed.pPyFlowline.export()
                     oPyhexwatershed.export_config_to_json()
-                    #exit()
+                    
                     oPyhexwatershed.run_hexwatershed()
                     oPyhexwatershed.analyze()
                     oPyhexwatershed.export()
@@ -123,6 +123,7 @@ else:
                 oPyhexwatershed.pPyFlowline.dLatitude_bot= 39.20
                 oPyhexwatershed.pPyFlowline.dLatitude_top= 42.8
                 oPyhexwatershed.run_pyflowline()
+                oPyhexwatershed.pPyFlowline.export()
                 oPyhexwatershed.export_config_to_json()
                 oPyhexwatershed.run_hexwatershed()
                 oPyhexwatershed.analyze()
