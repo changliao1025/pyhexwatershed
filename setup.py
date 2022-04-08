@@ -8,11 +8,11 @@ from setuptools import setup, find_packages, Command
 
 NAME = "hexwatershed"
 DESCRIPTION = \
-    "Python interface for the HexWatershed model."
+    "A mesh independent flow direction model for hydrologic models"
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.1.0"
+VERSION = "0.1.2"
 REQUIRES_PYTHON = ">=3.6.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -20,6 +20,7 @@ REQUIRED = [
     "numpy",
     "gdal",
     "netcdf"
+    "pyflowline"
 ]
 
 CLASSIFY = [
