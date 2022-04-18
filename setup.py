@@ -137,7 +137,7 @@ setup(
     keywords=KEYWORDS,
     url=URL,
     packages=find_packages(),
-    #cmdclass={"build_external": build_external},
+    cmdclass={"build_external": build_external},
     package_data={"hexwatershed": ["_bin/*", "_lib/*"]},
     install_requires=REQUIRED,
     classifiers=CLASSIFY
