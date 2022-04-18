@@ -59,6 +59,21 @@ add_executable(hexwatershed ${hexwatershed_srcs})
 
 set(default_build_type Release)
 target_compile_options(hexwatershed PUBLIC -std=c++11)
+
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set (INSTALL_LOCAL TRUE)
+  message (">> INSTALLING LOCALLY")
+else ()
+  message (">> INSTALLING TO ${CMAKE_INSTALL_PREFIX}")
+endif ()
+
+if (DEFINED INSTALL_LOCAL)
+  install (TARGETS hexwatershed DESTINATION "${PROJECT_SOURCE_DIR}/bin")
+else ()
+  install (TARGETS hexwatershed DESTINATION bin)
+endif ()
+
+
 find_package(OpenMP)
 if (OPENMP_FOUND)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")

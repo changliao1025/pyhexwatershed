@@ -19,7 +19,7 @@ KEYWORDS = "hexwatershed hexagon"
 REQUIRED = [
     "numpy",
     "gdal",
-    "netcdf",
+    "netCDF4",
     "pyflowline"
 ]
 
@@ -85,10 +85,10 @@ class build_external(Command):
                 os.path.join(source_path, "lib")
 
             exedst_path = os.path.join(
-                HERE, "hexwatershed", "_bin")
+                HERE, "pyhexwatershed", "_bin")
 
             libdst_path = os.path.join(
-                HERE, "hexwatershed", "_lib")
+                HERE, "pyhexwatershed", "_lib")
 
             shutil.rmtree(
                 exedst_path, ignore_errors=True)
