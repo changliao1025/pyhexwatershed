@@ -19,7 +19,7 @@ KEYWORDS = "hexwatershed hexagon"
 REQUIRED = [
     "numpy",
     "gdal",
-    "netcdf"
+    "netcdf",
     "pyflowline"
 ]
 
