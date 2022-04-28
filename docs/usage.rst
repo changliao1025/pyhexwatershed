@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use pyhexwatershed in a project::
+To use hexwatershed in a project::
 
-    import pyhexwatershed
+    import hexwatershed
