@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # python things
+retired/
 unused/
 output/
 ./external/pyflowline
