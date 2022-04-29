@@ -4,21 +4,15 @@ import datetime
 import json
 from shutil import copy2
 import subprocess
-
 from json import JSONEncoder
-
 from pathlib import Path
 from osgeo import gdal, ogr, osr, gdalconst
 import numpy as np
-
 from pyflowline.classes.pycase import flowlinecase
-from pyflowline.pyflowline_read_model_configuration_file import pyflowline_read_model_configuration_file
-
 from pyhexwatershed.algorithm.auxiliary.gdal_function import gdal_read_geotiff_file, reproject_coordinates, reproject_coordinates_batch
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
-
 
 class CaseClassEncoder(JSONEncoder):
     def default(self, obj):
@@ -31,8 +25,7 @@ class CaseClassEncoder(JSONEncoder):
         if isinstance(obj, list):
             pass  
         if isinstance(obj, flowlinecase):
-            return obj.sWorkspace_output 
-            
+            return obj.sWorkspace_output             
         return JSONEncoder.default(self, obj)
 
 class hexwatershedcase(object):
@@ -47,9 +40,8 @@ class hexwatershedcase(object):
     iFlag_simplification= 0
     iFlag_intersect= 0
     iFlag_merge_reach=1
-    iMesh_type=4   
+    iMesh_type = 4   
     iFlag_save_mesh = 0 
-
     iFlag_use_mesh_dem=0
     nOutlet=1  
     dResolution_degree=0.0
@@ -63,26 +55,20 @@ class hexwatershedcase(object):
     sFilename_model_configuration=''
     sFilename_mesh_info=''
     sFilename_flowline_info=''
-    sFilename_basins=''
-    
- 
+    sFilename_basins=''     
     sWorkspace_model_region=''    
-    sWorkspace_bin=''
-    
+    sWorkspace_bin=''    
     sRegion=''
     sModel=''
-    iMesh_type ='hexagon'
-
+    iMesh_type ='mpas'
     sCase=''
     sDate=''    
-
     sFilename_spatial_reference=''
     sFilename_hexwatershed=''
     pPyFlowline = None
     sWorkspace_output_pyflowline=''
     sWorkspace_output_hexwatershed=''
     aBasin = list()
-
 
     def __init__(self, aConfig_in):
         print('HexWatershed compset is being initialized')
@@ -105,9 +91,7 @@ class hexwatershedcase(object):
 
         if 'sModel' in aConfig_in:
             self.sModel                = aConfig_in[ 'sModel']
-        
-        #required with default variables
-
+     
         if 'iFlag_resample_method' in aConfig_in:
             self.iFlag_resample_method       = int(aConfig_in[ 'iFlag_resample_method'])
 
@@ -137,8 +121,7 @@ class hexwatershedcase(object):
 
         if 'iFlag_save_mesh' in aConfig_in:
             self.iFlag_save_mesh             = int(aConfig_in[ 'iFlag_save_mesh'])
-
-        #optional
+        
         if 'iFlag_save_elevation' in aConfig_in:
             self.iFlag_save_elevation  = int(aConfig_in[ 'iFlag_save_elevation'])
 
@@ -170,9 +153,7 @@ class hexwatershedcase(object):
             iCase_index = int(aConfig_in['iCase_index'])
         else:
             iCase_index = 1
-        
-       
-        
+              
         sDate   = aConfig_in[ 'sDate']
         if sDate is not None:
             self.sDate= sDate
@@ -509,18 +490,15 @@ class hexwatershedcase(object):
             pCell.aNeighbor_distance = aNeighbor_distance_new
             aCell_out.append(pCell)
 
-        #now update the cell information
+        #update the cell information
         self.pPyFlowline.aCell= aCell_out
         return aCell_out
     
-    def generate_bash_script(self):
-
-       
+    def generate_bash_script(self):       
         sName  = 'configuration.json'
         sFilename_configuration  =  os.path.join( self.sWorkspace_output,  sName )
-
         os.chdir(self.sWorkspace_output_hexwatershed)
-        #writen normal run script
+        
         sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run.sh" )
         ofs = open(sFilename_bash, 'w')
         sLine = '#!/bin/bash\n'
@@ -534,39 +512,28 @@ class hexwatershedcase(object):
         sLine = './hexwatershed ' + sFilename_configuration + '\n'
         ofs.write(sLine)
         ofs.close()
-
-
-
-        os.chmod(sFilename_bash, stat.S_IRWXU )
-
-        
+        os.chmod(sFilename_bash, stat.S_IRWXU )        
         return
     
     def analyze(self):
         return
 
-    def export(self):
-        
+    def export(self):        
         self.pyhexwatershed_save_elevation()
         self.pyhexwatershed_save_slope()
-        self.pyhexwatershed_save_flow_direction()
-        
-        
+        self.pyhexwatershed_save_flow_direction()     
         return
 
     def pyhexwatershed_save_flow_direction(self):
-
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
-
         sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'flow_direction.json')
         if os.path.exists(sFilename_geojson):
             os.remove(sFilename_geojson)
         pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)
+        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)    
 
-    
         pSrs = osr.SpatialReference()  
-        pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
+        pSrs.ImportFromEPSG(4326)  #WGS84 lat/lon
 
         pLayer = pDataset.CreateLayer('flowdir', pSrs, ogr.wkbLineString)
         # Add one attribute
@@ -579,12 +546,8 @@ class hexwatershedcase(object):
         pLayerDefn = pLayer.GetLayerDefn()
         pFeature = ogr.Feature(pLayerDefn)
 
-
         with open(sFilename_json) as json_file:
             data = json.load(json_file)  
-
-            #print(type(data))
-
             ncell = len(data)
             lID =0 
             for i in range(ncell):
@@ -607,11 +570,9 @@ class hexwatershedcase(object):
                         pFeature.SetGeometry(pLine)
                         pFeature.SetField("id", lID)
                         pFeature.SetField("fac", dfac)
-
                         pLayer.CreateFeature(pFeature)
-                        lID =lID +1
+                        lID = lID +1
                         break
-
 
             pDataset = pLayer = pFeature  = None      
         pass
@@ -693,7 +654,6 @@ class hexwatershedcase(object):
         pass        
     
     def pyhexwatershed_save_elevation(self):
-
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
 
         sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'elevation.json')
@@ -701,12 +661,9 @@ class hexwatershedcase(object):
             os.remove(sFilename_geojson)
 
         pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)
-        
-    
+        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)           
         pSrs = osr.SpatialReference()  
         pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
-
         pLayer = pDataset.CreateLayer('ele', pSrs, geom_type=ogr.wkbPolygon)
         # Add one attribute
         pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution       
@@ -745,7 +702,6 @@ class hexwatershedcase(object):
                 nvertex = len(vVertex)
                 pPolygon = ogr.Geometry(ogr.wkbPolygon)
                 ring = ogr.Geometry(ogr.wkbLinearRing)
-
                 for j in range(nvertex):
                     x = vVertex[j]['dLongitude_degree']
                     y = vVertex[j]['dLatitude_degree']
@@ -761,17 +717,12 @@ class hexwatershedcase(object):
                 pFeature.SetField("elev", dElev)
                 pFeature.SetField("elep", dElep)
                 pLayer.CreateFeature(pFeature)
-
-
-
-
             pDataset = pLayer = pFeature  = None      
         pass        
     
     def create_hpc_job(self):
         """create a HPC job for this simulation
         """
-
         os.chdir(self.sWorkspace_output)
         #writen normal run script
         sFilename_job = os.path.join(str(Path(self.sWorkspace_output)  ) ,  "submit.job" )
@@ -811,14 +762,12 @@ class hexwatershedcase(object):
         sLine = './hexwatershed ' + '.ini' + '\n'
         ofs.write(sLine)
         ofs.close()
-
         #run pyflowline script
         sFilename_pyflowline = os.path.join(str(Path(self.sWorkspace_output_pyflowline)) , "run_pyflowline.sh" )
         ofs_pyflowline = open(sFilename_pyflowline, 'w')
 
         sLine = '#!/bin/bash\n'
         ofs_pyflowline.write(sLine)
-
         sLine = 'echo "Started to prepare python scripts"\n'
         ofs_pyflowline.write(sLine)
         sLine = 'module load anaconda3/2019.03' + '\n'
@@ -827,27 +776,22 @@ class hexwatershedcase(object):
         ofs_pyflowline.write(sLine)
         sLine = 'conda activate hexwatershedenv' + '\n'
         ofs_pyflowline.write(sLine)
-
         sLine = 'cat << EOF > run_hexwatershed.py' + '\n' 
         ofs_pyflowline.write(sLine)    
         sLine = '#!/qfs/people/liao313/.conda/envs/hexwatershedenv/bin/' + 'python3' + '\n' 
         ofs_pyflowline.write(sLine) 
-
         sLine = 'from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file' + '\n'
-        ofs_pyflowline.write(sLine)
-         
+        ofs_pyflowline.write(sLine)         
         sLine = 'sFilename_configuration_in = ' + '"' + self.sFilename_model_configuration + '"\n'
         ofs_pyflowline.write(sLine)
         sLine = 'oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,' + \
             'iCase_index_in='+ str(self.iCase_index) + ',' +  'sMesh_type_in="'+ str(self.sMesh_type) +'"' \
            + ')'  +   '\n'   
         ofs_pyflowline.write(sLine)
-
         sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620'
         ofs_pyflowline.write(sLine)
         sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093'
-        ofs_pyflowline.write(sLine)
-        
+        ofs_pyflowline.write(sLine)        
         sLine = 'oPyhexwatershed.pPyflowline.setup()' + '\n'   
         ofs_pyflowline.write(sLine)
         sLine = 'oPyhexwatershed.pPyflowline.run()' + '\n'   
@@ -860,17 +804,13 @@ class hexwatershedcase(object):
         ofs_pyflowline.write(sLine)
         sLine = 'chmod 755 ' + 'run_hexwatershed.py' + '\n'   
         ofs_pyflowline.write(sLine)
-
-
         sLine = './run_hexwatershed.py'
         ofs_pyflowline.write(sLine)
         ofs_pyflowline.close()
-        os.chmod(sFilename_pyflowline, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)
-  
-     
+        os.chmod(sFilename_pyflowline, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)       
         return
 
     def submit_hpc_job(self):
-        #this is not fully recommended as it may affect the environment variable
 
+        #this is not fully recommended as it may affect the environment variable
         return
