@@ -47,82 +47,6 @@ except FileNotFoundError:
     LONG_DESCRIPTION = DESCRIPTION
 
 
-class build_external(Command):
-
-    description = "build external HexWatershed dependencies"
-
-    user_options = []
-
-    def initialize_options(self): pass
-
-    def finalize_options(self): pass
-
-    def run(self):
-        """
-        The actual cmake-based build steps for JIGSAW
-
-        """
-        if (self.dry_run): return
-
-        cwd_pointer = os.getcwd()
-
-        try:
-            self.announce("cmake config.", level=3)
-
-            source_path = os.path.join(
-                HERE, "external", "hexwatershed")
-
-            builds_path = \
-                os.path.join(source_path, "tmp")
-
-            os.makedirs(builds_path, exist_ok=True)
-
-            exesrc_path = \
-                os.path.join(source_path, "bin")
-
-            libsrc_path = \
-                os.path.join(source_path, "lib")
-
-            exedst_path = os.path.join(
-                HERE, "pyhexwatershed", "_bin")
-
-            libdst_path = os.path.join(
-                HERE, "pyhexwatershed", "_lib")
-
-            shutil.rmtree(
-                exedst_path, ignore_errors=True)
-            shutil.rmtree(
-                libdst_path, ignore_errors=True)
-
-            os.chdir(builds_path)
-
-            config_call = [
-                "cmake",
-                "..", "-DCMAKE_BUILD_TYPE=Release"]
-
-            subprocess.run(config_call, check=True)
-
-            self.announce("cmake complie", level=3)
-
-            compilecall = ["cmake", "--build", ".",
-                           "--config", "Release",
-                           "--target", "install"]
-
-            subprocess.run(compilecall, check=True)
-
-            self.announce("cmake cleanup", level=3)
-
-            shutil.copytree(
-                exesrc_path, exedst_path)
-            shutil.copytree(
-                libsrc_path, libdst_path)
-
-        finally:
-            os.chdir(cwd_pointer)
-
-            shutil.rmtree(builds_path)
-
-
 setup(
     name=NAME,
     version=VERSION,
@@ -135,9 +59,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     keywords=KEYWORDS,
     url=URL,
-    packages=find_packages(),
-    cmdclass={"build_external": build_external},
-    package_data={"hexwatershed": ["_bin/*", "_lib/*"]},
+    packages=find_packages(),    
     install_requires=REQUIRED,
     classifiers=CLASSIFY
 )

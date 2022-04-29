@@ -16,6 +16,7 @@ requirements:
     - python
     - netCDF4
     - gdal
+    - pyflowline
 
 about:
   home: https://github.com/changliao1025/pyhexwatershed
