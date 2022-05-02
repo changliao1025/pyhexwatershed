@@ -146,6 +146,5 @@ output/
 *.obj
 *.stl
 *.tif
-*.shp
 
 .vscode
