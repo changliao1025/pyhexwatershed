@@ -18,10 +18,8 @@ This Python package provides a <a href="http://www.python.org">`Python`</a> inte
     Install the python package using Conda
 
 For detailed installation instruction, please refer to the documentation.
-   
     
 Note: installation of `HexWatershed` requires a `c++` compiler and the `cmake` utility. Besides, the `GDAL` is required to build the model.
-    
 
 ### `Acknowledgement`
 
