@@ -300,8 +300,6 @@ class hexwatershedcase(object):
         self.pPyFlowline.setup()
 
         sFilename_hexwatershed = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed )
-        #for debug
-        sFilename_hexwatershed = '/qfs/people/liao313/bin/hexwatershed'
         #copy the binary file
         sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed" )
         copy2(sFilename_hexwatershed, sFilename_new)
