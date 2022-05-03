@@ -12,9 +12,12 @@ This Python package provides a <a href="http://www.python.org">`Python`</a> inte
 ### `Quickstart`
 
     Ensure you have a c++ compiler and the cmake utility installed.
-    Clone/download + unpack this repository.
-    python3 setup.py build_external
-    python3 setup.py install
+    
+    Build the HexWatershed C++ backend and place the binary under the system path.
+
+    Install the python package using Conda
+
+For detailed installation instruction, please refer to the documentation.
    
     
 Note: installation of `HexWatershed` requires a `c++` compiler and the `cmake` utility. Besides, the `GDAL` is required to build the model.
