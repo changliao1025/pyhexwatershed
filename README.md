@@ -9,19 +9,21 @@ This Python package provides a <a href="http://www.python.org">`Python`</a> inte
 
 `HexWatershed` has been compiled and tested on various `64-bit` `Linux` and `Mac` based platforms. 
 
-### `Quickstart`
+
+### `Installation`
 
     Ensure you have a c++ compiler and the cmake utility installed.
     
-    Build the HexWatershed C++ backend and place the binary under the system path.
+    Build the HexWatershed C++ backend and place the binary under the bin path.
 
-    Install the python package using Conda
+    Install the python package using Conda/Pip
 
 For detailed installation instruction, please refer to the <a href="https://hexwatershed.readthedocs.io/en/latest/">`documentation`</a>.
 
+### `Usage`
 
+Please use this <a href="https://github.com/changliao1025/hexwatershed_tutorial">`tutorial`</a> to run the examples.
     
-Note: installation of `HexWatershed` requires a `c++` compiler and the `cmake` utility. Besides, the `GDAL` is required to build the model.
 
 ### `Acknowledgement`
 
