@@ -14,7 +14,7 @@ This Python package provides a <a href="http://www.python.org">`Python`</a> inte
     
     Build the HexWatershed C++ backend and place the binary under the bin path.
 
-    Install the python package using conda
+    Install the python package using conda: conda install -c conda-forge hexwatershed
 
 For detailed installation instruction, please refer to the <a href="https://hexwatershed.readthedocs.io/en/latest/">`documentation`</a>.
 
