@@ -2,13 +2,11 @@
 
 [![DOI](https://zenodo.org/badge/235201194.svg)](https://zenodo.org/badge/latestdoi/235201194)
 
-HexWatershed: a mesh independent flow direction model for hydrologic models.
-
+HexWatershed: a mesh independent flow direction model for hydrological models.
 
 This Python package provides a <a href="http://www.python.org">`Python`</a> interface to the underlying `HexWatershed` model.
 
 `HexWatershed` has been compiled and tested on various `64-bit` `Linux` and `Mac` based platforms. 
-
 
 ### `Installation`
 
@@ -16,7 +14,7 @@ This Python package provides a <a href="http://www.python.org">`Python`</a> inte
     
     Build the HexWatershed C++ backend and place the binary under the bin path.
 
-    Install the python package using Conda/Pip
+    Install the python package using conda: conda install -c conda-forge hexwatershed
 
 For detailed installation instruction, please refer to the <a href="https://hexwatershed.readthedocs.io/en/latest/">`documentation`</a>.
 
@@ -24,7 +22,6 @@ For detailed installation instruction, please refer to the <a href="https://hexw
 
 Please use this <a href="https://github.com/changliao1025/hexwatershed_tutorial">`tutorial`</a> to run the examples.
     
-
 ### `Acknowledgement`
 
 This work was supported by the Earth System Model Development program areas of the U.S. Department of Energy, Office of Science, Office of Biological and Environmental Research as part of the multi-program, collaborative Integrated Coastal Modeling (ICoM) project. 
