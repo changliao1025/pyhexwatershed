@@ -97,15 +97,25 @@ class hexwatershedcase(object):
 
         if 'iFlag_flowline' in aConfig_in:
             self.iFlag_flowline             = int(aConfig_in[ 'iFlag_flowline'])
+        else: 
+            self.iFlag_flowline =1 
 
         if 'iFlag_create_mesh' in aConfig_in:
             self.iFlag_create_mesh             = int(aConfig_in[ 'iFlag_create_mesh'])
+        else: 
+            self.iFlag_create_mesh =1 
 
         if 'iFlag_simplification' in aConfig_in:
             self.iFlag_simplification             = int(aConfig_in[ 'iFlag_simplification'])
+        else: 
+            self.iFlag_simplification = 1 
+        if self.iFlag_simplification ==1:
+            self.iFlag_flowline = 1
 
         if 'iFlag_intersect' in aConfig_in:
             self.iFlag_intersect             = int(aConfig_in[ 'iFlag_intersect'])
+        else: 
+            self.iFlag_intersect = 1 
 
         if 'iFlag_global' in aConfig_in:
             self.iFlag_global             = int(aConfig_in[ 'iFlag_global'])
@@ -116,8 +126,16 @@ class hexwatershedcase(object):
         if 'iFlag_use_mesh_dem' in aConfig_in:
             self.iFlag_use_mesh_dem             = int(aConfig_in[ 'iFlag_use_mesh_dem'])
 
+        if 'iFlag_use_shapefile_extent' in aConfig_in:
+            self.iFlag_use_shapefile_extent             = int(aConfig_in[ 'iFlag_use_shapefile_extent'])
+
+            
+
         if 'iFlag_stream_burning_topology' in aConfig_in:
             self.iFlag_stream_burning_topology       = int(aConfig_in[ 'iFlag_stream_burning_topology'])
+
+        if self.iFlag_flowline == 0:
+            self.iFlag_stream_burning_topology = 0
 
         if 'iFlag_save_mesh' in aConfig_in:
             self.iFlag_save_mesh             = int(aConfig_in[ 'iFlag_save_mesh'])
@@ -495,14 +513,11 @@ class hexwatershedcase(object):
     def generate_bash_script(self):       
         sName  = 'configuration.json'
         sFilename_configuration  =  os.path.join( self.sWorkspace_output,  sName )
-        os.chdir(self.sWorkspace_output_hexwatershed)
-        
+        os.chdir(self.sWorkspace_output_hexwatershed)        
         sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run.sh" )
         ofs = open(sFilename_bash, 'w')
         sLine = '#!/bin/bash\n'
-        ofs.write(sLine)
-        
-        
+        ofs.write(sLine)            
         sLine = 'module load gcc/8.1.0' + '\n'
         ofs.write(sLine)
         sLine = 'cd ' + self.sWorkspace_output_hexwatershed+ '\n'
@@ -645,9 +660,6 @@ class hexwatershedcase(object):
                 pFeature.SetField("slpp", dslpp)
                 pLayer.CreateFeature(pFeature)
 
-
-
-
             pDataset = pLayer = pFeature  = None      
         pass        
     
@@ -742,11 +754,7 @@ class hexwatershedcase(object):
         sLine = '#SBATCH -o stdout.out\n'
         ofs.write(sLine)
         sLine = '#SBATCH -e stderr.err\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH --mail-type=ALL\n'
-        #ofs.write(sLine)
-        sLine = '#SBATCH --mail-user=chang.liao@pnnl.gov\n'
-        ofs.write(sLine)
+        ofs.write(sLine)        
         sLine = 'cd $SLURM_SUBMIT_DIR\n'
         ofs.write(sLine)
         sLine = 'module purge\n'

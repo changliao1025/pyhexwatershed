@@ -4,7 +4,7 @@
 
 HexWatershed: a mesh independent flow direction model for hydrological models.
 
-This Python package provides a <a href="http://www.python.org">`Python`</a> interface to the underlying `HexWatershed` model.
+This Python package provides a <a href="http://www.python.org">`Python`</a> interface to the underlying <a href="https://github.com/changliao1025/hexwatershed">`HexWatershed`</a> model.
 
 `HexWatershed` has been compiled and tested on various `64-bit` `Linux` and `Mac` based platforms. 
 
