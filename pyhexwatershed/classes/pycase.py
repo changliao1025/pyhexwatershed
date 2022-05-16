@@ -126,8 +126,16 @@ class hexwatershedcase(object):
         if 'iFlag_use_mesh_dem' in aConfig_in:
             self.iFlag_use_mesh_dem             = int(aConfig_in[ 'iFlag_use_mesh_dem'])
 
+        if 'iFlag_use_shapefile_extent' in aConfig_in:
+            self.iFlag_use_shapefile_extent             = int(aConfig_in[ 'iFlag_use_shapefile_extent'])
+
+            
+
         if 'iFlag_stream_burning_topology' in aConfig_in:
             self.iFlag_stream_burning_topology       = int(aConfig_in[ 'iFlag_stream_burning_topology'])
+
+        if self.iFlag_flowline == 0:
+            self.iFlag_stream_burning_topology = 0
 
         if 'iFlag_save_mesh' in aConfig_in:
             self.iFlag_save_mesh             = int(aConfig_in[ 'iFlag_save_mesh'])
