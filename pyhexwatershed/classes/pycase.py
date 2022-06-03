@@ -256,8 +256,8 @@ class hexwatershedcase(object):
         self.sWorkspace_output_pyflowline = sPath
         Path(sPath).mkdir(parents=True, exist_ok=True)
 
-        self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_elevation.json" )
-        self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + ".json" )
+        self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_elevation.geojson" )
+        self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + ".geojson" )
         self.sFilename_mesh_info  =  os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_mesh_info.json"  ) 
         
         
@@ -539,7 +539,7 @@ class hexwatershedcase(object):
 
     def pyhexwatershed_save_flow_direction(self):
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
-        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'flow_direction.json')
+        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'flow_direction.geojson')
         if os.path.exists(sFilename_geojson):
             os.remove(sFilename_geojson)
         pDriver_geojson = ogr.GetDriverByName('GeoJSON')
@@ -594,7 +594,7 @@ class hexwatershedcase(object):
 
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
 
-        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'slope.json')
+        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'slope.geojson')
         if os.path.exists(sFilename_geojson):
             os.remove(sFilename_geojson)
 
@@ -666,7 +666,7 @@ class hexwatershedcase(object):
     def pyhexwatershed_save_elevation(self):
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
 
-        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'elevation.json')
+        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'elevation.geojson')
         if os.path.exists(sFilename_geojson):
             os.remove(sFilename_geojson)
 

@@ -12,7 +12,7 @@ logging.warning('is the time pyhexwatershed simulation started.')
 
 from pyhexwatershed.classes.pycase import hexwatershedcase
 from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
-from pyhexwatershed.pyhexwatershed_generate_template_configuration_file import pyhexwatershed_generate_template_configuration_file
+from pyhexwatershed.pyhexwatershed_create_template_configuration_file import pyhexwatershed_create_template_configuration_file
 
 #example
 parser = argparse.ArgumentParser()

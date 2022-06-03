@@ -5,7 +5,7 @@ from os.path import realpath
 
 
 from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
-from pyhexwatershed.pyhexwatershed_generate_template_configuration_file import pyhexwatershed_generate_template_configuration_json_file
+from pyhexwatershed.pyhexwatershed_create_template_configuration_file import pyhexwatershed_create_template_configuration_json_file
 
 #setup a few keyword
 sMesh_type = 'mpas'
@@ -19,7 +19,7 @@ sPath_bin= str(Path(sPath ) / 'bin')
 if iFlag_option ==1:
     sFilename_configuration_in = sPath +  '/tests/configurations/template.json' 
     sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
-    oPyhexwatershed = pyhexwatershed_generate_template_configuration_json_file(sFilename_configuration_in, sWorkspace_data, sPath_bin, sMesh_type_in=sMesh_type, iCase_index_in = iCase_index, sDate_in = sDate)
+    oPyhexwatershed = pyhexwatershed_create_template_configuration_json_file(sFilename_configuration_in, sWorkspace_data, sPath_bin, sMesh_type_in=sMesh_type, iCase_index_in = iCase_index, sDate_in = sDate)
     print(oPyhexwatershed.tojson())
 else: 
     if iFlag_option == 2:
