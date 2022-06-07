@@ -11,6 +11,7 @@ sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:
 
 def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
      iCase_index_in=None, \
+         dResolution_meter_in = None,\
                  sDate_in = None,\
                      sMesh_type_in=None):
 
@@ -35,12 +36,18 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
         iCase_index = iCase_index_in
     else:       
         iCase_index = int( aConfig['iCase_index'])
+        pass 
+
+    if dResolution_meter_in is not None:        
+        dResolution_meter = dResolution_meter_in
+    else:       
+        dResolution_meter = float( aConfig['dResolution_meter'])
         pass  
 
     aConfig["sDate"] = sDate
     aConfig["sMesh_type"] = sMesh_type
     aConfig["iCase_index"] = iCase_index
-    
+    aConfig["dResolution_meter"] = dResolution_meter
     
     oPyhexwatershed = hexwatershedcase(aConfig)
     oPyflowline = flowlinecase(aConfig ,  iFlag_standalone_in = 0,\

@@ -764,56 +764,41 @@ class hexwatershedcase(object):
         sLine = 'module load anaconda3/2019.03' + '\n'
         ofs.write(sLine)
         sLine = 'source /share/apps/anaconda3/2019.03/etc/profile.d/conda.sh' + '\n'
+        ofs.write(sLine)    
+                
+        sLine = 'echo "Started to run pyflowline"\n'
+        ofs.write(sLine)        
+        sLine = 'conda activate hexwatershed' + '\n'
         ofs.write(sLine)
-        sLine = './hexwatershed ' + '.ini' + '\n'
-        ofs.write(sLine)
-        ofs.close()
-        #run pyflowline script
-        sFilename_pyflowline = os.path.join(str(Path(self.sWorkspace_output_pyflowline)) , "run_pyflowline.sh" )
-        ofs_pyflowline = open(sFilename_pyflowline, 'w')
-
-        sLine = '#!/bin/bash\n'
-        ofs_pyflowline.write(sLine)
-        sLine = 'echo "Started to prepare python scripts"\n'
-        ofs_pyflowline.write(sLine)
-        sLine = 'module load anaconda3/2019.03' + '\n'
-        ofs_pyflowline.write(sLine)
-        sLine = 'source /share/apps/anaconda3/2019.03/etc/profile.d/conda.sh' + '\n'
-        ofs_pyflowline.write(sLine)
-        sLine = 'conda activate hexwatershedenv' + '\n'
-        ofs_pyflowline.write(sLine)
-        sLine = 'cat << EOF > run_hexwatershed.py' + '\n' 
-        ofs_pyflowline.write(sLine)    
-        sLine = '#!/qfs/people/liao313/.conda/envs/hexwatershedenv/bin/' + 'python3' + '\n' 
-        ofs_pyflowline.write(sLine) 
+        
         sLine = 'from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file' + '\n'
-        ofs_pyflowline.write(sLine)         
+        ofs.write(sLine)         
         sLine = 'sFilename_configuration_in = ' + '"' + self.sFilename_model_configuration + '"\n'
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = 'oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,' + \
             'iCase_index_in='+ str(self.iCase_index) + ',' +  'sMesh_type_in="'+ str(self.sMesh_type) +'"' \
            + ')'  +   '\n'   
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620'
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093'
-        ofs_pyflowline.write(sLine)        
+        ofs.write(sLine)        
         sLine = 'oPyhexwatershed.pPyflowline.setup()' + '\n'   
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = 'oPyhexwatershed.pPyflowline.run()' + '\n'   
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = 'oPyhexwatershed.pPyflowline.analyze()' + '\n'   
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = 'oPyhexwatershed.pPyflowline.export()' + '\n'   
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = 'EOF\n'
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = 'chmod 755 ' + 'run_hexwatershed.py' + '\n'   
-        ofs_pyflowline.write(sLine)
+        ofs.write(sLine)
         sLine = './run_hexwatershed.py'
-        ofs_pyflowline.write(sLine)
-        ofs_pyflowline.close()
-        os.chmod(sFilename_pyflowline, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)       
+        ofs.write(sLine)
+        ofs.close()
+             
         return
 
     def submit_hpc_job(self):

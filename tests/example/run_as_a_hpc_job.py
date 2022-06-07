@@ -22,21 +22,8 @@ if iFlag_option ==1:
     oPyhexwatershed = pyhexwatershed_create_template_configuration_json_file(sFilename_configuration_in, sWorkspace_data, sPath_bin, sMesh_type_in=sMesh_type, iCase_index_in = iCase_index, sDate_in = sDate)
     print(oPyhexwatershed.tojson())
 else: 
-    if iFlag_option == 2:
-        #an example configuration file is provided with the repository, but you need to update this file based on your own case study
-        if sMesh_type=='hexagon':
-            sFilename_configuration_in = realpath( sPath +  '/../configurations/pyflowline_susquehanna_hexagon.json' )
-        else:
-            if sMesh_type=='square':
-                sFilename_configuration_in = realpath( sPath +  '/../configurations/pyflowline_susquehanna_square.json' )
-            else:
-                if sMesh_type=='latlon':
-                    sFilename_configuration_in = realpath( sPath +  '/../configurations/pyflowline_susquehanna_latlon.json' )
-                else:
-                    sFilename_configuration_in = realpath( sPath +  '/../configurations/)pyflowline_susquehanna_mpas.json' )
-        
-      
-        print(sFilename_configuration_in)
+    if iFlag_option == 2:     
+        sFilename_configuration_in = realpath( sPath +  '/../configurations/)pyflowline_susquehanna_mpas.json' )
         oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in)     
         print(oPyhexwatershed.tojson())
 
