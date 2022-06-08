@@ -48,6 +48,8 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
     aConfig["sMesh_type"] = sMesh_type
     aConfig["iCase_index"] = iCase_index
     aConfig["dResolution_meter"] = dResolution_meter
+    aConfig["sFilename_model_configuration"] = sFilename_configuration_in
+    
     
     oPyhexwatershed = hexwatershedcase(aConfig)
     oPyflowline = flowlinecase(aConfig ,  iFlag_standalone_in = 0,\
