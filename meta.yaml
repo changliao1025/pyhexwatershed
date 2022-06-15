@@ -14,8 +14,7 @@ requirements:
     - python
   run:
     - python
-    - netCDF4
-    - gdal
+    - gdal==3.2
     - pyflowline
 
 about:

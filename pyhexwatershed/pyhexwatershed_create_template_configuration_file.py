@@ -6,10 +6,10 @@ import numpy as np
 #once it's generated, you can modify it and use it for different simulations
 from pyflowline.classes.pycase import flowlinecase
 from pyflowline.classes.basin import pybasin
-from pyflowline.pyflowline_generate_template_configuration_file import pyflowline_generate_basin_template_configuration_file
+from pyflowline.pyflowline_create_template_configuration_file import pyflowline_create_basin_template_configuration_file
 from pyhexwatershed.classes.pycase import hexwatershedcase
 
-def pyhexwatershed_generate_template_configuration_file(sFilename_json, sWorkspace_bin, sWorkspace_input, sWorkspace_output, iFlag_use_mesh_dem_in=None,  iFlag_use_shapefile_extent_in=None, iCase_index_in=None, dResolution_degree_in = None,dResolution_meter_in = None,sDate_in = None,sMesh_type_in = None,  sModel_in = None,sWorkspace_output_in = None,):
+def pyhexwatershed_create_template_configuration_file(sFilename_json, sWorkspace_bin, sWorkspace_input, sWorkspace_output, iFlag_use_mesh_dem_in=None,  iFlag_use_shapefile_extent_in=None, iCase_index_in=None, dResolution_degree_in = None,dResolution_meter_in = None,sDate_in = None,sMesh_type_in = None,  sModel_in = None,sWorkspace_output_in = None,):
     """generate hexwatershed config file
 
     Args:
@@ -118,7 +118,7 @@ def pyhexwatershed_generate_template_configuration_file(sFilename_json, sWorkspa
     aConfig['sFilename_mesh_netcdf'] = str(Path(sWorkspace_input)  /  'lnd_cull_mesh.nc')
     aConfig['flowline_info'] = 'flowline_info.json'
     aConfig['sFilename_mesh_info'] = 'mesh_info.json'
-    aConfig['sFilename_elevation'] = 'elevation.json'
+    aConfig['sFilename_elevation'] = 'elevation.geojson'
     aConfig['sWorkspace_bin'] = sWorkspace_bin
 
    
@@ -136,7 +136,7 @@ def pyhexwatershed_generate_template_configuration_file(sFilename_json, sWorkspa
     sFilename_basins_json = os.path.join(sDirname, sFilename)
   
 
-    aBasin = pyflowline_generate_basin_template_configuration_file(sFilename_basins_json, nBasin, sWorkspace_input , oPyflowline.sWorkspace_output)
+    aBasin = pyflowline_create_basin_template_configuration_file(sFilename_basins_json, nBasin, sWorkspace_input , oPyflowline.sWorkspace_output)
     oPyflowline.sFilename_basins = sFilename_basins_json
     oPyflowline.aBasin = aBasin
     oPyhexwatershed.pPyFlowline = oPyflowline
