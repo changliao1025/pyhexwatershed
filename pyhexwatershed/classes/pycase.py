@@ -517,21 +517,31 @@ class hexwatershedcase(object):
         for iBasin in range(len(self.pPyFlowline.aBasin)):
             pBasin = self.pPyFlowline.aBasin[iBasin]
             lCellID_outlet = pBasin.lCellID_outlet
-            iFlag_found = 0
-            lCellID_current = lCellID_outlet
-            while(iFlag_found ==0 ):
-                
-                lOutletID_next  = search_upstream(lCellID_current)
-                for pCell_temp in self.pPyFlowline.aCell:
-                    if pCell_temp.lCellID == lOutletID_next:
-                        if pCell_temp.dElevation_mean !=-9999:
-                            iFlag_found = 1
-                            pCell_temp.lCellID_downstream_burned = -1
-                            break
-                
-                lCellID_current = lOutletID_next
-            
-            self.pPyFlowline.aBasin[iBasin].lCellID_outlet = lOutletID_next
+            iFlag_error= 0
+            for pCell_temp in aCell_origin:
+                if pCell_temp.lCellID == lCellID_outlet:
+                    if pCell_temp.dElevation_mean == -9999:
+                        iFlag_error = 1
+                        break
+            if iFlag_error ==1:              
+                iFlag_found = 0
+                lCellID_current = lCellID_outlet
+                while(iFlag_found ==0 ):
+
+                    lOutletID_next  = search_upstream(lCellID_current)
+                    for pCell_temp in self.pPyFlowline.aCell:
+                        if pCell_temp.lCellID == lOutletID_next:
+                            if pCell_temp.dElevation_mean !=-9999:
+                                iFlag_found = 1
+                                pCell_temp.lCellID_downstream_burned = -1
+                                break
+                            
+                    lCellID_current = lOutletID_next
+
+                self.pPyFlowline.aBasin[iBasin].lCellID_outlet = lOutletID_next
+            else:
+                #there is no issue with it
+                pass
 
             pass
 
