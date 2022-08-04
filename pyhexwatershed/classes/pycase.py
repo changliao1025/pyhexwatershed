@@ -152,6 +152,8 @@ class hexwatershedcase(object):
 
         if 'nOutlet' in aConfig_in:
             self.nOutlet             = int(aConfig_in[ 'nOutlet'])
+        else:
+            self.nOutlet  = 1
 
         if 'dMissing_value_dem' in aConfig_in:
             self.dMissing_value_dem             = float(aConfig_in[ 'dMissing_value_dem'])
@@ -820,6 +822,8 @@ class hexwatershedcase(object):
             sLine = 'aCell_new = oPyhexwatershed.update_outlet(aCell_out, aCell_origin)' + '\n'   
             ofs_pyhexwatershed.write(sLine)       
         else:
+            #possible has issue too
+            
             pass    
 
         sLine = 'oPyhexwatershed.pPyFlowline.export()' + '\n'   
