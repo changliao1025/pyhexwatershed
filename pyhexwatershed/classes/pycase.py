@@ -580,7 +580,8 @@ class hexwatershedcase(object):
     def export(self):        
         self.pyhexwatershed_save_elevation()
         self.pyhexwatershed_save_slope()
-        self.pyhexwatershed_save_flow_direction()     
+        self.pyhexwatershed_save_flow_direction()  
+        self.pyhexwatershed_save_stream_segment()   
         return
 
     def pyhexwatershed_save_flow_direction(self):
@@ -635,6 +636,45 @@ class hexwatershedcase(object):
 
             pDataset = pLayer = pFeature  = None      
         pass
+    
+    def pyhexwatershed_save_stream_segment(self):
+        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
+        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'stream_segment.geojson')
+        if os.path.exists(sFilename_geojson):
+            os.remove(sFilename_geojson)
+        pDriver_geojson = ogr.GetDriverByName('GeoJSON')
+        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)    
+
+        pSrs = osr.SpatialReference()  
+        pSrs.ImportFromEPSG(4326)  #WGS84 lat/lon
+
+        pLayer = pDataset.CreateLayer('flowdir', pSrs, ogr.wkbLineString)
+        # Add one attribute
+        pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
+        pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
+        pFac_field.SetWidth(20)
+        pFac_field.SetPrecision(2)
+        pLayer.CreateField(pFac_field) #long type for high resolution
+
+        pLayerDefn = pLayer.GetLayerDefn()
+        pFeature = ogr.Feature(pLayerDefn)
+
+        with open(sFilename_json) as json_file:
+            data = json.load(json_file)  
+            ncell = len(data)
+            lID =0 
+            for i in range(ncell):
+                pcell = data[i]
+                lCellID = int(pcell['lCellID'])
+                lCellID_downslope = int(pcell['lCellID_downslope'])
+                x_start=float(pcell['dLongitude_center_degree'])
+                y_start=float(pcell['dLatitude_center_degree'])
+                dfac = float(pcell['DrainageArea'])
+                
+                
+
+            pDataset = pLayer = pFeature  = None 
+        return
 
     def pyhexwatershed_save_slope(self):
 
