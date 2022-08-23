@@ -9,6 +9,10 @@ from pathlib import Path
 from osgeo import gdal, ogr, osr, gdalconst
 import numpy as np
 from pyflowline.classes.pycase import flowlinecase
+from pyflowline.classes.vertex import pyvertex
+from pyflowline.algorithms.split.find_flowline_confluence import find_flowline_confluence
+from pyflowline.algorithms.merge.merge_flowline import merge_flowline
+from pyflowline.formats.export_flowline import export_flowline_to_geojson
 from pyhexwatershed.algorithm.auxiliary.gdal_function import gdal_read_geotiff_file, reproject_coordinates, reproject_coordinates_batch
 
 pDate = datetime.datetime.today()
@@ -639,6 +643,7 @@ class hexwatershedcase(object):
         nWatershed = self.nOutlet
         
         for iWaterhsed in range(1, nWatershed+1):
+            pBasin=   self.pPyFlowline.aBasin[iWaterhsed-1]
             sWatershed = "{:04d}".format(iWaterhsed) 
 
             sWorkspace_watershed =  os.path.join( self.sWorkspace_output_hexwatershed,  sWatershed )
@@ -663,6 +668,7 @@ class hexwatershedcase(object):
 
             pLayerDefn = pLayer.GetLayerDefn()
             pFeature = ogr.Feature(pLayerDefn)
+            
             with open(sFilename_json) as json_file:
                 data = json.load(json_file)  
                 ncell = len(data)
@@ -698,20 +704,24 @@ class hexwatershedcase(object):
             #now convert it from edge_based to segment-based using the pyflowline function
             #need outout location, which is stored by the watershed object
             #call a list of pyflowline 
-            aFlowline = read_flowline(sFilename_geojson)
+            aFlowline_basin_conceptual = read_flowline(sFilename_geojson)
 
             #connect using 
-            pVertex_out = vertex()
-            pVertex_out['dLongitude_degree'] = pWatershed.dLongitude_outlet_degree
-            pVertex_out['dLatitude_degree'] = pWatershed.dLatitude_outlet_degree
-
-            aFlowline = merge_flowline(aFlowline, pVertex_out)
+            point = dict()
+            point['dLongitude_degree'] = pBasin.dLongitude_outlet_degree
+            point['dLatitude_degree'] = pBasin.dLatitude_outlet_degree
+            pVertex_outlet=pyvertex(point)
+            aVertex, lIndex_outlet, aIndex_headwater,aIndex_middle, aIndex_confluence, aConnectivity\
+            = find_flowline_confluence(aFlowline_basin_conceptual,  pVertex_outlet)
+            #segment based
+            aFlowline_basin_conceptual = merge_flowline( aFlowline_basin_conceptual,\
+                aVertex, pVertex_outlet, \
+                aIndex_headwater,aIndex_middle, aIndex_confluence  )
             sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'stream_segment.geojson')
             if os.path.exists(sFilename_geojson):
                 os.remove(sFilename_geojson)
-
-            export_flowline(aFlowline, sFilename_geojson)
-            
+            export_flowline_to_geojson(aFlowline_basin_conceptual, sFilename_geojson)
+           
 
         return
 
