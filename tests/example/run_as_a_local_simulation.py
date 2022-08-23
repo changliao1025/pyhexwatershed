@@ -14,9 +14,9 @@ from pyhexwatershed.classes.pycase import hexwatershedcase
 from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
 
 sMesh_type = 'hexagon'
-iCase_index = 2
+iCase_index = 1
 dResolution_meter=5000
-sDate='20220404'
+sDate='20220801'
 sPath = str( Path().resolve() )
 iFlag_option = 1
 sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
