@@ -14,6 +14,8 @@ from pyflowline.formats.read_flowline import read_flowline_geojson
 from pyflowline.algorithms.split.find_flowline_confluence import find_flowline_confluence
 from pyflowline.algorithms.merge.merge_flowline import merge_flowline
 from pyflowline.formats.export_flowline import export_flowline_to_geojson
+
+from pyflowline.algorithms.simplification.remove_duplicate_edge import remove_duplicate_edge
 from pyhexwatershed.algorithm.auxiliary.gdal_function import gdal_read_geotiff_file, reproject_coordinates, reproject_coordinates_batch
 
 pDate = datetime.datetime.today()
@@ -583,9 +585,9 @@ class hexwatershedcase(object):
         return
 
     def export(self):        
-        self.pyhexwatershed_save_elevation()
-        self.pyhexwatershed_save_slope()
-        self.pyhexwatershed_save_flow_direction()    
+        #self.pyhexwatershed_save_elevation()
+        #self.pyhexwatershed_save_slope()
+        #self.pyhexwatershed_save_flow_direction()    
         self.pyhexwatershed_save_stream_segment()
         return
 
@@ -651,12 +653,12 @@ class hexwatershedcase(object):
 
             sWorkspace_watershed =  os.path.join( self.sWorkspace_output_hexwatershed,  sWatershed )
 
-            sFilename_watershed_stream_segment  = os.path.join( sWorkspace_watershed,  'stream_segment.json' )
-            sFilename_stream_segment_geojson = os.path.join(sWorkspace_watershed ,   'stream_edge.geojson')
-            if os.path.exists(sFilename_stream_segment_geojson):
-                os.remove(sFilename_stream_segment_geojson)
+            sFilename_watershed_stream_edge  = os.path.join( sWorkspace_watershed,  'stream_edge.json' )
+            sFilename_stream_edge_geojson = os.path.join(sWorkspace_watershed ,   'stream_edge.geojson')
+            if os.path.exists(sFilename_stream_edge_geojson):
+                os.remove(sFilename_stream_edge_geojson)
             pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-            pDataset = pDriver_geojson.CreateDataSource(sFilename_stream_segment_geojson)    
+            pDataset = pDriver_geojson.CreateDataSource(sFilename_stream_edge_geojson)    
 
             pSrs = osr.SpatialReference()  
             pSrs.ImportFromEPSG(4326)  #WGS84 lat/lon
@@ -672,7 +674,7 @@ class hexwatershedcase(object):
             pLayerDefn = pLayer.GetLayerDefn()
             pFeature = ogr.Feature(pLayerDefn)
             
-            with open(sFilename_watershed_stream_segment) as json_file:
+            with open(sFilename_watershed_stream_edge) as json_file:
                 data = json.load(json_file)  
                 ncell = len(data)
                 lID =0 
@@ -707,23 +709,25 @@ class hexwatershedcase(object):
             #now convert it from edge_based to segment-based using the pyflowline function
             #need outout location, which is stored by the watershed object
             #call a list of pyflowline 
-            aFlowline_basin_conceptual,pSpatialRef_geojson = read_flowline_geojson(sFilename_stream_segment_geojson)
+            aFlowline_edge_basin_conceptual,pSpatialRef_geojson = read_flowline_geojson(sFilename_stream_edge_geojson)
 
             #connect using 
             point = dict()
             point['dLongitude_degree'] = pBasin.dLongitude_outlet_degree
             point['dLatitude_degree'] = pBasin.dLatitude_outlet_degree
             pVertex_outlet=pyvertex(point)
-            aVertex, lIndex_outlet, aIndex_headwater,aIndex_middle, aIndex_confluence, aConnectivity\
-            = find_flowline_confluence(aFlowline_basin_conceptual,  pVertex_outlet)
+
+            #aFlowline_basin_conceptual = remove_duplicate_edge(aFlowline_basin_conceptual)
+            aVertex, lIndex_outlet, aIndex_headwater,aIndex_middle, aIndex_confluence, aConnectivity, pVertex_outlet\
+            = find_flowline_confluence(aFlowline_edge_basin_conceptual,  pVertex_outlet)
             #segment based
-            aFlowline_basin_conceptual = merge_flowline( aFlowline_basin_conceptual,\
+            aFlowline_basin_conceptual = merge_flowline( aFlowline_edge_basin_conceptual,\
                 aVertex, pVertex_outlet, \
                 aIndex_headwater,aIndex_middle, aIndex_confluence  )
-            sFilename_geojson = os.path.join(sWorkspace_watershed ,   'stream_segment.geojson')
-            if os.path.exists(sFilename_geojson):
-                os.remove(sFilename_geojson)
-            export_flowline_to_geojson(aFlowline_basin_conceptual, sFilename_geojson)
+            sFilename_stream_segment_geojson = os.path.join(sWorkspace_watershed ,   'stream_segment.geojson')
+            if os.path.exists(sFilename_stream_segment_geojson):
+                os.remove(sFilename_stream_segment_geojson)
+            export_flowline_to_geojson(aFlowline_basin_conceptual, sFilename_stream_segment_geojson)
            
 
         return
