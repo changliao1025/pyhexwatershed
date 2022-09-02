@@ -666,6 +666,7 @@ class hexwatershedcase(object):
             pLayer = pDataset.CreateLayer('flowdir', pSrs, ogr.wkbLineString)
             # Add one attribute
             pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
+            pLayer.CreateField(ogr.FieldDefn('iseg', ogr.OFTInteger)) #long type for high resolution
             pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
             pFac_field.SetWidth(20)
             pFac_field.SetPrecision(2)
@@ -684,6 +685,8 @@ class hexwatershedcase(object):
                     lCellID_downslope = int(pcell['lCellID_downslope'])
                     x_start=float(pcell['dLongitude_center_degree'])
                     y_start=float(pcell['dLatitude_center_degree'])
+                    iSegment = int(pcell['iSegment'])
+                    #iStream_order = int(pcell['lCellID_downslope'])
                     dfac = float(pcell['DrainageArea'])
                     for j in range(ncell):
                         pcell2 = data[j]
@@ -698,6 +701,7 @@ class hexwatershedcase(object):
                             pFeature.SetGeometry(pLine)
                             pFeature.SetField("id", lID)
                             pFeature.SetField("fac", dfac)
+                            pFeature.SetField("iseg", iSegment)
                             pLayer.CreateFeature(pFeature)
                             lID = lID +1
                             break
@@ -724,10 +728,15 @@ class hexwatershedcase(object):
             aFlowline_basin_conceptual = merge_flowline( aFlowline_edge_basin_conceptual,\
                 aVertex, pVertex_outlet, \
                 aIndex_headwater,aIndex_middle, aIndex_confluence  )
-            sFilename_stream_segment_geojson = os.path.join(sWorkspace_watershed ,   'stream_segment.geojson')
+            sFilename_stream_segment_geojson = os.path.join(sWorkspace_watershed , 'stream_segment.geojson')
             if os.path.exists(sFilename_stream_segment_geojson):
                 os.remove(sFilename_stream_segment_geojson)
-            export_flowline_to_geojson(aFlowline_basin_conceptual, sFilename_stream_segment_geojson)
+
+            aStream_segment = list()
+            for pFlowline in aFlowline_basin_conceptual:
+                aStream_segment.append( pFlowline.iStream_segment  )
+            export_flowline_to_geojson(aFlowline_basin_conceptual, sFilename_stream_segment_geojson,
+            aAttribute_data=[aStream_segment], aAttribute_field=['iseg'], aAttribute_dtype=['int'])
            
 
         return
