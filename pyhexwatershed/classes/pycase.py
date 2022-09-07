@@ -10,9 +10,12 @@ from osgeo import gdal, ogr, osr, gdalconst
 import numpy as np
 from pyflowline.classes.pycase import flowlinecase
 from pyflowline.classes.vertex import pyvertex
+from pyflowline.formats.read_flowline import read_flowline_geojson
 from pyflowline.algorithms.split.find_flowline_confluence import find_flowline_confluence
 from pyflowline.algorithms.merge.merge_flowline import merge_flowline
 from pyflowline.formats.export_flowline import export_flowline_to_geojson
+
+from pyflowline.algorithms.simplification.remove_duplicate_edge import remove_duplicate_edge
 from pyhexwatershed.algorithm.auxiliary.gdal_function import gdal_read_geotiff_file, reproject_coordinates, reproject_coordinates_batch
 
 pDate = datetime.datetime.today()
@@ -74,6 +77,11 @@ class hexwatershedcase(object):
     sWorkspace_output_pyflowline=''
     sWorkspace_output_hexwatershed=''
     aBasin = list()
+    
+    from ._visual import _plot
+    from ._visual import _plot_flow_direction
+    from ._visual import _plot_mesh_with_flow_direction
+    from ._visual import _plot_mesh_with_flow_direction_and_river_network
 
     def __init__(self, aConfig_in):
         print('HexWatershed compset is being initialized')
@@ -582,9 +590,10 @@ class hexwatershedcase(object):
         return
 
     def export(self):        
-        self.pyhexwatershed_save_elevation()
-        self.pyhexwatershed_save_slope()
-        self.pyhexwatershed_save_flow_direction()     
+        #self.pyhexwatershed_save_elevation()
+        #self.pyhexwatershed_save_slope()
+        #self.pyhexwatershed_save_flow_direction()    
+        self.pyhexwatershed_save_stream_segment()
         return
 
     def pyhexwatershed_save_flow_direction(self):
@@ -639,6 +648,103 @@ class hexwatershedcase(object):
 
             pDataset = pLayer = pFeature  = None      
         pass
+    
+    def pyhexwatershed_save_stream_segment(self):
+        nWatershed = self.nOutlet
+        
+        for iWaterhsed in range(1, nWatershed+1):
+            pBasin=   self.pPyFlowline.aBasin[iWaterhsed-1]
+            sWatershed = "{:04d}".format(iWaterhsed) 
+
+            sWorkspace_watershed =  os.path.join( self.sWorkspace_output_hexwatershed,  sWatershed )
+
+            sFilename_watershed_stream_edge  = os.path.join( sWorkspace_watershed,  'stream_edge.json' )
+            sFilename_stream_edge_geojson = os.path.join(sWorkspace_watershed ,   'stream_edge.geojson')
+            if os.path.exists(sFilename_stream_edge_geojson):
+                os.remove(sFilename_stream_edge_geojson)
+            pDriver_geojson = ogr.GetDriverByName('GeoJSON')
+            pDataset = pDriver_geojson.CreateDataSource(sFilename_stream_edge_geojson)    
+
+            pSrs = osr.SpatialReference()  
+            pSrs.ImportFromEPSG(4326)  #WGS84 lat/lon
+
+            pLayer = pDataset.CreateLayer('flowdir', pSrs, ogr.wkbLineString)
+            # Add one attribute
+            pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
+            pLayer.CreateField(ogr.FieldDefn('iseg', ogr.OFTInteger)) #long type for high resolution
+            pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
+            pFac_field.SetWidth(20)
+            pFac_field.SetPrecision(2)
+            pLayer.CreateField(pFac_field) #long type for high resolution
+
+            pLayerDefn = pLayer.GetLayerDefn()
+            pFeature = ogr.Feature(pLayerDefn)
+            
+            with open(sFilename_watershed_stream_edge) as json_file:
+                data = json.load(json_file)  
+                ncell = len(data)
+                lID =0 
+                for i in range(ncell):
+                    pcell = data[i]
+                    lCellID = int(pcell['lCellID'])
+                    lCellID_downslope = int(pcell['lCellID_downslope'])
+                    x_start=float(pcell['dLongitude_center_degree'])
+                    y_start=float(pcell['dLatitude_center_degree'])
+                    iSegment = int(pcell['iSegment'])
+                    #iStream_order = int(pcell['lCellID_downslope'])
+                    dfac = float(pcell['DrainageArea'])
+                    for j in range(ncell):
+                        pcell2 = data[j]
+                        lCellID2 = int(pcell2['lCellID'])
+                        if lCellID2 == lCellID_downslope:
+                            x_end=float(pcell2['dLongitude_center_degree'])
+                            y_end=float(pcell2['dLatitude_center_degree'])
+
+                            pLine = ogr.Geometry(ogr.wkbLineString)
+                            pLine.AddPoint(x_start, y_start)
+                            pLine.AddPoint(x_end, y_end)
+                            pFeature.SetGeometry(pLine)
+                            pFeature.SetField("id", lID)
+                            pFeature.SetField("fac", dfac)
+                            pFeature.SetField("iseg", iSegment)
+                            pLayer.CreateFeature(pFeature)
+                            lID = lID +1
+                            break
+
+            
+
+            pDataset = pLayer = pFeature  = None 
+
+            #now convert it from edge_based to segment-based using the pyflowline function
+            #need outout location, which is stored by the watershed object
+            #call a list of pyflowline 
+            aFlowline_edge_basin_conceptual,pSpatialRef_geojson = read_flowline_geojson(sFilename_stream_edge_geojson)
+
+            #connect using 
+            point = dict()
+            point['dLongitude_degree'] = pBasin.dLongitude_outlet_degree
+            point['dLatitude_degree'] = pBasin.dLatitude_outlet_degree
+            pVertex_outlet=pyvertex(point)
+
+            #aFlowline_basin_conceptual = remove_duplicate_edge(aFlowline_basin_conceptual)
+            aVertex, lIndex_outlet, aIndex_headwater,aIndex_middle, aIndex_confluence, aConnectivity, pVertex_outlet\
+            = find_flowline_confluence(aFlowline_edge_basin_conceptual,  pVertex_outlet)
+            #segment based
+            aFlowline_basin_conceptual = merge_flowline( aFlowline_edge_basin_conceptual,\
+                aVertex, pVertex_outlet, \
+                aIndex_headwater,aIndex_middle, aIndex_confluence  )
+            sFilename_stream_segment_geojson = os.path.join(sWorkspace_watershed , 'stream_segment.geojson')
+            if os.path.exists(sFilename_stream_segment_geojson):
+                os.remove(sFilename_stream_segment_geojson)
+
+            aStream_segment = list()
+            for pFlowline in aFlowline_basin_conceptual:
+                aStream_segment.append( pFlowline.iStream_segment  )
+            export_flowline_to_geojson(aFlowline_basin_conceptual, sFilename_stream_segment_geojson,
+            aAttribute_data=[aStream_segment], aAttribute_field=['iseg'], aAttribute_dtype=['int'])
+           
+
+        return
 
     def pyhexwatershed_save_slope(self):
 
@@ -780,114 +886,4 @@ class hexwatershedcase(object):
             pDataset = pLayer = pFeature  = None      
         pass        
     
-    def create_hpc_job(self):
-        """create a HPC job for this simulation
-        """
-        os.chdir(self.sWorkspace_output)
-        
-        #part 1 python script         
-        
-        sFilename_pyhexwatershed = os.path.join(str(Path(self.sWorkspace_output)) , "run_pyhexwatershed.py" )
-        ofs_pyhexwatershed = open(sFilename_pyhexwatershed, 'w')
-
-           
-        sLine = '#!/qfs/people/liao313/.conda/envs/hexwatershed/bin/' + 'python3' + '\n' 
-        ofs_pyhexwatershed.write(sLine) 
-        sLine = 'from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file' + '\n'
-        ofs_pyhexwatershed.write(sLine)         
-        sLine = 'sFilename_configuration_in = ' + '"' + self.sFilename_model_configuration + '"\n'
-        ofs_pyhexwatershed.write(sLine)
-        sLine = 'oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,'  \
-            + 'iCase_index_in='+ str(self.iCase_index) + ',' \
-            + 'iFlag_stream_burning_topology_in='+ str(self.iFlag_stream_burning_topology) + ',' \
-            + 'iFlag_elevation_profile_in='+ str(self.iFlag_elevation_profile) + ',' \
-            + 'iFlag_use_mesh_dem_in='+ str(self.iFlag_use_mesh_dem) + ',' \
-            + 'dResolution_meter_in=' + "{:0f}".format(self.dResolution_meter)+ ',' \
-            +  'sDate_in="'+ str(self.sDate) + '",' \
-            +  'sMesh_type_in="'+ str(self.sMesh_type) +'"' \
-            + ')'  +   '\n'   
-        ofs_pyhexwatershed.write(sLine)
-
-        if self.pPyFlowline.iFlag_flowline==1:
-            sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=' \
-                +  "{:0f}".format(self.pPyFlowline.aBasin[0].dLatitude_outlet_degree)+ '\n'   
-            ofs_pyhexwatershed.write(sLine)
-            sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=' \
-                + "{:0f}".format(self.pPyFlowline.aBasin[0].dLongitude_outlet_degree)+ '\n'   
-            ofs_pyhexwatershed.write(sLine)        
-        sLine = 'oPyhexwatershed.setup()' + '\n'   
-        ofs_pyhexwatershed.write(sLine)
-
-        sLine = 'aCell_origin = oPyhexwatershed.run_pyflowline()' + '\n'   
-        ofs_pyhexwatershed.write(sLine) 
-        if self.iMesh_type !=4:            
-            sLine = 'aCell_out = oPyhexwatershed.assign_elevation_to_cells()' + '\n'   
-            ofs_pyhexwatershed.write(sLine)      
-            sLine = 'aCell_new = oPyhexwatershed.update_outlet(aCell_out, aCell_origin)' + '\n'   
-            ofs_pyhexwatershed.write(sLine)       
-        else:
-            #possible has issue too
-            
-            pass    
-
-        sLine = 'oPyhexwatershed.pPyFlowline.export()' + '\n'   
-        ofs_pyhexwatershed.write(sLine)      
-        sLine = 'oPyhexwatershed.export_config_to_json()' + '\n'   
-        ofs_pyhexwatershed.write(sLine)   
-        sLine = 'oPyhexwatershed.run_hexwatershed()' + '\n'   
-        ofs_pyhexwatershed.write(sLine)
-        sLine = 'oPyhexwatershed.analyze()' + '\n'   
-        ofs_pyhexwatershed.write(sLine)      
-        sLine = 'oPyhexwatershed.export()' + '\n'   
-        ofs_pyhexwatershed.write(sLine)
-        ofs_pyhexwatershed.close()
-        os.chmod(sFilename_pyhexwatershed, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)          
-        
-        #part 2 bash script    
-        sFilename_job = os.path.join(str(Path(self.sWorkspace_output)  ) ,  "submit.job" )
-        ofs = open(sFilename_job, 'w')
-        sLine = '#!/bin/bash\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH -A ESMD\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH --job-name=' + self.sCase + '\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH -t 1:00:00' + '\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH --nodes=1' + '\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH --ntasks-per-node=1' + '\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH --partition=slurm' + '\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH -o stdout.out\n'
-        ofs.write(sLine)
-        sLine = '#SBATCH -e stderr.err\n'
-        ofs.write(sLine)    
-        sLine = 'module purge\n'
-        ofs.write(sLine)
-        sLine = 'module load gcc/8.1.0' + '\n'
-        ofs.write(sLine)
-        sLine = 'module load anaconda3/2019.03' + '\n'
-        ofs.write(sLine)
-        sLine = 'source /share/apps/anaconda3/2019.03/etc/profile.d/conda.sh' + '\n'
-        ofs.write(sLine)    
-        sLine = 'conda activate hexwatershed' + '\n'
-        ofs.write(sLine)
-        sLine = 'cd $SLURM_SUBMIT_DIR\n'
-        ofs.write(sLine)
-        sLine = 'JOB_DIRECTORY='+ self.sWorkspace_output +  '\n'
-        ofs.write(sLine)
-        sLine = 'cd $JOB_DIRECTORY' +  '\n'
-        ofs.write(sLine)
-        sLine = 'python3 run_pyhexwatershed.py' +  '\n'
-        ofs.write(sLine)
-        sLine = 'conda deactivate' + '\n'
-        ofs.write(sLine)
-        ofs.close()
-        return
-
-    def submit_hpc_job(self):
-
-        #this is not fully recommended as it may affect the environment variable
-        return
+    
