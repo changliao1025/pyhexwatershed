@@ -589,6 +589,8 @@ class hexwatershedcase(object):
         return
     
     def analyze(self):
+        #a list of analysis was done within the C++ backend
+        #additional analysis can be implemented here
         return
 
     def export(self):        
@@ -597,6 +599,8 @@ class hexwatershedcase(object):
         self.pyhexwatershed_save_flow_direction()    
         self.pyhexwatershed_save_stream_segment()
         return
+
+    
 
     def pyhexwatershed_save_flow_direction(self):
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')

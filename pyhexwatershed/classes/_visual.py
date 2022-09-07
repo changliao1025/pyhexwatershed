@@ -91,8 +91,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
                 dData_max = 0.1
      
     sFilename_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'hexwatershed.json' )
-    
-    sMesh_type = self.sMesh_type
+ 
     fig = plt.figure( dpi=300 )
     fig.set_figwidth( 12 )
     fig.set_figheight( 12 )
@@ -107,6 +106,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
             pcell = data[i]
             dummy = float(pcell[sVariable])
             aData.append(dummy)
+
     aData = np.array(aData)        
     dLat_min = 90
     dLat_max = -90
@@ -169,14 +169,9 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
 
     ax.set_extent(aExtent)
     ax.coastlines()#resolution='110m')        
-    ax.set_title(sTitle , loc='center')
-    if self.iMesh_type == 1:
-        sText = 'Case: ' + "{:0d}".format( self.iCase_index + 8 )
-    else:
-        if self.iMesh_type == 3:
-            sText = 'Case index: ' + "{:0d}".format( self.iCase_index - 8 )
-        else:
-            sText = 'Case index: ' + "{:0d}".format( self.iCase_index  )
+    ax.set_title(sTitle , loc='center')        
+        
+    sText = 'Case index: ' + "{:0d}".format( self.iCase_index  )
     ax.text(0.05, 0.95, sText, \
     verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
@@ -192,6 +187,8 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
             verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
             color='black', fontsize=8)
+    else:
+        pass
     if self.iFlag_stream_burning_topology ==1:
         sText = 'Stream topology: on'  
     else:
@@ -205,13 +202,13 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
     sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'
     pDriver = ogr.GetDriverByName('GeoJSON')
     pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
-    lyr = pDataset.GetLayer(0)
+    pLayer = pDataset.GetLayer(0)
     
     paths = []
     
     # Read all features in layer and store as paths
-    for feat in lyr:
-        geom = feat.geometry()
+    for pFeature in pLayer:
+        geom = pFeature.geometry()
         codes = []
         all_x = []
         all_y = []
@@ -328,9 +325,6 @@ def _plot_flow_direction(self, sFilename_in, aExtent_in=None, pProjection_map_in
             pass
                   
     
-      
-    sDirname = os.path.dirname(sFilename_json)
-  
 
     if aExtent_in is None:
         marginx  = (dLon_max - dLon_min) / 20
@@ -405,8 +399,7 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None, pProjec
     pSrs = osr.SpatialReference()  
     pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
 
-    lID = 0
-            
+    lID = 0            
 
     #ax.add_image(request, 6)    # 5 = zoom level
     n_colors = pLayer.GetFeatureCount()
@@ -473,9 +466,8 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None, pProjec
             
 
     pDataset = pLayer = pFeature  = None    
-    sDirname = os.path.dirname(sFilename_json)
-    marginx  = (dLon_max - dLon_min) / 20
-    marginy  = (dLat_max - dLat_min) / 20
+  
+   
     if aExtent_in is None:
         marginx  = (dLon_max - dLon_min) / 20
         marginy  = (dLat_max - dLat_min) / 20
@@ -483,7 +475,7 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None, pProjec
     else:
         aExtent = aExtent_in
 
-    sFilename  = Path(sFilename_json).stem + '_with_mesh_' + self.sCase + '.png'
+
    
     ax.set_extent(aExtent)       
 
@@ -494,11 +486,7 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None, pProjec
     gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
     gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
     ax.set_title( sTitle.capitalize()) #, fontsize =  8*4)       
-    
-
-    plt.savefig(sFilename_in, bbox_inches='tight')
-
-    
+     
     
     #plot wbd
     iFlag_plot_wbd =0 
@@ -506,11 +494,11 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None, pProjec
         # Extract first layer of features from shapefile using OGR
         sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'    
         pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
-        lyr = pDataset.GetLayer(0)   
+        pLayer = pDataset.GetLayer(0)   
         paths = []
     
-        for feat in lyr:
-            geom = feat.geometry()
+        for pFeature in pLayer:
+            geom = pFeature.geometry()
             codes = []
             all_x = []
             all_y = []
@@ -632,18 +620,7 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
             
             for i in range(nvertex):
                 dLon = aCoords_gcs[i][0]
-                dLat = aCoords_gcs[i][1]
-                if dLon > dLon_max:
-                    dLon_max = dLon
-                
-                if dLon < dLon_min:
-                    dLon_min = dLon
-                
-                if dLat > dLat_max:
-                    dLat_max = dLat
-
-                if dLat < dLat_min:
-                    dLat_min = dLat
+                dLat = aCoords_gcs[i][1]              
                 
             if nvertex == 2 :
                 dLon_label = 0.5 * (aCoords_gcs[0][0] + aCoords_gcs[1][0] ) 
@@ -665,17 +642,9 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
                 line, = ax.plot(x, y, color= 'black',linewidth=iThickness, transform=ccrs.PlateCarree())
             lID = lID + 1
             #add label 
-            
-            
-
+                     
     pDataset = pLayer = pFeature  = None    
-    sDirname = os.path.dirname(sFilename_json)
-    marginx  = (dLon_max - dLon_min) / 20
-    marginy  = (dLat_max - dLat_min) / 20
    
-    
-    
-    
     #plot wbd
     iFlag_plot_wbd =0 
     if iFlag_plot_wbd ==1:
@@ -683,13 +652,13 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
         sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'
         #pDriver = ogr.GetDriverByName('GeoJSON')
         pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
-        lyr = pDataset.GetLayer(0)
+        pLayer = pDataset.GetLayer(0)
     
         paths = []
-        #lyr.ResetReading()
+        #pLayer.ResetReading()
         # Read all features in layer and store as paths
-        for feat in lyr:
-            geom = feat.geometry()
+        for pFeature in pLayer:
+            geom = pFeature.geometry()
             codes = []
             all_x = []
             all_y = []
@@ -765,18 +734,13 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
     else:
         aExtent = aExtent_in
         
-    ax.set_extent(aExtent)     
-    #if self.iMesh_type == 1:
-    #    sText = 'Case: ' + "{:0d}".format( self.iCase_index + 8 )
-    #else:
-    #    if self.iMesh_type == 3:
-    #        sText = 'Case index: ' + "{:0d}".format( self.iCase_index - 8 )
-    #    else:
-    #        sText = 'Case index: ' + "{:0d}".format( self.iCase_index  )
-    #ax.text(0.05, 0.95, sText, \
-    #verticalalignment='top', horizontalalignment='left',\
-    #        transform=ax.transAxes, \
-    #        color='black', fontsize=8)
+    ax.set_extent(aExtent)   
+
+    sText = 'Case index: ' + "{:0d}".format( self.iCase_index  )
+    ax.text(0.05, 0.95, sText, \
+    verticalalignment='top', horizontalalignment='left',\
+            transform=ax.transAxes, \
+            color='black', fontsize=8)
     sText = 'Mesh type: ' + self.sMesh_type.title()
     ax.text(0.05, 0.90, sText, \
     verticalalignment='top', horizontalalignment='left',\
@@ -788,14 +752,16 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
             verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
             color='black', fontsize=8)
-    #if self.iFlag_stream_burning_topology ==1:
-    #    sText = 'Stream topology: on'  
-    #else:
-    #    sText = 'Stream topology: off'  
-    #ax.text(0.05, 0.80, sText, \
-    #verticalalignment='top', horizontalalignment='left',\
-    #        transform=ax.transAxes, \
-    #        color='black', fontsize=8)  
+    if self.iFlag_stream_burning_topology ==1:
+        sText = 'Stream topology: on'  
+    else:
+        sText = 'Stream topology: off'  
+
+    ax.text(0.05, 0.80, sText, \
+    verticalalignment='top', horizontalalignment='left',\
+            transform=ax.transAxes, \
+            color='black', fontsize=8)  
+
     ax.coastlines()
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
                   linewidth=1, color='gray', alpha=0.3, linestyle='--')
@@ -809,3 +775,4 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
     
     #plt.show()
     return
+
