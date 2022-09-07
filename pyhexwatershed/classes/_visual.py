@@ -21,29 +21,33 @@ import cartopy.crs as ccrs
 
 from pyhexwatershed.algorithm.auxiliary.statistics import remap
 
-desired_proj = ccrs.Orthographic(central_longitude=  0.50*(-149.5+(-146.5)), \
+pProjection_map = ccrs.Orthographic(central_longitude=  0.50*(-149.5+(-146.5)), \
         central_latitude= 0.50*(68.1+70.35), globe=None)
 
-def __plot(self, iFlag_type_in = None, sVariable_in=None, aExtent_in = None):
+def _plot(self, sFilename_in, \
+    iFlag_type_in = None, \
+    sVariable_in=None, \
+        aExtent_in = None, \
+            pProjection_map_in = None):
 
     
     if iFlag_type_in == 1: #polygon based          
-        self.plot_mesh_with_variable(sVariable_in, aExtent_in)            
+        self._plot_mesh_with_variable(sFilename_in,sVariable_in, aExtent_in= aExtent_in, pProjection_map_in= pProjection_map_in)            
     else:
         if iFlag_type_in == 2: #polyline based
-            self.plot_flow_direction(aExtent_in)
+            self._plot_flow_direction(sFilename_in,aExtent_in= aExtent_in, pProjection_map_in= pProjection_map_in)
             pass
         else: #mesh + line
             if iFlag_type_in == 3:
-                self.plot_mesh_with_flow_direction(aExtent_in)
+                self._plot_mesh_with_flow_direction(sFilename_in,aExtent_in= aExtent_in, pProjection_map_in= pProjection_map_in)
                 pass
             else:
-                self.plot_mesh_with_flow_direction_and_river_network(aExtent_in)
+                self._plot_mesh_with_flow_direction_and_river_network(sFilename_in,aExtent_in= aExtent_in, pProjection_map_in= pProjection_map_in)
                 pass
     
     return
     
-def __plot_mesh_with_variable(self, sVariable_in, aExtent_in=None):
+def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, pProjection_map_in = None):
 
     if self.iMesh_type !=4:
         if sVariable_in == 'elevation':
@@ -95,7 +99,7 @@ def __plot_mesh_with_variable(self, sVariable_in, aExtent_in=None):
     fig = plt.figure( dpi=300 )
     fig.set_figwidth( 12 )
     fig.set_figheight( 12 )
-    ax = fig.add_axes([0.1, 0.5, 0.75, 0.8] , projection=desired_proj )    
+    ax = fig.add_axes([0.1, 0.5, 0.75, 0.8] , projection=pProjection_map )    
     ax.set_global()     
     aData=[]
     with open(sFilename_json) as json_file:
@@ -159,7 +163,13 @@ def __plot_mesh_with_variable(self, sVariable_in, aExtent_in=None):
     cb.ax.get_yaxis().set_label_position('left')
     cb.ax.tick_params(labelsize=6)     
    
-    aExtent = aExtent_in 
+    if aExtent_in is None:
+        marginx  = (dLon_max - dLon_min) / 20
+        marginy  = (dLat_max - dLat_min) / 20
+        aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min -marginy , dLat_max + marginy]
+    else:
+        aExtent = aExtent_in
+
     ax.set_extent(aExtent)
     ax.coastlines()#resolution='110m')        
     ax.set_title(sTitle , loc='center')
@@ -248,16 +258,14 @@ def __plot_mesh_with_variable(self, sVariable_in, aExtent_in=None):
     pDataset = pLayer = pFeature  = None      
      
     return
-
-    
-
-def __plot_flow_direction(self, aExtent_in=None):        
+ 
+def _plot_flow_direction(self, sFilename_in, aExtent_in=None, pProjection_map_in = None):        
     sTitle = 'Flow direction'
     sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed, 'flow_direction.geojson')
     fig = plt.figure( dpi=300)
     fig.set_figwidth( 12 )
     fig.set_figheight( 12 )
-    ax = fig.add_axes([0.1, 0.15, 0.85, 0.8] , projection=desired_proj ) #request.crs
+    ax = fig.add_axes([0.1, 0.15, 0.85, 0.8] , projection=pProjection_map ) #request.crs
     ax.set_global()
     pDriver = ogr.GetDriverByName('GeoJSON')
     pDataset = pDriver.Open(sFilename_json, gdal.GA_ReadOnly)
@@ -325,14 +333,14 @@ def __plot_flow_direction(self, aExtent_in=None):
     
       
     sDirname = os.path.dirname(sFilename_json)
-    marginx  = (dLon_max - dLon_min) / 20
-    marginy  = (dLat_max - dLat_min) / 20
+  
 
-    if aExtent_in is not None:
-        aExtent = aExtent_in
+    if aExtent_in is None:
+        marginx  = (dLon_max - dLon_min) / 20
+        marginy  = (dLat_max - dLat_min) / 20
+        aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min -marginy , dLat_max + marginy]
     else:
-        aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min - marginy , dLat_max + marginy]
-        aExtent =[dLon_min, dLon_max, dLat_min, dLat_max]
+        aExtent = aExtent_in
              
     sFilename  = Path(sFilename_json).stem + self.sCase + '.png'
     
@@ -353,13 +361,13 @@ def __plot_flow_direction(self, aExtent_in=None):
     pDataset = pLayer = pFeature  = None  
     return
 
-def __plot_mesh_with_flow_direction(self, aExtent_in = None):
+def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None, pProjection_map_in = None):
 
     sTitle = 'Flow direction'
     fig = plt.figure( dpi=300)
     fig.set_figwidth( 8 )
     fig.set_figheight( 8 )
-    ax = fig.add_axes([0.1, 0.15, 0.85, 0.8] , projection=desired_proj ) #request.crs
+    ax = fig.add_axes([0.1, 0.15, 0.85, 0.8] , projection=pProjection_map ) #request.crs
 
     #plot mesh
     dLat_min = 90
@@ -473,11 +481,13 @@ def __plot_mesh_with_flow_direction(self, aExtent_in = None):
     sDirname = os.path.dirname(sFilename_json)
     marginx  = (dLon_max - dLon_min) / 20
     marginy  = (dLat_max - dLat_min) / 20
-    if aExtent_in is not None:
-        aExtent = aExtent_in
+    if aExtent_in is None:
+        marginx  = (dLon_max - dLon_min) / 20
+        marginy  = (dLat_max - dLat_min) / 20
+        aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min -marginy , dLat_max + marginy]
     else:
-        aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min - marginy , dLat_max + marginy]
-        aExtent =[dLon_min, dLon_max, dLat_min, dLat_max]
+        aExtent = aExtent_in
+
     sFilename  = Path(sFilename_json).stem + '_with_mesh_' + self.sCase + '.png'
    
     ax.set_extent(aExtent)       
@@ -545,14 +555,14 @@ def __plot_mesh_with_flow_direction(self, aExtent_in = None):
     #plt.show()
     return
     
-def __plot_mesh_with_flow_direction_and_river_network(self, aExtent_in = None):
+def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent_in = None, pProjection_map_in = None):
 
     sTitle = 'Flow direction and river networks'
     
     fig = plt.figure( dpi=300)
     fig.set_figwidth( 12 )
     fig.set_figheight( 12 )
-    ax = fig.add_axes([0.1, 0.15, 0.75, 0.8] , projection=desired_proj ) #request.crs
+    ax = fig.add_axes([0.1, 0.15, 0.75, 0.8] , projection=pProjection_map ) #request.crs
     ax.set_global()  
 
     #plot mesh
@@ -754,11 +764,13 @@ def __plot_mesh_with_flow_direction_and_river_network(self, aExtent_in = None):
                 pass
             pass
 
-    if aExtent_in is not None:
-        aExtent = aExtent_in
+    if aExtent_in is None:
+        marginx  = (dLon_max - dLon_min) / 20
+        marginy  = (dLat_max - dLat_min) / 20
+        aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min -marginy , dLat_max + marginy]
     else:
-        aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min - marginy , dLat_max + marginy]
-        aExtent =[dLon_min, dLon_max, dLat_min, dLat_max]    
+        aExtent = aExtent_in
+        
     ax.set_extent(aExtent)     
     #if self.iMesh_type == 1:
     #    sText = 'Case: ' + "{:0d}".format( self.iCase_index + 8 )
