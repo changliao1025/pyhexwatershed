@@ -89,12 +89,9 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
                 sUnit = 'Unit: percent'
                 dData_min = 0.0
                 dData_max = 0.1
-    sWorkspace_output = self.sWorkspace_output        
+     
     sFilename_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'hexwatershed.json' )
-    sFilename_out = os.path.join(  self.sWorkspace_output_hexwatershed, sVariable_in+'.png' )
-    if os.path.exists(sFilename_out):
-        os.remove(sFilename_out)
-    sFilename_out = os.path.join(  self.sWorkspace_output_hexwatershed, sVariable_in + self.sCase )
+    
     sMesh_type = self.sMesh_type
     fig = plt.figure( dpi=300 )
     fig.set_figwidth( 12 )
@@ -254,7 +251,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
                   linewidth=1, color='gray', alpha=0.3, linestyle='--')
     gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
     gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
-    plt.savefig(sFilename_out, bbox_inches='tight')
+    plt.savefig(sFilename_in, bbox_inches='tight')
     pDataset = pLayer = pFeature  = None      
      
     return
@@ -353,10 +350,8 @@ def _plot_flow_direction(self, sFilename_in, aExtent_in=None, pProjection_map_in
     gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
     gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
     ax.set_title( sTitle.capitalize()) #, fontsize =  8*4)       
-    
-    sFilename_out = os.path.join(sDirname, sFilename)    
-    
-    plt.savefig(sFilename_out, bbox_inches='tight')
+             
+    plt.savefig(sFilename_in, bbox_inches='tight')
     #plt.show()
     pDataset = pLayer = pFeature  = None  
     return
@@ -500,8 +495,8 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None, pProjec
     gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
     ax.set_title( sTitle.capitalize()) #, fontsize =  8*4)       
     
-    sFilename_out = os.path.join(sDirname, sFilename)
-    plt.savefig(sFilename_out, bbox_inches='tight')
+
+    plt.savefig(sFilename_in, bbox_inches='tight')
 
     
     
@@ -551,7 +546,7 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None, pProjec
                     facecolor='none', edgecolor='red')
             ax.add_patch(patch)
     
-    plt.savefig(sFilename_out, bbox_inches='tight')
+    plt.savefig(sFilename_in, bbox_inches='tight')
     #plt.show()
     return
     
@@ -678,8 +673,7 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
     marginx  = (dLon_max - dLon_min) / 20
     marginy  = (dLat_max - dLat_min) / 20
    
-    sFilename  = Path(sFilename_json).stem + '_with_mesh_and_river_' + self.sCase + '.png'
-    sFilename_out = os.path.join(self.sWorkspace_output_hexwatershed, sFilename)
+    
     
     
     #plot wbd
@@ -811,7 +805,7 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
     gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
     gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
     ax.set_title( sTitle.capitalize()) #, fontsize =  8*4)       
-    plt.savefig(sFilename_out, bbox_inches='tight')
+    plt.savefig(sFilename_in, bbox_inches='tight')
     
     #plt.show()
     return

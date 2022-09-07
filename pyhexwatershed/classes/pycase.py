@@ -82,6 +82,8 @@ class hexwatershedcase(object):
     from ._visual import _plot_flow_direction
     from ._visual import _plot_mesh_with_flow_direction
     from ._visual import _plot_mesh_with_flow_direction_and_river_network
+    from ._hpc import _create_hpc_job
+    from ._hpc import _submit_hpc_job
 
     def __init__(self, aConfig_in):
         print('HexWatershed compset is being initialized')
@@ -590,9 +592,9 @@ class hexwatershedcase(object):
         return
 
     def export(self):        
-        #self.pyhexwatershed_save_elevation()
-        #self.pyhexwatershed_save_slope()
-        #self.pyhexwatershed_save_flow_direction()    
+        self.pyhexwatershed_save_elevation()
+        self.pyhexwatershed_save_slope()
+        self.pyhexwatershed_save_flow_direction()    
         self.pyhexwatershed_save_stream_segment()
         return
 
