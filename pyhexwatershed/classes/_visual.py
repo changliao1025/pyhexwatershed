@@ -23,6 +23,7 @@ from pyhexwatershed.algorithm.auxiliary.statistics import remap
 
 pProjection_map_deafult = ccrs.Orthographic(central_longitude=  0.50*(-149.5+(-146.5)), \
         central_latitude= 0.50*(68.1+70.35), globe=None)
+        
 iFigwidth_default = 12
 iFigheight_default = 9
 
@@ -51,62 +52,63 @@ def _plot(self, sFilename_in, \
     
     return
     
-def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None,  iFigwidth_in=None, iFigheight_in=None, pProjection_map_in = None):
+def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None,  iFigwidth_in=None, iFigheight_in=None, pProjection_map_in = None, \
+    dData_min_in = None, dData_max_in = None):
 
     if self.iMesh_type !=4:
         if sVariable_in == 'elevation':
             sVariable='Elevation'
             sTitle = 'Surface elevation'
             sUnit = r'Unit: m'
-            dData_min = -100
-            dData_max = 800
+            dData_min = dData_min_in
+            dData_max = dData_max_in
         else:
             if sVariable_in == 'drainagearea': 
                 sVariable='DrainageArea'
                 sTitle = 'Drainage area'
                 sUnit = r'Unit: $m^{2}$'
                 dData_min = 0.0
-                dData_max = None
+                dData_max = dData_max_in
             else:
                 if sVariable_in == 'distance_to_outlet': 
                     sVariable='dDistance_to_watershed_outlet'
                     sTitle = 'Travel distance'
                     sUnit = r'Unit: m'
                     dData_min = 0.0
-                    dData_max = None
+                    dData_max = dData_max_in
                 else:    
                     sVariable='dSlope_between'
                     sTitle = 'Surface slope'
                     sUnit = r'Unit: percent'
                     dData_min = 0.0
-                    dData_max = 0.1
+                    dData_max = dData_max_in
     else:
         if sVariable_in == 'elevation':
             sVariable='Elevation' #Elevation_profile'
             sTitle = 'Surface elevation'
             sUnit = 'Unit: m'
-            dData_min = -100
-            dData_max = 800
+            dData_min = dData_min_in
+            dData_max = dData_max_in
         else:
             if sVariable_in == 'drainagearea': 
                 sVariable='DrainageArea'
                 sTitle = 'Drainage area'
                 sUnit = r'Unit: $m^{2}$'
                 dData_min = 0.0
-                dData_max = None
+                dData_max = dData_max_in
             else:
                 if sVariable_in == 'distance_to_outlet': 
                     sVariable='dDistance_to_watershed_outlet'
                     sTitle = 'Distance to outlet'
                     sUnit = r'Unit: m'
                     dData_min = 0.0
-                    dData_max = None
+                    dData_max = dData_max_in
                 else:
                     sVariable='dSlope_between'
                     sTitle = 'Surface slope'
                     sUnit = 'Unit: percent'
                     dData_min = 0.0
-                    dData_max = 0.1
+                    dData_max = dData_max_in
     
     if iFigwidth_in is None:
         iFigwidth = iFigwidth_default
@@ -146,6 +148,8 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
 
     if dData_max is None:
         dData_max = np.max(aData)
+    if dData_min is None:
+        dData_min = np.min(aData)
 
     norm=plt.Normalize(dData_min,dData_max)
     with open(sFilename_json) as json_file:

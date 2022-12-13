@@ -40,7 +40,7 @@ if oPyhexwatershed.iFlag_global==1:
     #we can only suport MPAS/latlon mesh at global scale right now
     pass
 else:
-    #regional simulation
+    #domain simulation
     if oPyhexwatershed.iFlag_multiple_outlet ==1:
         pass
     else:
