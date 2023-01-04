@@ -26,13 +26,19 @@ def _create_hpc_job(self, sSlurm_in=None):
         +  'sMesh_type_in="'+ str(self.sMesh_type) +'"' \
         + ')'  +   '\n'   
     ofs_pyhexwatershed.write(sLine)
-    if self.pPyFlowline.iFlag_flowline==1:
-        sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=' \
-            +  "{:0f}".format(self.pPyFlowline.aBasin[0].dLatitude_outlet_degree)+ '\n'   
-        ofs_pyhexwatershed.write(sLine)
-        sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=' \
-            + "{:0f}".format(self.pPyFlowline.aBasin[0].dLongitude_outlet_degree)+ '\n'   
-        ofs_pyhexwatershed.write(sLine)        
+    if self.iFlag_global == 1:
+        pass
+    else:
+        if self.iFlag_multiple_outlet ==1:
+            pass
+        else:
+            if self.pPyFlowline.iFlag_flowline==1:
+                sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=' \
+                    +  "{:0f}".format(self.pPyFlowline.aBasin[0].dLatitude_outlet_degree)+ '\n'   
+                ofs_pyhexwatershed.write(sLine)
+                sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=' \
+                    + "{:0f}".format(self.pPyFlowline.aBasin[0].dLongitude_outlet_degree)+ '\n'   
+                ofs_pyhexwatershed.write(sLine)        
     sLine = 'oPyhexwatershed.setup()' + '\n'   
     ofs_pyhexwatershed.write(sLine)
     sLine = 'aCell_origin = oPyhexwatershed.run_pyflowline()' + '\n'   
@@ -68,7 +74,7 @@ def _create_hpc_job(self, sSlurm_in=None):
     ofs.write(sLine)
     sLine = '#SBATCH --job-name=' + self.sCase + '\n'
     ofs.write(sLine)
-    sLine = '#SBATCH -t 1:00:00' + '\n'
+    sLine = '#SBATCH -t 10:00:00' + '\n'
     ofs.write(sLine)
     sLine = '#SBATCH --nodes=1' + '\n'
     ofs.write(sLine)
@@ -100,7 +106,13 @@ def _create_hpc_job(self, sSlurm_in=None):
     ofs.write(sLine)
     sLine = 'cd $JOB_DIRECTORY' +  '\n'
     ofs.write(sLine)
-    sLine = 'python3 run_pyhexwatershed.py' +  '\n'
+
+    if self.iFlag_profile == 0:
+        sLine = 'python3 run_pyhexwatershed.py' +  '\n'
+    else:
+        #use cProfile tp run the code
+        sLine = 'python3 -m cProfile -o cprofile.txt run_pyhexwatershed.py' +  '\n'
+    
     ofs.write(sLine)
     sLine = 'conda deactivate' + '\n'
     ofs.write(sLine)
