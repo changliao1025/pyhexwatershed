@@ -1,18 +1,20 @@
 import os, stat
-
-
 import json
 from shutil import copy2
-
 from pathlib import Path
 from osgeo import gdal, ogr, osr, gdalconst
 import numpy as np
+import matplotlib as mpl
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import matplotlib.path as mpath
 import matplotlib.ticker as mticker
 import matplotlib.patches as mpatches
 import matplotlib.cm as cm
+import matplotlib.animation as animation 
+from matplotlib.animation import FuncAnimation
+import matplotlib
+mpl.use("Agg")
 from shapely.wkt import loads
 from cartopy.mpl.ticker import LongitudeFormatter, LatitudeFormatter
 import cartopy.io.shapereader as shpreader
@@ -24,15 +26,175 @@ from pyhexwatershed.algorithm.auxiliary.statistics import remap
 pProjection_map_deafult = ccrs.Orthographic(central_longitude=  0.50*(-149.5+(-146.5)), \
         central_latitude= 0.50*(68.1+70.35), globe=None)
         
-iFigwidth_default = 12
+iFigwidth_default = 9
 iFigheight_default = 9
 
+def _animate(self, sFilename_in, \
+        iFlag_type_in = None, \
+        iFigwidth_in=None, iFigheight_in=None,\
+            aExtent_in = None,\
+        pProjection_map_in = None):
+
+    if iFigwidth_in is None:
+        iFigwidth_in = iFigwidth_default
+
+    if iFigheight_in is None:
+        iFigheight_in = iFigheight_default 
+
+    if pProjection_map_in is None:
+        pProjection_map = pProjection_map_deafult
+    else:
+        pProjection_map = pProjection_map_in
+
+    
+
+    sFilename_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'hexwatershed.json' )
+ 
+
+    fig = plt.figure(  )
+    fig.set_figwidth( iFigwidth_in )
+    fig.set_figheight( iFigheight_in )
+    ax = fig.add_axes([0.1, 0.15, 0.75, 0.8] , projection=pProjection_map )    
+    ax.set_global()   
+    dLat_min = 90
+    dLat_max = -90
+    dLon_min = 180
+    dLon_max = -180  
+
+    with open(sFilename_json) as json_file:
+        data = json.load(json_file)     
+        ncell = len(data)
+        lID =0         
+        for i in range(ncell):
+            pcell = data[i]         
+            avertex = pcell['vVertex']
+            nvertex = len(avertex)
+            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
+            #this is the cell
+            #get the vertex
+            for k in range(nvertex):
+                aLocation[k,0] = avertex[k]['dLongitude_degree']
+                aLocation[k,1] = avertex[k]['dLatitude_degree']
+                if aLocation[k,0] > dLon_max:
+                    dLon_max = aLocation[k,0]
+                if aLocation[k,0] < dLon_min:
+                    dLon_min = aLocation[k,0]
+                if aLocation[k,1] > dLat_max:
+                    dLat_max = aLocation[k,1]
+                if aLocation[k,1] < dLat_min:
+                    dLat_min = aLocation[k,1]
+    if aExtent_in is None:
+        marginx  = (dLon_max - dLon_min) / 20
+        marginy  = (dLat_max - dLat_min) / 20
+        aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min -marginy , dLat_max + marginy]
+    else:
+        aExtent = aExtent_in                
+    ax.set_extent(aExtent)
+    ax.coastlines()#resolution='110m') 
+    gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
+                  linewidth=1, color='gray', alpha=0.3, linestyle='--')
+    gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
+    gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
+    # initialization function 
+    def init():        
+        aData=list()
+        aPolygon=list()
+        with open(sFilename_json) as json_file:
+            data = json.load(json_file)      
+            ncell = len(data)
+            lID =0 
+            for i in range(ncell):
+                pcell = data[i]
+                dummy = float(pcell["Elevation"])
+                aData.append(dummy)
+    
+        aData = np.array(aData)        
+        dLat_min = 90
+        dLat_max = -90
+        dLon_min = 180
+        dLon_max = -180
+        cmap = cm.get_cmap('Spectral')
+        cmap_reversed = cmap.reversed()
+    
+        dData_max = np.max(aData)   
+        dData_min = np.min(aData)
+    
+        norm=plt.Normalize(dData_min,dData_max)
+        with open(sFilename_json) as json_file:
+            data = json.load(json_file)     
+            ncell = len(data)
+            lID =0           
+            for i in range(ncell):
+                pcell = data[i]
+                lCellID = int(pcell['lCellID'])                
+                dummy = float(pcell['Elevation'])
+                avertex = pcell['vVertex']
+                nvertex = len(avertex)
+                aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
+                #this is the cell
+                #get the vertex
+                for k in range(nvertex):
+                    aLocation[k,0] = avertex[k]['dLongitude_degree']
+                    aLocation[k,1] = avertex[k]['dLatitude_degree']
+                  
+                color_index = (dummy-dData_min ) /(dData_max - dData_min )
+                rgb = cmap_reversed(color_index)
+                polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgb,\
+                    edgecolor='none',transform=ccrs.PlateCarree() )
+              
+                aPolygon.append(ax.add_patch(polygon) )               
+        
+        return aPolygon    
+
+    # animation function 
+    def animate(iStep):
+        aPolygon=list()
+    	# i is a parameter 
+    	#get the time step global id and updated elevation
+        with open(sFilename_json) as json_file:
+            data = json.load(json_file)     
+            ncell = len(data)
+            lID =0 
+            #for i in range(ncell):
+            pcell = data[iStep]
+            lCellID = int(pcell['lCellID'])
+            #if (lCellID == lCellID_step):
+            #    pass
+            dummy = float(pcell['Elevation'])
+            avertex = pcell['vVertex']
+            nvertex = len(avertex)
+            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
+            #this is the cell
+            #get the vertex
+            for k in range(nvertex):
+                aLocation[k,0] = avertex[k]['dLongitude_degree']
+                aLocation[k,1] = avertex[k]['dLatitude_degree']
+            
+            
+            polygon = mpatches.Polygon(aLocation, closed=True, facecolor='r',\
+                edgecolor='none',transform=ccrs.PlateCarree() )
+            aPolygon.append(ax.add_patch(polygon) )
+
+            return aPolygon
+        
+
+    # setting a title for the plot 
+    plt.title('Prioriry flood!') 
+  
+    plt.rcParams["animation.convert_path"] = "/share/apps/ImageMagick/7.1.0-52/bin/convert"   
+ 
+    anim = FuncAnimation(fig, animate, init_func=init,
+                                   frames=50, interval=20, blit=True)
+    anim.save(sFilename_in,writer="imagemagick") 
+
+    return
+
 def _plot(self, sFilename_in, \
-    iFlag_type_in = None, \
-    sVariable_in=None, \
+        iFlag_type_in = None, \
+        sVariable_in=None, \
         aExtent_in = None, \
-            iFigwidth_in=None, iFigheight_in=None,\
-            pProjection_map_in = None):
+        iFigwidth_in=None, iFigheight_in=None,\
+        pProjection_map_in = None):
 
      
     
@@ -126,7 +288,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
     fig = plt.figure( dpi=300 )
     fig.set_figwidth( iFigwidth )
     fig.set_figheight( iFigheight )
-    ax = fig.add_axes([0.1, 0.5, 0.75, 0.8] , projection=pProjection_map )    
+    ax = fig.add_axes([0.1, 0.15, 0.75, 0.8] , projection=pProjection_map )    
     ax.set_global()     
     aData=[]
     with open(sFilename_json) as json_file:
@@ -186,6 +348,11 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
                 edgecolor='none',transform=ccrs.PlateCarree() )
             #aPatch.append(polygon)
             ax.add_patch(polygon)     
+            gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
+                  linewidth=1, color='gray', alpha=0.3, linestyle='--')
+            gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
+            gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
+ 
     #trasform elevation
     sm = plt.cm.ScalarMappable(cmap=cmap_reversed, norm=norm)
     sm.set_array(aData)
@@ -234,7 +401,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
     verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
             color='black', fontsize=8)
-    #plt.show()
+ 
     # Extract first layer of features from shapefile using OGR
     sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'
     pDriver = ogr.GetDriverByName('GeoJSON')

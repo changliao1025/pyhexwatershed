@@ -80,6 +80,7 @@ class hexwatershedcase(object):
     aBasin = list()
     
     from ._visual import _plot
+    from ._visual import _animate
     from ._visual import _plot_flow_direction
     from ._visual import _plot_mesh_with_variable
     from ._visual import _plot_mesh_with_flow_direction
