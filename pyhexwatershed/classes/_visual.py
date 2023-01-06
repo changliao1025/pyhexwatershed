@@ -46,28 +46,39 @@ def _animate(self, sFilename_in, \
     else:
         pProjection_map = pProjection_map_in
 
-    
+    #read domain json 
+    sFilename_pyflowline =  self.sFilename_mesh_info
+    #read result json
+    sFilename_domain_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'domain.json' )
 
-    sFilename_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'hexwatershed.json' )
- 
+    #read animation json
+    sFilename_animation_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'animation.json' )
 
-    fig = plt.figure(  )
+    fig = plt.figure( dpi=100 )
     fig.set_figwidth( iFigwidth_in )
     fig.set_figheight( iFigheight_in )
-    ax = fig.add_axes([0.1, 0.15, 0.75, 0.8] , projection=pProjection_map )    
+    ax = fig.add_axes([0.1, 0.1, 0.65, 0.8] , projection=pProjection_map )    
     ax.set_global()   
     dLat_min = 90
     dLat_max = -90
     dLon_min = 180
-    dLon_max = -180  
-
-    with open(sFilename_json) as json_file:
-        data = json.load(json_file)     
-        ncell = len(data)
+    dLon_max = -180 
+    aCellID = list() 
+    aData = list()
+    aCell_raw = list()
+    aCell_new = list()
+    aCell_animation = list()
+    with open(sFilename_pyflowline) as json_file:
+        aCell_raw = json.load(json_file)     
+        ncell_raw = len(aCell_raw)
         lID =0         
-        for i in range(ncell):
-            pcell = data[i]         
-            avertex = pcell['vVertex']
+        for i in range(ncell_raw):
+            pcell = aCell_raw[i]     
+            lCellID = int(pcell['lCellID'])  
+            dummy = float(pcell["dElevation_mean"])
+            aData.append(dummy)
+            aCellID.append(lCellID)  
+            avertex = pcell['aVertex']
             nvertex = len(avertex)
             aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
             #this is the cell
@@ -83,108 +94,153 @@ def _animate(self, sFilename_in, \
                     dLat_max = aLocation[k,1]
                 if aLocation[k,1] < dLat_min:
                     dLat_min = aLocation[k,1]
+
+    aData = np.array(aData)        
+    dData_max = np.max(aData)   
+    dData_min = np.min(aData) 
     if aExtent_in is None:
         marginx  = (dLon_max - dLon_min) / 20
         marginy  = (dLat_max - dLat_min) / 20
         aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min -marginy , dLat_max + marginy]
     else:
-        aExtent = aExtent_in                
+        aExtent = aExtent_in  
+
     ax.set_extent(aExtent)
     ax.coastlines()#resolution='110m') 
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
                   linewidth=1, color='gray', alpha=0.3, linestyle='--')
     gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
     gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
+    cmap = cm.get_cmap('Spectral')
+    # setting a title for the plot 
+    sText = 'Prioriry flood in HexWatershed'
+    ax.text(0.5, 1.05, sText, \
+    verticalalignment='center', horizontalalignment='center',\
+        transform=ax.transAxes, \
+        color='black', fontsize=9)
+    cmap_reversed = cmap.reversed() 
+    
+    with open(sFilename_domain_json) as json_file:
+        aCell_new = json.load(json_file) 
+        ncell_new = len(aCell_new)
+
+    with open(sFilename_animation_json) as json_file:
+        aCell_animation = json.load(json_file) 
+        ncell_animation = len(aCell_animation)
+
+    
+    aCellID_animation =list()
+    for i in range(ncell_animation):
+        pcell = aCell_animation[i]     
+        lCellID = int(pcell['lCellID'])
+        aCellID_animation.append(lCellID)
+
+    for i in range(ncell_new):
+        pcell = aCell_new[i]     
+        lCellID = int(pcell['lCellID'])    
+        if ( aCellID_animation.count(lCellID)  == 0):
+            print(lCellID)
+
+
     # initialization function 
-    def init():        
-        aData=list()
-        aPolygon=list()
-        with open(sFilename_json) as json_file:
-            data = json.load(json_file)      
-            ncell = len(data)
-            lID =0 
-            for i in range(ncell):
-                pcell = data[i]
-                dummy = float(pcell["Elevation"])
-                aData.append(dummy)
+    #aPolygon=list() 
+    for i in range(ncell_raw):
+        pcell = aCell_raw[i]              
+        dummy = float(pcell['dElevation_mean'])
+        avertex = pcell['aVertex']
+        nvertex = len(avertex)
+        aLocation= np.full( (nvertex, 2), 0.0, dtype=float )             
+        for k in range(nvertex):
+            aLocation[k,0] = avertex[k]['dLongitude_degree']
+            aLocation[k,1] = avertex[k]['dLatitude_degree']
+          
+        color_index = (dummy-dData_min ) /(dData_max - dData_min )
+        rgb = cmap_reversed(color_index)
+        polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgb,\
+            edgecolor='none',transform=ccrs.PlateCarree() )
+      
+        #aPolygon.append(ax.add_patch(polygon) )  
+
+    sText = ''
+    x1 = 0.0
+    y1 = 0.0
+    pArtist1 = ax.text(x1, y1, sText, \
+    verticalalignment='bottom', horizontalalignment='left',\
+        transform=ax.transAxes, \
+        color='black', fontsize=8)
     
-        aData = np.array(aData)        
-        dLat_min = 90
-        dLat_max = -90
-        dLon_min = 180
-        dLon_max = -180
-        cmap = cm.get_cmap('Spectral')
-        cmap_reversed = cmap.reversed()
-    
-        dData_max = np.max(aData)   
-        dData_min = np.min(aData)
-    
-        norm=plt.Normalize(dData_min,dData_max)
-        with open(sFilename_json) as json_file:
-            data = json.load(json_file)     
-            ncell = len(data)
-            lID =0           
-            for i in range(ncell):
-                pcell = data[i]
-                lCellID = int(pcell['lCellID'])                
-                dummy = float(pcell['Elevation'])
-                avertex = pcell['vVertex']
-                nvertex = len(avertex)
-                aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
-                #this is the cell
-                #get the vertex
-                for k in range(nvertex):
-                    aLocation[k,0] = avertex[k]['dLongitude_degree']
-                    aLocation[k,1] = avertex[k]['dLatitude_degree']
-                  
-                color_index = (dummy-dData_min ) /(dData_max - dData_min )
-                rgb = cmap_reversed(color_index)
-                polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgb,\
-                    edgecolor='none',transform=ccrs.PlateCarree() )
-              
-                aPolygon.append(ax.add_patch(polygon) )               
-        
-        return aPolygon    
+    x2 = 0.0
+    y2 = 0.0
+    pArtist2 = ax.text(x2, y2, sText, \
+    verticalalignment='top', horizontalalignment='left',\
+        transform=ax.transAxes, \
+        color='black', fontsize=8) 
+
+    #trasform elevation
+    norm=plt.Normalize(dData_min,dData_max)
+    sm = plt.cm.ScalarMappable(cmap=cmap_reversed, norm=norm)
+    sm.set_array(aData)
+    ax_cb= fig.add_axes([0.85, 0.12, 0.04, 0.75])
+    cb = fig.colorbar(sm, cax=ax_cb)       
+    sUnit = r'Unit: m'     
+    cb.ax.get_yaxis().set_ticks_position('right')
+    cb.ax.get_yaxis().labelpad = 5
+    cb.ax.set_ylabel(sUnit, rotation=90)
+    cb.ax.get_yaxis().set_label_position('left')
+    cb.ax.tick_params(labelsize=6)  
+
+    #def init():  
+        #global aCell_raw     
+    #    return pArtist1,  pArtist2
 
     # animation function 
-    def animate(iStep):
-        aPolygon=list()
-    	# i is a parameter 
+    
+    def animate(i):
+        aArtist=list()
     	#get the time step global id and updated elevation
-        with open(sFilename_json) as json_file:
-            data = json.load(json_file)     
-            ncell = len(data)
-            lID =0 
-            #for i in range(ncell):
-            pcell = data[iStep]
-            lCellID = int(pcell['lCellID'])
-            #if (lCellID == lCellID_step):
-            #    pass
-            dummy = float(pcell['Elevation'])
-            avertex = pcell['vVertex']
-            nvertex = len(avertex)
-            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
-            #this is the cell
-            #get the vertex
-            for k in range(nvertex):
-                aLocation[k,0] = avertex[k]['dLongitude_degree']
-                aLocation[k,1] = avertex[k]['dLatitude_degree']
-            
-            
-            polygon = mpatches.Polygon(aLocation, closed=True, facecolor='r',\
-                edgecolor='none',transform=ccrs.PlateCarree() )
-            aPolygon.append(ax.add_patch(polygon) )
+        pcell_animation = aCell_animation[i]
+        lCellID = int(pcell_animation['lCellID'])
+        lCellIndex = aCellID.index(lCellID)
+        
+        pcell_new  = aCell_new[lCellIndex]
+        dlon= float(pcell_new['dLongitude_center_degree'])
+        dlat = float(pcell_new['dLatitude_center_degree'])
+        dummy0= float(pcell_new['Elevation_raw'])
+        dummy = float(pcell_new['Elevation'])
+        avertex = pcell_new['vVertex']
+        nvertex = len(avertex)
+        aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
+        for k in range(nvertex):
+            aLocation[k,0] = avertex[k]['dLongitude_degree']
+            aLocation[k,1] = avertex[k]['dLatitude_degree']
+        
+        color_index = (dummy-dData_min ) /(dData_max - dData_min )
+        rgb = cmap_reversed(color_index)
+        polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgb,\
+            edgecolor='none',transform=ccrs.PlateCarree() )
+        pArtist0 = ax.add_patch(polygon)
+        sText1 = 'Before: ' + "{:0.2f}".format( dummy0 ) + 'm'
+        x1 = (dlon - dLon_min)/(dLon_max-dLon_min)
+        y1 = (dlat - dLat_min)/(dLat_max-dLat_min)-0.05
+        pArtist1.set_x(x1)
+        pArtist1.set_y(y1)
+        pArtist1.set_text(sText1)
+        sText2 = 'After: ' + "{:0.2f}".format( dummy ) + 'm'
+        x2 = (dlon - dLon_min)/(dLon_max-dLon_min)+0.0
+        y2 = (dlat - dLat_min)/(dLat_max-dLat_min)+0.05
+        pArtist2.set_x(x2)
+        pArtist2.set_y(y2)
+        pArtist2.set_text(sText2)     
 
-            return aPolygon
+        return pArtist0 , pArtist1, pArtist2
         
 
-    # setting a title for the plot 
-    plt.title('Prioriry flood!') 
+    
   
     plt.rcParams["animation.convert_path"] = "/share/apps/ImageMagick/7.1.0-52/bin/convert"   
- 
-    anim = FuncAnimation(fig, animate, init_func=init,
-                                   frames=50, interval=20, blit=True)
+    #init_func=init,\
+    anim = FuncAnimation(fig, animate, \
+                                   frames=ncell_animation, interval=400, blit=True)
     anim.save(sFilename_in,writer="imagemagick") 
 
     return
