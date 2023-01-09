@@ -98,22 +98,25 @@ def _animate(self, sFilename_in, \
     aData = np.array(aData)        
     dData_max = np.max(aData)   
     dData_min = np.min(aData) 
-    if aExtent_in is None:
-        marginx  = (dLon_max - dLon_min) / 20
-        marginy  = (dLat_max - dLat_min) / 20
+    marginx  = (dLon_max - dLon_min) / 20
+    marginy  = (dLat_max - dLat_min) / 20
+    if aExtent_in is None:        
         aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min -marginy , dLat_max + marginy]
     else:
         aExtent = aExtent_in  
 
     ax.set_extent(aExtent)
     ax.coastlines()#resolution='110m') 
-    gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
-                  linewidth=1, color='gray', alpha=0.3, linestyle='--')
-    gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
-    gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
+    if iFlag_type_in ==1: #full
+        gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, linewidth=1, color='gray', alpha=0.3, linestyle='--')
+        gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
+        gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
+    else: #track mode
+
+        pass
     cmap = cm.get_cmap('Spectral')
     # setting a title for the plot 
-    sText = 'Prioriry flood in HexWatershed'
+    sText = 'Priority flood in HexWatershed'
     ax.text(0.5, 1.05, sText, \
     verticalalignment='center', horizontalalignment='center',\
         transform=ax.transAxes, \
@@ -128,36 +131,23 @@ def _animate(self, sFilename_in, \
         aCell_animation = json.load(json_file) 
         ncell_animation = len(aCell_animation)
 
-    
-    aCellID_animation =list()
-    for i in range(ncell_animation):
-        pcell = aCell_animation[i]     
-        lCellID = int(pcell['lCellID'])
-        aCellID_animation.append(lCellID)
-
-    for i in range(ncell_new):
-        pcell = aCell_new[i]     
-        lCellID = int(pcell['lCellID'])    
-        if ( aCellID_animation.count(lCellID)  == 0):
-            print(lCellID)
-
 
     # initialization function 
     #aPolygon=list() 
-    for i in range(ncell_raw):
-        pcell = aCell_raw[i]              
-        dummy = float(pcell['dElevation_mean'])
-        avertex = pcell['aVertex']
-        nvertex = len(avertex)
-        aLocation= np.full( (nvertex, 2), 0.0, dtype=float )             
-        for k in range(nvertex):
-            aLocation[k,0] = avertex[k]['dLongitude_degree']
-            aLocation[k,1] = avertex[k]['dLatitude_degree']
-          
-        color_index = (dummy-dData_min ) /(dData_max - dData_min )
-        rgb = cmap_reversed(color_index)
-        polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgb,\
-            edgecolor='none',transform=ccrs.PlateCarree() )
+    #for i in range(ncell_raw):
+    #    pcell = aCell_raw[i]              
+    #    dummy = float(pcell['dElevation_mean'])
+    #    avertex = pcell['aVertex']
+    #    nvertex = len(avertex)
+    #    aLocation= np.full( (nvertex, 2), 0.0, dtype=float )             
+    #    for k in range(nvertex):
+    #        aLocation[k,0] = avertex[k]['dLongitude_degree']
+    #        aLocation[k,1] = avertex[k]['dLatitude_degree']
+    #      
+    #    color_index = (dummy-dData_min ) /(dData_max - dData_min )
+    #    rgb = cmap_reversed(color_index)
+    #    polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgb,\
+    #        edgecolor='none',transform=ccrs.PlateCarree() )
       
         #aPolygon.append(ax.add_patch(polygon) )  
 
@@ -165,14 +155,14 @@ def _animate(self, sFilename_in, \
     x1 = 0.0
     y1 = 0.0
     pArtist1 = ax.text(x1, y1, sText, \
-    verticalalignment='bottom', horizontalalignment='left',\
+    verticalalignment='center', horizontalalignment='right',\
         transform=ax.transAxes, \
         color='black', fontsize=8)
     
     x2 = 0.0
     y2 = 0.0
     pArtist2 = ax.text(x2, y2, sText, \
-    verticalalignment='top', horizontalalignment='left',\
+    verticalalignment='center', horizontalalignment='left',\
         transform=ax.transAxes, \
         color='black', fontsize=8) 
 
@@ -219,28 +209,50 @@ def _animate(self, sFilename_in, \
         polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgb,\
             edgecolor='none',transform=ccrs.PlateCarree() )
         pArtist0 = ax.add_patch(polygon)
+
+        if iFlag_type_in ==1:
+            dLon_min_zoom = dLon_min
+            dLon_max_zoom = dLon_max
+            dLat_min_zoom = dLat_min
+            dLat_max_zoom = dLat_max
+        else:
+            dLon_min_zoom = dlon - marginx * 2
+            dLon_max_zoom = dlon + marginx * 2
+            dLat_min_zoom = dlat - marginy * 2 
+            dLat_max_zoom = dlat + marginy * 2
+
+        if dummy0 > dummy:
+            x1 = (dlon - dLon_min_zoom)/(dLon_max_zoom-dLon_min_zoom)
+            y1 = (dlat - dLat_min_zoom)/(dLat_max_zoom-dLat_min_zoom) + 0.05
+            x2 = (dlon - dLon_min_zoom)/(dLon_max_zoom-dLon_min_zoom)
+            y2 = (dlat - dLat_min_zoom)/(dLat_max_zoom-dLat_min_zoom) - 0.05
+        else:
+            x1 = (dlon - dLon_min_zoom)/(dLon_max_zoom-dLon_min_zoom)
+            y1 = (dlat - dLat_min_zoom)/(dLat_max_zoom-dLat_min_zoom) - 0.05
+            x2 = (dlon - dLon_min_zoom)/(dLon_max_zoom-dLon_min_zoom)
+            y2 = (dlat - dLat_min_zoom)/(dLat_max_zoom-dLat_min_zoom) + 0.05
+
         sText1 = 'Before: ' + "{:0.2f}".format( dummy0 ) + 'm'
-        x1 = (dlon - dLon_min)/(dLon_max-dLon_min)
-        y1 = (dlat - dLat_min)/(dLat_max-dLat_min)-0.05
+        
         pArtist1.set_x(x1)
         pArtist1.set_y(y1)
         pArtist1.set_text(sText1)
         sText2 = 'After: ' + "{:0.2f}".format( dummy ) + 'm'
-        x2 = (dlon - dLon_min)/(dLon_max-dLon_min)+0.0
-        y2 = (dlat - dLat_min)/(dLat_max-dLat_min)+0.05
+        
         pArtist2.set_x(x2)
         pArtist2.set_y(y2)
-        pArtist2.set_text(sText2)     
+        pArtist2.set_text(sText2)  
+
+        if iFlag_type_in ==2:
+            aExtent_zoom = [dlon - marginx * 2 , dlon + marginx * 2, dlat -marginy * 2, dlat + marginy* 2]
+            ax.set_extent(aExtent_zoom)       
 
         return pArtist0 , pArtist1, pArtist2
-        
-
-    
   
     plt.rcParams["animation.convert_path"] = "/share/apps/ImageMagick/7.1.0-52/bin/convert"   
     #init_func=init,\
     anim = FuncAnimation(fig, animate, \
-                                   frames=ncell_animation, interval=400, blit=True)
+                                   frames=ncell_animation, interval=400, blit=False)
     anim.save(sFilename_in,writer="imagemagick") 
 
     return
