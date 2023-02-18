@@ -74,7 +74,7 @@ def _create_hpc_job(self, sSlurm_in=None):
     ofs.write(sLine)
     sLine = '#SBATCH --job-name=' + self.sCase + '\n'
     ofs.write(sLine)
-    sLine = '#SBATCH -t 10:00:00' + '\n'
+    sLine = '#SBATCH -t 90:00:00' + '\n'
     ofs.write(sLine)
     sLine = '#SBATCH --nodes=1' + '\n'
     ofs.write(sLine)

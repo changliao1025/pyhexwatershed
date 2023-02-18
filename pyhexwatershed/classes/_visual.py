@@ -23,8 +23,9 @@ import cartopy.crs as ccrs
 
 from pyhexwatershed.algorithm.auxiliary.statistics import remap
 
-pProjection_map_deafult = ccrs.Orthographic(central_longitude=  0.50*(-149.5+(-146.5)), \
-        central_latitude= 0.50*(68.1+70.35), globe=None)
+pProjection_map_deafult = ccrs.Orthographic(central_longitude=  0.0, \
+        central_latitude= 0.0, globe=None)
+#pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
         
 iFigwidth_default = 9
 iFigheight_default = 9
@@ -53,12 +54,7 @@ def _animate(self, sFilename_in, \
 
     #read animation json
     sFilename_animation_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'animation.json' )
-
-    fig = plt.figure( dpi=100 )
-    fig.set_figwidth( iFigwidth_in )
-    fig.set_figheight( iFigheight_in )
-    ax = fig.add_axes([0.1, 0.1, 0.65, 0.8] , projection=pProjection_map )    
-    ax.set_global()   
+    
     dLat_min = 90
     dLat_max = -90
     dLon_min = 180
@@ -94,6 +90,13 @@ def _animate(self, sFilename_in, \
                     dLat_max = aLocation[k,1]
                 if aLocation[k,1] < dLat_min:
                     dLat_min = aLocation[k,1]
+
+    pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
+    fig = plt.figure( dpi=100 )
+    fig.set_figwidth( iFigwidth_in )
+    fig.set_figheight( iFigheight_in )
+    ax = fig.add_axes([0.1, 0.1, 0.65, 0.8] , projection=pProjection_map )    
+    ax.set_global()   
 
     aData = np.array(aData)        
     dData_max = np.max(aData)   
@@ -131,8 +134,7 @@ def _animate(self, sFilename_in, \
         aCell_animation = json.load(json_file) 
         ncell_animation = len(aCell_animation)
 
-
-    # initialization function 
+    #initialization function 
     #aPolygon=list() 
     #for i in range(ncell_raw):
     #    pcell = aCell_raw[i]              
@@ -178,12 +180,6 @@ def _animate(self, sFilename_in, \
     cb.ax.set_ylabel(sUnit, rotation=90)
     cb.ax.get_yaxis().set_label_position('left')
     cb.ax.tick_params(labelsize=6)  
-
-    #def init():  
-        #global aCell_raw     
-    #    return pArtist1,  pArtist2
-
-    # animation function 
     
     def animate(i):
         aArtist=list()
@@ -352,7 +348,30 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
         pProjection_map = pProjection_map_in
      
     sFilename_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'hexwatershed.json' )
- 
+    dLat_min = 90
+    dLat_max = -90
+    dLon_min = 180
+    dLon_max = -180
+    with open(sFilename_json) as json_file:
+        data = json.load(json_file)     
+        ncell = len(data)       
+        for i in range(ncell):
+            pcell = data[i]         
+            avertex = pcell['vVertex']
+            nvertex = len(avertex)
+            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )         
+            for k in range(nvertex):
+                aLocation[k,0] = avertex[k]['dLongitude_degree']
+                aLocation[k,1] = avertex[k]['dLatitude_degree']
+                if aLocation[k,0] > dLon_max:
+                    dLon_max = aLocation[k,0]
+                if aLocation[k,0] < dLon_min:
+                    dLon_min = aLocation[k,0]
+                if aLocation[k,1] > dLat_max:
+                    dLat_max = aLocation[k,1]
+                if aLocation[k,1] < dLat_min:
+                    dLat_min = aLocation[k,1]
+    pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
     fig = plt.figure( dpi=300 )
     fig.set_figwidth( iFigwidth )
     fig.set_figheight( iFigheight )
@@ -368,11 +387,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
             dummy = float(pcell[sVariable])
             aData.append(dummy)
 
-    aData = np.array(aData)        
-    dLat_min = 90
-    dLat_max = -90
-    dLon_min = 180
-    dLon_max = -180
+    aData = np.array(aData)  
     cmap = cm.get_cmap('Spectral')
     cmap_reversed = cmap.reversed()
 
@@ -396,20 +411,8 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
             dummy = float(pcell[sVariable])
             avertex = pcell['vVertex']
             nvertex = len(avertex)
-            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
-            #this is the cell
-            #get the vertex
-            for k in range(nvertex):
-                aLocation[k,0] = avertex[k]['dLongitude_degree']
-                aLocation[k,1] = avertex[k]['dLatitude_degree']
-                if aLocation[k,0] > dLon_max:
-                    dLon_max = aLocation[k,0]
-                if aLocation[k,0] < dLon_min:
-                    dLon_min = aLocation[k,0]
-                if aLocation[k,1] > dLat_max:
-                    dLat_max = aLocation[k,1]
-                if aLocation[k,1] < dLat_min:
-                    dLat_min = aLocation[k,1]
+            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )          
+            
             color_index = (dummy-dData_min ) /(dData_max - dData_min )
             rgba = cmap_reversed(color_index)
             polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgba,\
@@ -537,22 +540,46 @@ def _plot_flow_direction(self, sFilename_in, aExtent_in=None,  iFigwidth_in=None
     else:
         pProjection_map = pProjection_map_in     
     sTitle = 'Flow direction'
-    sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed, 'flow_direction.geojson')
+    
+    dLat_min = 90
+    dLat_max = -90
+    dLon_min = 180
+    dLon_max = -180 
+
+    pDriver = ogr.GetDriverByName('GeoJSON')
+    sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed, 'flow_direction.geojson')
+    pDataset = pDriver.Open(sFilename_geojson, gdal.GA_ReadOnly)
+    pLayer = pDataset.GetLayer(0)
+    for pFeature in pLayer:
+        pGeometry_in = pFeature.GetGeometryRef()
+        sGeometry_type = pGeometry_in.GetGeometryName()
+        dFlow_accumulation = pFeature.GetField("fac")
+        if sGeometry_type =='LINESTRING':
+            dummy0 = loads( pGeometry_in.ExportToWkt() )
+            aCoords_gcs = dummy0.coords
+            aCoords_gcs= np.array(aCoords_gcs)
+            nvertex = len(aCoords_gcs)                
+            for i in range(nvertex):
+                dLon = aCoords_gcs[i][0]
+                dLat = aCoords_gcs[i][1]
+                if dLon > dLon_max:
+                    dLon_max = dLon                
+                if dLon < dLon_min:
+                    dLon_min = dLon                
+                if dLat > dLat_max:
+                    dLat_max = dLat                
+                if dLat < dLat_min:
+                    dLat_min = dLat
+    pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
     fig = plt.figure( dpi=300)
     fig.set_figwidth( iFigwidth )
     fig.set_figheight( iFigheight )
     ax = fig.add_axes([0.1, 0.15, 0.85, 0.8] , projection=pProjection_map ) #request.crs
     ax.set_global()
-    pDriver = ogr.GetDriverByName('GeoJSON')
-    pDataset = pDriver.Open(sFilename_json, gdal.GA_ReadOnly)
-    pLayer = pDataset.GetLayer(0)
+    
     pSrs = osr.SpatialReference()  
     pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon    
-    lID = 0
-    dLat_min = 90
-    dLat_max = -90
-    dLon_min = 180
-    dLon_max = -180  
+    lID = 0     
     
     n_colors = pLayer.GetFeatureCount()        
     colours = cm.rainbow(np.linspace(0, 1, n_colors))
@@ -575,37 +602,20 @@ def _plot_flow_direction(self, sFilename_in, aExtent_in=None,  iFigwidth_in=None
             dummy0 = loads( pGeometry_in.ExportToWkt() )
             aCoords_gcs = dummy0.coords
             aCoords_gcs= np.array(aCoords_gcs)
-            nvertex = len(aCoords_gcs)                
-            for i in range(nvertex):
-                dLon = aCoords_gcs[i][0]
-                dLat = aCoords_gcs[i][1]
-                if dLon > dLon_max:
-                    dLon_max = dLon
-                
-                if dLon < dLon_min:
-                    dLon_min = dLon
-                
-                if dLat > dLat_max:
-                    dLat_max = dLat
-                
-                if dLat < dLat_min:
-                    dLat_min = dLat
+            nvertex = len(aCoords_gcs)       
             
             codes = np.full(nvertex, mpath.Path.LINETO, dtype=int )
             codes[0] = mpath.Path.MOVETO
             path = mpath.Path(aCoords_gcs[:,0:2], codes)            
             x, y = zip(*path.vertices)
             #caluculate line thickess
-            iThickness = remap( dFlow_accumulation, dFlow_accumulation_min, dFlow_accumulation_max, iThickness_min, iThickness_max )
-            
-               
+            iThickness = remap( dFlow_accumulation, dFlow_accumulation_min, dFlow_accumulation_max, iThickness_min, iThickness_max )               
             line, = ax.plot(x, y, color= 'black',linewidth=iThickness, transform=ccrs.PlateCarree())
             #print(x,y)
             lID = lID + 1
         else:
             print('multiple')
-            pass
-                  
+            pass                  
     
 
     if aExtent_in is None:
@@ -615,7 +625,7 @@ def _plot_flow_direction(self, sFilename_in, aExtent_in=None,  iFigwidth_in=None
     else:
         aExtent = aExtent_in
              
-    sFilename  = Path(sFilename_json).stem + self.sCase + '.png'
+    sFilename  = Path(sFilename_geojson).stem + self.sCase + '.png'
     
     ax.set_extent(aExtent)  
     ax.coastlines()#resolution='110m')       
@@ -644,24 +654,17 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
     else:
         pProjection_map = pProjection_map_in
     sTitle = 'Flow direction'
-    fig = plt.figure( dpi=300)
-    fig.set_figwidth( iFigwidth )
-    fig.set_figheight( iFigheight )
-    ax = fig.add_axes([0.1, 0.15, 0.85, 0.8] , projection=pProjection_map ) #request.crs
-
-    #plot mesh
     dLat_min = 90
     dLat_max = -90
     dLon_min = 180
-    dLon_max = -180  
+    dLon_max = -180 
     sFilename_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'hexwatershed.json' )
     with open(sFilename_json) as json_file:
         data = json.load(json_file)     
         ncell = len(data)
         lID =0 
         for i in range(ncell):
-            pcell = data[i]               
-            
+            pcell = data[i]    
             avertex = pcell['vVertex']
             nvertex = len(avertex)
             aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
@@ -678,13 +681,31 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
                     dLat_max = aLocation[k,1]
                 if aLocation[k,1] < dLat_min:
                     dLat_min = aLocation[k,1]
+    pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
+    fig = plt.figure( dpi=300)
+    fig.set_figwidth( iFigwidth )
+    fig.set_figheight( iFigheight )
+    ax = fig.add_axes([0.1, 0.15, 0.85, 0.8] , projection=pProjection_map ) #request.crs
+
+    
+    
+    with open(sFilename_json) as json_file:
+        data = json.load(json_file)     
+        ncell = len(data)
+        lID =0 
+        for i in range(ncell):
+            pcell = data[i]           
+            avertex = pcell['vVertex']
+            nvertex = len(avertex)
+            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )           
             
             polygon = mpatches.Polygon(aLocation, closed=True, facecolor='none', alpha=0.8, linewidth=0.1,\
                 edgecolor='black',transform=ccrs.PlateCarree() )
             ax.add_patch(polygon)     
+
     pDriver = ogr.GetDriverByName('GeoJSON')
-    sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed, 'flow_direction.geojson')
-    pDataset = pDriver.Open(sFilename_json, gdal.GA_ReadOnly)
+    sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed, 'flow_direction.geojson')
+    pDataset = pDriver.Open(sFilename_geojson, gdal.GA_ReadOnly)
     pLayer = pDataset.GetLayer(0)
 
     pSrs = osr.SpatialReference()  
@@ -717,22 +738,7 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
             aCoords_gcs = dummy0.coords
             aCoords_gcs= np.array(aCoords_gcs)
             nvertex = len(aCoords_gcs)
-            
-            for i in range(nvertex):
-                dLon = aCoords_gcs[i][0]
-                dLat = aCoords_gcs[i][1]
-                if dLon > dLon_max:
-                    dLon_max = dLon
-                
-                if dLon < dLon_min:
-                    dLon_min = dLon
-                
-                if dLat > dLat_max:
-                    dLat_max = dLat
-
-                if dLat < dLat_min:
-                    dLat_min = dLat
-                
+                            
             if nvertex == 2 :
                 dLon_label = 0.5 * (aCoords_gcs[0][0] + aCoords_gcs[1][0] ) 
                 dLat_label = 0.5 * (aCoords_gcs[0][1] + aCoords_gcs[1][1] ) 
@@ -841,7 +847,34 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
     else:
         pProjection_map = pProjection_map_in
     sTitle = 'Flow direction and river networks'
-    
+    dLat_min = 90
+    dLat_max = -90
+    dLon_min = 180
+    dLon_max = -180  
+    sFilename_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'hexwatershed.json' )
+    iFlag_plot_mesh =1 
+    if iFlag_plot_mesh ==1:
+        with open(sFilename_json) as json_file:
+            data = json.load(json_file)     
+            ncell = len(data)
+            lID =0 
+            for i in range(ncell):
+                pcell = data[i]               
+                avertex = pcell['vVertex']
+                nvertex = len(avertex)
+                aLocation= np.full( (nvertex, 2), 0.0, dtype=float )             
+                for k in range(nvertex):
+                    aLocation[k,0] = avertex[k]['dLongitude_degree']
+                    aLocation[k,1] = avertex[k]['dLatitude_degree']
+                    if aLocation[k,0] > dLon_max:
+                        dLon_max = aLocation[k,0]
+                    if aLocation[k,0] < dLon_min:
+                        dLon_min = aLocation[k,0]
+                    if aLocation[k,1] > dLat_max:
+                        dLat_max = aLocation[k,1]
+                    if aLocation[k,1] < dLat_min:
+                        dLat_min = aLocation[k,1]
+    pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
     fig = plt.figure( dpi=300)
     fig.set_figwidth( iFigwidth )
     fig.set_figheight( iFigheight )
@@ -864,20 +897,7 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
                 pcell = data[i]               
                 avertex = pcell['vVertex']
                 nvertex = len(avertex)
-                aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
-                #this is the cell
-                #get the vertex
-                for k in range(nvertex):
-                    aLocation[k,0] = avertex[k]['dLongitude_degree']
-                    aLocation[k,1] = avertex[k]['dLatitude_degree']
-                    if aLocation[k,0] > dLon_max:
-                        dLon_max = aLocation[k,0]
-                    if aLocation[k,0] < dLon_min:
-                        dLon_min = aLocation[k,0]
-                    if aLocation[k,1] > dLat_max:
-                        dLat_max = aLocation[k,1]
-                    if aLocation[k,1] < dLat_min:
-                        dLat_min = aLocation[k,1]
+                aLocation= np.full( (nvertex, 2), 0.0, dtype=float )      
                 polygon = mpatches.Polygon(aLocation, closed=True, facecolor='none', alpha=0.8, linewidth=0.1,\
                     edgecolor='black',transform=ccrs.PlateCarree() )
                 ax.add_patch(polygon)     
