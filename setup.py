@@ -1,10 +1,31 @@
 
 import io
-import os
+
 import subprocess
 import shutil
 
-from setuptools import setup, find_packages, Command
+
+try:
+    from setuptools import setup, Extension, find_packages
+    # Required for compatibility with pip (issue #177)
+    from setuptools.command.install import install
+except ImportError:
+    from distutils.core import setup, Extension
+    from distutils.command.install import install
+
+try:
+    from wheel.bdist_wheel import bdist_wheel
+except ImportError:
+    bdist_wheel = None
+
+from distutils.command.build import build
+from distutils.command.build_ext import build_ext
+from distutils.command.clean import clean
+from distutils import log
+from distutils.dir_util import remove_tree
+from distutils.spawn import spawn
+import os
+import sys
 
 NAME = "hexwatershed"
 DESCRIPTION = \
