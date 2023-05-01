@@ -17,7 +17,9 @@ REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
 REQUIRED = [
-    "pyflowline"
+    "pyflowline",
+    "cxx-compiler",
+    "cmake"
 ]
 
 CLASSIFY = [
@@ -42,6 +44,17 @@ try:
 
 except FileNotFoundError:
     LONG_DESCRIPTION = DESCRIPTION
+
+def get_cmake_version():
+    try:
+        out = subprocess.check_output(
+            ["cmake", "--version"]).decode("utf-8")
+        sln = out.splitlines()[0]
+        ver = sln.split()[2]
+        return ver
+
+    except:
+        print("cmake not found!")
 
 
 setup(

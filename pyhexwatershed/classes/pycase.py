@@ -72,7 +72,8 @@ class hexwatershedcase(object):
     sCase=''
     sDate=''    
     sFilename_spatial_reference=''
-    sFilename_hexwatershed=''
+    sFilename_hexwatershed_bin=''
+    sFilename_hexwatershed_json=''
     pPyFlowline = None
     sWorkspace_input=''
     sWorkspace_output_pyflowline=''
@@ -80,6 +81,7 @@ class hexwatershedcase(object):
     aBasin = list()
     
     from ._visual import _plot
+    from ._visual import _animate
     from ._visual import _plot_flow_direction
     from ._visual import _plot_mesh_with_variable
     from ._visual import _plot_mesh_with_flow_direction
@@ -256,8 +258,8 @@ class hexwatershedcase(object):
         if 'sJob' in aConfig_in:
             self.sJob =  aConfig_in['sJob'] 
 
-        if 'sFilename_hexwatershed' in aConfig_in:
-            self.sFilename_hexwatershed= aConfig_in['sFilename_hexwatershed'] 
+        if 'sFilename_hexwatershed_bin' in aConfig_in:
+            self.sFilename_hexwatershed_bin= aConfig_in['sFilename_hexwatershed_bin'] 
 
         if 'sWorkspace_bin' in aConfig_in:
             self.sWorkspace_bin = aConfig_in['sWorkspace_bin']
@@ -281,7 +283,7 @@ class hexwatershedcase(object):
         self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_elevation.geojson" )
         self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + ".geojson" )
         self.sFilename_mesh_info  =  os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_mesh_info.json"  ) 
-        
+        self.sFilename_hexwatershed_json = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed.json" )
         
         return    
 
@@ -331,12 +333,12 @@ class hexwatershedcase(object):
      
     def setup(self):
         self.pPyFlowline.setup()
-        sFilename_hexwatershed = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed )
+        sFilename_hexwatershed_bin = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed_bin )
 
         #print(sFilename_hexwatershed)
         #copy the binary file
         sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed" )
-        copy2(sFilename_hexwatershed, sFilename_new)
+        copy2(sFilename_hexwatershed_bin, sFilename_new)
         os.chmod(sFilename_new, stat.S_IRWXU )
 
         return
