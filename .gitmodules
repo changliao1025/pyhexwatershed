@@ -1,0 +1,3 @@
+[submodule "external/hexwatershed"]
+	path = external/hexwatershed
+	url = https://github.com/changliao1025/hexwatershed
