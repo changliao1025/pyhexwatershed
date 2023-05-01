@@ -27,8 +27,8 @@ pProjection_map_deafult = ccrs.Orthographic(central_longitude=  0.0, \
         central_latitude= 0.0, globe=None)
 #pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
         
-iFigwidth_default = 9
-iFigheight_default = 9
+iFigwidth_default = 12
+iFigheight_default = 12
 
 def _animate(self, sFilename_in, \
         iFlag_type_in = None, \
@@ -159,14 +159,14 @@ def _animate(self, sFilename_in, \
     pArtist1 = ax.text(x1, y1, sText, \
     verticalalignment='center', horizontalalignment='right',\
         transform=ax.transAxes, \
-        color='black', fontsize=8)
+        color='black', fontsize=12)
     
     x2 = 0.0
     y2 = 0.0
     pArtist2 = ax.text(x2, y2, sText, \
     verticalalignment='center', horizontalalignment='left',\
         transform=ax.transAxes, \
-        color='black', fontsize=8) 
+        color='black', fontsize=12) 
 
     #trasform elevation
     norm=plt.Normalize(dData_min,dData_max)
@@ -293,7 +293,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
                 sVariable='DrainageArea'
                 sTitle = 'Drainage area'
                 sUnit = r'Unit: $m^{2}$'
-                dData_min = 0.0
+                dData_min = dData_min_in
                 dData_max = dData_max_in
             else:
                 if sVariable_in == 'distance_to_outlet': 
@@ -306,7 +306,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
                     sVariable='dSlope_between'
                     sTitle = 'Surface slope'
                     sUnit = r'Unit: percent'
-                    dData_min = 0.0
+                    dData_min = dData_min_in
                     dData_max = dData_max_in
     else:
         if sVariable_in == 'elevation':
@@ -320,7 +320,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
                 sVariable='DrainageArea'
                 sTitle = 'Drainage area'
                 sUnit = r'Unit: $m^{2}$'
-                dData_min = 0.0
+                dData_min = dData_min_in
                 dData_max = dData_max_in
             else:
                 if sVariable_in == 'distance_to_outlet': 
@@ -399,30 +399,21 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
     norm=plt.Normalize(dData_min,dData_max)
     with open(sFilename_json) as json_file:
         data = json.load(json_file)     
-        ncell = len(data)
-        lID =0 
+        ncell = len(data)       
         for i in range(ncell):
-            pcell = data[i]
-            lCellID = int(pcell['lCellID'])
-            lCellID_downslope = int(pcell['lCellID_downslope'])
-            x_start=float(pcell['dLongitude_center_degree'])
-            y_start=float(pcell['dLatitude_center_degree'])
-            dfac = float(pcell['DrainageArea'])
+            pcell = data[i]            
             dummy = float(pcell[sVariable])
             avertex = pcell['vVertex']
             nvertex = len(avertex)
-            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )          
-            
+            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )  
+            for k in range(nvertex):
+                aLocation[k,0] = avertex[k]['dLongitude_degree']
+                aLocation[k,1] = avertex[k]['dLatitude_degree']
             color_index = (dummy-dData_min ) /(dData_max - dData_min )
             rgba = cmap_reversed(color_index)
             polygon = mpatches.Polygon(aLocation, closed=True, facecolor=rgba,\
-                edgecolor='none',transform=ccrs.PlateCarree() )
-            #aPatch.append(polygon)
-            ax.add_patch(polygon)     
-            gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
-                  linewidth=1, color='gray', alpha=0.3, linestyle='--')
-            gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
-            gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
+                edgecolor='none',transform=ccrs.PlateCarree() )            
+            ax.add_patch(polygon)    
  
     #trasform elevation
     sm = plt.cm.ScalarMappable(cmap=cmap_reversed, norm=norm)
@@ -446,22 +437,22 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
     ax.coastlines()#resolution='110m')        
     ax.set_title(sTitle , loc='center')        
         
-    sText = 'Case index: ' + "{:0d}".format( self.iCase_index  )
-    ax.text(0.05, 0.95, sText, \
-    verticalalignment='top', horizontalalignment='left',\
-            transform=ax.transAxes, \
-            color='black', fontsize=8)
+    #sText = 'Case index: ' + "{:0d}".format( self.iCase_index  )
+    #ax.text(0.05, 0.95, sText, \
+    #verticalalignment='top', horizontalalignment='left',\
+    #        transform=ax.transAxes, \
+    #        color='black', fontsize=12)
     sText = 'Mesh type: ' + self.sMesh_type.title()
     ax.text(0.05, 0.90, sText, \
     verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
-            color='black', fontsize=8)
+            color='black', fontsize=12)
     sResolution =  'Resolution: ' + "{:0d}".format( int(self.dResolution_meter) ) + 'm'
     if self.sMesh_type != 'mpas':
         ax.text(0.05, 0.85, sResolution, \
             verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
-            color='black', fontsize=8)
+            color='black', fontsize=12)
     else:
         pass
     if self.iFlag_stream_burning_topology ==1:
@@ -471,58 +462,60 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
     ax.text(0.05, 0.80, sText, \
     verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
-            color='black', fontsize=8)
+            color='black', fontsize=12)
  
     # Extract first layer of features from shapefile using OGR
-    sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'
-    pDriver = ogr.GetDriverByName('GeoJSON')
-    pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
-    pLayer = pDataset.GetLayer(0)
-    
-    paths = []
-    
-    # Read all features in layer and store as paths
-    for pFeature in pLayer:
-        geom = pFeature.geometry()
-        codes = []
-        all_x = []
-        all_y = []
-        ng = geom.GetGeometryCount()
-        for i in range(ng):
-            # Read ring geometry and create path
-            r = geom.GetGeometryRef(i)
-            sGeometry_type = geom.GetGeometryName()                
-            if(sGeometry_type == 'MULTIPOLYGON'):
-                for geom_part in geom:
-                    ng2 = geom_part.GetGeometryCount()
-                    for k in range(ng2):
-                        dummy= geom_part.GetGeometryRef(k)                        
-                        lpoint =  dummy.GetPointCount()
-                        if lpoint>0:
-                            x = [dummy.GetX(j) for j in range(lpoint)]
-                            y = [dummy.GetY(j) for j in range(lpoint)]
-                            # skip boundary between individual rings
-                            codes += [mpath.Path.MOVETO] + \
-                                         (len(x)-1)*[mpath.Path.LINETO]
-                            all_x += x
-                            all_y += y
-                            path = mpath.Path(np.column_stack((all_x,all_y)), codes)
-                            paths.append(path)
-                        else:
-                            pass
-            else:
-                print('single')
+    #sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'
+    #pDriver = ogr.GetDriverByName('GeoJSON')
+    #pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
+    #pLayer = pDataset.GetLayer(0)
+    #
+    #paths = []
+    #
+    ## Read all features in layer and store as paths
+    #for pFeature in pLayer:
+    #    geom = pFeature.geometry()
+    #    codes = []
+    #    all_x = []
+    #    all_y = []
+    #    ng = geom.GetGeometryCount()
+    #    for i in range(ng):
+    #        # Read ring geometry and create path
+    #        r = geom.GetGeometryRef(i)
+    #        sGeometry_type = geom.GetGeometryName()                
+    #        if(sGeometry_type == 'MULTIPOLYGON'):
+    #            for geom_part in geom:
+    #                ng2 = geom_part.GetGeometryCount()
+    #                for k in range(ng2):
+    #                    dummy= geom_part.GetGeometryRef(k)                        
+    #                    lpoint =  dummy.GetPointCount()
+    #                    if lpoint>0:
+    #                        x = [dummy.GetX(j) for j in range(lpoint)]
+    #                        y = [dummy.GetY(j) for j in range(lpoint)]
+    #                        # skip boundary between individual rings
+    #                        codes += [mpath.Path.MOVETO] + \
+    #                                     (len(x)-1)*[mpath.Path.LINETO]
+    #                        all_x += x
+    #                        all_y += y
+    #                        path = mpath.Path(np.column_stack((all_x,all_y)), codes)
+    #                        paths.append(path)
+    #                    else:
+    #                        pass
+    #        else:
+    #            print('single')
         
     # Add paths as patches to axes
-    for path in paths:
-        patch = mpatches.PathPatch(path, \
-                facecolor='none', edgecolor='red' , linewidth=0.3)
-        ax.add_patch(patch)
-    
+    #for path in paths:
+    #    patch = mpatches.PathPatch(path, \
+    #            facecolor='none', edgecolor='red' , linewidth=0.3)
+    #    ax.add_patch(patch)
+    ax.coastlines()
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
                   linewidth=1, color='gray', alpha=0.3, linestyle='--')
     gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
     gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
+    
+    
     plt.savefig(sFilename_in, bbox_inches='tight')
     pDataset = pLayer = pFeature  = None      
      
@@ -610,8 +603,7 @@ def _plot_flow_direction(self, sFilename_in, aExtent_in=None,  iFigwidth_in=None
             x, y = zip(*path.vertices)
             #caluculate line thickess
             iThickness = remap( dFlow_accumulation, dFlow_accumulation_min, dFlow_accumulation_max, iThickness_min, iThickness_max )               
-            line, = ax.plot(x, y, color= 'black',linewidth=iThickness, transform=ccrs.PlateCarree())
-            #print(x,y)
+            line, = ax.plot(x, y, color= 'black',linewidth=iThickness, transform=ccrs.PlateCarree())            
             lID = lID + 1
         else:
             print('multiple')
@@ -635,10 +627,8 @@ def _plot_flow_direction(self, sFilename_in, aExtent_in=None,  iFigwidth_in=None
     gl.ylocator = mticker.MaxNLocator(5)
     gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
     gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
-    ax.set_title( sTitle.capitalize()) #, fontsize =  8*4)       
-             
-    plt.savefig(sFilename_in, bbox_inches='tight')
-    #plt.show()
+    ax.set_title( sTitle.capitalize()) #, fontsize =  8*4)    
+    plt.savefig(sFilename_in, bbox_inches='tight')  
     pDataset = pLayer = pFeature  = None  
     return
 
@@ -667,9 +657,7 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
             pcell = data[i]    
             avertex = pcell['vVertex']
             nvertex = len(avertex)
-            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )
-            #this is the cell
-            #get the vertex
+            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )         
             for k in range(nvertex):
                 aLocation[k,0] = avertex[k]['dLongitude_degree']
                 aLocation[k,1] = avertex[k]['dLatitude_degree']
@@ -686,8 +674,7 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
     fig.set_figwidth( iFigwidth )
     fig.set_figheight( iFigheight )
     ax = fig.add_axes([0.1, 0.15, 0.85, 0.8] , projection=pProjection_map ) #request.crs
-
-    
+    ax.set_global()
     
     with open(sFilename_json) as json_file:
         data = json.load(json_file)     
@@ -697,8 +684,10 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
             pcell = data[i]           
             avertex = pcell['vVertex']
             nvertex = len(avertex)
-            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )           
-            
+            aLocation= np.full( (nvertex, 2), 0.0, dtype=float )   
+            for k in range(nvertex):
+                aLocation[k,0] = avertex[k]['dLongitude_degree']
+                aLocation[k,1] = avertex[k]['dLatitude_degree']     
             polygon = mpatches.Polygon(aLocation, closed=True, facecolor='none', alpha=0.8, linewidth=0.1,\
                 edgecolor='black',transform=ccrs.PlateCarree() )
             ax.add_patch(polygon)     
@@ -718,9 +707,7 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
     
     colours = cm.rainbow(np.linspace(0, 1, n_colors))
     aFlow_accumulation =list()
-    for pFeature in pLayer:
-        #pGeometry_in = pFeature.GetGeometryRef()
-        #sGeometry_type = pGeometry_in.GetGeometryName()
+    for pFeature in pLayer:        
         dFlow_accumulation = pFeature.GetField("fac")
         aFlow_accumulation.append(dFlow_accumulation)
     
@@ -759,11 +746,8 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
                 line, = ax.plot(x, y, color= 'black',linewidth=iThickness, transform=ccrs.PlateCarree())
             lID = lID + 1
             #add label 
-            
-            
 
     pDataset = pLayer = pFeature  = None    
-  
    
     if aExtent_in is None:
         marginx  = (dLon_max - dLon_min) / 20
@@ -771,11 +755,8 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
         aExtent = [dLon_min - marginx , dLon_max + marginx , dLat_min -marginy , dLat_max + marginy]
     else:
         aExtent = aExtent_in
-
-
    
     ax.set_extent(aExtent)       
-
     gl = ax.gridlines( draw_labels=True,\
                   linewidth=0.2, color='gray', alpha=0.3, linestyle='--')
     gl.xlocator = mticker.MaxNLocator(5)
@@ -786,56 +767,56 @@ def _plot_mesh_with_flow_direction(self,sFilename_in, aExtent_in = None,  iFigwi
      
     
     #plot wbd
-    iFlag_plot_wbd =0 
-    if iFlag_plot_wbd ==1:
-        # Extract first layer of features from shapefile using OGR
-        sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'    
-        pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
-        pLayer = pDataset.GetLayer(0)   
-        paths = []
-    
-        for pFeature in pLayer:
-            geom = pFeature.geometry()
-            codes = []
-            all_x = []
-            all_y = []
-            ng = geom.GetGeometryCount()
-            for i in range(ng):
-                # Read ring geometry and create path
-                r = geom.GetGeometryRef(i)
-                sGeometry_type = geom.GetGeometryName()                
-                if(sGeometry_type == 'MULTIPOLYGON'):
-                    for geom_part in geom:
-                        ng2 = geom_part.GetGeometryCount()
-                        for k in range(ng2):
-                            dummy= geom_part.GetGeometryRef(k)                        
-                            lpoint =  dummy.GetPointCount()
-                            if lpoint>0:
-                                x = [dummy.GetX(j) for j in range(lpoint)]
-                                y = [dummy.GetY(j) for j in range(lpoint)]
-                                # skip boundary between individual rings
-                                codes += [mpath.Path.MOVETO] + \
-                                             (len(x)-1)*[mpath.Path.LINETO]
-                                all_x += x
-                                all_y += y
-                                path = mpath.Path(np.column_stack((all_x,all_y)), codes)
-                                paths.append(path)
-                            else:
-                                pass
-                else:
-                    print('single')
-
-        # Add paths as patches to axes
-        for path in paths:
-            patch = mpatches.PathPatch(path, \
-                    facecolor='none', edgecolor='red')
-            ax.add_patch(patch)
+    #iFlag_plot_wbd =0 
+    #if iFlag_plot_wbd ==1:
+    #    # Extract first layer of features from shapefile using OGR
+    #    sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'    
+    #    pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
+    #    pLayer = pDataset.GetLayer(0)   
+    #    paths = []
+    #
+    #    for pFeature in pLayer:
+    #        geom = pFeature.geometry()
+    #        codes = []
+    #        all_x = []
+    #        all_y = []
+    #        ng = geom.GetGeometryCount()
+    #        for i in range(ng):
+    #            # Read ring geometry and create path
+    #            r = geom.GetGeometryRef(i)
+    #            sGeometry_type = geom.GetGeometryName()                
+    #            if(sGeometry_type == 'MULTIPOLYGON'):
+    #                for geom_part in geom:
+    #                    ng2 = geom_part.GetGeometryCount()
+    #                    for k in range(ng2):
+    #                        dummy= geom_part.GetGeometryRef(k)                        
+    #                        lpoint =  dummy.GetPointCount()
+    #                        if lpoint>0:
+    #                            x = [dummy.GetX(j) for j in range(lpoint)]
+    #                            y = [dummy.GetY(j) for j in range(lpoint)]
+    #                            # skip boundary between individual rings
+    #                            codes += [mpath.Path.MOVETO] + \
+    #                                         (len(x)-1)*[mpath.Path.LINETO]
+    #                            all_x += x
+    #                            all_y += y
+    #                            path = mpath.Path(np.column_stack((all_x,all_y)), codes)
+    #                            paths.append(path)
+    #                        else:
+    #                            pass
+    #            else:
+    #                print('single')
+    #    # Add paths as patches to axes
+    #    for path in paths:
+    #        patch = mpatches.PathPatch(path, \
+    #                facecolor='none', edgecolor='red')
+    #        ax.add_patch(patch)
     
     plt.savefig(sFilename_in, bbox_inches='tight')
-    #plt.show()
     return
     
 def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent_in = None,  iFigwidth_in=None, iFigheight_in=None, pProjection_map_in = None):
+    from matplotlib.backends.backend_pdf import PdfPages
+    pPdf = PdfPages(sFilename_in)
     if iFigwidth_in is None:
         iFigwidth = iFigwidth_default
 
@@ -874,18 +855,15 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
                         dLat_max = aLocation[k,1]
                     if aLocation[k,1] < dLat_min:
                         dLat_min = aLocation[k,1]
+
     pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
-    fig = plt.figure( dpi=300)
+    fig = plt.figure( dpi=600)
     fig.set_figwidth( iFigwidth )
     fig.set_figheight( iFigheight )
     ax = fig.add_axes([0.1, 0.15, 0.75, 0.8] , projection=pProjection_map ) #request.crs
     ax.set_global()  
 
-    #plot mesh
-    dLat_min = 90
-    dLat_max = -90
-    dLon_min = 180
-    dLon_max = -180  
+   
     sFilename_json = os.path.join(  self.sWorkspace_output_hexwatershed, 'hexwatershed.json' )
     iFlag_plot_mesh =1 
     if iFlag_plot_mesh ==1:
@@ -897,7 +875,10 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
                 pcell = data[i]               
                 avertex = pcell['vVertex']
                 nvertex = len(avertex)
-                aLocation= np.full( (nvertex, 2), 0.0, dtype=float )      
+                aLocation= np.full( (nvertex, 2), 0.0, dtype=float )     
+                for k in range(nvertex):
+                    aLocation[k,0] = avertex[k]['dLongitude_degree']
+                    aLocation[k,1] = avertex[k]['dLatitude_degree'] 
                 polygon = mpatches.Polygon(aLocation, closed=True, facecolor='none', alpha=0.8, linewidth=0.1,\
                     edgecolor='black',transform=ccrs.PlateCarree() )
                 ax.add_patch(polygon)     
@@ -910,16 +891,10 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
     pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
 
     lID = 0
-            
-
-    #ax.add_image(request, 6)    # 5 = zoom level
-    n_colors = pLayer.GetFeatureCount()
-    
+    n_colors = pLayer.GetFeatureCount()    
     colours = cm.rainbow(np.linspace(0, 1, n_colors))
     aFlow_accumulation =list()
-    for pFeature in pLayer:
-        #pGeometry_in = pFeature.GetGeometryRef()
-        #sGeometry_type = pGeometry_in.GetGeometryName()
+    for pFeature in pLayer:       
         dFlow_accumulation = pFeature.GetField("fac")
         aFlow_accumulation.append(dFlow_accumulation)
     
@@ -966,53 +941,53 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
     pDataset = pLayer = pFeature  = None    
    
     #plot wbd
-    iFlag_plot_wbd =0 
-    if iFlag_plot_wbd ==1:
-        # Extract first layer of features from shapefile using OGR
-        sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'
-        #pDriver = ogr.GetDriverByName('GeoJSON')
-        pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
-        pLayer = pDataset.GetLayer(0)
-    
-        paths = []
-        #pLayer.ResetReading()
-        # Read all features in layer and store as paths
-        for pFeature in pLayer:
-            geom = pFeature.geometry()
-            codes = []
-            all_x = []
-            all_y = []
-            ng = geom.GetGeometryCount()
-            for i in range(ng):
-                # Read ring geometry and create path
-                r = geom.GetGeometryRef(i)
-                sGeometry_type = geom.GetGeometryName()                
-                if(sGeometry_type == 'MULTIPOLYGON'):
-                    for geom_part in geom:
-                        ng2 = geom_part.GetGeometryCount()
-                        for k in range(ng2):
-                            dummy= geom_part.GetGeometryRef(k)                        
-                            lpoint =  dummy.GetPointCount()
-                            if lpoint>0:
-                                x = [dummy.GetX(j) for j in range(lpoint)]
-                                y = [dummy.GetY(j) for j in range(lpoint)]
-                                # skip boundary between individual rings
-                                codes += [mpath.Path.MOVETO] + \
-                                             (len(x)-1)*[mpath.Path.LINETO]
-                                all_x += x
-                                all_y += y
-                                path = mpath.Path(np.column_stack((all_x,all_y)), codes)
-                                paths.append(path)
-                            else:
-                                pass
-                else:
-                    print('single')
-
-        # Add paths as patches to axes
-        for path in paths:
-            patch = mpatches.PathPatch(path, \
-                    facecolor='none', edgecolor='red',linewidth=0.3,alpha=0.5)
-            ax.add_patch(patch)
+    #iFlag_plot_wbd =0 
+    #if iFlag_plot_wbd ==1:
+    #    # Extract first layer of features from shapefile using OGR
+    #    sFilename_boundary = '/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/boundary_wgs.geojson'
+    #    #pDriver = ogr.GetDriverByName('GeoJSON')
+    #    pDataset = pDriver.Open(sFilename_boundary, gdal.GA_ReadOnly)
+    #    pLayer = pDataset.GetLayer(0)
+    #
+    #    paths = []
+    #    #pLayer.ResetReading()
+    #    # Read all features in layer and store as paths
+    #    for pFeature in pLayer:
+    #        geom = pFeature.geometry()
+    #        codes = []
+    #        all_x = []
+    #        all_y = []
+    #        ng = geom.GetGeometryCount()
+    #        for i in range(ng):
+    #            # Read ring geometry and create path
+    #            r = geom.GetGeometryRef(i)
+    #            sGeometry_type = geom.GetGeometryName()                
+    #            if(sGeometry_type == 'MULTIPOLYGON'):
+    #                for geom_part in geom:
+    #                    ng2 = geom_part.GetGeometryCount()
+    #                    for k in range(ng2):
+    #                        dummy= geom_part.GetGeometryRef(k)                        
+    #                        lpoint =  dummy.GetPointCount()
+    #                        if lpoint>0:
+    #                            x = [dummy.GetX(j) for j in range(lpoint)]
+    #                            y = [dummy.GetY(j) for j in range(lpoint)]
+    #                            # skip boundary between individual rings
+    #                            codes += [mpath.Path.MOVETO] + \
+    #                                         (len(x)-1)*[mpath.Path.LINETO]
+    #                            all_x += x
+    #                            all_y += y
+    #                            path = mpath.Path(np.column_stack((all_x,all_y)), codes)
+    #                            paths.append(path)
+    #                        else:
+    #                            pass
+    #            else:
+    #                print('single')
+#
+    #    # Add paths as patches to axes
+    #    for path in paths:
+    #        patch = mpatches.PathPatch(path, \
+    #                facecolor='none', edgecolor='red',linewidth=0.3,alpha=0.5)
+    #        ax.add_patch(patch)
     
     #plot conceptual river network
     iFlag_plot_conceptual_flowline =1 
@@ -1056,43 +1031,66 @@ def _plot_mesh_with_flow_direction_and_river_network(self, sFilename_in, aExtent
         
     ax.set_extent(aExtent)   
 
-    sText = 'Case index: ' + "{:0d}".format( self.iCase_index  )
-    ax.text(0.05, 0.95, sText, \
-    verticalalignment='top', horizontalalignment='left',\
+    #sText = 'Case index: ' + "{:0d}".format( self.iCase_index  )
+    #ax.text(0.05, 0.95, sText, \
+    #verticalalignment='top', horizontalalignment='left',\
+    #        transform=ax.transAxes, \
+    #        color='black', fontsize=12)
+    
+    if self.sMesh_type != 'mpas':        
+        sText = 'Mesh type: ' + self.sMesh_type.title()
+        ax.text(0.05, 0.95, sText, \
+        verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
-            color='black', fontsize=8)
-    sText = 'Mesh type: ' + self.sMesh_type.title()
-    ax.text(0.05, 0.90, sText, \
-    verticalalignment='top', horizontalalignment='left',\
-            transform=ax.transAxes, \
-            color='black', fontsize=8)
-    sResolution =  'Resolution: ' + "{:0d}".format( int(self.dResolution_meter) ) + 'm'
-    if self.sMesh_type != 'mpas':
-        ax.text(0.05, 0.85, sResolution, \
+            color='black', fontsize=12)
+        sResolution =  'Resolution: ' + "{:0d}".format( int(self.dResolution_meter) ) + 'm'
+        ax.text(0.05, 0.90, sResolution, \
             verticalalignment='top', horizontalalignment='left',\
             transform=ax.transAxes, \
-            color='black', fontsize=8)
-    if self.iFlag_stream_burning_topology ==1:
-        sText = 'Stream topology: on'  
+            color='black', fontsize=12)
+        if self.iFlag_stream_burning_topology ==1:
+            sText = 'Stream topology: on'  
+        else:
+            sText = 'Stream topology: off'  
+
+        ax.text(0.05, 0.85, sText, \
+        verticalalignment='top', horizontalalignment='left',\
+                transform=ax.transAxes, \
+                color='black', fontsize=12)  
+
     else:
-        sText = 'Stream topology: off'  
+        sText = 'Mesh type: MPAS'
+        ax.text(0.05, 0.95, sText, \
+        verticalalignment='top', horizontalalignment='left',\
+                transform=ax.transAxes, \
+                color='black', fontsize=12)
+        
+        if self.iFlag_stream_burning_topology ==1:
+            sText = 'Stream topology: on'  
+        else:
+            sText = 'Stream topology: off'  
 
-    ax.text(0.05, 0.80, sText, \
-    verticalalignment='top', horizontalalignment='left',\
-            transform=ax.transAxes, \
-            color='black', fontsize=8)  
-
+        ax.text(0.05, 0.90, sText, \
+        verticalalignment='top', horizontalalignment='left',\
+                transform=ax.transAxes, \
+                color='black', fontsize=12)  
+        
+        pass
+    
     ax.coastlines()
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True,
                   linewidth=1, color='gray', alpha=0.3, linestyle='--')
     
     gl.xlocator = mticker.MaxNLocator(5)
     gl.ylocator = mticker.MaxNLocator(5)
-    gl.xlabel_style = {'size': 8, 'color': 'k', 'rotation':0, 'ha':'right'}
-    gl.ylabel_style = {'size': 8, 'color': 'k', 'rotation':90,'weight': 'normal'}
+    gl.xlabel_style = {'size': 10, 'color': 'k', 'rotation':0, 'ha':'right'}
+    gl.ylabel_style = {'size': 10, 'color': 'k', 'rotation':90,'weight': 'normal'}
     ax.set_title( sTitle.capitalize()) #, fontsize =  8*4)       
-    plt.savefig(sFilename_in, bbox_inches='tight')
-    
-    #plt.show()
+    #plt.savefig(sFilename_in, bbox_inches='tight')
+    #plt.savefig()
+    pPdf.savefig()
+    pPdf.close()
+
+
     return
 
