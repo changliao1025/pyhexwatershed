@@ -36,7 +36,6 @@
     "sMesh_type": "mpas",
     "sModel": "pyhexwatershed",
     "sRegion": "susquehanna",
-    "sWorkspace_bin": "/qfs/people/liao313/workspace/python/pyhexwatershed/bin",
     "sWorkspace_output": "/qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/output",
     "sWorkspace_output_hexwatershed": "/qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/output/pyhexwatershed20220315001/hexwatershed",
     "sWorkspace_output_pyflowline": "/qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/output/pyhexwatershed20220315001/pyflowline"

@@ -68,14 +68,14 @@ class hexwatershedcase(object):
     sFilename_flowline_info=''
     sFilename_basins=''     
     sWorkspace_model_region=''    
-    sWorkspace_bin=''    
+  
     sRegion=''
     sModel=''
     iMesh_type ='mpas'
     sCase=''
     sDate=''    
     sFilename_spatial_reference=''
-    sFilename_hexwatershed_bin=''
+ 
     sFilename_hexwatershed_json=''
     pPyFlowline = None
     sWorkspace_input=''
@@ -107,9 +107,6 @@ class hexwatershedcase(object):
 
         if 'sWorkspace_project' in aConfig_in:
             self.sWorkspace_project= aConfig_in[ 'sWorkspace_project']
-
-        if 'sWorkspace_bin' in aConfig_in:
-            self.sWorkspace_bin= aConfig_in[ 'sWorkspace_bin']
 
         if 'sRegion' in aConfig_in:
             self.sRegion               = aConfig_in[ 'sRegion']
@@ -261,14 +258,7 @@ class hexwatershedcase(object):
         if 'sJob' in aConfig_in:
             self.sJob =  aConfig_in['sJob'] 
 
-        if 'sFilename_hexwatershed_bin' in aConfig_in:
-            self.sFilename_hexwatershed_bin= aConfig_in['sFilename_hexwatershed_bin'] 
 
-        if 'sWorkspace_bin' in aConfig_in:
-            self.sWorkspace_bin = aConfig_in['sWorkspace_bin']
-        else:
-            print('The path to the hexwatershed binary is not specified.')
-        
                 
         if 'sFilename_basins' in aConfig_in:
             self.sFilename_basins = aConfig_in['sFilename_basins']
