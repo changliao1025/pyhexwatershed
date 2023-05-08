@@ -162,7 +162,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     keywords=KEYWORDS,
     url=URL,
-    packages=find_packages(exclude=["examples",]),
+    packages=find_packages(exclude=["tests",]),
     package_data={"pyhexwatershed": ["_bin/*", "_lib/*"]},
     install_requires=REQUIRED,
     cmdclass={"build_external": build_external},

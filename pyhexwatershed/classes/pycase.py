@@ -1,6 +1,6 @@
 import os
 import stat
-
+import platform
 import datetime
 import json
 from shutil import copy2
@@ -352,21 +352,34 @@ class hexwatershedcase(object):
         return aCell_out
     
     def run_hexwatershed(self):
-
-        if os.name == 'posix':
+        system = platform.system()
+        if platform.system() == 'Windows':
+            print('Running on a Windows system')
+            #run the model using bash
+            self.generate_bash_script()
+            os.chdir(self.sWorkspace_output_hexwatershed)            
+            sCommand = "./run_hexwatershed.bat"
+            print(sCommand)
+            p = subprocess.Popen(sCommand, shell= True)
+            p.wait()           
+        elif system == 'Linux':
             print('Running on a Unix-based system')
             #run the model using bash
             self.generate_bash_script()
-            os.chdir(self.sWorkspace_output_hexwatershed)
-            
-            sCommand = "./run.sh"
+            os.chdir(self.sWorkspace_output_hexwatershed)            
+            sCommand = "./run_hexwatershed.sh"
             print(sCommand)
             p = subprocess.Popen(sCommand, shell= True)
             p.wait()
-        elif os.name == 'nt':
-            print('Running on a Windows system')
-        elif os.name == 'java':
-            print('Running on a Java Virtual Machine')
+        elif system == 'Darwin':     
+            print('Running on a Unix-based system')
+            #run the model using bash
+            self.generate_bash_script()
+            os.chdir(self.sWorkspace_output_hexwatershed)            
+            sCommand = "./run_hexwatershed.sh"
+            print(sCommand)
+            p = subprocess.Popen(sCommand, shell= True)
+            p.wait()        
         else:
             print('Unknown operating system')
             
@@ -587,19 +600,52 @@ class hexwatershedcase(object):
     def generate_bash_script(self):       
         sName  = 'configuration.json'
         sFilename_configuration  =  os.path.join( self.sWorkspace_output,  sName )
-        os.chdir(self.sWorkspace_output_hexwatershed)        
-        sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run.sh" )
-        ofs = open(sFilename_bash, 'w')
-        sLine = '#!/bin/bash\n'
-        ofs.write(sLine)            
-        sLine = 'module load gcc/8.1.0' + '\n'
-        ofs.write(sLine)
-        sLine = 'cd ' + self.sWorkspace_output_hexwatershed+ '\n'
-        ofs.write(sLine)
-        sLine = './hexwatershed ' + sFilename_configuration + '\n'
-        ofs.write(sLine)
-        ofs.close()
-        os.chmod(sFilename_bash, stat.S_IRWXU )        
+        os.chdir(self.sWorkspace_output_hexwatershed)    
+        #detemine the system platform
+        # Determine the appropriate executable name for the platform
+        system = platform.system()
+        if platform.system() == 'Windows':
+            sFilename_executable = 'hexwatershed.exe'
+            iFlag_unix = 0
+        else:
+            sFilename_executable = './hexwatershed'
+            
+
+        if system == 'Windows':
+            # execute binary on Windows          
+            iFlag_unix = 0
+        elif system == 'Linux':
+            # execute binary on Linux
+            iFlag_unix = 1
+        elif system == 'Darwin':
+            # execute binary on macOS
+            iFlag_unix = 1
+        else:
+            # unsupported operating system
+            print('Unsupported operating system: ' + system)
+            print('Please reach out to the developers for assistance.')
+
+        #generate the bash/batch script    
+        if iFlag_unix == 1 :
+            sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run_hexwatershed.sh" )
+            ofs = open(sFilename_bash, 'w')
+            sLine = '#!/bin/bash\n'
+            ofs.write(sLine)   
+            sLine = 'cd ' + self.sWorkspace_output_hexwatershed+ '\n'
+            ofs.write(sLine)
+            sLine = sFilename_executable + ' ' + sFilename_configuration + '\n'
+            ofs.write(sLine)
+            ofs.close()
+            os.chmod(sFilename_bash, stat.S_IRWXU )      
+        else:
+            sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run_hexwatershed.bat" )
+            ofs = open(sFilename_bash, 'w')                               
+            sLine = 'cd ' + self.sWorkspace_output_hexwatershed+ '\n'
+            ofs.write(sLine)
+            sLine = sFilename_executable + ' ' + sFilename_configuration + '\n'
+            ofs.write(sLine)
+            ofs.close()
+            os.chmod(sFilename_bash, stat.S_IRWXU )     
         return
     
     def analyze(self):
