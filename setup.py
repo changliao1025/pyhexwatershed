@@ -5,43 +5,25 @@ import sys
 import subprocess
 import shutil
 
-
-try:
-    from setuptools import setup, Extension, find_packages
-    # Required for compatibility with pip (issue #177)
-    from setuptools.command.install import install
-    from setuptools.command.build_ext import build_ext
-except ImportError:
-    from distutils.core import setup, Extension
-    from distutils.command.install import install
-    from distutils.command.build import build
-    from distutils.command.build_ext import build_ext
-    from distutils.command.clean import clean
-    from distutils import log
-    from distutils.dir_util import remove_tree
-    from distutils.spawn import spawn
-try:
-    from wheel.bdist_wheel import bdist_wheel
-except ImportError:
-    bdist_wheel = None
-
-
-
+from setuptools import setup, find_packages, Command
+from packaging import version
 
 NAME = "hexwatershed"
 DESCRIPTION = \
-    "A mesh independent flow direction model for hydrologic models"
+    "A mesh-independent flow direction model for hydrologic models"
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.1.14"
+VERSION = "0.2.0"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
 REQUIRED = [
-    "pyflowline",
-    "cxx-compiler",
-    "cmake"
+    "packaging",
+    "numpy",
+    "matplotlib",
+    "gdal",
+    "pyflowline"
 ]
 
 CLASSIFY = [
@@ -67,64 +49,105 @@ try:
 except FileNotFoundError:
     LONG_DESCRIPTION = DESCRIPTION
 
-class CMakeExtension(Extension):
-    def __init__(self, name, cmake_lists_dir='.', **kwa):
-        Extension.__init__(self, name, sources=[], **kwa)
-        self.cmake_lists_dir = os.path.abspath(cmake_lists_dir)
-
-
-class cmake_build_ext(build_ext):
-
-    def get_cmake_version():
-        try:
-            out = subprocess.check_output(
+def get_cmake_version():
+    try:
+        out = subprocess.check_output(
             ["cmake", "--version"]).decode("utf-8")
-            sln = out.splitlines()[0]
-            ver = sln.split()[2]
-            return ver
+        sln = out.splitlines()[0]
+        ver = sln.split()[2]
+        return ver
 
-        except:
-            print("cmake not found!")
-    def build_extensions(self):
+    except:
+        print("cmake not found!")
 
+class build_external(Command):
 
-        # Ensure that CMake is present and working
+    description = "build external hexwatershed dependencies"
+
+    user_options = []
+
+    def initialize_options(self): pass
+
+    def finalize_options(self): pass
+
+    def run(self):
+        """
+        The actual cmake-based build steps for hexwatershed
+
+        """
+        if (self.dry_run): return
+
+        # Define the Git command to download the submodule
+        git_command = "git submodule update --init --recursive"
+
+        cwd_pointer = os.getcwd()
+
         try:
-            out = subprocess.check_output(['cmake', '--version'])
-        except OSError:
-            raise RuntimeError('Cannot find CMake executable')
+            self.announce("cmake config.", level=3)
 
-        for ext in self.extensions:
+            source_path = os.path.join(
+                HERE, "external", "hexwatershed")
+            # Run the command using subprocess
+            shutil.rmtree(source_path)
 
-            extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
-            cfg = 'Debug' if os.environ.get('DISPTOOLS_DEBUG','OFF') == 'ON' else 'Release'
+            subprocess.run(git_command.split(), check=True)
 
-            cmake_args = [
-                '-DCMAKE_BUILD_TYPE=%s' % cfg,
-                # Ask CMake to place the resulting library in the directory
-                # containing the extension
-                '-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{}={}'.format(cfg.upper(), extdir),
-                # Other intermediate static libraries are placed in a
-                # temporary build directory instead
-                '-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY_{}={}'.format(cfg.upper(), self.build_temp),
-                # Hint CMake to use the same Python executable that
-                # is launching the build, prevents possible mismatching if
-                # multiple versions of Python are installed
-                '-DPYTHON_EXECUTABLE={}'.format(sys.executable),
+            builds_path = \
+                os.path.join(source_path, "build")
 
-            ]
+            os.makedirs(builds_path, exist_ok=True)
 
-            if not os.path.exists(self.build_temp):
-                os.makedirs(self.build_temp)
+            exesrc_path = \
+                os.path.join(source_path, "bin")
 
-            # Config
-            subprocess.check_call(['cmake', ext.cmake_lists_dir] + cmake_args,
-                                  cwd=self.build_temp)
+            libsrc_path = \
+                os.path.join(source_path, "lib")
 
-            # Build
-            subprocess.check_call(['cmake', '--build', '.', '--config', cfg],
-                                  cwd=self.build_temp)        
+            exedst_path = os.path.join(
+                HERE, "pyhexwatershed", "_bin")
 
+            libdst_path = os.path.join(
+                HERE, "pyhexwatershed", "_lib")
+
+            shutil.rmtree(
+                exedst_path, ignore_errors=True)
+            shutil.rmtree(
+                libdst_path, ignore_errors=True)
+
+            os.chdir(builds_path)
+
+            config_call = [
+                "cmake",  "CMakeLists.txt"]
+            #' -G "Unix Makefiles"',
+            subprocess.run(config_call, check=True)
+
+            self.announce("cmake complie", level=3)
+
+            ver = get_cmake_version()
+            if version.parse(ver) < version.parse("3.12"):
+                compilecall = [
+                    "cmake", "--build", ".",
+                    "--config", "Release",
+                    "--target", "install"
+                    ]
+            else:            
+                compilecall = [
+                    "cmake", "--build", ".",
+                    "--config", "Release",
+                    "--target", "install",
+                    "--parallel", "4"
+                    ]
+
+            subprocess.run(compilecall, check=True)
+
+            self.announce("cmake cleanup", level=3)
+
+            shutil.copytree(exesrc_path, exedst_path)
+            #shutil.copytree(libsrc_path, libdst_path)
+
+        finally:
+            os.chdir(cwd_pointer)
+            shutil.rmtree(builds_path)
 
 
 setup(
@@ -139,9 +162,9 @@ setup(
     python_requires=REQUIRES_PYTHON,
     keywords=KEYWORDS,
     url=URL,
-    packages=find_packages(),    
+    packages=find_packages(exclude=["examples",]),
+    package_data={"pyhexwatershed": ["_bin/*", "_lib/*"]},
     install_requires=REQUIRED,
-    ext_modules=[CMakeExtension(name='hexwatershed')],
-    cmdclass={'build_ext':cmake_build_ext},
+    cmdclass={"build_external": build_external},
     classifiers=CLASSIFY
 )
