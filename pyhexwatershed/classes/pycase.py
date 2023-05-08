@@ -1,6 +1,7 @@
 import os
 import stat
 import platform
+import pkg_resources
 import datetime
 import json
 from shutil import copy2
@@ -334,14 +335,29 @@ class hexwatershedcase(object):
         return
      
     def setup(self):
+        #setup the pyflowline
         self.pPyFlowline.setup()
-        sFilename_hexwatershed_bin = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed_bin )
-
-        #print(sFilename_hexwatershed)
-        #copy the binary file
-        sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed" )
-        copy2(sFilename_hexwatershed_bin, sFilename_new)
-        os.chmod(sFilename_new, stat.S_IRWXU )
+        #setup the hexwatershed
+        system = platform.system()
+        # Get the distribution object for the package
+        distribution = pkg_resources.get_distribution('hexwatershed')
+        # Get the installation path for the package
+        sPath_installation = distribution.location
+        if platform.system() == 'Windows':
+            sFilename_executable = 'hexwatershed.exe'
+            sFilename_hexwatershed_bin = os.path.join(str(Path(sPath_installation + '/pyhexwatershed/_bin/') ) ,  sFilename_executable )
+            #copy the binary file
+            sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  sFilename_executable )
+            copy2(sFilename_hexwatershed_bin, sFilename_new)
+            os.chmod(sFilename_new, stat.S_IRWXU )
+            
+        else:
+            sFilename_executable = 'hexwatershed'            
+            sFilename_hexwatershed_bin = os.path.join(str(Path(sPath_installation + '/pyhexwatershed/_bin/') ) ,  sFilename_executable )
+            #copy the binary file
+            sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sFilename_executable )
+            copy2(sFilename_hexwatershed_bin, sFilename_new)
+            os.chmod(sFilename_new, stat.S_IRWXU )
 
         return
     
@@ -544,9 +560,7 @@ class hexwatershedcase(object):
         #update the cell information
         self.pPyFlowline.aCell= aCell_out
         return aCell_out
-    
-    
-    
+        
     def update_outlet(self, aCell_elevation, aCell_origin):
         #after the elevation assignment, it is possible that the outlet has no elevation
         
@@ -662,8 +676,6 @@ class hexwatershedcase(object):
         self.pyhexwatershed_save_travel_distance()
 
         return
-
-    
 
     def pyhexwatershed_save_flow_direction(self):
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
@@ -858,7 +870,6 @@ class hexwatershedcase(object):
             pDataset = pLayer = pFeature  = None      
         pass   
 
-    
     def pyhexwatershed_save_drainage_area(self):
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
 
@@ -914,8 +925,7 @@ class hexwatershedcase(object):
             pDataset = pLayer = pFeature  = None      
         pass  
 
-    #starting from here, we will save watershed-level files
-    
+    #starting from here, we will save watershed-level files    
     
     def pyhexwatershed_save_stream_segment(self):
         nWatershed = self.nOutlet
