@@ -1,5 +1,6 @@
-import os, stat
-from abc import ABCMeta, abstractmethod
+import os
+import stat
+
 import datetime
 import json
 from shutil import copy2
@@ -36,7 +37,7 @@ class CaseClassEncoder(JSONEncoder):
         return JSONEncoder.default(self, obj)
 
 class hexwatershedcase(object):
-    __metaclass__ = ABCMeta  
+   
     iFlag_profile = 0 
     iFlag_resample_method=2 
     iFlag_flowline=1
@@ -51,6 +52,7 @@ class hexwatershedcase(object):
     iMesh_type = 4   
     iFlag_save_mesh = 0 
     iFlag_use_mesh_dem=0
+    iFlag_slurm = 0
     nOutlet=1  
     dResolution_degree=0.0
     dResolution_meter=0.0
@@ -350,14 +352,24 @@ class hexwatershedcase(object):
         return aCell_out
     
     def run_hexwatershed(self):
-        #run the model using bash
-        self.generate_bash_script()
-        os.chdir(self.sWorkspace_output_hexwatershed)
-        
-        sCommand = "./run.sh"
-        print(sCommand)
-        p = subprocess.Popen(sCommand, shell= True)
-        p.wait()
+
+        if os.name == 'posix':
+            print('Running on a Unix-based system')
+            #run the model using bash
+            self.generate_bash_script()
+            os.chdir(self.sWorkspace_output_hexwatershed)
+            
+            sCommand = "./run.sh"
+            print(sCommand)
+            p = subprocess.Popen(sCommand, shell= True)
+            p.wait()
+        elif os.name == 'nt':
+            print('Running on a Windows system')
+        elif os.name == 'java':
+            print('Running on a Java Virtual Machine')
+        else:
+            print('Unknown operating system')
+            
 
         return
     
