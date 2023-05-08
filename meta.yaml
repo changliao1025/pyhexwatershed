@@ -1,20 +1,42 @@
 package:
   name: "hexwatershed"
-  version: "20210415"
+  version: "0.2.0"
 
 source:
-  git_rev: v20210415
+  git_rev: v0.2.0
   git_url: https://github.com/changliao1025/pyhexwatershed
 
+build:
+  # Define custom build commands
+  host:
+    platform: linux-64
+  script:
+    - python setup.py build_external 
+  # Build the package for macOS (64-bit)
+  host:
+    platform: osx-64
+  script:
+    - python setup.py build_external 
+  host:
+    platform: win-64
+  script:
+    - python setup.py build_external 
+    
 requirements:
   host:
-    - python
-    - setuptools
+    - linux-64
+    - osx-64
+    - win-64
   build:
-    - python
+    - python    
+    - packaging
+    - setuptool
   run:
     - python
-    - gdal==3.2
+    - packaging
+    - numpy
+    - matplotlib
+    - gdal
     - pyflowline
 
 about:
