@@ -1,5 +1,7 @@
-import os, stat
-from abc import ABCMeta, abstractmethod
+import os
+import stat
+import platform
+import pkg_resources
 import datetime
 import json
 from shutil import copy2
@@ -36,7 +38,7 @@ class CaseClassEncoder(JSONEncoder):
         return JSONEncoder.default(self, obj)
 
 class hexwatershedcase(object):
-    __metaclass__ = ABCMeta  
+   
     iFlag_profile = 0 
     iFlag_resample_method=2 
     iFlag_flowline=1
@@ -51,6 +53,7 @@ class hexwatershedcase(object):
     iMesh_type = 4   
     iFlag_save_mesh = 0 
     iFlag_use_mesh_dem=0
+    iFlag_slurm = 0
     nOutlet=1  
     dResolution_degree=0.0
     dResolution_meter=0.0
@@ -65,14 +68,14 @@ class hexwatershedcase(object):
     sFilename_flowline_info=''
     sFilename_basins=''     
     sWorkspace_model_region=''    
-    sWorkspace_bin=''    
+  
     sRegion=''
     sModel=''
     iMesh_type ='mpas'
     sCase=''
     sDate=''    
     sFilename_spatial_reference=''
-    sFilename_hexwatershed_bin=''
+ 
     sFilename_hexwatershed_json=''
     pPyFlowline = None
     sWorkspace_input=''
@@ -104,9 +107,6 @@ class hexwatershedcase(object):
 
         if 'sWorkspace_project' in aConfig_in:
             self.sWorkspace_project= aConfig_in[ 'sWorkspace_project']
-
-        if 'sWorkspace_bin' in aConfig_in:
-            self.sWorkspace_bin= aConfig_in[ 'sWorkspace_bin']
 
         if 'sRegion' in aConfig_in:
             self.sRegion               = aConfig_in[ 'sRegion']
@@ -258,14 +258,7 @@ class hexwatershedcase(object):
         if 'sJob' in aConfig_in:
             self.sJob =  aConfig_in['sJob'] 
 
-        if 'sFilename_hexwatershed_bin' in aConfig_in:
-            self.sFilename_hexwatershed_bin= aConfig_in['sFilename_hexwatershed_bin'] 
 
-        if 'sWorkspace_bin' in aConfig_in:
-            self.sWorkspace_bin = aConfig_in['sWorkspace_bin']
-        else:
-            print('The path to the hexwatershed binary is not specified.')
-        
                 
         if 'sFilename_basins' in aConfig_in:
             self.sFilename_basins = aConfig_in['sFilename_basins']
@@ -332,14 +325,29 @@ class hexwatershedcase(object):
         return
      
     def setup(self):
+        #setup the pyflowline
         self.pPyFlowline.setup()
-        sFilename_hexwatershed_bin = os.path.join(str(Path(self.sWorkspace_bin)  ) ,  self.sFilename_hexwatershed_bin )
-
-        #print(sFilename_hexwatershed)
-        #copy the binary file
-        sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed" )
-        copy2(sFilename_hexwatershed_bin, sFilename_new)
-        os.chmod(sFilename_new, stat.S_IRWXU )
+        #setup the hexwatershed
+        system = platform.system()
+        # Get the distribution object for the package
+        distribution = pkg_resources.get_distribution('hexwatershed')
+        # Get the installation path for the package
+        sPath_installation = distribution.location
+        if platform.system() == 'Windows':
+            sFilename_executable = 'hexwatershed.exe'
+            sFilename_hexwatershed_bin = os.path.join(str(Path(sPath_installation + '/pyhexwatershed/_bin/') ) ,  sFilename_executable )
+            #copy the binary file
+            sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  sFilename_executable )
+            copy2(sFilename_hexwatershed_bin, sFilename_new)
+            os.chmod(sFilename_new, stat.S_IRWXU )
+            
+        else:
+            sFilename_executable = 'hexwatershed'            
+            sFilename_hexwatershed_bin = os.path.join(str(Path(sPath_installation + '/pyhexwatershed/_bin/') ) ,  sFilename_executable )
+            #copy the binary file
+            sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sFilename_executable )
+            copy2(sFilename_hexwatershed_bin, sFilename_new)
+            os.chmod(sFilename_new, stat.S_IRWXU )
 
         return
     
@@ -350,14 +358,37 @@ class hexwatershedcase(object):
         return aCell_out
     
     def run_hexwatershed(self):
-        #run the model using bash
-        self.generate_bash_script()
-        os.chdir(self.sWorkspace_output_hexwatershed)
-        
-        sCommand = "./run.sh"
-        print(sCommand)
-        p = subprocess.Popen(sCommand, shell= True)
-        p.wait()
+        system = platform.system()
+        if platform.system() == 'Windows':
+            print('Running on a Windows system')
+            #run the model using bash
+            self.generate_bash_script()
+            os.chdir(self.sWorkspace_output_hexwatershed)            
+            sCommand = "./run_hexwatershed.bat"
+            print(sCommand)
+            p = subprocess.Popen(sCommand, shell= True)
+            p.wait()           
+        elif system == 'Linux':
+            print('Running on a Unix-based system')
+            #run the model using bash
+            self.generate_bash_script()
+            os.chdir(self.sWorkspace_output_hexwatershed)            
+            sCommand = "./run_hexwatershed.sh"
+            print(sCommand)
+            p = subprocess.Popen(sCommand, shell= True)
+            p.wait()
+        elif system == 'Darwin':     
+            print('Running on a Unix-based system')
+            #run the model using bash
+            self.generate_bash_script()
+            os.chdir(self.sWorkspace_output_hexwatershed)            
+            sCommand = "./run_hexwatershed.sh"
+            print(sCommand)
+            p = subprocess.Popen(sCommand, shell= True)
+            p.wait()        
+        else:
+            print('Unknown operating system')
+            
 
         return
     
@@ -519,9 +550,7 @@ class hexwatershedcase(object):
         #update the cell information
         self.pPyFlowline.aCell= aCell_out
         return aCell_out
-    
-    
-    
+        
     def update_outlet(self, aCell_elevation, aCell_origin):
         #after the elevation assignment, it is possible that the outlet has no elevation
         
@@ -575,19 +604,52 @@ class hexwatershedcase(object):
     def generate_bash_script(self):       
         sName  = 'configuration.json'
         sFilename_configuration  =  os.path.join( self.sWorkspace_output,  sName )
-        os.chdir(self.sWorkspace_output_hexwatershed)        
-        sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run.sh" )
-        ofs = open(sFilename_bash, 'w')
-        sLine = '#!/bin/bash\n'
-        ofs.write(sLine)            
-        sLine = 'module load gcc/8.1.0' + '\n'
-        ofs.write(sLine)
-        sLine = 'cd ' + self.sWorkspace_output_hexwatershed+ '\n'
-        ofs.write(sLine)
-        sLine = './hexwatershed ' + sFilename_configuration + '\n'
-        ofs.write(sLine)
-        ofs.close()
-        os.chmod(sFilename_bash, stat.S_IRWXU )        
+        os.chdir(self.sWorkspace_output_hexwatershed)    
+        #detemine the system platform
+        # Determine the appropriate executable name for the platform
+        system = platform.system()
+        if platform.system() == 'Windows':
+            sFilename_executable = 'hexwatershed.exe'
+            iFlag_unix = 0
+        else:
+            sFilename_executable = './hexwatershed'
+            
+
+        if system == 'Windows':
+            # execute binary on Windows          
+            iFlag_unix = 0
+        elif system == 'Linux':
+            # execute binary on Linux
+            iFlag_unix = 1
+        elif system == 'Darwin':
+            # execute binary on macOS
+            iFlag_unix = 1
+        else:
+            # unsupported operating system
+            print('Unsupported operating system: ' + system)
+            print('Please reach out to the developers for assistance.')
+
+        #generate the bash/batch script    
+        if iFlag_unix == 1 :
+            sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run_hexwatershed.sh" )
+            ofs = open(sFilename_bash, 'w')
+            sLine = '#!/bin/bash\n'
+            ofs.write(sLine)   
+            sLine = 'cd ' + self.sWorkspace_output_hexwatershed+ '\n'
+            ofs.write(sLine)
+            sLine = sFilename_executable + ' ' + sFilename_configuration + '\n'
+            ofs.write(sLine)
+            ofs.close()
+            os.chmod(sFilename_bash, stat.S_IRWXU )      
+        else:
+            sFilename_bash = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "run_hexwatershed.bat" )
+            ofs = open(sFilename_bash, 'w')                               
+            sLine = 'cd ' + self.sWorkspace_output_hexwatershed+ '\n'
+            ofs.write(sLine)
+            sLine = sFilename_executable + ' ' + sFilename_configuration + '\n'
+            ofs.write(sLine)
+            ofs.close()
+            os.chmod(sFilename_bash, stat.S_IRWXU )     
         return
     
     def analyze(self):
@@ -604,8 +666,6 @@ class hexwatershedcase(object):
         self.pyhexwatershed_save_travel_distance()
 
         return
-
-    
 
     def pyhexwatershed_save_flow_direction(self):
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
@@ -800,7 +860,6 @@ class hexwatershedcase(object):
             pDataset = pLayer = pFeature  = None      
         pass   
 
-    
     def pyhexwatershed_save_drainage_area(self):
         sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
 
@@ -856,8 +915,7 @@ class hexwatershedcase(object):
             pDataset = pLayer = pFeature  = None      
         pass  
 
-    #starting from here, we will save watershed-level files
-    
+    #starting from here, we will save watershed-level files    
     
     def pyhexwatershed_save_stream_segment(self):
         nWatershed = self.nOutlet

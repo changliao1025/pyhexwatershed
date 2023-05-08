@@ -28,11 +28,11 @@ sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
 sWorkspace_input =  str(Path(sWorkspace_data)  /  'input')
 sWorkspace_output=  str(Path(sWorkspace_data)  /  'output')
 sWorkspace_output = '/compyfs/liao313/04model/pyhexwatershed/susquehanna'
-sWorkspace_bin = realpath( sPath +  '/bin' )
+
 
 sFilename_configuration_in = sPath +  '/tests/configurations/pyhexwatershed_susquehanna_latlon.json' 
 sWorkspace_data = realpath( sPath +  '/data/susquehanna' )
-oPyhexwatershed = pyhexwatershed_create_template_configuration_file(sFilename_configuration_in,sWorkspace_bin, sWorkspace_input, sWorkspace_output, iFlag_use_mesh_dem_in = 0, sMesh_type_in=sMesh_type, iCase_index_in = iCase_index, sDate_in = sDate)
+oPyhexwatershed = pyhexwatershed_create_template_configuration_file(sFilename_configuration_in, sWorkspace_input, sWorkspace_output, iFlag_use_mesh_dem_in = 0, sMesh_type_in=sMesh_type, iCase_index_in = iCase_index, sDate_in = sDate)
 print(oPyhexwatershed.tojson())
 
 

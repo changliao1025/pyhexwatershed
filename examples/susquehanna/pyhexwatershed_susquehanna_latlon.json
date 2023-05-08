@@ -37,7 +37,6 @@
     "sMesh_type": "latlon",
     "sModel": "pyhexwatershed",
     "sRegion": "susquehanna",
-    "sWorkspace_bin": "/qfs/people/liao313/workspace/python/pyhexwatershed/bin",
     "sWorkspace_output": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/",
     "sWorkspace_output_hexwatershed": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/pyhexwatershed20220404005/hexwatershed",
     "sWorkspace_output_pyflowline": "/compyfs/liao313/04model/pyhexwatershed/susquehanna/pyhexwatershed20220404005/pyflowline"

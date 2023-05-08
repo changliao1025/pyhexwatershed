@@ -1,8 +1,7 @@
 {
     "sFilename_model_configuration": "/qfs/people/liao313/workspace/python/pyhexwatershed/tests/configurations/pyhexwatershed_susquehanna_mpas.json",
     "sModel": "pyhexwatershed",
-    "sRegion": "susquehanna",  
-    "sWorkspace_bin": "/people/liao313/bin",  
+    "sRegion": "susquehanna",      
     "sWorkspace_input": "/qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/input",
     "sWorkspace_output": "/compyfs/liao313/04model/pyhexwatershed/susquehanna",
     "sJob": "hexwatershed",
