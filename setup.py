@@ -117,8 +117,7 @@ class build_external(Command):
 
             os.chdir(builds_path)
 
-            config_call = [
-                "cmake",  "CMakeLists.txt"]
+            config_call = ["cmake",  "CMakeLists.txt"]
             #' -G "Unix Makefiles"',
             subprocess.run(config_call, check=True)
 
