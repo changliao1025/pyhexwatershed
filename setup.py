@@ -159,7 +159,7 @@ class build_external(Command):
 
         finally:
             os.chdir(cwd_pointer)
-            shutil.rmtree(builds_path)
+            #shutil.rmtree(builds_path)
 
 
 setup(
