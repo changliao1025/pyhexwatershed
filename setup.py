@@ -14,7 +14,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.2"
+VERSION = "0.2.3"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -88,7 +88,8 @@ class build_external(Command):
             source_path = os.path.join(
                 HERE, "external", "hexwatershed")
             # Run the command using subprocess
-            shutil.rmtree(source_path, ignore_errors=True)
+            if os.path.exists(source_path):
+                shutil.rmtree(source_path, ignore_errors=True)
 
             subprocess.run(git_command.split(), check=True)
 
