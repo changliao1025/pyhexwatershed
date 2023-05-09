@@ -1,9 +1,9 @@
 package:
   name: "hexwatershed"
-  version: "0.2.0"
+  version: "0.2.1"
 
 source:
-  git_rev: v0.2.0
+  git_rev: v0.2.1
   git_url: https://github.com/changliao1025/pyhexwatershed
 
 build:
