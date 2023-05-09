@@ -14,7 +14,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.3"
+VERSION = "0.2.4"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -88,15 +88,27 @@ class build_external(Command):
             source_path = os.path.join(
                 HERE, "external", "hexwatershed")
             # Run the command using subprocess
-            if os.path.exists(source_path):
-                shutil.rmtree(source_path, ignore_errors=True)
+            #if os.path.exists(source_path):
+            #    shutil.rmtree(source_path, ignore_errors=True)
 
+            print("Download submodule")
             subprocess.run(git_command.split(), check=True)
 
             builds_path = \
                 os.path.join(source_path, "build")
 
-            os.makedirs(builds_path, exist_ok=True)
+            if os.path.exists(builds_path):
+                #os.makedirs(builds_path, exist_ok=True)
+                sFilename_cache  = os.path.join(builds_path, "CMakeCache.txt")
+                if os.path.exists(sFilename_cache):
+                    os.remove(sFilename_cache)
+                else:
+                    #print('File or directory does not exist')
+                    pass
+
+                pass
+            else:
+                print('build path does not exist!')
 
             exesrc_path = \
                 os.path.join(source_path, "bin")
@@ -117,8 +129,7 @@ class build_external(Command):
 
             os.chdir(builds_path)
 
-            config_call = [
-                "cmake",  "CMakeLists.txt"]
+            config_call = ["cmake",  "CMakeLists.txt"]
             #' -G "Unix Makefiles"',
             subprocess.run(config_call, check=True)
 
@@ -148,7 +159,7 @@ class build_external(Command):
 
         finally:
             os.chdir(cwd_pointer)
-            shutil.rmtree(builds_path)
+            #shutil.rmtree(builds_path)
 
 
 setup(
