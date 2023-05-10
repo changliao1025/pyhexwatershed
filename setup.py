@@ -3,7 +3,6 @@ import io
 import os
 import subprocess
 import shutil
-
 from setuptools import setup, find_packages, Command
 from packaging import version
 
@@ -190,6 +189,7 @@ setup(
     keywords=KEYWORDS,
     url=URL,
     data_files=data_files,
+    setup_requires=['setuptools','packaging'],
     packages=['pyhexwatershed'],
     package_data={
         "pyhexwatershed": ["_bin/*", "_lib/*"]       
