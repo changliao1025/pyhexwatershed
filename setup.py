@@ -3,9 +3,8 @@ import io
 import os
 import subprocess
 import shutil
-
 from setuptools import setup, find_packages, Command
-from packaging import version
+
 
 NAME = "hexwatershed"
 DESCRIPTION = \
@@ -13,12 +12,11 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.19"
+VERSION = "0.2.20"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
 REQUIRED = [
-    "packaging",
     "numpy",
     "matplotlib",
     "gdal",
@@ -151,19 +149,13 @@ class build_external(Command):
             self.announce("cmake complie", level=3)
 
             ver = get_cmake_version()
-            if version.parse(ver) < version.parse("3.12"):
-                compilecall = [
+            
+            compilecall = [
                     "cmake", "--build", ".",
                     "--config", "Release",
                     "--target", "install"
                     ]
-            else:            
-                compilecall = [
-                    "cmake", "--build", ".",
-                    "--config", "Release",
-                    "--target", "install",
-                    "--parallel", "4"
-                    ]
+            
 
             subprocess.run(compilecall, check=True)
 
@@ -190,6 +182,7 @@ setup(
     keywords=KEYWORDS,
     url=URL,
     data_files=data_files,
+    setup_requires=['setuptools'],
     packages=['pyhexwatershed'],
     package_data={
         "pyhexwatershed": ["_bin/*", "_lib/*"]       
