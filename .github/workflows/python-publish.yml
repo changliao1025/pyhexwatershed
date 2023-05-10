@@ -51,17 +51,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install build
-      
-      - name: Install packaging
-        run: |
+          pip install build    
           pip install packaging    
 
       - name: Build package
         run: python setup.py build_external           
 
       - name: Build source distribution 
-        run: python -m build
+        run: python setup.py sdist
 
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1
