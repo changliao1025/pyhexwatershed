@@ -13,7 +13,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.10"
+VERSION = "0.2.11"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -177,7 +177,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     keywords=KEYWORDS,
     url=URL,
-    packages=find_packages(exclude=["tests",]),
+    packages=['pyhexwatershed', 'external'],
     package_data={
         "pyhexwatershed": ["_bin/*", "_lib/*"],
         "external": ["hexwatershed/*", "rapidjson/*"]
