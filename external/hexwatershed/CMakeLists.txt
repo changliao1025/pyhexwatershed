@@ -60,7 +60,7 @@ set(hexwatershed_srcs
 
 add_executable(hexwatershed ${hexwatershed_srcs})
 
-set(default_build_type Debug)
+set(default_build_type Release)
 if(EXISTS "${CMAKE_SOURCE_DIR}/../.git")
   set(default_build_type Release)
 endif()
@@ -88,7 +88,7 @@ if (OPENMP_FOUND)
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif()
 
-set(RAPIDJSON_NCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}external/rapidjson)
+set(RAPIDJSON_NCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../rapidjson)
 
 include_directories(${RAPIDJSON_NCLUDE_DIR})
 

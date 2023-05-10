@@ -28,10 +28,10 @@
 #include "../compset/compset.h"
 
 
-#include "../../external/rapidjson/document.h"
-#include "../../external/rapidjson/writer.h"
-#include "../../external/rapidjson/stringbuffer.h"
-#include "../../external/rapidjson/istreamwrapper.h"
+#include "../../rapidjson/document.h"
+#include "../../rapidjson/writer.h"
+#include "../../rapidjson/stringbuffer.h"
+#include "../../rapidjson/istreamwrapper.h"
 
 #include "../json/JSONBase.h"
 #include "../json/mesh.h"

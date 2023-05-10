@@ -1,10 +1,10 @@
 #pragma once
-#include "../../external/rapidjson/rapidjson.h"
-#include "../../external/rapidjson/prettywriter.h"// for stringify JSON
-#include "../../external/rapidjson/document.h"// rapidjson's DOM-style API
-#include "../../external/rapidjson/writer.h"
-#include "../../external/rapidjson/stringbuffer.h"	// wrapper of C stream for prettywriter as output
-#include "../../external/rapidjson/istreamwrapper.h"
+#include "../../rapidjson/rapidjson.h"
+#include "../../rapidjson/prettywriter.h"// for stringify JSON
+#include "../../rapidjson/document.h"// rapidjson's DOM-style API
+#include "../../rapidjson/writer.h"
+#include "../../rapidjson/stringbuffer.h"	// wrapper of C stream for prettywriter as output
+#include "../../rapidjson/istreamwrapper.h"
 #include <string>
 #include <fstream>
 #include <sstream>
