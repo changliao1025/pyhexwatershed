@@ -13,7 +13,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.16"
+VERSION = "0.2.17"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -48,7 +48,7 @@ data_files=[('external', [ "external/hexwatershed/CMakeLists.txt",
                            "external/rapidjson/internal/*.h", "external/rapidjson/internal/*.cpp",
                            "external/rapidjson/msinttypes/*.h", "external/msinttypes/error/*.cpp"
                                ])
-                               ],
+                               ]
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
