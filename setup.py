@@ -7,19 +7,13 @@ import shutil
 from setuptools import setup, find_packages, Command
 from packaging import version
 
-# Run git submodule sync
-subprocess.call(['git', 'submodule', 'sync'])
-
-# Run git submodule update --init --recursive
-subprocess.call(['git', 'submodule', 'update', '--init', '--recursive'])
-
 NAME = "hexwatershed"
 DESCRIPTION = \
     "A mesh-independent flow direction model for hydrologic models"
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.8"
+VERSION = "0.2.9"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -113,10 +107,9 @@ class build_external(Command):
                 else:
                     #print('File or directory does not exist')
                     pass
-
                 pass
             else:
-                print('build path does not exist:', builds_path)
+                os.mkdir(builds_path)
 
             exesrc_path = \
                 os.path.join(source_path, "bin")
@@ -136,7 +129,9 @@ class build_external(Command):
                 libdst_path, ignore_errors=True)
 
             os.chdir(builds_path)
-
+            #copy cmakelistx.txt to the build folder            
+            dst = os.getcwd()
+            shutil.copy("../CMakeLists.txt", dst)
             config_call = ["cmake",  "CMakeLists.txt"]
             #' -G "Unix Makefiles"',
             subprocess.run(config_call, check=True)
@@ -167,7 +162,7 @@ class build_external(Command):
 
         finally:
             os.chdir(cwd_pointer)
-            #shutil.rmtree(builds_path)
+            shutil.rmtree(builds_path)
 
 
 setup(
