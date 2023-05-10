@@ -4,7 +4,7 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 
-include external/hexwatershed/*.txt
+include external/hexwatershed/CMakeLists.txt
 include external/hexwatershed/src/*
 include external/hexwatershed/src/compset/*.h
 include external/hexwatershed/src/compset/*.cpp
