@@ -13,7 +13,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.11"
+VERSION = "0.2.12"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -177,10 +177,20 @@ setup(
     python_requires=REQUIRES_PYTHON,
     keywords=KEYWORDS,
     url=URL,
-    packages=['pyhexwatershed', 'external'],
+    data_files=[('external', ["hexwatershed/*.txt",
+                              "hexwatershed/src/*.h","hexwatershed/src/*.cpp",
+                              "hexwatershed/src/compset/*.h","hexwatershed/src/compset/*.cpp",
+                              "hexwatershed/src/domain/*.h","hexwatershed/src/domain/*.cpp",
+                              "hexwatershed/src/json/*.h","hexwatershed/src/json/*.cpp",
+                               "rapidjson/*.h", "rapidjson/*.cpp",
+                               "rapidjson/error/*.h", "rapidjson/error/*.cpp",
+                               "rapidjson/internal/*.h", "rapidjson/internal/*.cpp",
+                               "rapidjson/msinttypes/*.h", "msinttypes/error/*.cpp"
+                               ])
+                               ],
+    packages=['pyhexwatershed'],
     package_data={
-        "pyhexwatershed": ["_bin/*", "_lib/*"],
-        "external": ["hexwatershed/*", "rapidjson/*"]
+        "pyhexwatershed": ["_bin/*", "_lib/*"]       
         },
     install_requires=REQUIRED,
     cmdclass={"build_external": build_external},
