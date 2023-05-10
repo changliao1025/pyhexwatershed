@@ -13,7 +13,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.17"
+VERSION = "0.2.18"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -38,17 +38,17 @@ CLASSIFY = [
     "Topic :: Scientific/Engineering :: Physics"
 ]
 
-data_files=[('external', [ "external/hexwatershed/CMakeLists.txt",
-                           "external/hexwatershed/src/*.h","external/hexwatershed/src/*.cpp",
-                           "external/hexwatershed/src/compset/*.h","external/hexwatershed/src/compset/*.cpp",
-                           "external/hexwatershed/src/domain/*.h","external/hexwatershed/src/domain/*.cpp",
-                           "external/hexwatershed/src/json/*.h","external/hexwatershed/src/json/*.cpp",
-                           "external/rapidjson/*.h", "external/rapidjson/*.cpp",
-                           "external/rapidjson/error/*.h", "external/rapidjson/error/*.cpp",
-                           "external/rapidjson/internal/*.h", "external/rapidjson/internal/*.cpp",
-                           "external/rapidjson/msinttypes/*.h", "external/msinttypes/error/*.cpp"
-                               ])
+data_files=[  ( 'external/hexwatershed/',             [ "external/hexwatershed/CMakeLists.txt"]) ,
+              ( "external/hexwatershed/src",          ["external/hexwatershed/src/*.h", "external/hexwatershed/src/*.cpp"]                  ),
+              ( "external/hexwatershed/src/compset/", ["external/hexwatershed/src/compset/*.h", "external/hexwatershed/src/compset/*.cpp"]  ),
+              ( "external/hexwatershed/src/domain/" , ["external/hexwatershed/src/domain/*.h", "external/hexwatershed/src/domain/*.cpp"]    ),
+              ( "external/hexwatershed/src/json/"   , ["external/hexwatershed/src/json/*.h", "external/hexwatershed/src/json/*.cpp"]        ),
+              ( "external/rapidjson/"               , ["external/rapidjson/*.h",   "external/rapidjson/*.cpp"]                              ),
+              ( "external/rapidjson/error/"         , ["external/rapidjson/error/*.h",    "external/rapidjson/error/*.cpp"]                 ),
+              ( "external/rapidjson/internal/"      , ["external/rapidjson/internal/*.h",    "external/rapidjson/internal/*.cpp"]           ),
+              ( "external/rapidjson/msinttypes/"    , ["external/rapidjson/msinttypes/*.h",  "external/msinttypes/error/*.cpp"]             )
                                ]
+                               
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
