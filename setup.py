@@ -19,7 +19,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.7"
+VERSION = "0.2.8"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -45,6 +45,12 @@ CLASSIFY = [
 ]
 
 HERE = os.path.abspath(os.path.dirname(__file__))
+HERE = os.path.expandvars(HERE)
+# Check if the expanded path exists
+if os.path.exists(HERE):
+    print('Path exists:', HERE)
+else:
+    print('Path does not exist:', HERE)
 
 try:
     with io.open(os.path.join(
@@ -89,12 +95,14 @@ class build_external(Command):
 
             source_path = os.path.join(
                 HERE, "external", "hexwatershed")
-            # Run the command using subprocess
-            if os.path.exists(source_path):
-                pass
-            else:
-                print('source path does not exist:', source_path)
             
+            source_path = os.path.expandvars(source_path)
+
+            # Check if the expanded path exists
+            if os.path.exists(source_path):
+                print('Path exists:', source_path)
+            else:
+                print('Path does not exist:', source_path)      
 
             builds_path =  os.path.join(source_path, "build")
 
