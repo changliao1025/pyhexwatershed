@@ -1,25 +1,32 @@
 package:
   name: "hexwatershed"
-  version: "0.2.12"
+  version: "0.2.13"
 
 source:
-  git_rev: v0.2.12
+  git_rev: v0.2.13
   git_url: https://github.com/changliao1025/pyhexwatershed
 
 build:
+  number: 0
   # Define custom build commands
   host:
     platform: linux-64
   script:
+    - cmake
+    - make
     - python setup.py build_external 
   # Build the package for macOS (64-bit)
   host:
     platform: osx-64
   script:
+   - cmake
+    - make
     - python setup.py build_external 
   host:
     platform: win-64
   script:
+    - cmake
+    - make
     - python setup.py build_external 
     
 requirements:
@@ -28,6 +35,8 @@ requirements:
     - osx-64
     - win-64
   build:
+    - cmake
+    - make
     - python    
     - packaging
     - setuptool
