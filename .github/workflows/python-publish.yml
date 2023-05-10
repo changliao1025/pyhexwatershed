@@ -55,17 +55,13 @@ jobs:
       
       - name: Install packaging
         run: |
-          pip install packaging
-      
-      - name: Install dependencies
-        run: |
-          pip install wheel
+          pip install packaging    
 
       - name: Build package
         run: python setup.py build_external           
 
-      - name: Build wheel distribution
-        run: python setup.py bdist_wheel --universal
+      - name: Build source distribution 
+        run: python -m build
 
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1
