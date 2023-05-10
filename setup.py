@@ -5,7 +5,6 @@ import subprocess
 import shutil
 from setuptools import setup, find_packages, Command
 
-
 NAME = "hexwatershed"
 DESCRIPTION = \
     "A mesh-independent flow direction model for hydrologic models"
