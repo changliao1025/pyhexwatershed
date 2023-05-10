@@ -1,12 +1,17 @@
 
 import io
 import os
-import sys
 import subprocess
 import shutil
 
 from setuptools import setup, find_packages, Command
 from packaging import version
+
+# Run git submodule sync
+subprocess.call(['git', 'submodule', 'sync'])
+
+# Run git submodule update --init --recursive
+subprocess.call(['git', 'submodule', 'update', '--init', '--recursive'])
 
 NAME = "hexwatershed"
 DESCRIPTION = \
@@ -14,7 +19,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.6"
+VERSION = "0.2.7"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -77,9 +82,6 @@ class build_external(Command):
         """
         if (self.dry_run): return
 
-        # Define the Git command to download the submodule
-        git_command = "git submodule update --init --recursive"
-
         cwd_pointer = os.getcwd()
 
         try:
@@ -88,17 +90,15 @@ class build_external(Command):
             source_path = os.path.join(
                 HERE, "external", "hexwatershed")
             # Run the command using subprocess
-            #if os.path.exists(source_path):
-            #    shutil.rmtree(source_path, ignore_errors=True)
+            if os.path.exists(source_path):
+                pass
+            else:
+                print('source path does not exist:', source_path)
+            
 
-            print("Download submodule")
-            subprocess.run(git_command.split(), check=True)
+            builds_path =  os.path.join(source_path, "build")
 
-            builds_path = \
-                os.path.join(source_path, "build")
-
-            if os.path.exists(builds_path):
-                #os.makedirs(builds_path, exist_ok=True)
+            if os.path.exists(builds_path):                
                 sFilename_cache  = os.path.join(builds_path, "CMakeCache.txt")
                 if os.path.exists(sFilename_cache):
                     os.remove(sFilename_cache)
@@ -108,7 +108,7 @@ class build_external(Command):
 
                 pass
             else:
-                print('build path does not exist!')
+                print('build path does not exist:', builds_path)
 
             exesrc_path = \
                 os.path.join(source_path, "bin")
