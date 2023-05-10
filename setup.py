@@ -17,7 +17,6 @@ REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
 REQUIRED = [
-    "packaging",
     "numpy",
     "matplotlib",
     "gdal",
