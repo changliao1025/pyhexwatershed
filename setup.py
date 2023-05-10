@@ -13,7 +13,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.15"
+VERSION = "0.2.16"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -37,6 +37,18 @@ CLASSIFY = [
     "Topic :: Scientific/Engineering :: GIS",
     "Topic :: Scientific/Engineering :: Physics"
 ]
+
+data_files=[('external', [ "external/hexwatershed/CMakeLists.txt",
+                           "external/hexwatershed/src/*.h","external/hexwatershed/src/*.cpp",
+                           "external/hexwatershed/src/compset/*.h","external/hexwatershed/src/compset/*.cpp",
+                           "external/hexwatershed/src/domain/*.h","external/hexwatershed/src/domain/*.cpp",
+                           "external/hexwatershed/src/json/*.h","external/hexwatershed/src/json/*.cpp",
+                           "external/rapidjson/*.h", "external/rapidjson/*.cpp",
+                           "external/rapidjson/error/*.h", "external/rapidjson/error/*.cpp",
+                           "external/rapidjson/internal/*.h", "external/rapidjson/internal/*.cpp",
+                           "external/rapidjson/msinttypes/*.h", "external/msinttypes/error/*.cpp"
+                               ])
+                               ],
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
@@ -177,17 +189,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     keywords=KEYWORDS,
     url=URL,
-    data_files=[('external', ["hexwatershed/*.txt",
-                              "hexwatershed/src/*.h","hexwatershed/src/*.cpp",
-                              "hexwatershed/src/compset/*.h","hexwatershed/src/compset/*.cpp",
-                              "hexwatershed/src/domain/*.h","hexwatershed/src/domain/*.cpp",
-                              "hexwatershed/src/json/*.h","hexwatershed/src/json/*.cpp",
-                               "rapidjson/*.h", "rapidjson/*.cpp",
-                               "rapidjson/error/*.h", "rapidjson/error/*.cpp",
-                               "rapidjson/internal/*.h", "rapidjson/internal/*.cpp",
-                               "rapidjson/msinttypes/*.h", "msinttypes/error/*.cpp"
-                               ])
-                               ],
+    data_files=data_files,
     packages=['pyhexwatershed'],
     package_data={
         "pyhexwatershed": ["_bin/*", "_lib/*"]       
