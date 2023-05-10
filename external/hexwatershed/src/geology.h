@@ -1,8 +1,9 @@
 #pragma once
 #include <cmath>
-
+#include <array>
 #include "global.h"
 #include "conversion.h"
+
 
 using namespace std;
 
