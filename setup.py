@@ -39,7 +39,9 @@ def get_data_files(sFolder_in):
     data_files_tmp = []
     for root, dirs, files in os.walk(sFolder_in):
         for file in files:
-            data_files.append(os.path.join(root, file))
+            data_files_tmp.append(os.path.join(root, file))
+    
+    #print(data_files_tmp)
     return data_files_tmp
 
 
@@ -53,6 +55,7 @@ data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CM
               ( "external/hexwatershed/src/domain/" , get_data_files('external/hexwatershed/src/domain')    ),
               ( "external/hexwatershed/src/json/"   , get_data_files('external/hexwatershed/src/json')      )
                                ]
+print(data_files)
                                
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
