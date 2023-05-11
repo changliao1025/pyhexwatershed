@@ -11,7 +11,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.21"
+VERSION = "0.2.22"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -35,16 +35,27 @@ CLASSIFY = [
     "Topic :: Scientific/Engineering :: Physics"
 ]
 
-data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CMakeLists.txt"]) ,          
-              ( "external/rapidjson/"               , ["external/rapidjson/*.h",   "external/rapidjson/*.cpp"]                              ),
-              ( "external/rapidjson/error/"         , ["external/rapidjson/error/*.h",    "external/rapidjson/error/*.cpp"]                 ),
-              ( "external/rapidjson/internal/"      , ["external/rapidjson/internal/*.h",    "external/rapidjson/internal/*.cpp"]           ),
-              ( "external/rapidjson/msinttypes/"    , ["external/rapidjson/msinttypes/*.h",  "external/msinttypes/error/*.cpp"]             ),
-              ( "external/hexwatershed/src",          ["external/hexwatershed/src/*.h", "external/hexwatershed/src/*.cpp"]                  ),
-              ( "external/hexwatershed/src/compset/", ["external/hexwatershed/src/compset/*.h", "external/hexwatershed/src/compset/*.cpp"]  ),
-              ( "external/hexwatershed/src/domain/" , ["external/hexwatershed/src/domain/*.h", "external/hexwatershed/src/domain/*.cpp"]    ),
-              ( "external/hexwatershed/src/json/"   , ["external/hexwatershed/src/json/*.h", "external/hexwatershed/src/json/*.cpp"]        )
+def get_data_files(sFolder_in):
+    data_files_tmp = []
+    for root, dirs, files in os.walk(sFolder_in):
+        for file in files:
+            data_files_tmp.append(os.path.join(root, file))
+    
+    #print(data_files_tmp)
+    return data_files_tmp
+
+
+data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CMakeLists.txt"]        ) ,          
+              ( "external/rapidjson/"               , get_data_files('external/rapidjson')            ),
+              ( "external/rapidjson/error/"         , get_data_files('external/rapidjson/error/')     ),
+              ( "external/rapidjson/internal/"      , get_data_files('external/rapidjson/internal')   ),
+              ( "external/rapidjson/msinttypes/"    , get_data_files('external/rapidjson/msinttypes')     ),
+              ( "external/hexwatershed/src"         , get_data_files('external/hexwatershed/src')           ),
+              ( "external/hexwatershed/src/compset/", get_data_files('external/hexwatershed/src/compset')   ),
+              ( "external/hexwatershed/src/domain/" , get_data_files('external/hexwatershed/src/domain')    ),
+              ( "external/hexwatershed/src/json/"   , get_data_files('external/hexwatershed/src/json')      )
                                ]
+print(data_files)
                                
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
