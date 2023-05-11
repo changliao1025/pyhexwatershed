@@ -3,8 +3,7 @@ import io
 import os
 import subprocess
 import shutil
-from setuptools import setup, find_packages, Command
-
+from setuptools import setup, Command
 
 NAME = "hexwatershed"
 DESCRIPTION = \
@@ -12,7 +11,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.20"
+VERSION = "0.2.21"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = "hexwatershed hexagon"
 
@@ -47,7 +46,6 @@ data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CM
               ( "external/hexwatershed/src/json/"   , ["external/hexwatershed/src/json/*.h", "external/hexwatershed/src/json/*.cpp"]        )
                                ]
                                
-
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
 # Check if the expanded path exists
