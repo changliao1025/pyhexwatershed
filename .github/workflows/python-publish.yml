@@ -35,7 +35,6 @@ jobs:
       - name: Build source distribution 
         run: |
           python setup.py sdist bdist_wheel
-          python -m twine upload dist/*
 
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1
