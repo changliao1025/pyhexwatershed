@@ -36,11 +36,11 @@ CLASSIFY = [
 ]
 
 def get_data_files(sFolder_in):
-    data_files = []
+    data_files_tmp = []
     for root, dirs, files in os.walk(sFolder_in):
         for file in files:
             data_files.append(os.path.join(root, file))
-    return data_files
+    return data_files_tmp
 
 
 data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CMakeLists.txt"]        ) ,          
