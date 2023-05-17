@@ -53,6 +53,7 @@ class hexwatershedcase(object):
     iMesh_type = 4   
     iFlag_save_mesh = 0 
     iFlag_use_mesh_dem=0
+    iFlag_user_provided_binary= 0
     iFlag_slurm = 0
     nOutlet=1  
     dResolution_degree=0.0
@@ -67,6 +68,7 @@ class hexwatershedcase(object):
     sFilename_mesh_info=''
     sFilename_flowline_info=''
     sFilename_basins=''     
+    sFilename_hexwatershed_bin=''
     sWorkspace_model_region=''    
   
     sRegion=''
@@ -167,6 +169,11 @@ class hexwatershedcase(object):
 
         if 'iFlag_elevation_profile' in aConfig_in:
             self.iFlag_elevation_profile  = int(aConfig_in[ 'iFlag_elevation_profile'])
+        
+        if 'iFlag_user_provided_binary' in aConfig_in:
+            self.iFlag_user_provided_binary  = int(aConfig_in[ 'iFlag_user_provided_binary'])
+        else:
+            self.iFlag_user_provided_binary = 0
 
         if 'nOutlet' in aConfig_in:
             self.nOutlet             = int(aConfig_in[ 'nOutlet'])
@@ -190,6 +197,27 @@ class hexwatershedcase(object):
 
         if 'sFilename_mesh_netcdf' in aConfig_in:
             self.sFilename_mesh_netcdf = aConfig_in['sFilename_mesh_netcdf']
+
+        if self.iFlag_user_provided_binary == 1:
+            print('The model will use the user provided binary file')
+            if 'sFilename_hexwatershed_bin' in aConfig_in:
+                self.sFilename_hexwatershed_bin = aConfig_in['sFilename_hexwatershed_bin']
+                #check file exist
+                if not os.path.exists(self.sFilename_hexwatershed_bin):
+                    print('The user provided binary file does not exist. The model will use the default binary file')
+                    self.iFlag_user_provided_binary = 0
+                    pass
+                else:
+                    print(self.sFilename_hexwatershed_bin)
+
+            else:
+                print('The binray file is not provided. The model will use the default binary file')
+                self.iFlag_user_provided_binary = 0
+                pass
+        else:
+            print('The model will use the default binary file')
+            pass
+            
 
         if 'iCase_index' in aConfig_in:
             iCase_index = int(aConfig_in['iCase_index'])
@@ -257,8 +285,6 @@ class hexwatershedcase(object):
 
         if 'sJob' in aConfig_in:
             self.sJob =  aConfig_in['sJob'] 
-
-
                 
         if 'sFilename_basins' in aConfig_in:
             self.sFilename_basins = aConfig_in['sFilename_basins']
@@ -329,25 +355,52 @@ class hexwatershedcase(object):
         self.pPyFlowline.setup()
         #setup the hexwatershed
         system = platform.system()
-        # Get the distribution object for the package
-        distribution = pkg_resources.get_distribution('hexwatershed')
-        # Get the installation path for the package
-        sPath_installation = distribution.location
-        if platform.system() == 'Windows':
-            sFilename_executable = 'hexwatershed.exe'
-            sFilename_hexwatershed_bin = os.path.join(str(Path(sPath_installation + '/pyhexwatershed/_bin/') ) ,  sFilename_executable )
-            #copy the binary file
+        iFlag_found_binary = 0
+        
+
+        #if user provided the binary, then use the user provided binary
+        if self.iFlag_user_provided_binary == 1:
+            sFilename_executable = 'hexwatershed' 
+            #copy the binary 
+            iFlag_found_binary = 1
             sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  sFilename_executable )
-            copy2(sFilename_hexwatershed_bin, sFilename_new)
+            copy2(self.sFilename_hexwatershed_bin, sFilename_new)
             os.chmod(sFilename_new, stat.S_IRWXU )
+            pass
+        else:           
             
-        else:
-            sFilename_executable = 'hexwatershed'            
-            sFilename_hexwatershed_bin = os.path.join(str(Path(sPath_installation + '/pyhexwatershed/_bin/') ) ,  sFilename_executable )
-            #copy the binary file
-            sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sFilename_executable )
-            copy2(sFilename_hexwatershed_bin, sFilename_new)
-            os.chmod(sFilename_new, stat.S_IRWXU )
+            # Get the distribution object for the package
+            distribution = pkg_resources.get_distribution('hexwatershed')
+            # Get the installation path for the package
+            sPath_installation = distribution.location
+
+            if system == 'Windows':
+                sFilename_executable = 'hexwatershed.exe'
+            else:
+                sFilename_executable = 'hexwatershed'     
+            
+            #search for system wide binary in the system path
+            for folder in os.environ['PATH'].split(os.pathsep):
+                sFilename_hexwatershed_bin = os.path.join(folder, sFilename_executable)
+                if os.path.isfile(sFilename_hexwatershed_bin):
+                    print('Found binary at:', sFilename_hexwatershed_bin)
+                    iFlag_found_binary = 1
+                    break
+            else:
+                print('Binary not found in system path.')
+            if iFlag_found_binary ==1:
+                pass
+            else:                
+                sFilename_hexwatershed_bin = os.path.join(str(Path(sPath_installation + '/pyhexwatershed/_bin/') ) ,  sFilename_executable )
+                if os.path.isfile(sFilename_hexwatershed_bin):
+                    iFlag_found_binary=1
+                    #copy the binary file
+                    sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  sFilename_executable )
+                    copy2(sFilename_hexwatershed_bin, sFilename_new)
+                    os.chmod(sFilename_new, stat.S_IRWXU )
+                else:
+                    iFlag_found_binary = 0       
+            
 
         return
     

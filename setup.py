@@ -11,14 +11,19 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.23"
+VERSION = "0.2.24"
 REQUIRES_PYTHON = ">=3.8.0"
-KEYWORDS = "hexwatershed hexagon"
+KEYWORDS = ["hexwatershed",
+            "hydrology",
+            "hydrologic modeling",
+            "hydrologic model",
+            "flow direction",
+             "hexagon"]
 
 REQUIRED = [
     "numpy",
-    "matplotlib",
-    "gdal",
+    "gdal",    
+    "shapely",
     "pyflowline"
 ]
 
@@ -55,7 +60,6 @@ data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CM
               ( "external/hexwatershed/src/domain/" , get_data_files('external/hexwatershed/src/domain')    ),
               ( "external/hexwatershed/src/json/"   , get_data_files('external/hexwatershed/src/json')      )
                                ]
-print(data_files)
                                
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
@@ -190,7 +194,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     keywords=KEYWORDS,
     url=URL,
-    data_files=data_files,
+    #data_files=data_files,
     setup_requires=['setuptools'],
     packages=['pyhexwatershed'],
     package_data={
@@ -198,5 +202,8 @@ setup(
         },
     install_requires=REQUIRED,
     cmdclass={"build_external": build_external},
-    classifiers=CLASSIFY
+    classifiers=CLASSIFY,
+    extras_require={
+        'visualization': ['cython', 'matplotlib', 'cartopy>=0.21.0']
+    }
 )
