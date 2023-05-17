@@ -13,7 +13,7 @@ import matplotlib.patches as mpatches
 import matplotlib.cm as cm
 import matplotlib.animation as animation 
 from matplotlib.animation import FuncAnimation
-import matplotlib
+
 mpl.use("Agg")
 from shapely.wkt import loads
 from cartopy.mpl.ticker import LongitudeFormatter, LatitudeFormatter
@@ -371,6 +371,7 @@ def _plot_mesh_with_variable(self, sFilename_in, sVariable_in, aExtent_in=None, 
                     dLat_max = aLocation[k,1]
                 if aLocation[k,1] < dLat_min:
                     dLat_min = aLocation[k,1]
+
     pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
     fig = plt.figure( dpi=300 )
     fig.set_figwidth( iFigwidth )
@@ -551,18 +552,12 @@ def _plot_flow_direction(self, sFilename_in, aExtent_in=None,  iFigwidth_in=None
             dummy0 = loads( pGeometry_in.ExportToWkt() )
             aCoords_gcs = dummy0.coords
             aCoords_gcs= np.array(aCoords_gcs)
-            nvertex = len(aCoords_gcs)                
-            for i in range(nvertex):
-                dLon = aCoords_gcs[i][0]
-                dLat = aCoords_gcs[i][1]
-                if dLon > dLon_max:
-                    dLon_max = dLon                
-                if dLon < dLon_min:
-                    dLon_min = dLon                
-                if dLat > dLat_max:
-                    dLat_max = dLat                
-                if dLat < dLat_min:
-                    dLat_min = dLat
+            aCoords_gcs = aCoords_gcs[:,0:2]
+            dLon_max = np.max( [dLon_max, np.max(aCoords_gcs[:,0])] )
+            dLon_min = np.min( [dLon_min, np.min(aCoords_gcs[:,0])] )
+            dLat_max = np.max( [dLat_max, np.max(aCoords_gcs[:,1])] )
+            dLat_min = np.min( [dLat_min, np.min(aCoords_gcs[:,1])] )
+            
     pProjection_map = ccrs.Orthographic(central_longitude =  0.50*(dLon_max+dLon_min),  central_latitude = 0.50*(dLat_max+dLat_min), globe=None)
     fig = plt.figure( dpi=300)
     fig.set_figwidth( iFigwidth )
