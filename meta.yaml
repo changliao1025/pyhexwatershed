@@ -12,8 +12,7 @@ build:
   host:
     platform: linux-64
   script:
-    - python setup.py build_external 
-  # Build the package for macOS (64-bit)
+    - python setup.py build_external   
   host:
     platform: osx-64
   script: 
@@ -33,19 +32,27 @@ requirements:
     - make
     - python    
     - setuptool
+    - pip
   run:
     - python
     - numpy
-    - matplotlib
+    - matplotlib-base
     - gdal
     - pyflowline
+  
+test:
+  imports:
+    - pyhexwatershed
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/changliao1025/pyhexwatershed
-  license: MIT
-  license_familY: MIT
-  license_file: LICENSE
-  summary: "HexWatershed"
+  summary: A mesh-independent flow direction model for hydrologic models
+  license: BSD-2-Clause
+  license_file: LICENSE.md
 
 extra:
   recipe-maintainers:

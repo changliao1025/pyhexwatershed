@@ -204,6 +204,6 @@ setup(
     cmdclass={"build_external": build_external},
     classifiers=CLASSIFY,
     extras_require={
-        'visualization': ['matplotlib', 'cartopy>=0.21.0']
+        'visualization': ['cython', 'matplotlib', 'cartopy>=0.21.0']
     }
 )
