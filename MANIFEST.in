@@ -4,22 +4,6 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 
-include external/hexwatershed/CMakeLists.txt
-include external/hexwatershed/src/*
-include external/hexwatershed/src/compset/*.h
-include external/hexwatershed/src/compset/*.cpp
-include external/hexwatershed/src/domain/*.h
-include external/hexwatershed/src/domain/*.cpp
-include external/hexwatershed/src/json/*.h
-include external/hexwatershed/src/json/*.cpp
-include external/rapidjson/*
-include external/rapidjson/error/*.h
-include external/rapidjson/error/*.cpp
-include external/rapidjson/internal/*.h
-include external/rapidjson/internal/*.cpp
-include external/rapidjson/msinttypes/*.h
-include external/rapidjson/msinttypes/*.cpp
-
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
