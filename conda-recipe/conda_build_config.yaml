@@ -1,0 +1,49 @@
+# Activate the build environment before any scripts are run
+activate_build: true
+
+# Define the channels to use during the build
+channels:
+  - conda-forge
+  - defaults
+
+# Set the build number (used to track the build version)
+build_number: 0
+
+# Set the build string (used to identify the build in the package name)
+build_string: py38_0
+
+# Define the test script
+test:
+  imports:
+    - pyhexwatershed
+  
+
+# Define the package metadata
+metadata:
+  # Package name
+  name: hexwatershed
+  # Package version
+  version: "0.2.24"
+  # Package summary
+  summary: A mesh-independent flow direction model for hydrologic models
+  # Package homepage
+  home: https://github.com/changliao1025/pyhexwatershed
+  # Package license
+  license: BSD-2-Clause
+  # Package author
+  author: Chang Liao
+  # Package author email
+  email: changliao.climate@gmail.com
+  # Package dependencies
+  depends:
+    - python >=3.8
+    - numpy
+    - gdal
+    - pyflowline
+    - matplotlib-base
+  # Package build dependencies
+  build:
+    - python
+    - setuptools
+    - pip
+    
