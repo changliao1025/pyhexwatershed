@@ -23,7 +23,7 @@ metadata:
   # Package name
   name: hexwatershed
   # Package version
-  version: "0.2.24"
+  version: "0.2.25"
   # Package summary
   summary: A mesh-independent flow direction model for hydrologic models
   # Package homepage

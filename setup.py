@@ -3,7 +3,7 @@ import io
 import os
 import subprocess
 import shutil
-from setuptools import setup, Command
+from setuptools import setup, Command, find_packages
 
 NAME = "hexwatershed"
 DESCRIPTION = \
@@ -11,7 +11,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.24"
+VERSION = "0.2.25"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = ["hexwatershed",
             "hydrology",
@@ -194,9 +194,8 @@ setup(
     python_requires=REQUIRES_PYTHON,
     keywords=KEYWORDS,
     url=URL,
-    #data_files=data_files,
     setup_requires=['setuptools'],
-    packages=['pyhexwatershed'],
+    packages=find_packages(),
     package_data={
         "pyhexwatershed": ["_bin/*", "_lib/*"]       
         },
