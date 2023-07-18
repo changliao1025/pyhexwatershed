@@ -13,12 +13,15 @@ import numpy as np
 from pyflowline.classes.pycase import flowlinecase
 from pyflowline.classes.vertex import pyvertex
 from pyflowline.formats.read_flowline import read_flowline_geojson
+from pyflowline.formats.export_flowline import export_flowline_to_geojson
 from pyflowline.algorithms.split.find_flowline_confluence import find_flowline_confluence
 from pyflowline.algorithms.merge.merge_flowline import merge_flowline
-from pyflowline.formats.export_flowline import export_flowline_to_geojson
-
 from pyflowline.algorithms.simplification.remove_duplicate_edge import remove_duplicate_edge
-from pyhexwatershed.algorithm.auxiliary.gdal_function import gdal_read_geotiff_file, reproject_coordinates, reproject_coordinates_batch
+
+from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polyline import export_json_to_geojson_polyline
+from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polygon import export_json_to_geojson_polygon
+from pyhexwatershed.algorithms.auxiliary.merge_stream_edge_to_stream_segment import merge_stream_edge_to_stream_segment
+from pyflowline.external.pyearth.gis.gdal.gdal_functions import gdal_read_geotiff_file, reproject_coordinates, reproject_coordinates_batch
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
@@ -70,7 +73,13 @@ class hexwatershedcase(object):
     sFilename_flowline_info=''
     sFilename_basins=''     
     sFilename_hexwatershed_bin=''
-    sWorkspace_model_region=''    
+    sWorkspace_model_region=''   
+
+    sFilename_elevation=''
+    sFilename_slope=''
+    sFilename_drainage_area=''
+    sFilename_flow_direction='' 
+    sFilename_distance_to_outlet=   ''
   
     sRegion=''
     sModel=''
@@ -302,11 +311,17 @@ class hexwatershedcase(object):
         sPath = str(Path(self.sWorkspace_output)   / 'pyflowline')
         self.sWorkspace_output_pyflowline = sPath
         Path(sPath).mkdir(parents=True, exist_ok=True)
-
-        self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_elevation.geojson" )
+        
         self.sFilename_mesh = os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + ".geojson" )
         self.sFilename_mesh_info  =  os.path.join(str(Path(self.sWorkspace_output_pyflowline)  ) , sMesh_type + "_mesh_info.json"  ) 
         self.sFilename_hexwatershed_json = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "hexwatershed.json" )
+
+        #individual output variables
+        self.sFilename_elevation = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_elevation.geojson" )
+        self.sFilename_slope = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_slope.geojson" )
+        self.sFilename_drainage_area =  os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_drainage_area.geojson" )
+        self.sFilename_flow_direction = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_flow_direction.geojson" )
+        self.sFilename_distance_to_outlet = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_distance_to_outlet.geojson" )
         
         return    
 
@@ -408,12 +423,21 @@ class hexwatershedcase(object):
         return
     
     def run_pyflowline(self):
+        """
+        Run the pyflowline submodel
+
+        Returns:
+            _type_: _description_
+        """
 
         aCell_out = self.pPyFlowline.run()
 
         return aCell_out
     
     def run_hexwatershed(self):
+        """
+        Run the hexwatershed model
+        """
         system = platform.system()
         if platform.system() == 'Windows':
             print('Running on a Windows system')
@@ -713,443 +737,158 @@ class hexwatershedcase(object):
         #additional analysis can be implemented here
         return
 
-    def export(self):        
-        self.pyhexwatershed_save_elevation()
-        self.pyhexwatershed_save_slope()
-        self.pyhexwatershed_save_drainage_area()        
-        self.pyhexwatershed_save_flow_direction()    
-        self.pyhexwatershed_save_stream_segment()
-        self.pyhexwatershed_save_travel_distance()
+    def export(self):   
+        """
+        #https://hexwatershed.readthedocs.io/en/latest/application/application.html#simulation-results
+        """        
+        
+        #polyline
+
+        if self.iFlag_global==1: #we do not have the polyline information
+            pass
+        else:
+            if self.iFlag_multiple_outlet == 1:
+                pass
+            else:
+
+                self.pyhexwatershed_export_stream_segment()
+                self.pyhexwatershed_export_flow_direction() 
+
+                #polygon
+                self.pyhexwatershed_export_elevation()
+                self.pyhexwatershed_export_slope()
+                self.pyhexwatershed_export_drainage_area()                         
+                self.pyhexwatershed_export_travel_distance()
+
+                #we can also save a geojson that has all the information
+                self.pyhexwatershed_export_all_polygon_variables()
+                self.pyhexwatershed_export_all_polyline_variables()
+                pass
 
         return
 
-    def pyhexwatershed_save_flow_direction(self):
-        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
-        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'domain.json')
-
-        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'flow_direction.geojson')
-        if os.path.exists(sFilename_geojson):
-            os.remove(sFilename_geojson)
-        pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)    
-
-        pSrs = osr.SpatialReference()  
-        pSrs.ImportFromEPSG(4326)  #WGS84 lat/lon
-
-        pLayer = pDataset.CreateLayer('flowdir', pSrs, ogr.wkbLineString)
-        # Add one attribute
-        pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
-        pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
-        pFac_field.SetWidth(20)
-        pFac_field.SetPrecision(2)
-        pLayer.CreateField(pFac_field) #long type for high resolution
-
-        pLayerDefn = pLayer.GetLayerDefn()
-        pFeature = ogr.Feature(pLayerDefn)
-
-        with open(sFilename_json) as json_file:
-            data = json.load(json_file)  
-            ncell = len(data)
-            lID =0 
-            for i in range(ncell):
-                pcell = data[i]
-                lCellID = int(pcell['lCellID'])
-                lCellID_downslope = int(pcell['lCellID_downslope'])
-                x_start=float(pcell['dLongitude_center_degree'])
-                y_start=float(pcell['dLatitude_center_degree'])
-                dfac = float(pcell['DrainageArea'])
-                for j in range(ncell):
-                    pcell2 = data[j]
-                    lCellID2 = int(pcell2['lCellID'])
-                    if lCellID2 == lCellID_downslope:
-                        x_end=float(pcell2['dLongitude_center_degree'])
-                        y_end=float(pcell2['dLatitude_center_degree'])
-
-                        pLine = ogr.Geometry(ogr.wkbLineString)
-                        pLine.AddPoint(x_start, y_start)
-                        pLine.AddPoint(x_end, y_end)
-                        pFeature.SetGeometry(pLine)
-                        pFeature.SetField("id", lID)
-                        pFeature.SetField("fac", dfac)
-                        pLayer.CreateFeature(pFeature)
-                        lID = lID +1
-                        break
-
-            pDataset = pLayer = pFeature  = None      
-        pass
-     
-    def pyhexwatershed_save_slope(self):
-
-        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
-        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'domain.json')
-
-        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'slope.geojson')
-        if os.path.exists(sFilename_geojson):
-            os.remove(sFilename_geojson)
-
-        pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)
-        
-    
-        pSrs = osr.SpatialReference()  
-        pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
-
-        pLayer = pDataset.CreateLayer('slp', pSrs, geom_type=ogr.wkbPolygon)
-        # Add one attribute
-        pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution       
-        pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
-        pFac_field.SetWidth(20)
-        pFac_field.SetPrecision(2)
-        pLayer.CreateField(pFac_field) #long type for high resolution
-
-        pSlp_field = ogr.FieldDefn('slpb', ogr.OFTReal)
-        pSlp_field.SetWidth(20)
-        pSlp_field.SetPrecision(8)
-        pLayer.CreateField(pSlp_field) #long type for high resolution
-
-        pSlp_field = ogr.FieldDefn('slpp', ogr.OFTReal)
-        pSlp_field.SetWidth(20)
-        pSlp_field.SetPrecision(8)
-        pLayer.CreateField(pSlp_field) #long type for high resolution
-
-        pLayerDefn = pLayer.GetLayerDefn()
-        pFeature = ogr.Feature(pLayerDefn)
-
-        with open(sFilename_json) as json_file:
-            data = json.load(json_file)  
-            ncell = len(data)
-            lID =0 
-            for i in range(ncell):
-                pcell = data[i]
-                lCellID = int(pcell['lCellID'])
-                lCellID_downslope = int(pcell['lCellID_downslope'])
-                x_start=float(pcell['dLongitude_center_degree'])
-                y_start=float(pcell['dLatitude_center_degree'])
-                dfac = float(pcell['DrainageArea'])
-                dslpb = float(pcell['dSlope_between'])
-                dslpp = float(pcell['dSlope_profile'])
-                vVertex = pcell['vVertex']
-                nvertex = len(vVertex)
-                pPolygon = ogr.Geometry(ogr.wkbPolygon)
-                ring = ogr.Geometry(ogr.wkbLinearRing)
-
-                for j in range(nvertex):
-                    x = vVertex[j]['dLongitude_degree']
-                    y = vVertex[j]['dLatitude_degree']
-                    ring.AddPoint(x, y)
-
-                x = vVertex[0]['dLongitude_degree']
-                y = vVertex[0]['dLatitude_degree']
-                ring.AddPoint(x, y)
-                pPolygon.AddGeometry(ring)
-                pFeature.SetGeometry(pPolygon)
-                pFeature.SetField("id", lCellID)                
-                pFeature.SetField("fac", dfac)
-                pFeature.SetField("slpb", dslpb)
-                pFeature.SetField("slpp", dslpp)
-                pLayer.CreateFeature(pFeature)
-
-            pDataset = pLayer = pFeature  = None      
-        pass        
-    
-    def pyhexwatershed_save_elevation(self):
-        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
-        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'domain.json')
-
-        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'elevation.geojson')
-        if os.path.exists(sFilename_geojson):
-            os.remove(sFilename_geojson)
-
-        pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)           
-        pSrs = osr.SpatialReference()  
-        pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
-        pLayer = pDataset.CreateLayer('ele', pSrs, geom_type=ogr.wkbPolygon)
-        # Add one attribute
-        pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution       
-        pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
-        pFac_field.SetWidth(20)
-        pFac_field.SetPrecision(2)
-        pLayer.CreateField(pFac_field) #long type for high resolution
-
-        pSlp_field = ogr.FieldDefn('elev', ogr.OFTReal)
-        pSlp_field.SetWidth(20)
-        pSlp_field.SetPrecision(8)
-        pLayer.CreateField(pSlp_field) #long type for high resolution
-
-        pSlp_field = ogr.FieldDefn('elep', ogr.OFTReal)
-        pSlp_field.SetWidth(20)
-        pSlp_field.SetPrecision(8)
-        pLayer.CreateField(pSlp_field) #long type for high resolution
-
-        pLayerDefn = pLayer.GetLayerDefn()
-        pFeature = ogr.Feature(pLayerDefn)
-
-        with open(sFilename_json) as json_file:
-            data = json.load(json_file)  
-            ncell = len(data)
-            lID =0 
-            for i in range(ncell):
-                pcell = data[i]
-                lCellID = int(pcell['lCellID'])
-                lCellID_downslope = int(pcell['lCellID_downslope'])
-                x_start=float(pcell['dLongitude_center_degree'])
-                y_start=float(pcell['dLatitude_center_degree'])
-                dfac = float(pcell['DrainageArea'])
-                dElev = float(pcell['Elevation'])
-                dElep = float(pcell['Elevation_profile'])
-                vVertex = pcell['vVertex']
-                nvertex = len(vVertex)
-                pPolygon = ogr.Geometry(ogr.wkbPolygon)
-                ring = ogr.Geometry(ogr.wkbLinearRing)
-                for j in range(nvertex):
-                    x = vVertex[j]['dLongitude_degree']
-                    y = vVertex[j]['dLatitude_degree']
-                    ring.AddPoint(x, y)
-
-                x = vVertex[0]['dLongitude_degree']
-                y = vVertex[0]['dLatitude_degree']
-                ring.AddPoint(x, y)
-                pPolygon.AddGeometry(ring)
-                pFeature.SetGeometry(pPolygon)
-                pFeature.SetField("id", lCellID)                
-                pFeature.SetField("fac", dfac)
-                pFeature.SetField("elev", dElev)
-                pFeature.SetField("elep", dElep)
-                pLayer.CreateFeature(pFeature)
-            pDataset = pLayer = pFeature  = None      
-        pass   
-
-    def pyhexwatershed_save_drainage_area(self):
-        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'hexwatershed.json')
-        sFilename_json = os.path.join(self.sWorkspace_output_hexwatershed ,   'domain.json')
-
-        sFilename_geojson = os.path.join(self.sWorkspace_output_hexwatershed ,   'drainage_area.geojson')
-        if os.path.exists(sFilename_geojson):
-            os.remove(sFilename_geojson)
-
-        pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-        pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)           
-        pSrs = osr.SpatialReference()  
-        pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
-        pLayer = pDataset.CreateLayer('drai', pSrs, geom_type=ogr.wkbPolygon)
-        # Add one attribute
-        pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution       
-        pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
-        pFac_field.SetWidth(20)
-        pFac_field.SetPrecision(2)
-        pLayer.CreateField(pFac_field) #long type for high resolution
-        
-
-        pLayerDefn = pLayer.GetLayerDefn()
-        pFeature = ogr.Feature(pLayerDefn)
-
-        with open(sFilename_json) as json_file:
-            data = json.load(json_file)  
-            ncell = len(data)
-            lID =0 
-            for i in range(ncell):
-                pcell = data[i]
-                lCellID = int(pcell['lCellID'])
-                lCellID_downslope = int(pcell['lCellID_downslope'])
-                x_start=float(pcell['dLongitude_center_degree'])
-                y_start=float(pcell['dLatitude_center_degree'])
-                dfac = float(pcell['DrainageArea'])               
-                vVertex = pcell['vVertex']
-                nvertex = len(vVertex)
-                pPolygon = ogr.Geometry(ogr.wkbPolygon)
-                ring = ogr.Geometry(ogr.wkbLinearRing)
-                for j in range(nvertex):
-                    x = vVertex[j]['dLongitude_degree']
-                    y = vVertex[j]['dLatitude_degree']
-                    ring.AddPoint(x, y)
-
-                x = vVertex[0]['dLongitude_degree']
-                y = vVertex[0]['dLatitude_degree']
-                ring.AddPoint(x, y)
-                pPolygon.AddGeometry(ring)
-                pFeature.SetGeometry(pPolygon)
-                pFeature.SetField("id", lCellID)                
-                pFeature.SetField("fac", dfac)                
-                
-                pLayer.CreateFeature(pFeature)
-            pDataset = pLayer = pFeature  = None      
-        pass  
-
-    #starting from here, we will save watershed-level files    
-    
-    def pyhexwatershed_save_stream_segment(self):
+    def pyhexwatershed_export_stream_segment(self):
+        """
+        https://hexwatershed.readthedocs.io/en/latest/application/application.html#simulation-results
+        """       
+               
         iFlag_flowline = self.iFlag_flowline
         nWatershed = self.nOutlet
 
-        if iFlag_flowline==1:        
-            for iWatershed in range(1, nWatershed+1):
-                pBasin=   self.pPyFlowline.aBasin[iWatershed-1]
-                sWatershed = "{:08d}".format(iWatershed) 
+        if self.iFlag_global==1: #we do not output global scale stream segment yet
+            sFilename_json = self.sFilename_hexwatershed_json
+            return
+        else:
+            if self.iFlag_multiple_outlet==1:                
+                for iWatershed in range(1, nWatershed+1):                   
+                    pBasin = self.pPyFlowline.aBasin[iWatershed-1]                    
+                    sFilename_stream_edge  = pBasin.sFilename_stream_edge_json
+                    sFilename_stream_edge_geojson = pBasin.sFilename_stream_edge
+                    sFilename_stream_segment_geojson = pBasin.sFilename_stream_segment
+                    point = dict()
+                    point['dLongitude_degree'] = pBasin.dLongitude_outlet_degree
+                    point['dLatitude_degree'] = pBasin.dLatitude_outlet_degree
+                    pVertex_outlet=pyvertex(point)
+                    export_json_to_geojson_polyline(sFilename_stream_edge, sFilename_stream_edge_geojson)
+                    merge_stream_edge_to_stream_segment(sFilename_stream_edge_geojson, 
+                                                        sFilename_stream_segment_geojson, 
+                                                        pVertex_outlet)
+                return
+            else:
+                #use the only one basin               
+                if iFlag_flowline == 1: #we usually has one outlet        
+                    #for iWatershed in range(1, nWatershed+1):
+                    iWatershed = 1
+                    pBasin = self.pPyFlowline.aBasin[iWatershed-1]                    
+                    sFilename_stream_edge  = pBasin.sFilename_stream_edge_json
+                    sFilename_stream_edge_geojson = pBasin.sFilename_stream_edge
+                    sFilename_stream_segment_geojson = pBasin.sFilename_stream_segment
 
-                sWorkspace_watershed =  os.path.join( self.sWorkspace_output_hexwatershed,  sWatershed )
-
-                sFilename_watershed_stream_edge  = os.path.join( sWorkspace_watershed,  'stream_edge.json' )
-                sFilename_stream_edge_geojson = os.path.join(sWorkspace_watershed ,   'stream_edge.geojson')
-                if os.path.exists(sFilename_stream_edge_geojson):
-                    os.remove(sFilename_stream_edge_geojson)
-                pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-                pDataset = pDriver_geojson.CreateDataSource(sFilename_stream_edge_geojson)    
-
-                pSrs = osr.SpatialReference()  
-                pSrs.ImportFromEPSG(4326)  #WGS84 lat/lon
-
-                pLayer = pDataset.CreateLayer('flowdir', pSrs, ogr.wkbLineString)
-                # Add one attribute
-                pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
-                pLayer.CreateField(ogr.FieldDefn('iseg', ogr.OFTInteger)) #long type for high resolution
-                pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
-                pFac_field.SetWidth(20)
-                pFac_field.SetPrecision(2)
-                pLayer.CreateField(pFac_field) #long type for high resolution
-
-                pLayerDefn = pLayer.GetLayerDefn()
-                pFeature = ogr.Feature(pLayerDefn)
-
-                with open(sFilename_watershed_stream_edge) as json_file:
-                    data = json.load(json_file)  
-                    ncell = len(data)
-                    lID =0 
-                    for i in range(ncell):
-                        pcell = data[i]
-                        lCellID = int(pcell['lCellID'])
-                        lCellID_downslope = int(pcell['lCellID_downslope'])
-                        x_start=float(pcell['dLongitude_center_degree'])
-                        y_start=float(pcell['dLatitude_center_degree'])
-                        iSegment = int(pcell['iSegment'])
-                        #iStream_order = int(pcell['lCellID_downslope'])
-                        dfac = float(pcell['DrainageArea'])
-                        for j in range(ncell):
-                            pcell2 = data[j]
-                            lCellID2 = int(pcell2['lCellID'])
-                            if lCellID2 == lCellID_downslope:
-                                x_end=float(pcell2['dLongitude_center_degree'])
-                                y_end=float(pcell2['dLatitude_center_degree'])
-
-                                pLine = ogr.Geometry(ogr.wkbLineString)
-                                pLine.AddPoint(x_start, y_start)
-                                pLine.AddPoint(x_end, y_end)
-                                pFeature.SetGeometry(pLine)
-                                pFeature.SetField("id", lID)
-                                pFeature.SetField("fac", dfac)
-                                pFeature.SetField("iseg", iSegment)
-                                pLayer.CreateFeature(pFeature)
-                                lID = lID +1
-                                break           
-                            
-                #delete and write to dick                    
-                pFac_field =None
-                pLine=None
-                pLayer = None 
-                pFeature = None 
-                pDataset  = None 
-        
-        #now convert edge to segment
-            for iWatershed in range(1, nWatershed+1):
-                pBasin=   self.pPyFlowline.aBasin[iWatershed-1]
-                sWatershed = "{:08d}".format(iWatershed) 
-                sWorkspace_watershed =  os.path.join( self.sWorkspace_output_hexwatershed,  sWatershed )       
-                sFilename_stream_edge_geojson = os.path.join(sWorkspace_watershed ,   'stream_edge.geojson')        
-                aFlowline_edge_basin_conceptual, pSpatialRef_geojson = read_flowline_geojson(sFilename_stream_edge_geojson)
-
-                #connect using 
-                point = dict()
-                point['dLongitude_degree'] = pBasin.dLongitude_outlet_degree
-                point['dLatitude_degree'] = pBasin.dLatitude_outlet_degree
-                pVertex_outlet=pyvertex(point)
-
-
-                #remember there that it is possible that there is only one segment, no confluence
-                aVertex, lIndex_outlet, aIndex_headwater,aIndex_middle, aIndex_confluence, aConnectivity, pVertex_outlet\
-                = find_flowline_confluence(aFlowline_edge_basin_conceptual,  pVertex_outlet)
-                #segment based
-                aFlowline_basin_conceptual = merge_flowline( aFlowline_edge_basin_conceptual,\
-                    aVertex, pVertex_outlet, \
-                    aIndex_headwater,aIndex_middle, aIndex_confluence  )
-                sFilename_stream_segment_geojson = os.path.join(sWorkspace_watershed , 'stream_segment.geojson')
-                if os.path.exists(sFilename_stream_segment_geojson):
-                    os.remove(sFilename_stream_segment_geojson)
-
-                aStream_segment = list()
-                for pFlowline in aFlowline_basin_conceptual:
-                    aStream_segment.append( pFlowline.iStream_segment  )
-                export_flowline_to_geojson(aFlowline_basin_conceptual, sFilename_stream_segment_geojson,
-                aAttribute_data=[aStream_segment], aAttribute_field=['iseg'], aAttribute_dtype=['int'])
+                    point = dict()
+                    point['dLongitude_degree'] = pBasin.dLongitude_outlet_degree
+                    point['dLatitude_degree'] = pBasin.dLatitude_outlet_degree
+                    pVertex_outlet=pyvertex(point)
+                    export_json_to_geojson_polyline(sFilename_stream_edge, sFilename_stream_edge_geojson)
+                    merge_stream_edge_to_stream_segment(sFilename_stream_edge_geojson, 
+                                                        sFilename_stream_segment_geojson, 
+                                                        pVertex_outlet)
+ 
            
 
         return
-    
-    def pyhexwatershed_save_travel_distance(self):
-        iFlag_flowline = self.iFlag_flowline
+
+    def pyhexwatershed_export_flow_direction(self):
+        """
+        #https://hexwatershed.readthedocs.io/en/latest/application/application.html#simulation-results
+        """
+
+        if self.iFlag_global==1:
+            sFilename_json = self.sFilename_hexwatershed_json
+            sFilename_geojson = self.sFilename_flow_direction
+            export_json_to_geojson_polyline(sFilename_json, sFilename_geojson)  
+
+        else:
+            if self.iFlag_multiple_outlet==1:
+                sFilename_json = self.sFilename_hexwatershed_json
+                sFilename_geojson = self.sFilename_flow_direction                  
+                export_json_to_geojson_polyline(sFilename_json, sFilename_geojson)
+            else:
+                iWatershed = 1
+                pBasin = self.pPyFlowline.aBasin[iWatershed-1]      
+                #use the only one basin
+                sFilename_json = pBasin.sFilename_hexwatershed_json
+                sFilename_geojson = pBasin.sFilename_flow_direction  
+                export_json_to_geojson_polyline(sFilename_json, sFilename_geojson)
         
+     
+    def pyhexwatershed_export_elevation(self):
+        """
+
+        https://hexwatershed.readthedocs.io/en/latest/application/application.html#simulation-results
+        """
+
+        sFilename_json = self.sFilename_hexwatershed_json
+        sFilename_geojson = self.sFilename_elevation
+        aVariable  = ['elevation']
+        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+    
+    def pyhexwatershed_export_slope(self):
+
+        sFilename_json = self.sFilename_hexwatershed_json
+        sFilename_geojson = self.sFilename_slope
+        aVariable  = ['slp']
+        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+    
+    def pyhexwatershed_export_drainage_area(self):
+        sFilename_json = self.sFilename_hexwatershed_json
+        sFilename_geojson = self.sFilename_slope
+        aVariable  = ['slp']
+        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+  
+    #starting from here, we will save watershed-level files    
+       
+    def pyhexwatershed_export_travel_distance(self):
+     
         nWatershed = self.nOutlet
-        if iFlag_flowline==1:    
+        if self.iFlag_flowline==1:    
             for iWatershed in range(1, nWatershed+1):
-                pBasin=   self.pPyFlowline.aBasin[iWatershed-1]
-                sWatershed = "{:08d}".format(iWatershed) 
-                sWorkspace_watershed =  os.path.join( self.sWorkspace_output_hexwatershed,  sWatershed )
-                sFilename_json = os.path.join(sWorkspace_watershed ,   'watershed.json')
-                sFilename_geojson = os.path.join(sWorkspace_watershed ,   'travel_distance.geojson')
-
-                if os.path.exists(sFilename_geojson):
-                    os.remove(sFilename_geojson)
-
-                pDriver_geojson = ogr.GetDriverByName('GeoJSON')
-                pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson)           
-                pSrs = osr.SpatialReference()  
-                pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
-                pLayer = pDataset.CreateLayer('dist', pSrs, geom_type=ogr.wkbPolygon)
-                # Add one attribute
-                pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution       
-                pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
-                pFac_field.SetWidth(20)
-                pFac_field.SetPrecision(2)
-                pLayer.CreateField(pFac_field) #long type for high resolution
-
-                pSlp_field = ogr.FieldDefn('dist', ogr.OFTReal)
-                pSlp_field.SetWidth(20)
-                pSlp_field.SetPrecision(8)
-                pLayer.CreateField(pSlp_field) #long type for high resolution
-
-                pLayerDefn = pLayer.GetLayerDefn()
-                pFeature = ogr.Feature(pLayerDefn)
-
-                with open(sFilename_json) as json_file:
-                    data = json.load(json_file)  
-                    ncell = len(data)
-                    lID =0 
-                    for i in range(ncell):
-                        pcell = data[i]
-                        lCellID = int(pcell['lCellID'])
-                        lCellID_downslope = int(pcell['lCellID_downslope'])
-                        x_start=float(pcell['dLongitude_center_degree'])
-                        y_start=float(pcell['dLatitude_center_degree'])
-                        dfac = float(pcell['DrainageArea'])
-                        dElev = float(pcell['dDistance_to_watershed_outlet'])
-
-                        vVertex = pcell['vVertex']
-                        nvertex = len(vVertex)
-                        pPolygon = ogr.Geometry(ogr.wkbPolygon)
-                        ring = ogr.Geometry(ogr.wkbLinearRing)
-                        for j in range(nvertex):
-                            x = vVertex[j]['dLongitude_degree']
-                            y = vVertex[j]['dLatitude_degree']
-                            ring.AddPoint(x, y)
-
-                        x = vVertex[0]['dLongitude_degree']
-                        y = vVertex[0]['dLatitude_degree']
-                        ring.AddPoint(x, y)
-                        pPolygon.AddGeometry(ring)
-                        pFeature.SetGeometry(pPolygon)
-                        pFeature.SetField("id", lCellID)                
-                        pFeature.SetField("fac", dfac)
-                        pFeature.SetField("dist", dElev)
-
-                        pLayer.CreateFeature(pFeature)
-                    pDataset = pLayer = pFeature  = None      
+                pBasin = self.pPyFlowline.aBasin[iWatershed-1]     
+                sFilename_json = pBasin.sFilename_watershed_json
+                sFilename_geojson = pBasin.sFilename_travel_distance
+                aVariable  = ['slp']
+                export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)   
                 pass  
+
+    def pyhexwatershed_export_all_polyline_variables(self):
+        sFilename_json = self.sFilename_hexwatershed_json
+        sFilename_geojson = self.sFilename_slope
+        aVariable  = ['slp']
+        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+        return
+
+    def pyhexwatershed_export_all_polygon_variables(self):
+        sFilename_json = self.sFilename_hexwatershed_json
+        sFilename_geojson = self.sFilename_slope
+        aVariable  = ['slp']
+        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+        return
