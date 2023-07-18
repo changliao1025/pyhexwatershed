@@ -1,7 +1,11 @@
 import os
 import json
 from osgeo import gdal, ogr, osr, gdalconst
-def export_json_to_geojson_polyline(sFilename_json_in, sFilename_geojson_out):
+def export_json_to_geojson_polyline(sFilename_json_in, 
+                                    sFilename_geojson_out,
+                                    aVariable_json_in,
+                                    aVariable_geojson_out,
+                                    aVariable_type_out):
     """
     Convert a hexwatershed json into a geojson polyline
 
@@ -20,11 +24,24 @@ def export_json_to_geojson_polyline(sFilename_json_in, sFilename_geojson_out):
     pLayer = pDataset.CreateLayer('stream', pSrs, ogr.wkbLineString)
     # Add one attribute
     pLayer.CreateField(ogr.FieldDefn('lineid', ogr.OFTInteger64)) #long type for high resolution
-    pLayer.CreateField(ogr.FieldDefn('isegment', ogr.OFTInteger)) #long type for high resolution
-    pFac_field = ogr.FieldDefn('drainage', ogr.OFTReal)
-    pFac_field.SetWidth(20)
-    pFac_field.SetPrecision(2)
-    pLayer.CreateField(pFac_field) #long type for high resolution
+
+    nField = len(aVariable_geojson_out)
+
+    for i in range(nField):
+        sVariable = aVariable_geojson_out[i].lower()
+        iVariable_type = aVariable_type_out[i]
+        if iVariable_type == 1:
+            pField = ogr.FieldDefn(sVariable, ogr.OFTInteger)
+            pField.SetWidth(10)
+        else:
+            pField = ogr.FieldDefn(sVariable, ogr.OFTReal)
+            pField.SetWidth(20)
+            pField.SetPrecision(8)
+            pass
+
+        pLayer.CreateField(pField) #long type for high resolution 
+
+
     pLayerDefn = pLayer.GetLayerDefn()
     pFeature = ogr.Feature(pLayerDefn)
     with open(sFilename_json_in) as json_file:

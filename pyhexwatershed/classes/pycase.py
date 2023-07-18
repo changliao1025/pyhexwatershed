@@ -69,6 +69,7 @@ class hexwatershedcase(object):
     dLatitude_top = 90
     sFilename_dem=''  
     sFilename_model_configuration=''
+    sFilename_mesh=''
     sFilename_mesh_info=''
     sFilename_flowline_info=''
     sFilename_basins=''     
@@ -80,6 +81,9 @@ class hexwatershedcase(object):
     sFilename_drainage_area=''
     sFilename_flow_direction='' 
     sFilename_distance_to_outlet=   ''
+
+    sFilename_variable_polyline=''
+    sFilename_variable_polygon=''
   
     sRegion=''
     sModel=''
@@ -164,7 +168,7 @@ class hexwatershedcase(object):
             self.iFlag_use_mesh_dem             = int(aConfig_in[ 'iFlag_use_mesh_dem'])
 
         if 'iFlag_use_shapefile_extent' in aConfig_in:
-            self.iFlag_use_shapefile_extent             = int(aConfig_in[ 'iFlag_use_shapefile_extent'])
+            self.iFlag_use_shapefile_extent  = int(aConfig_in[ 'iFlag_use_shapefile_extent'])
 
             
 
@@ -323,6 +327,8 @@ class hexwatershedcase(object):
         self.sFilename_flow_direction = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_flow_direction.geojson" )
         self.sFilename_distance_to_outlet = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_distance_to_outlet.geojson" )
         
+        self.sFilename_variable_polyline = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_variable_polyline.geojson" )
+        self.sFilename_variable_polygon = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_variable_polygon.geojson" )
         return    
 
     def tojson(self):
@@ -755,14 +761,14 @@ class hexwatershedcase(object):
                 self.pyhexwatershed_export_flow_direction() 
 
                 #polygon
-                self.pyhexwatershed_export_elevation()
-                self.pyhexwatershed_export_slope()
-                self.pyhexwatershed_export_drainage_area()                         
-                self.pyhexwatershed_export_travel_distance()
+                #self.pyhexwatershed_export_elevation()
+                #self.pyhexwatershed_export_slope()
+                #self.pyhexwatershed_export_drainage_area()                         
+                #self.pyhexwatershed_export_travel_distance()
 
                 #we can also save a geojson that has all the information
                 self.pyhexwatershed_export_all_polygon_variables()
-                self.pyhexwatershed_export_all_polyline_variables()
+                #self.pyhexwatershed_export_all_polyline_variables()
                 pass
 
         return
@@ -849,21 +855,33 @@ class hexwatershedcase(object):
 
         sFilename_json = self.sFilename_hexwatershed_json
         sFilename_geojson = self.sFilename_elevation
-        aVariable  = ['elevation']
-        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+        aVariable_json  = ['slp']
+        aVariable_geojson= ['slp']
+        export_json_to_geojson_polygon(sFilename_json,
+                                        sFilename_geojson, 
+                                        aVariable_json,
+                                        aVariable_geojson)
     
     def pyhexwatershed_export_slope(self):
 
         sFilename_json = self.sFilename_hexwatershed_json
         sFilename_geojson = self.sFilename_slope
-        aVariable  = ['slp']
-        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+        aVariable_json  = ['slp']
+        aVariable_geojson= ['slp']
+        export_json_to_geojson_polygon(sFilename_json,
+                                        sFilename_geojson, 
+                                        aVariable_json,
+                                        aVariable_geojson)
     
     def pyhexwatershed_export_drainage_area(self):
         sFilename_json = self.sFilename_hexwatershed_json
-        sFilename_geojson = self.sFilename_slope
-        aVariable  = ['slp']
-        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+        sFilename_geojson = self.sFilename_drainage_area
+        aVariable_json  = ['slp']
+        aVariable_geojson= ['slp']
+        export_json_to_geojson_polygon(sFilename_json,
+                                        sFilename_geojson, 
+                                        aVariable_json,
+                                        aVariable_geojson)
   
     #starting from here, we will save watershed-level files    
        
@@ -875,20 +893,38 @@ class hexwatershedcase(object):
                 pBasin = self.pPyFlowline.aBasin[iWatershed-1]     
                 sFilename_json = pBasin.sFilename_watershed_json
                 sFilename_geojson = pBasin.sFilename_travel_distance
-                aVariable  = ['slp']
-                export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)   
+                aVariable_json  = ['slp']
+                aVariable_geojson= ['slp']
+                export_json_to_geojson_polygon(sFilename_json,
+                                        sFilename_geojson, 
+                                        aVariable_json,
+                                        aVariable_geojson) 
                 pass  
 
     def pyhexwatershed_export_all_polyline_variables(self):
         sFilename_json = self.sFilename_hexwatershed_json
-        sFilename_geojson = self.sFilename_slope
-        aVariable  = ['slp']
-        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+        sFilename_geojson = self.sFilename_variable_polyline
+        #
+        aVariable_json  = ['slp']
+        aVariable_geojson= ['slp']
+        export_json_to_geojson_polyline(sFilename_json,
+                                        sFilename_geojson, 
+                                        aVariable_json,
+                                        aVariable_geojson)
         return
 
     def pyhexwatershed_export_all_polygon_variables(self):
         sFilename_json = self.sFilename_hexwatershed_json
-        sFilename_geojson = self.sFilename_slope
-        aVariable  = ['slp']
-        export_json_to_geojson_polygon(sFilename_json, sFilename_geojson, aVariable)
+        sFilename_geojson = self.sFilename_variable_polygon
+        if self.iMesh_type == 4:
+            aVariable_json  = ['slp']
+            aVariable_geojson = ['slp']
+        else:
+            aVariable_json  = ['slp']
+            aVariable_geojson = ['slp']
+
+        export_json_to_geojson_polygon(sFilename_json,
+                                        sFilename_geojson, 
+                                        aVariable_json,
+                                        aVariable_geojson,)
         return

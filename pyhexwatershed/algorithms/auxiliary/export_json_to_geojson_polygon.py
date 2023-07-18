@@ -2,7 +2,11 @@ import os
 import json
 from osgeo import gdal, ogr, osr, gdalconst
 
-def export_json_to_geojson_polygon(sFilename_json_in, sFilename_geojson_out, aVariable_in):
+def export_json_to_geojson_polygon(sFilename_json_in,
+                                    sFilename_geojson_out,
+                                    aVariable_json_in,
+                                    aVariable_geojson_out,
+                                    aVariable_type_out):
     """
     export a hexwatershed json to geojson polygon
 
@@ -12,7 +16,6 @@ def export_json_to_geojson_polygon(sFilename_json_in, sFilename_geojson_out, aVa
         aVariable_in (_type_): _description_
     """
     
-    #os.path.join(self.sWorkspace_output_hexwatershed ,   'elevation.geojson')
     if os.path.exists(sFilename_geojson_out):
         os.remove(sFilename_geojson_out)
 
@@ -21,25 +24,25 @@ def export_json_to_geojson_polygon(sFilename_json_in, sFilename_geojson_out, aVa
     pSrs = osr.SpatialReference()  
     pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
     pLayer = pDataset.CreateLayer('hexwatershed', pSrs, geom_type=ogr.wkbPolygon)
-    #Add basic attributes cellid and drainage  
+    #Add basic attributes cellid 
     pLayer.CreateField(ogr.FieldDefn('cellid', ogr.OFTInteger64)) #long type for high resolution       
-    pFac_field = ogr.FieldDefn('drainage', ogr.OFTReal)
-    pFac_field.SetWidth(20)
-    pFac_field.SetPrecision(2)
-    pLayer.CreateField(pFac_field) #long type for high resolution
+    
 
-    nField = len(aVariable_in)
-    if 'drainage' in aVariable_in:
-        nField = nField - 1 
-        #remove drainage from the list
-        aVariable_in.remove('drainage')
+    nField = len(aVariable_geojson_out)
 
     for i in range(nField):
-        sVariable = aVariable_in[i].lower()
-        pSlp_field = ogr.FieldDefn(sVariable, ogr.OFTReal)
-        pSlp_field.SetWidth(20)
-        pSlp_field.SetPrecision(8)
-        pLayer.CreateField(pSlp_field) #long type for high resolution     
+        sVariable = aVariable_geojson_out[i].lower()
+        iVariable_type = aVariable_type_out[i]
+        if iVariable_type == 1:
+            pField = ogr.FieldDefn(sVariable, ogr.OFTInteger)
+            pField.SetWidth(10)
+        else:
+            pField = ogr.FieldDefn(sVariable, ogr.OFTReal)
+            pField.SetWidth(20)
+            pField.SetPrecision(8)
+            pass
+
+        pLayer.CreateField(pField) #long type for high resolution     
 
     pLayerDefn = pLayer.GetLayerDefn()
     pFeature = ogr.Feature(pLayerDefn)
