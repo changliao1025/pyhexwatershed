@@ -21,24 +21,29 @@ def export_json_to_geojson_polygon(sFilename_json_in, sFilename_geojson_out, aVa
     pSrs = osr.SpatialReference()  
     pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
     pLayer = pDataset.CreateLayer('hexwatershed', pSrs, geom_type=ogr.wkbPolygon)
-    # Add one attribute
-    
-    pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution       
-    pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
+    #Add basic attributes cellid and drainage  
+    pLayer.CreateField(ogr.FieldDefn('cellid', ogr.OFTInteger64)) #long type for high resolution       
+    pFac_field = ogr.FieldDefn('drainage', ogr.OFTReal)
     pFac_field.SetWidth(20)
     pFac_field.SetPrecision(2)
     pLayer.CreateField(pFac_field) #long type for high resolution
-    pSlp_field = ogr.FieldDefn('elev', ogr.OFTReal)
-    pSlp_field.SetWidth(20)
-    pSlp_field.SetPrecision(8)
-    pLayer.CreateField(pSlp_field) #long type for high resolution
-    pSlp_field = ogr.FieldDefn('elep', ogr.OFTReal)
-    pSlp_field.SetWidth(20)
-    pSlp_field.SetPrecision(8)
-    pLayer.CreateField(pSlp_field) #long type for high resolution
+
+    nField = len(aVariable_in)
+    if 'drainage' in aVariable_in:
+        nField = nField - 1 
+        #remove drainage from the list
+        aVariable_in.remove('drainage')
+
+    for i in range(nField):
+        sVariable = aVariable_in[i].lower()
+        pSlp_field = ogr.FieldDefn(sVariable, ogr.OFTReal)
+        pSlp_field.SetWidth(20)
+        pSlp_field.SetPrecision(8)
+        pLayer.CreateField(pSlp_field) #long type for high resolution     
+
     pLayerDefn = pLayer.GetLayerDefn()
     pFeature = ogr.Feature(pLayerDefn)
-    with open(sFilename_json) as json_file:
+    with open(sFilename_json_in) as json_file:
         data = json.load(json_file)  
         ncell = len(data)
         lID = 0 

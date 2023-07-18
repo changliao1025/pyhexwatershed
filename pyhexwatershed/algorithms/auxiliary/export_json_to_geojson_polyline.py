@@ -1,7 +1,7 @@
 import os
 import json
 from osgeo import gdal, ogr, osr, gdalconst
-def export_json_to_geojson_polyline(self, sFilename_json_in, sFilename_geojson_out):
+def export_json_to_geojson_polyline(sFilename_json_in, sFilename_geojson_out):
     """
     Convert a hexwatershed json into a geojson polyline
 
@@ -17,11 +17,11 @@ def export_json_to_geojson_polyline(self, sFilename_json_in, sFilename_geojson_o
     pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson_out)    
     pSrs = osr.SpatialReference()  
     pSrs.ImportFromEPSG(4326)  #WGS84 lat/lon
-    pLayer = pDataset.CreateLayer('segm', pSrs, ogr.wkbLineString)
+    pLayer = pDataset.CreateLayer('stream', pSrs, ogr.wkbLineString)
     # Add one attribute
-    pLayer.CreateField(ogr.FieldDefn('id', ogr.OFTInteger64)) #long type for high resolution
-    pLayer.CreateField(ogr.FieldDefn('iseg', ogr.OFTInteger)) #long type for high resolution
-    pFac_field = ogr.FieldDefn('fac', ogr.OFTReal)
+    pLayer.CreateField(ogr.FieldDefn('lineid', ogr.OFTInteger64)) #long type for high resolution
+    pLayer.CreateField(ogr.FieldDefn('isegment', ogr.OFTInteger)) #long type for high resolution
+    pFac_field = ogr.FieldDefn('drainage', ogr.OFTReal)
     pFac_field.SetWidth(20)
     pFac_field.SetPrecision(2)
     pLayer.CreateField(pFac_field) #long type for high resolution
@@ -30,10 +30,10 @@ def export_json_to_geojson_polyline(self, sFilename_json_in, sFilename_geojson_o
     with open(sFilename_json_in) as json_file:
         data = json.load(json_file)  
         ncell = len(data)
-        lID =0 
+        lLineID =0 
         for i in range(ncell):
             pcell = data[i]
-            lCellID = int(pcell['lCellID'])
+            lCellID = int(pcell['lCellID']) #this is the cell id
             lCellID_downslope = int(pcell['lCellID_downslope'])
             x_start=float(pcell['dLongitude_center_degree'])
             y_start=float(pcell['dLatitude_center_degree'])
@@ -49,11 +49,11 @@ def export_json_to_geojson_polyline(self, sFilename_json_in, sFilename_geojson_o
                     pLine.AddPoint(x_start, y_start)
                     pLine.AddPoint(x_end, y_end)
                     pFeature.SetGeometry(pLine)
-                    pFeature.SetField("id", lID)
-                    pFeature.SetField("fac", dfac)
-                    pFeature.SetField("iseg", iSegment)
+                    pFeature.SetField("lineid", lLineID)
+                    pFeature.SetField("drainage", dfac)
+                    pFeature.SetField("isegment", iSegment)
                     pLayer.CreateFeature(pFeature)
-                    lID = lID +1
+                    lLineID = lLineID + 1
                     break           
                         
     #delete and write to dick                    
@@ -62,5 +62,3 @@ def export_json_to_geojson_polyline(self, sFilename_json_in, sFilename_geojson_o
     pLayer = None 
     pFeature = None 
     pDataset  = None 
-    #now convert edge to segment
-    #for iWatershed in range(1, nWatershed+1): 
