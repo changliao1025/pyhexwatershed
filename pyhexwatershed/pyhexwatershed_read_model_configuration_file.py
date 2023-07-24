@@ -2,10 +2,10 @@ import os
 import sys #used to add system path
 import datetime
 import json
-
+from pathlib import Path
 from pyhexwatershed.classes.pycase import hexwatershedcase
 from pyflowline.classes.pycase import flowlinecase
-
+from pyflowline.classes.basin import pybasin
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
 
@@ -83,5 +83,15 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
                                sWorkspace_output_in = oPyhexwatershed.sWorkspace_output_pyflowline)
 
     oPyhexwatershed.pPyFlowline = oPyflowline
+
+    #set up the basin object
+    with open(oPyhexwatershed.sFilename_basins) as json_file:
+        dummy_data = json.load(json_file)
+        for i in range(oPyhexwatershed.nOutlet):
+            sBasin =  "{:08d}".format(i+1)
+            dummy_basin = dummy_data[i]
+            dummy_basin['sWorkspace_output_basin'] = str(Path(oPyhexwatershed.sWorkspace_output_hexwatershed) / sBasin )
+            pBasin = pybasin(dummy_basin)
+            oPyhexwatershed.aBasin.append(pBasin)
 
     return oPyhexwatershed

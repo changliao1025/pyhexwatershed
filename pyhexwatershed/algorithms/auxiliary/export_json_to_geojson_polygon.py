@@ -7,6 +7,7 @@ def export_json_to_geojson_polygon(sFilename_json_in,
                                     aVariable_json_in,
                                     aVariable_geojson_out,
                                     aVariable_type_out):
+
     """
     export a hexwatershed json to geojson polygon
 
@@ -28,15 +29,20 @@ def export_json_to_geojson_polygon(sFilename_json_in,
     pLayer.CreateField(ogr.FieldDefn('cellid', ogr.OFTInteger64)) #long type for high resolution       
     
 
-    nField = len(aVariable_geojson_out)
+    nField_in = len(aVariable_json_in)
 
-    for i in range(nField):
+    nField_out = len(aVariable_geojson_out)
+    if nField_in != nField_out:
+        print("Error: the field number of input and output are not the same")
+        return
+
+    for i in range(nField_out):
         sVariable = aVariable_geojson_out[i].lower()
         iVariable_type = aVariable_type_out[i]
-        if iVariable_type == 1:
+        if iVariable_type == 1: #integer
             pField = ogr.FieldDefn(sVariable, ogr.OFTInteger)
             pField.SetWidth(10)
-        else:
+        else: #float
             pField = ogr.FieldDefn(sVariable, ogr.OFTReal)
             pField.SetWidth(20)
             pField.SetPrecision(8)
@@ -56,9 +62,8 @@ def export_json_to_geojson_polygon(sFilename_json_in,
             lCellID_downslope = int(pcell['lCellID_downslope'])
             x_start=float(pcell['dLongitude_center_degree'])
             y_start=float(pcell['dLatitude_center_degree'])
-            dfac = float(pcell['DrainageArea'])
-            dElev = float(pcell['Elevation'])
-            dElep = float(pcell['Elevation_profile'])
+            
+
             vVertex = pcell['vVertex']
             nvertex = len(vVertex)
             pPolygon = ogr.Geometry(ogr.wkbPolygon)
@@ -72,10 +77,16 @@ def export_json_to_geojson_polygon(sFilename_json_in,
             ring.AddPoint(x, y)
             pPolygon.AddGeometry(ring)
             pFeature.SetGeometry(pPolygon)
-            pFeature.SetField("id", lCellID)                
-            pFeature.SetField("fac", dfac)
-            pFeature.SetField("elev", dElev)
-            pFeature.SetField("elep", dElep)
+            pFeature.SetField("id", lCellID)                                    
+            for k in range(nField_out):
+                iDataType = aVariable_type_out[k]
+                if iDataType == 1:
+                    dValue = int(pcell[aVariable_json_in[k]])   
+                else:                     
+                    dValue = float(pcell[aVariable_json_in[k]])
+
+                pFeature.SetField(aVariable_geojson_out[k], dValue)    
+
             pLayer.CreateFeature(pFeature)
         pDataset = pLayer = pFeature  = None      
     pass   
