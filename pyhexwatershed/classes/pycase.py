@@ -51,6 +51,7 @@ class hexwatershedcase(object):
     iFlag_elevation_profile = 0
     iFlag_stream_burning_topology=1
     iFlag_create_mesh= 1
+    iFlag_mesh_boundary =0 
     iFlag_simplification= 0
     iFlag_intersect= 0
     iFlag_merge_reach=1
@@ -168,11 +169,12 @@ class hexwatershedcase(object):
 
         if 'iFlag_use_mesh_dem' in aConfig_in:
             self.iFlag_use_mesh_dem             = int(aConfig_in[ 'iFlag_use_mesh_dem'])
+      
 
-        if 'iFlag_use_shapefile_extent' in aConfig_in:
-            self.iFlag_use_shapefile_extent  = int(aConfig_in[ 'iFlag_use_shapefile_extent'])
-
-            
+        if 'iFlag_mesh_boundary' in aConfig_in:
+            self.iFlag_mesh_boundary             = int(aConfig_in[ 'iFlag_mesh_boundary'])
+        else:
+            self.iFlag_mesh_boundary=0    
 
         if 'iFlag_stream_burning_topology' in aConfig_in:
             self.iFlag_stream_burning_topology       = int(aConfig_in[ 'iFlag_stream_burning_topology'])
@@ -242,6 +244,16 @@ class hexwatershedcase(object):
             iCase_index = int(aConfig_in['iCase_index'])
         else:
             iCase_index = 1
+
+        if 'iResolution_index' in aConfig_in:
+            self.iResolution_index = int(aConfig_in['iResolution_index'])
+        else:
+            self.iResolution_index=10
+        
+        if 'sDggrid_type' in aConfig_in:
+            self.sDggrid_type = aConfig_in['sDggrid_type']
+        else:
+            self.sDggrid_type='ISEA3H'
               
         sDate   = aConfig_in[ 'sDate']
         if sDate is not None:
@@ -277,9 +289,12 @@ class hexwatershedcase(object):
                     if sMesh_type =='mpas': #mpas
                         self.iMesh_type = 4
                     else:
-                        if sMesh_type =='tin': #tin
+                        if sMesh_type =='dggrid': #tin
                             self.iMesh_type = 5
                         else:
+                            if sMesh_type =='tin': #tin
+                                self.iMesh_type = 6
+                                pass
                             print('Unsupported mesh type?')
                             
         if 'dResolution_degree' in aConfig_in:
@@ -495,7 +510,7 @@ class hexwatershedcase(object):
         pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
         pDataset_elevation = gdal.Open(sFilename_dem_in, gdal.GA_ReadOnly)
         aDem_in, dPixelWidth, dOriginX, dOriginY, \
-            nrow, ncolumn,dMissing_value, pSpatialRef_target, pProjection, pGeotransform = gdal_read_geotiff_file(sFilename_dem_in)
+            nrow, ncolumn,dMissing_value, pGeotransform, pProjection,  pSpatialRef_target = gdal_read_geotiff_file(sFilename_dem_in)
 
         #transform = osr.CoordinateTransformation(pSrs, pSpatialRef_target) 
         #get raster extent 
@@ -613,26 +628,28 @@ class hexwatershedcase(object):
             aCellID.append(lCellID)
 
         aCell_out=list()
+        #if a cell has no elevation and was removed earlier, 
+        #it should be removed from the land neighbor list
+        #but the distance list remained the same.
         for i in range(ncell):
             pCell = aCell_mid[i]
-            aNeighbor = pCell.aNeighbor
+            aNeighbor_land = pCell.aNeighbor_land
             aNeighbor_distance = pCell.aNeighbor_distance
-            nNeighbor = pCell.nNeighbor
+            nNeighbor_land = pCell.nNeighbor_land
             aNeighbor_new = list()
-            aNeighbor_distance_new = list()
+            #aNeighbor_distance_new = list()
             nNeighbor_new = 0 
-            for j in range(nNeighbor):
-                lNeighbor = int(aNeighbor[j])
+            for j in range(nNeighbor_land):
+                lNeighbor = int(aNeighbor_land[j])
                 if lNeighbor in aCellID:
                     nNeighbor_new = nNeighbor_new +1 
                     aNeighbor_new.append(lNeighbor)
-                    aNeighbor_distance_new.append(aNeighbor_distance[j])
+                    #aNeighbor_distance_new.append(aNeighbor_distance[j])
 
-            pCell.nNeighbor= len(aNeighbor_new)
-            pCell.aNeighbor = aNeighbor_new
+            
             pCell.nNeighbor_land= len(aNeighbor_new)
             pCell.aNeighbor_land = aNeighbor_new
-            pCell.aNeighbor_distance = aNeighbor_distance_new
+            #pCell.aNeighbor_distance = aNeighbor_distance_new
             aCell_out.append(pCell)
 
         #update the cell information
@@ -758,15 +775,15 @@ class hexwatershedcase(object):
             if self.iFlag_multiple_outlet == 1:
                 pass
             else:
-
-                self.pyhexwatershed_export_stream_segment()
+                
                 self.pyhexwatershed_export_flow_direction() 
+                self.pyhexwatershed_export_stream_segment()
 
                 #polygon
                 #self.pyhexwatershed_export_elevation()
                 #self.pyhexwatershed_export_slope()
                 #self.pyhexwatershed_export_drainage_area()                         
-                self.pyhexwatershed_export_travel_distance()
+                #self.pyhexwatershed_export_travel_distance()
 
                 #we can also save a geojson that has all the information
                 self.pyhexwatershed_export_all_polygon_variables()
@@ -818,8 +835,8 @@ class hexwatershedcase(object):
                     point['dLongitude_degree'] = pBasin_pyflowline.dLongitude_outlet_degree
                     point['dLatitude_degree'] = pBasin_pyflowline.dLatitude_outlet_degree
                     pVertex_outlet=pyvertex(point)
-                    aVariable_json_in = ['iSegment']
-                    aVariable_geojson_out = ['isegment']
+                    aVariable_json_in = ['iStream_segment']
+                    aVariable_geojson_out = ['stream_segment']
                     aVariable_type_out= [1]
                     export_json_to_geojson_polyline(sFilename_stream_edge, 
                                                     sFilename_stream_edge_geojson, 
@@ -856,8 +873,8 @@ class hexwatershedcase(object):
                 sFilename_json = pBasin.sFilename_watershed_json
                 sFilename_geojson = pBasin.sFilename_flow_direction  
                
-                aVariable_json = ['iSegment','DrainageArea']
-                aVariable_geojson =    ['iSegment','drainage_area']
+                aVariable_json = ['iStream_segment','dDrainage_area']
+                aVariable_geojson =    ['stream_segment','drainage_area']
                 aVariable_type_out = [1, 2]
                 export_json_to_geojson_polyline(sFilename_json, sFilename_geojson,
                                                 aVariable_json, aVariable_geojson, aVariable_type_out)
@@ -871,7 +888,7 @@ class hexwatershedcase(object):
 
         sFilename_json = self.sFilename_hexwatershed_json
         sFilename_geojson = self.sFilename_elevation
-        aVariable_json  = ['Elevation']
+        aVariable_json  = ['dElevation']
         aVariable_geojson= ['elevation']
         export_json_to_geojson_polygon(sFilename_json,
                                         sFilename_geojson, 
@@ -892,8 +909,8 @@ class hexwatershedcase(object):
     def pyhexwatershed_export_drainage_area(self):
         sFilename_json = self.sFilename_hexwatershed_json
         sFilename_geojson = self.sFilename_drainage_area
-        aVariable_json  = ['slp']
-        aVariable_geojson= ['slp']
+        aVariable_json  = ['dDrainage_area']
+        aVariable_geojson= ['draiange_area']
         export_json_to_geojson_polygon(sFilename_json,
                                         sFilename_geojson, 
                                         aVariable_json,
@@ -923,8 +940,8 @@ class hexwatershedcase(object):
         sFilename_json = self.sFilename_hexwatershed_json
         sFilename_geojson = self.sFilename_variable_polyline
         #
-        aVariable_json  = ['slp']
-        aVariable_geojson= ['slp']
+        aVariable_json = ['iStream_segment']
+        aVariable_geojson = ['stream_segment']
         export_json_to_geojson_polyline(sFilename_json,
                                         sFilename_geojson, 
                                         aVariable_json,
@@ -951,14 +968,14 @@ class hexwatershedcase(object):
                 sFilename_json = pBasin.sFilename_watershed_json
                 sFilename_geojson = pBasin.sFilename_variable_polygon  
 
-        if self.iMesh_type == 4:
-            aVariable_json  = ['iSubbasin','Elevation','dSlope_between', 'DrainageArea','dDistance_to_watershed_outlet']
-            aVariable_geojson = ['isubbasin','elevation', 'slope', 'drainage_area','travel_distance']
+        if self.iMesh_type == 4: #mpas mesh
+            aVariable_json  = ['iSubbasin','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
+            aVariable_geojson = ['subbasin','elevation', 'slope', 'drainage_area','travel_distance']
         else:
-            aVariable_json  = ['iSubbasin','Elevation','dSlope_profile','DrainageArea','dDistance_to_watershed_outlet']
-            aVariable_geojson = ['isubbasin','elevation', 'slope', 'drainage_area','travel_distance']
+            aVariable_json  = ['iSubbasin','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
+            aVariable_geojson = ['subbasin','elevation', 'slope', 'drainage_area','travel_distance']
 
-        aVariable_type= [1, 2,2,2,2]
+        aVariable_type= [1,2,2,2,2]
         export_json_to_geojson_polygon(sFilename_json,
                                         sFilename_geojson, 
                                         aVariable_json,

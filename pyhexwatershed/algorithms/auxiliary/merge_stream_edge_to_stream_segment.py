@@ -34,6 +34,6 @@ def merge_stream_edge_to_stream_segment(sFilename_stream_edge_geojson_in,
     export_flowline_to_geojson(aFlowline_basin_conceptual,
                                 sFilename_stream_segment_geojson,
                 aAttribute_data=[aStream_segment], 
-                aAttribute_field=['iseg'], 
+                aAttribute_field=['segment'], 
                 aAttribute_dtype=['int'])
     return 

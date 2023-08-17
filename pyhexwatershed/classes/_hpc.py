@@ -21,7 +21,9 @@ def _create_hpc_job(self, sSlurm_in=None):
         + 'iFlag_stream_burning_topology_in='+ str(self.iFlag_stream_burning_topology) + ',' \
         + 'iFlag_elevation_profile_in='+ str(self.iFlag_elevation_profile) + ',' \
         + 'iFlag_use_mesh_dem_in='+ str(self.iFlag_use_mesh_dem) + ',' \
+        + 'iResolution_index_in='+ str(self.iResolution_index) + ',' \
         + 'dResolution_meter_in=' + "{:0f}".format(self.dResolution_meter)+ ',' \
+        + 'sDggrid_type_in="'+ str(self.sDggrid_type) + '",' \
         +  'sDate_in="'+ str(self.sDate) + '",' \
         +  'sMesh_type_in="'+ str(self.sMesh_type) +'"' \
         + ')'  +   '\n'   

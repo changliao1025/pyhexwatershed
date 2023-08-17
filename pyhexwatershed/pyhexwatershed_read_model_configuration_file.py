@@ -14,8 +14,10 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
                                                  iFlag_stream_burning_topology_in = None,
                                                  iFlag_elevation_profile_in = None,
                                                  iFlag_use_mesh_dem_in= None,
+                                                 iResolution_index_in = None,
                                                  dResolution_meter_in = None,
                                                  sDate_in = None,
+                                                 sDggrid_type_in = None,
                                                  sMesh_type_in=None):
 
 
@@ -35,10 +37,21 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
         sMesh_type = aConfig["sMesh_type"]
         pass
 
+    if sDggrid_type_in is not None:
+        sDggrid_type = sDggrid_type_in
+    else:
+        sDggrid_type = aConfig["sDggrid_type"]
+
     if iCase_index_in is not None:
         iCase_index = iCase_index_in
     else:
         iCase_index = int( aConfig['iCase_index'])
+        pass
+
+    if iResolution_index_in is not None:    
+        iResolution_index = iResolution_index_in
+    else:
+        iResolution_index = int( aConfig['iResolution_index'])
         pass
 
     if iFlag_stream_burning_topology_in is not None:
@@ -72,17 +85,21 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
     aConfig["iFlag_stream_burning_topology"] = iFlag_stream_burning_topology
     aConfig["iFlag_elevation_profile"] = iFlag_elevation_profile
     aConfig["iFlag_use_mesh_dem"] = iFlag_use_mesh_dem
-
+    aConfig["iResolution_index"] = iResolution_index
     aConfig["dResolution_meter"] = dResolution_meter
     aConfig["sFilename_model_configuration"] = sFilename_configuration_in
+    aConfig["sDggrid_type"] = sDggrid_type
 
-
+    oPyhexwatershed = None
+    oPyflowline = None
     oPyhexwatershed = hexwatershedcase(aConfig)
     oPyflowline = flowlinecase(aConfig ,  iFlag_standalone_in = 0,
                                sModel_in = 'pyflowline',
                                sWorkspace_output_in = oPyhexwatershed.sWorkspace_output_pyflowline)
 
     oPyhexwatershed.pPyFlowline = oPyflowline
+
+    oPyhexwatershed.aBasin.clear()
 
     #set up the basin object
     with open(oPyhexwatershed.sFilename_basins) as json_file:

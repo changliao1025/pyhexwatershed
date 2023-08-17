@@ -77,7 +77,7 @@ def export_json_to_geojson_polygon(sFilename_json_in,
             ring.AddPoint(x, y)
             pPolygon.AddGeometry(ring)
             pFeature.SetGeometry(pPolygon)
-            pFeature.SetField("id", lCellID)                                    
+            pFeature.SetField("cellid", lCellID)                                    
             for k in range(nField_out):
                 iDataType = aVariable_type_out[k]
                 if iDataType == 1:

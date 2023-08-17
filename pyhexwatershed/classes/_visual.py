@@ -10,20 +10,27 @@ from pyflowline.external.pyearth.visual.map.map_multiple_vector_data import map_
 def plot(self,
           iFlag_type_in = None,
           iFlag_title_in = None,
+          iFlag_colorbar_in = None,
           sVariable_in=None,
           sFilename_output_in=None,
           iFigwidth_in=None,
           iFigheight_in=None,
+          iFont_size_in=None,
+          iFlag_scientific_notation_colorbar_in=None,
+           dData_min_in = None,
+           dData_max_in = None,
           aExtent_in = None,
           pProjection_map_in = None):
 
-    aPolyline = ['flow_direction', 'flowline_raw', 'flowline_filter', 'flowline_simplified','flowline_conceptual' ]
+    aPolyline = ['flow_direction', 'stream_segment', 'stream_order' ]
     aPolygon = ['elevation', 'drainage_area', 'slope', 'travel_distance']
     aMixed = ['flow_direction_with_mesh', 'flow_direction_with_observation']
     
 
     if iFlag_title_in is None:
-        iFlag_title_in = 1
+        iFlag_title_in = 0
+    else:
+        iFlag_title_in = iFlag_title_in
     
     if sVariable_in in aPolyline:
         iFlag_type_in = 2 
@@ -33,6 +40,22 @@ def plot(self,
         else:
             if sVariable_in in aMixed:
                 iFlag_type_in = 4
+
+    aLegend = list()
+    sText = 'Case: ' + "{:0d}".format( int(self.iCase_index) ) 
+    aLegend.append(sText)
+    sText = 'Mesh type: ' + self.sMesh_type.title()
+    aLegend.append(sText)
+    if self.iMesh_type == 4:
+        sResolution =  'Resolution: 3 ~ 10 km'
+    else:
+        sResolution =  'Resolution: ' + "{:0d}".format( int(self.dResolution_meter/1000) ) + ' km'
+    aLegend.append(sResolution) 
+    if self.iFlag_stream_burning_topology ==1:
+        sText = 'Stream topology: on'  
+    else:
+        sText = 'Stream topology: off'  
+    aLegend.append(sText) 
 
     if iFlag_type_in == 1: #point based
         #not yet implemented
@@ -46,17 +69,17 @@ def plot(self,
                                           pProjection_map_in= pProjection_map_in)
 
             else:
-                #for each basin
-                #polyline based, only flowline
-                
-                for pBasin in self.aBasin:
-                    pBasin.basin_plot(iFlag_type_in,
-                                      self.iMesh_type,
+                #for each basin                             
+
+                for pBasin in self.aBasin:                   
+                    pBasin.basin_plot(iFlag_type_in,                                    
                                       self.sMesh_type,
                                       iFlag_title_in= iFlag_title_in,
+                                      iFont_size_in =iFont_size_in,
                                       sVariable_in= sVariable_in,
                                       sFilename_output_in=sFilename_output_in,
                                       aExtent_in=aExtent_in,
+                                      aLegend_in = aLegend,
                                       pProjection_map_in = pProjection_map_in)
 
 
@@ -77,19 +100,27 @@ def plot(self,
                                                        sFilename_output_in=sFilename_output_in,
                                                        aExtent_in = aExtent_in,
                                                        pProjection_map_in = pProjection_map_in)
+                        
                     else:
                         #for each basin
                         #polygon based, only mesh
+
+
                         for pBasin in self.aBasin:
                             sFilename_mesh = pBasin.sFilename_variable_polygon
-                            pBasin.basin_plot( iFlag_type_in,
-                                              self.iMesh_type,
-                                              self.sMesh_type,                                              
+                            pBasin.basin_plot( iFlag_type_in,                                            
+                                              self.sMesh_type,      
+                                              iFont_size_in = iFont_size_in,     
+                                              iFlag_colorbar_in = iFlag_colorbar_in,                                   
                                               iFlag_title_in = iFlag_title_in,
+                                              iFlag_scientific_notation_colorbar_in=iFlag_scientific_notation_colorbar_in,
+                                              dData_min_in = dData_min_in,
+                                              dData_max_in = dData_max_in,
                                               sVariable_in = sVariable_in,
                                               sFilename_mesh_in = sFilename_mesh,
                                               sFilename_output_in = sFilename_output_in,
                                               aExtent_in = aExtent_in,
+                                              aLegend_in = aLegend,
                                               pProjection_map_in = pProjection_map_in)
 
                 pass
@@ -104,16 +135,18 @@ def plot(self,
                                                                      pProjection_map_in = pProjection_map_in)
                         return
                     else:                        
+                       
                         for pBasin in self.aBasin:
                             sFilename_mesh = pBasin.sFilename_variable_polygon
-                            pBasin.basin_plot(iFlag_type_in,                                                
-                                                  self.iMesh_type,
+                            pBasin.basin_plot(iFlag_type_in,    
                                                   self.sMesh_type,
                                                   sFilename_mesh_in = sFilename_mesh,
+                                                  iFont_size_in = iFont_size_in,
                                                   iFlag_title_in = iFlag_title_in,
                                                   sVariable_in = sVariable_in,
                                                   sFilename_output_in=sFilename_output_in,
                                                   aExtent_in = aExtent_in,
+                                                  aLegend_in = aLegend,
                                                   pProjection_map_in = pProjection_map_in)
 
                     pass
@@ -122,9 +155,11 @@ def plot(self,
                                                                           iFigwidth_in = iFigwidth_in,
                                                                           iFigheight_in = iFigheight_in,
                                                                           aExtent_in = aExtent_in,
+                                                                          aLegend_in = aLegend,
                                                                           pProjection_map_in = pProjection_map_in)
                     pass
 
+    print('Finished plotting:' + sFilename_output_in)
     return
 
 def _plot_flow_direction(self,
