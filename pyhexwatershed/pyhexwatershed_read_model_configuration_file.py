@@ -40,8 +40,11 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
     if sDggrid_type_in is not None:
         sDggrid_type = sDggrid_type_in
     else:
-        sDggrid_type = aConfig["sDggrid_type"]
-
+        if "sDggrid_type" in aConfig:            
+            sDggrid_type = aConfig["sDggrid_type"]
+        else:
+            sDggrid_type = 'ISEA3H'
+            
     if iCase_index_in is not None:
         iCase_index = iCase_index_in
     else:
@@ -51,7 +54,11 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
     if iResolution_index_in is not None:    
         iResolution_index = iResolution_index_in
     else:
-        iResolution_index = int( aConfig['iResolution_index'])
+        if "iResolution_index" in aConfig:            
+            iResolution_index =  int( aConfig['iResolution_index'])
+        else:
+            iResolution_index = 10
+      
         pass
 
     if iFlag_stream_burning_topology_in is not None:
@@ -96,6 +103,8 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
     oPyflowline = flowlinecase(aConfig ,  iFlag_standalone_in = 0,
                                sModel_in = 'pyflowline',
                                sWorkspace_output_in = oPyhexwatershed.sWorkspace_output_pyflowline)
+    
+    oPyhexwatershed.dResolution_meter = oPyflowline.dResolution_meter
 
     oPyhexwatershed.pPyFlowline = oPyflowline
 

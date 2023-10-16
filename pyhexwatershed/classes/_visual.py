@@ -11,6 +11,7 @@ def plot(self,
           iFlag_type_in = None,
           iFlag_title_in = None,
           iFlag_colorbar_in = None,
+          iFlag_openstreetmap_in = None,
           sVariable_in=None,
           sFilename_output_in=None,
           iFigwidth_in=None,
@@ -23,7 +24,7 @@ def plot(self,
           pProjection_map_in = None):
 
     aPolyline = ['flow_direction', 'stream_segment', 'stream_order' ]
-    aPolygon = ['elevation', 'drainage_area', 'slope', 'travel_distance']
+    aPolygon = ['area','elevation', 'drainage_area', 'slope', 'travel_distance']
     aMixed = ['flow_direction_with_mesh', 'flow_direction_with_observation']
     
 
@@ -42,9 +43,9 @@ def plot(self,
                 iFlag_type_in = 4
 
     aLegend = list()
-    sText = 'Case: ' + "{:0d}".format( int(self.iCase_index) ) 
-    aLegend.append(sText)
-    sText = 'Mesh type: ' + self.sMesh_type.title()
+    #sText = 'Case: ' + "{:0d}".format( int(self.iCase_index) ) 
+    #aLegend.append(sText)
+    sText = 'Mesh type: ' + self.sMesh_type.upper()
     aLegend.append(sText)
     if self.iMesh_type == 4:
         sResolution =  'Resolution: 3 ~ 10 km'
@@ -143,6 +144,7 @@ def plot(self,
                                                   sFilename_mesh_in = sFilename_mesh,
                                                   iFont_size_in = iFont_size_in,
                                                   iFlag_title_in = iFlag_title_in,
+                                                  iFlag_openstreetmap_in=   iFlag_openstreetmap_in,
                                                   sVariable_in = sVariable_in,
                                                   sFilename_output_in=sFilename_output_in,
                                                   aExtent_in = aExtent_in,
@@ -159,7 +161,7 @@ def plot(self,
                                                                           pProjection_map_in = pProjection_map_in)
                     pass
 
-    print('Finished plotting:' + sFilename_output_in)
+    print('Finished plotting!')
     return
 
 def _plot_flow_direction(self,

@@ -13,11 +13,6 @@ from osgeo import gdal, ogr, osr, gdalconst
 import numpy as np
 from pyflowline.classes.pycase import flowlinecase
 from pyflowline.classes.vertex import pyvertex
-from pyflowline.formats.read_flowline import read_flowline_geojson
-from pyflowline.formats.export_flowline import export_flowline_to_geojson
-from pyflowline.algorithms.split.find_flowline_confluence import find_flowline_confluence
-from pyflowline.algorithms.merge.merge_flowline import merge_flowline
-
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polyline import export_json_to_geojson_polyline
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polygon import export_json_to_geojson_polygon
 from pyhexwatershed.algorithms.auxiliary.merge_stream_edge_to_stream_segment import merge_stream_edge_to_stream_segment
@@ -106,10 +101,12 @@ class hexwatershedcase(object):
     if iFlag_visual is not None:
         from ._visual import plot
         from ._visual import _animate          
-        from ._hpc import _create_hpc_job
-        from ._hpc import _submit_hpc_job
+        
     else:
         pass
+
+    from ._hpc import _create_hpc_job
+    from ._hpc import _submit_hpc_job
 
     def __init__(self, aConfig_in):
         print('HexWatershed compset is being initialized')
@@ -381,6 +378,7 @@ class hexwatershedcase(object):
         for sKey in aSkip:
             obj.pop(sKey, None)
             pass
+        
         with open(sFilename_configuration, 'w', encoding='utf-8') as f:
             json.dump(obj, f,sort_keys=True, \
                 ensure_ascii=False, \
@@ -509,7 +507,7 @@ class hexwatershedcase(object):
         pSrs = osr.SpatialReference()  
         pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
         pDataset_elevation = gdal.Open(sFilename_dem_in, gdal.GA_ReadOnly)
-        aDem_in, dPixelWidth, dOriginX, dOriginY, \
+        aDem_in, dPixelWidth, pPixelHeight, dOriginX, dOriginY, \
             nrow, ncolumn,dMissing_value, pGeotransform, pProjection,  pSpatialRef_target = gdal_read_geotiff_file(sFilename_dem_in)
 
         #transform = osr.CoordinateTransformation(pSrs, pSpatialRef_target) 
@@ -517,7 +515,7 @@ class hexwatershedcase(object):
         dX_left=dOriginX
         dX_right = dOriginX + ncolumn * dPixelWidth
         dY_top = dOriginY
-        dY_bot = dOriginY - nrow * dPixelWidth
+        dY_bot = dOriginY - nrow * pPixelHeight
         if iFlag_resample_method == 2: #zonal mean
             for i in range( ncell):
                 pCell=  aCell_in[i]
@@ -775,7 +773,6 @@ class hexwatershedcase(object):
             if self.iFlag_multiple_outlet == 1:
                 pass
             else:
-                
                 self.pyhexwatershed_export_flow_direction() 
                 self.pyhexwatershed_export_stream_segment()
 
@@ -791,6 +788,41 @@ class hexwatershedcase(object):
                 pass
 
         return
+
+    def change_model_parameter(self, sVariable_in, dValue, iFlag_basin_in = None):
+        if iFlag_basin_in is None:
+            if hasattr(self, sVariable_in):
+                #get default data type                
+                sType_default = type(getattr(self, sVariable_in))
+                #get the data type of the input value
+                sType_input = type(dValue)
+                if sType_default == sType_input:      
+                    setattr(self, sVariable_in, dValue)                    
+                    pass   
+                else:
+                    print('Incorrect data type for the input value: ' + sVariable_in)
+                return True
+            else:
+                print("This model parameter is unknown, please check the full parameter list in the documentation: " + sVariable_in)
+                return False
+            
+            
+
+        else:
+            #this mean the variable is in the basin object
+            for pBasin in self.aBasin:
+                if hasattr(pBasin, sVariable_in):
+                    #get default data type
+                    sType_default = type(getattr(pBasin, sVariable_in))
+                    sType_input = type(dValue)
+                    if sType_default == sType_input:      
+                        setattr(pBasin, sVariable_in, dValue)
+                    else:
+                        print('Incorrect data type for the input value: ' + sVariable_in)                       
+                        return False
+                else:
+                    print("This model parameter is unknown, please check the full parameter list in the documentation: " + sVariable_in)
+                    return False
 
     def pyhexwatershed_export_stream_segment(self):
         """
@@ -835,7 +867,7 @@ class hexwatershedcase(object):
                     point['dLongitude_degree'] = pBasin_pyflowline.dLongitude_outlet_degree
                     point['dLatitude_degree'] = pBasin_pyflowline.dLatitude_outlet_degree
                     pVertex_outlet=pyvertex(point)
-                    aVariable_json_in = ['iStream_segment']
+                    aVariable_json_in = ['lStream_segment']
                     aVariable_geojson_out = ['stream_segment']
                     aVariable_type_out= [1]
                     export_json_to_geojson_polyline(sFilename_stream_edge, 
@@ -873,13 +905,13 @@ class hexwatershedcase(object):
                 sFilename_json = pBasin.sFilename_watershed_json
                 sFilename_geojson = pBasin.sFilename_flow_direction  
                
-                aVariable_json = ['iStream_segment','dDrainage_area']
+                aVariable_json = ['lStream_segment','dDrainage_area'] #new names
+                
                 aVariable_geojson =    ['stream_segment','drainage_area']
                 aVariable_type_out = [1, 2]
                 export_json_to_geojson_polyline(sFilename_json, sFilename_geojson,
                                                 aVariable_json, aVariable_geojson, aVariable_type_out)
         
-     
     def pyhexwatershed_export_elevation(self):
         """
 
@@ -969,13 +1001,13 @@ class hexwatershedcase(object):
                 sFilename_geojson = pBasin.sFilename_variable_polygon  
 
         if self.iMesh_type == 4: #mpas mesh
-            aVariable_json  = ['iSubbasin','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
-            aVariable_geojson = ['subbasin','elevation', 'slope', 'drainage_area','travel_distance']
+            aVariable_json  = ['lSubbasin','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
+            aVariable_geojson = ['subbasin','area','elevation', 'slope', 'drainage_area','travel_distance']
         else:
-            aVariable_json  = ['iSubbasin','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
-            aVariable_geojson = ['subbasin','elevation', 'slope', 'drainage_area','travel_distance']
+            aVariable_json  = ['lSubbasin','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled            
+            aVariable_geojson = ['subbasin','area','elevation', 'slope', 'drainage_area','travel_distance']
 
-        aVariable_type= [1,2,2,2,2]
+        aVariable_type= [1,2,2,2,2,2]
         export_json_to_geojson_polygon(sFilename_json,
                                         sFilename_geojson, 
                                         aVariable_json,

@@ -40,7 +40,11 @@ def _create_hpc_job(self, sSlurm_in=None):
                 ofs_pyhexwatershed.write(sLine)
                 sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=' \
                     + "{:0f}".format(self.pPyFlowline.aBasin[0].dLongitude_outlet_degree)+ '\n'   
-                ofs_pyhexwatershed.write(sLine)        
+                ofs_pyhexwatershed.write(sLine)   
+                sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dThreshold_small_river=' \
+                    + "{:0f}".format(self.pPyFlowline.aBasin[0].dThreshold_small_river)+ '\n'   
+                ofs_pyhexwatershed.write(sLine)     
+                  
     sLine = 'oPyhexwatershed.setup()' + '\n'   
     ofs_pyhexwatershed.write(sLine)
     sLine = 'aCell_origin = oPyhexwatershed.run_pyflowline()' + '\n'   
@@ -96,9 +100,9 @@ def _create_hpc_job(self, sSlurm_in=None):
     ofs.write(sLine)
     sLine = 'module load gcc/8.1.0' + '\n'
     ofs.write(sLine)
-    sLine = 'module load anaconda3/2019.03' + '\n'
+    sLine = 'module load python/miniconda4.12.0 ' + '\n'
     ofs.write(sLine)
-    sLine = 'source /share/apps/anaconda3/2019.03/etc/profile.d/conda.sh' + '\n'
+    sLine = 'source /share/apps/python/miniconda4.12.0/etc/profile.d/conda.sh' + '\n'
     ofs.write(sLine)    
     sLine = 'conda activate hexwatershed' + '\n'
     ofs.write(sLine)
