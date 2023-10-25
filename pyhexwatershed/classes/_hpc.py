@@ -1,6 +1,6 @@
 import os, stat
 from pathlib import Path
-def _create_hpc_job(self, sSlurm_in=None):
+def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
     """create a HPC job for this simulation
     """
     os.chdir(self.sWorkspace_output)
@@ -45,28 +45,28 @@ def _create_hpc_job(self, sSlurm_in=None):
                     + "{:0f}".format(self.pPyFlowline.aBasin[0].dThreshold_small_river)+ '\n'   
                 ofs_pyhexwatershed.write(sLine)     
                   
-    sLine = 'oPyhexwatershed.setup()' + '\n'   
+    sLine = 'oPyhexwatershed.pyhexwatershed_setup()' + '\n'   
     ofs_pyhexwatershed.write(sLine)
-    sLine = 'aCell_origin = oPyhexwatershed.run_pyflowline()' + '\n'   
+    sLine = 'aCell_origin = oPyhexwatershed.pyhexwatershed_run_pyflowline()' + '\n'   
     ofs_pyhexwatershed.write(sLine) 
     if self.iMesh_type !=4:            
-        sLine = 'aCell_out = oPyhexwatershed.assign_elevation_to_cells()' + '\n'   
+        sLine = 'oPyhexwatershed.pyhexwatershed_assign_elevation_to_cells()' + '\n'   
         ofs_pyhexwatershed.write(sLine)      
-        sLine = 'aCell_new = oPyhexwatershed.update_outlet(aCell_out, aCell_origin)' + '\n'   
+        sLine = 'aCell_new = oPyhexwatershed.pyhexwatershed_update_outlet(aCell_origin)' + '\n'   
         ofs_pyhexwatershed.write(sLine)       
     else:
         #possible has issue too
         
         pass    
-    sLine = 'oPyhexwatershed.pPyFlowline.export()' + '\n'   
+    sLine = 'oPyhexwatershed.pPyFlowline.pyhexwatershed_export()' + '\n'   
     ofs_pyhexwatershed.write(sLine)      
-    sLine = 'oPyhexwatershed.export_config_to_json()' + '\n'   
+    sLine = 'oPyhexwatershed.pyhexwatershed_export_config_to_json()' + '\n'   
     ofs_pyhexwatershed.write(sLine)   
-    sLine = 'oPyhexwatershed.run_hexwatershed()' + '\n'   
+    sLine = 'oPyhexwatershed.pyhexwatershed_run_hexwatershed()' + '\n'   
     ofs_pyhexwatershed.write(sLine)
-    sLine = 'oPyhexwatershed.analyze()' + '\n'   
+    sLine = 'oPyhexwatershed.pyhexwatershed_analyze()' + '\n'   
     ofs_pyhexwatershed.write(sLine)      
-    sLine = 'oPyhexwatershed.export()' + '\n'   
+    sLine = 'oPyhexwatershed.pyhexwatershed_export()' + '\n'   
     ofs_pyhexwatershed.write(sLine)
     ofs_pyhexwatershed.close()
     os.chmod(sFilename_pyhexwatershed, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)          
@@ -125,6 +125,6 @@ def _create_hpc_job(self, sSlurm_in=None):
     ofs.close()
     return
 
-def _submit_hpc_job(self):
+def _pyhexwatershed_submit_hpc_job(self):
     #this is not fully recommended as it may affect the environment variable
     return

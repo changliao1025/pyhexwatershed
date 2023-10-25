@@ -1,4 +1,4 @@
-import os
+import os, sys
 import stat
 import platform
 import pkg_resources
@@ -11,7 +11,10 @@ from json import JSONEncoder
 from pathlib import Path
 from osgeo import gdal, ogr, osr, gdalconst
 import numpy as np
+
+from pyflowline.classes.timer import pytimer
 from pyflowline.classes.pycase import flowlinecase
+from pyflowline.classes.basin import pybasin
 from pyflowline.classes.vertex import pyvertex
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polyline import export_json_to_geojson_polyline
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polygon import export_json_to_geojson_polygon
@@ -70,17 +73,14 @@ class hexwatershedcase(object):
     sFilename_flowline_info=''
     sFilename_basins=''     
     sFilename_hexwatershed_bin=''
-    sWorkspace_model_region=''   
-
     sFilename_elevation=''
     sFilename_slope=''
     sFilename_drainage_area=''
     sFilename_flow_direction='' 
     sFilename_distance_to_outlet=   ''
-
     sFilename_variable_polyline=''
     sFilename_variable_polygon=''
-  
+
     sRegion=''
     sModel=''
     iMesh_type ='mpas'
@@ -94,8 +94,8 @@ class hexwatershedcase(object):
     sWorkspace_input=''
     sWorkspace_output_pyflowline=''
     sWorkspace_output_hexwatershed=''
-    aBasin = list()
-    
+    sWorkspace_model_region=''     #is this variable used?
+    aBasin = list()   
     
     iFlag_visual = importlib.util.find_spec("cartopy")
     if iFlag_visual is not None:
@@ -104,9 +104,10 @@ class hexwatershedcase(object):
         
     else:
         pass
-
-    from ._hpc import _create_hpc_job
-    from ._hpc import _submit_hpc_job
+    
+    #hpc feature
+    from ._hpc import _pyhexwatershed_create_hpc_job
+    from ._hpc import _pyhexwatershed_submit_hpc_job
 
     def __init__(self, aConfig_in):
         print('HexWatershed compset is being initialized')
@@ -360,8 +361,8 @@ class hexwatershedcase(object):
 
         return sJson
 
-    def export_config_to_json(self, sFilename_out=None):  
-        self.pPyFlowline.export_basin_config_to_json()
+    def pyhexwatershed_export_config_to_json(self, sFilename_out=None):  
+        self.pPyFlowline.pyflowline_export_basin_config_to_json()
         self.sFilename_model_configuration = os.path.join(self.sWorkspace_output, 'configuration.json')
         self.sFilename_basins = self.pPyFlowline.sFilename_basins
         #save the configuration to a new file, which has the full path    
@@ -390,14 +391,15 @@ class hexwatershedcase(object):
         
         return
      
-    def setup(self):
+    def pyhexwatershed_setup(self):
+        print('Started setting up model')
+        ptimer = pytimer()
+        ptimer.start()        
         #setup the pyflowline
-        self.pPyFlowline.setup()
+        self.pPyFlowline.pyflowline_setup()
         #setup the hexwatershed
         system = platform.system()
-        iFlag_found_binary = 0
-        
-
+        iFlag_found_binary = 0 
         #if user provided the binary, then use the user provided binary
         if self.iFlag_user_provided_binary == 1:
             sFilename_executable = 'hexwatershed' 
@@ -440,25 +442,32 @@ class hexwatershedcase(object):
                 else:
                     iFlag_found_binary = 0       
             
-
+        ptimer.stop()
+        sys.stdout.flush()
         return
     
-    def run_pyflowline(self):
+    def pyhexwatershed_run_pyflowline(self):
         """
         Run the pyflowline submodel
 
         Returns:
             _type_: _description_
         """
-
-        aCell_out = self.pPyFlowline.run()
-
+        ptimer = pytimer()
+        print('Started running pyflowline')
+        ptimer.start()
+        aCell_out = self.pPyFlowline.pyflowline_run()
+        ptimer.stop()
+        sys.stdout.flush()
         return aCell_out
     
-    def run_hexwatershed(self):
+    def pyhexwatershed_run_hexwatershed(self):
         """
         Run the hexwatershed model
         """
+        print('Started running hexwatershed')
+        ptimer = pytimer()
+        ptimer.start()
         system = platform.system()
         if platform.system() == 'Windows':
             print('Running on a Windows system')
@@ -472,7 +481,7 @@ class hexwatershedcase(object):
         elif system == 'Linux':
             print('Running on a Unix-based system')
             #run the model using bash
-            self.generate_bash_script()
+            self.pyhexwatershed_generate_bash_script()
             os.chdir(self.sWorkspace_output_hexwatershed)            
             sCommand = "./run_hexwatershed.sh"
             print(sCommand)
@@ -489,16 +498,30 @@ class hexwatershedcase(object):
             p.wait()        
         else:
             print('Unknown operating system')
-            
+            pass
 
+        sys.stdout.flush()    
+        ptimer.stop()
         return
     
-    def assign_elevation_to_cells(self):
-        iMesh_type=self.iMesh_type
+    def pyhexwatershed_assign_elevation_to_cells(self):
+        """When there is no elevation in the meshm, a DEM file is
+        used to assign elevation for each mesh cell.
+        However, it is posselbe that a cell has no elevation because it is
+        not cover by the DEM raster file. 
+        In this case, the cell is removed from the mesh.
+        P.S. because of the removal, the outlet ID may be changed.
+
+        Returns:
+            _type_: _description_
+        """
+        print('Started assigning elevation')
+        ptimer = pytimer()
+        ptimer.start()        
         iFlag_resample_method= self.iFlag_resample_method
         sFilename_dem_in = self.sFilename_dem
         aCell_in=self.pPyFlowline.aCell
-        aCell_mid=list()
+        
         ncell = len(aCell_in)        
         pDriver_shapefile = ogr.GetDriverByName('ESRI Shapefile')
         pDriver_json = ogr.GetDriverByName('GeoJSON')
@@ -515,92 +538,16 @@ class hexwatershedcase(object):
         dX_left=dOriginX
         dX_right = dOriginX + ncolumn * dPixelWidth
         dY_top = dOriginY
-        dY_bot = dOriginY - nrow * pPixelHeight
-        if iFlag_resample_method == 2: #zonal mean
-            for i in range( ncell):
-                pCell=  aCell_in[i]
-                lCellID = pCell.lCellID
-                dLongitude_center_degree = pCell.dLongitude_center_degree
-                dLatitude_center_degree = pCell.dLatitude_center_degree
-                nVertex = pCell.nVertex
-
-                ring = ogr.Geometry(ogr.wkbLinearRing)
-                aX= list()
-                aY=list()
-                for j in range(nVertex):
-                    aX.append( pCell.aVertex[j].dLongitude_degree )
-                    aY.append( pCell.aVertex[j].dLatitude_degree )                               
-                    pass
-                aX.append( pCell.aVertex[0].dLongitude_degree )
-                aY.append( pCell.aVertex[0].dLatitude_degree )
-                aX_out,aY_out = reproject_coordinates_batch(aX,aY,pSrs,pSpatialRef_target)   
-                for j in range(nVertex + 1):
-                    x1 = aX_out[j]
-                    y1 = aY_out[j]                    
-                    ring.AddPoint(x1, y1)                
-                    pass                      
-       
-                pPolygon = ogr.Geometry(ogr.wkbPolygon)
-                pPolygon.AddGeometry(ring)
-                #pPolygon.AssignSpatialReference(pSpatialRef_target)
-                if os.path.exists(sFilename_shapefile_cut):   
-                    os.remove(sFilename_shapefile_cut)
-
-                pDataset3 = pDriver_shapefile.CreateDataSource(sFilename_shapefile_cut)
-                pLayerOut3 = pDataset3.CreateLayer('cell', pSpatialRef_target, ogr.wkbPolygon)    
-                pLayerDefn3 = pLayerOut3.GetLayerDefn()
-                pFeatureOut3 = ogr.Feature(pLayerDefn3)
-                pFeatureOut3.SetGeometry(pPolygon)  
-                pLayerOut3.CreateFeature(pFeatureOut3)    
-                pDataset3.FlushCache()
-
-                minX, maxX, minY, maxY = pPolygon.GetEnvelope()
-                iNewWidth = int( (maxX - minX) / abs(dPixelWidth)  )
-                iNewHeigh = int( (maxY - minY) / abs(dPixelWidth) )
-                newGeoTransform = (minX, dPixelWidth, 0,    maxY, 0, -dPixelWidth)  
-
-                if minX > dX_right or maxX < dX_left \
-                    or minY > dY_top or maxY < dY_bot:        
-                    #this polygon is out of bound            
-                    continue
-                else:         
-                    pDataset_clip = pDriver_memory.Create('', iNewWidth, iNewHeigh, 1, gdalconst.GDT_Float32)
-                    pDataset_clip.SetGeoTransform( newGeoTransform )
-                    pDataset_clip.SetProjection( pProjection)   
-                    pWrapOption = gdal.WarpOptions( cropToCutline=True,cutlineDSName = sFilename_shapefile_cut , \
-                            width=iNewWidth,   \
-                                height=iNewHeigh,      \
-                                    dstSRS=pProjection , format = 'MEM' )
-                    pDataset_clip = gdal.Warp('',pDataset_elevation, options=pWrapOption)
-                    pBand = pDataset_clip.GetRasterBand( 1 )
-                    dMissing_value = pBand.GetNoDataValue()
-                    aData_out = pBand.ReadAsArray(0,0,iNewWidth, iNewHeigh)
-
-                    aElevation = aData_out[np.where(aData_out !=dMissing_value)]                
-
-                    if(len(aElevation) >0 and np.mean(aElevation)!=-9999):                        
-                        dElevation =  float(np.mean(aElevation) )                          
-                        pCell.dElevation_mean =    dElevation  
-                        pCell.dz = dElevation  
-                        aCell_mid.append(pCell)
-                    else:                    
-                        pCell.dElevation_mean=-9999.0
-                        pass
-        
-        else:
+        dY_bot = dOriginY + nrow * pPixelHeight
+        aCell_dict = dict()
+        lCellIndex = 0
+        if iFlag_resample_method == 1:
             #the nearest resample method
-            for i in range( ncell):
-                pCell=  aCell_in[i]
-                lCellID = pCell.lCellID
-                dLongitude_center_degree = pCell.dLongitude_center_degree
-                dLatitude_center_degree = pCell.dLatitude_center_degree
-                x1 = dLongitude_center_degree
-                y1 = dLatitude_center_degree
-                dX_out,dY_out = reproject_coordinates(x1,y1,pSrs,pSpatialRef_target)   
-                dDummy1 = (dX_out - dX_left) / dPixelWidth
-                lColumn_index = int(dDummy1)
-                dDummy2 = (dY_top - dY_out) / dPixelWidth
-                lRow_index = int(dDummy2)
+            
+            for pCell in aCell_in:                           
+                dX_out,dY_out = reproject_coordinates(pCell.dLongitude_center_degree,pCell.dLatitude_center_degree,pSrs,pSpatialRef_target)   
+                lColumn_index = int((dX_out - dX_left) / dPixelWidth)            
+                lRow_index = int((dY_top - dY_out) / dPixelWidth)           
 
                 if lColumn_index >= ncolumn or lColumn_index < 0 \
                     or lRow_index >= nrow or lRow_index < 0:        
@@ -608,55 +555,126 @@ class hexwatershedcase(object):
                     continue
                 else:         
                     dElevation = aDem_in[lRow_index, lColumn_index]     
-                    if( dElevation!=-9999):     
+                    if( dElevation!=dMissing_value):     
                         pCell.dElevation_mean =    dElevation  
-                        pCell.dz = dElevation  
-                        aCell_mid.append(pCell)
+                        pCell.dz = dElevation   
+                        aCell_dict[pCell.lCellID] = lCellIndex
+                        lCellIndex = lCellIndex + 1
+                        
                     else:                    
                         pCell.dElevation_mean=-9999.0
                         pass
             pass
 
+        else:
+            if iFlag_resample_method == 2:
+                for pCell in aCell_in:                                        
+                    nVertex = pCell.nVertex
+                    ring = ogr.Geometry(ogr.wkbLinearRing)
+                    aX= list()
+                    aY=list()
+                    for j in range(nVertex):
+                        aX.append( pCell.aVertex[j].dLongitude_degree )
+                        aY.append( pCell.aVertex[j].dLatitude_degree )                               
+                        pass
+                    aX.append( pCell.aVertex[0].dLongitude_degree )
+                    aY.append( pCell.aVertex[0].dLatitude_degree )
+                    aX_out,aY_out = reproject_coordinates_batch(aX,aY,pSrs,pSpatialRef_target)   
+                    for j in range(nVertex + 1):
+                        x1 = aX_out[j]
+                        y1 = aY_out[j]                    
+                        ring.AddPoint(x1, y1)                
+                        pass                      
+                    
+                    pPolygon = ogr.Geometry(ogr.wkbPolygon)
+                    pPolygon.AddGeometry(ring)
+                    #pPolygon.AssignSpatialReference(pSpatialRef_target)
+                    if os.path.exists(sFilename_shapefile_cut):   
+                        os.remove(sFilename_shapefile_cut)
+
+                    pDataset3 = pDriver_shapefile.CreateDataSource(sFilename_shapefile_cut)
+                    pLayerOut3 = pDataset3.CreateLayer('cell', pSpatialRef_target, ogr.wkbPolygon)    
+                    pLayerDefn3 = pLayerOut3.GetLayerDefn()
+                    pFeatureOut3 = ogr.Feature(pLayerDefn3)
+                    pFeatureOut3.SetGeometry(pPolygon)  
+                    pLayerOut3.CreateFeature(pFeatureOut3)    
+                    pDataset3.FlushCache()
+
+                    minX, maxX, minY, maxY = pPolygon.GetEnvelope()
+                    iNewWidth = int( (maxX - minX) / abs(dPixelWidth)  )
+                    iNewHeigh = int( (maxY - minY) / abs(dPixelWidth) )
+                    newGeoTransform = (minX, dPixelWidth, 0,    maxY, 0, -dPixelWidth)  
+
+                    if minX > dX_right or maxX < dX_left \
+                        or minY > dY_top or maxY < dY_bot:        
+                        #this polygon is out of bound            
+                        continue
+                    else:         
+                        pDataset_clip = pDriver_memory.Create('', iNewWidth, iNewHeigh, 1, gdalconst.GDT_Float32)
+                        pDataset_clip.SetGeoTransform( newGeoTransform )
+                        pDataset_clip.SetProjection( pProjection)   
+                        pWrapOption = gdal.WarpOptions( cropToCutline=True,cutlineDSName = sFilename_shapefile_cut , \
+                                width=iNewWidth,   \
+                                    height=iNewHeigh,      \
+                                        dstSRS=pProjection , format = 'MEM' )
+                        pDataset_clip = gdal.Warp('',pDataset_elevation, options=pWrapOption)
+                        pBand = pDataset_clip.GetRasterBand( 1 )
+                        dMissing_value = pBand.GetNoDataValue()
+                        aData_out = pBand.ReadAsArray(0,0,iNewWidth, iNewHeigh)
+
+                        aElevation = aData_out[np.where(aData_out !=dMissing_value)]                
+
+                        if(len(aElevation) >0 and np.mean(aElevation)!=-9999):                        
+                            dElevation =  float(np.mean(aElevation) )                          
+                            pCell.dElevation_mean =    dElevation  
+                            pCell.dz = dElevation  
+                            aCell_dict[pCell.lCellID] = lCellIndex
+                            lCellIndex = lCellIndex + 1
+                        else:                    
+                            pCell.dElevation_mean=-9999.0
+                            pass
+
+            else:
+                #other resampling method
+                pass          
+
         #update neighbor because not all cells have elevation now
-        ncell = len(aCell_mid)
-        aCellID  = list()
-        for i in range(ncell):
-            pCell = aCell_mid[i]
-            lCellID = pCell.lCellID
-            aCellID.append(lCellID)
+        
 
         aCell_out=list()
         #if a cell has no elevation and was removed earlier, 
         #it should be removed from the land neighbor list
         #but the distance list remained the same.
-        for i in range(ncell):
-            pCell = aCell_mid[i]
-            aNeighbor_land = pCell.aNeighbor_land
-            aNeighbor_distance = pCell.aNeighbor_distance
-            nNeighbor_land = pCell.nNeighbor_land
-            aNeighbor_new = list()
-            #aNeighbor_distance_new = list()
-            nNeighbor_new = 0 
-            for j in range(nNeighbor_land):
-                lNeighbor = int(aNeighbor_land[j])
-                if lNeighbor in aCellID:
-                    nNeighbor_new = nNeighbor_new +1 
-                    aNeighbor_new.append(lNeighbor)
-                    #aNeighbor_distance_new.append(aNeighbor_distance[j])
-
-            
-            pCell.nNeighbor_land= len(aNeighbor_new)
-            pCell.aNeighbor_land = aNeighbor_new
-            #pCell.aNeighbor_distance = aNeighbor_distance_new
-            aCell_out.append(pCell)
+        for pCell in aCell_in:
+            if pCell.lCellID in aCell_dict:
+                aNeighbor_land = pCell.aNeighbor_land
+                aNeighbor_new = [neighbor for neighbor in aNeighbor_land if neighbor in aCell_dict]
+                pCell.aNeighbor_land = aNeighbor_new
+                pCell.nNeighbor_land = len(aNeighbor_new)            
+                aCell_out.append(pCell)
 
         #update the cell information
         self.pPyFlowline.aCell= aCell_out
+        ptimer.stop()
+        sys.stdout.flush()
         return aCell_out
         
-    def update_outlet(self, aCell_elevation, aCell_origin):
+    def pyhexwatershed_update_outlet(self, aCell_origin):
+        """update the outlet location if the outlet is not in the mesh anymore
+        Because the orginal mesh does not have elevation information, it must remain unchanged.
+
+
+        Args:            
+            aCell_origin (_type_): The original mesh cells produced by pyflowline
+
+        Returns:
+            _type_: _description_
+        """
         #after the elevation assignment, it is possible that the outlet has no elevation
-        
+        print('Started updating outlet')
+        ptimer = pytimer()
+        ptimer.start()
+        aCell_elevation = self.pPyFlowline.aCell
         aCell_remove = list()
         def search_upstream(lCellID_in):
             for pCell_temp in aCell_origin:
@@ -673,11 +691,11 @@ class hexwatershedcase(object):
                     if pCell_temp.dElevation_mean == -9999:
                         iFlag_error = 1
                         break
+                    
             if iFlag_error ==1:              
                 iFlag_found = 0
                 lCellID_current = lCellID_outlet
                 while(iFlag_found ==0 ):
-
                     lOutletID_next  = search_upstream(lCellID_current)
                     for pCell_temp in self.pPyFlowline.aCell:
                         if pCell_temp.lCellID == lOutletID_next:
@@ -695,16 +713,19 @@ class hexwatershedcase(object):
 
             pass
 
-        for pCell in aCell_elevation:
-            lCellID = pCell.lCellID
-            if lCellID in aCell_remove:
-                aCell_elevation.remove(pCell)
+        if len(aCell_remove) >0:
+            for pCell in aCell_elevation:
+                lCellID = pCell.lCellID
+                if lCellID in aCell_remove:
+                    aCell_elevation.remove(pCell)
+
+        ptimer.stop()
 
         self.pPyFlowline.aCell = aCell_elevation
-
+        sys.stdout.flush()
         return
 
-    def generate_bash_script(self):       
+    def pyhexwatershed_generate_bash_script(self):       
         sName  = 'configuration.json'
         sFilename_configuration  =  os.path.join( self.sWorkspace_output,  sName )
         os.chdir(self.sWorkspace_output_hexwatershed)    
@@ -755,16 +776,18 @@ class hexwatershedcase(object):
             os.chmod(sFilename_bash, stat.S_IRWXU )     
         return
     
-    def analyze(self):
+    def pyhexwatershed_analyze(self):
         #a list of analysis was done within the C++ backend
         #additional analysis can be implemented here
         return
 
-    def export(self):   
+    def pyhexwatershed_export(self):   
         """
         #https://hexwatershed.readthedocs.io/en/latest/application/application.html#simulation-results
         """        
-        
+        print('Started export results')
+        ptimer = pytimer()
+        ptimer.start()
         #polyline
 
         if self.iFlag_global==1: #we do not have the polyline information
@@ -773,6 +796,8 @@ class hexwatershedcase(object):
             if self.iFlag_multiple_outlet == 1:
                 pass
             else:
+                #if the pyflowline does not turn on flowline,
+                #then we need to include at least one watershed
                 self.pyhexwatershed_export_flow_direction() 
                 self.pyhexwatershed_export_stream_segment()
 
@@ -786,10 +811,12 @@ class hexwatershedcase(object):
                 self.pyhexwatershed_export_all_polygon_variables()
                 #self.pyhexwatershed_export_all_polyline_variables()
                 pass
-
+        
+        ptimer.stop()
+        sys.stdout.flush()
         return
 
-    def change_model_parameter(self, sVariable_in, dValue, iFlag_basin_in = None):
+    def pyhexwatershed_change_model_parameter(self, sVariable_in, dValue, iFlag_basin_in = None):
         if iFlag_basin_in is None:
             if hasattr(self, sVariable_in):
                 #get default data type                
@@ -986,9 +1013,8 @@ class hexwatershedcase(object):
         """
         if self.iFlag_global==1:
             sFilename_json = self.sFilename_hexwatershed_json
-            sFilename_geojson = self.sFilename_variable_polygon
-             
-
+            sFilename_geojson = self.sFilename_variable_polygon           
+            pass
         else:
             if self.iFlag_multiple_outlet==1:
                 sFilename_json = self.sFilename_hexwatershed_json

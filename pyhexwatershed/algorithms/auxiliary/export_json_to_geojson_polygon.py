@@ -72,6 +72,8 @@ def export_json_to_geojson_polygon(sFilename_json_in,
                 x = vVertex[j]['dLongitude_degree']
                 y = vVertex[j]['dLatitude_degree']
                 ring.AddPoint(x, y)
+                pass
+            
             x = vVertex[0]['dLongitude_degree']
             y = vVertex[0]['dLatitude_degree']
             ring.AddPoint(x, y)

@@ -51,40 +51,43 @@ def export_json_to_geojson_polyline(sFilename_json_in,
     pFeature = ogr.Feature(pLayerDefn)
     with open(sFilename_json_in) as json_file:
         data = json.load(json_file)  
-        ncell = len(data)
-        lLineID =0 
-        for i in range(ncell):
-            pcell = data[i]
-            lCellID = int(pcell['lCellID']) #this is the cell id
+        ncell = len(data)      
+        cell_dict = {int(pcell['lCellID']): pcell for pcell in data}
+        lLineID = 0
+
+        for pcell in data:
+            lCellID = int(pcell['lCellID'])
             lCellID_downslope = int(pcell['lCellID_downslope'])
-            x_start=float(pcell['dLongitude_center_degree'])
-            y_start=float(pcell['dLatitude_center_degree'])
+            x_start = float(pcell['dLongitude_center_degree'])
+            y_start = float(pcell['dLatitude_center_degree'])
 
             for k in range(nField_out):
                 iDataType = aVariable_type_out[k]
                 if iDataType == 1:
-                    dValue = int(pcell[aVariable_json_in[k]])   
-                else:                     
+                    dValue = int(pcell[aVariable_json_in[k]])
+                else:
                     dValue = float(pcell[aVariable_json_in[k]])
 
-            for j in range(ncell):
-                pcell2 = data[j]
-                lCellID2 = int(pcell2['lCellID'])
-                if lCellID2 == lCellID_downslope:
-                    x_end=float(pcell2['dLongitude_center_degree'])
-                    y_end=float(pcell2['dLatitude_center_degree'])
-                    pLine = ogr.Geometry(ogr.wkbLineString)
-                    pLine.AddPoint(x_start, y_start)
-                    pLine.AddPoint(x_end, y_end)
-                    pFeature.SetGeometry(pLine)
-                    pFeature.SetField("lineid", lLineID)
-                    
-                    for k in range(nField_out):                        
-                        pFeature.SetField(aVariable_geojson_out[k].lower(), dValue)
-                   
-                    pLayer.CreateFeature(pFeature)
-                    lLineID = lLineID + 1
-                    break           
+            pcell2 = cell_dict.get(lCellID_downslope, None)
+            if pcell2:
+                x_end = float(pcell2['dLongitude_center_degree'])
+                y_end = float(pcell2['dLatitude_center_degree'])
+
+                #line = [x_start, y_start, x_end, y_end]
+                #feature = {"lineid": lLineID, "geometry": line}
+
+                pLine = ogr.Geometry(ogr.wkbLineString)
+                pLine.AddPoint(x_start, y_start)
+                pLine.AddPoint(x_end, y_end)
+                pFeature.SetGeometry(pLine)
+                pFeature.SetField("lineid", lLineID)
+
+                for k in range(nField_out):                        
+                    pFeature.SetField(aVariable_geojson_out[k].lower(), dValue)
+
+                pLayer.CreateFeature(pFeature)
+                lLineID = lLineID + 1       
+               
                         
     #delete and write to dick                    
     pFac_field =None

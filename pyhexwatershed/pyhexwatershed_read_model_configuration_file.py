@@ -105,19 +105,27 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
                                sWorkspace_output_in = oPyhexwatershed.sWorkspace_output_pyflowline)
     
     oPyhexwatershed.dResolution_meter = oPyflowline.dResolution_meter
-
     oPyhexwatershed.pPyFlowline = oPyflowline
-
     oPyhexwatershed.aBasin.clear()
 
     #set up the basin object
-    with open(oPyhexwatershed.sFilename_basins) as json_file:
-        dummy_data = json.load(json_file)
-        for i in range(oPyhexwatershed.nOutlet):
-            sBasin =  "{:08d}".format(i+1)
-            dummy_basin = dummy_data[i]
-            dummy_basin['sWorkspace_output_basin'] = str(Path(oPyhexwatershed.sWorkspace_output_hexwatershed) / sBasin )
-            pBasin = pybasin(dummy_basin)
-            oPyhexwatershed.aBasin.append(pBasin)
+    #check flowline flag 
+    if oPyhexwatershed.iFlag_flowline == 1:
+        with open(oPyhexwatershed.sFilename_basins) as json_file:
+            dummy_data = json.load(json_file)
+            for i in range(oPyhexwatershed.nOutlet):
+                sBasin =  "{:08d}".format(i+1)
+                dummy_basin = dummy_data[i]
+                dummy_basin['sWorkspace_output_basin'] = str(Path(oPyhexwatershed.sWorkspace_output_hexwatershed) / sBasin )
+                pBasin = pybasin(dummy_basin)
+                oPyhexwatershed.aBasin.append(pBasin)
+    else:
+        #just add one
+        sBasin =  "{:08d}".format(1)
+        dummy_basin = dict()
+        dummy_basin['sWorkspace_output_basin'] = str(Path(oPyhexwatershed.sWorkspace_output_hexwatershed) / sBasin )
+        pBasin = pybasin(dummy_basin)
+        oPyhexwatershed.aBasin.append(pBasin)
+
 
     return oPyhexwatershed
