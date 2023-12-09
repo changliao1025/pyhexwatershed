@@ -24,8 +24,8 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
         + 'iResolution_index_in='+ str(self.iResolution_index) + ',' \
         + 'dResolution_meter_in=' + "{:0f}".format(self.dResolution_meter)+ ',' \
         + 'sDggrid_type_in="'+ str(self.sDggrid_type) + '",' \
-        +  'sDate_in="'+ str(self.sDate) + '",' \
-        +  'sMesh_type_in="'+ str(self.sMesh_type) +'"' \
+        + 'sDate_in="'+ str(self.sDate) + '",' \
+        + 'sMesh_type_in="'+ str(self.sMesh_type) +'"' \
         + ')'  +   '\n'   
     ofs_pyhexwatershed.write(sLine)
     if self.iFlag_global == 1:
@@ -58,7 +58,7 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
         #possible has issue too
         
         pass    
-    sLine = 'oPyhexwatershed.pPyFlowline.pyhexwatershed_export()' + '\n'   
+    sLine = 'oPyhexwatershed.pPyFlowline.pyflowline_export()' + '\n'   
     ofs_pyhexwatershed.write(sLine)      
     sLine = 'oPyhexwatershed.pyhexwatershed_export_config_to_json()' + '\n'   
     ofs_pyhexwatershed.write(sLine)   

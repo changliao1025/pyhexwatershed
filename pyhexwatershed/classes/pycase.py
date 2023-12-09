@@ -19,7 +19,9 @@ from pyflowline.classes.vertex import pyvertex
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polyline import export_json_to_geojson_polyline
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polygon import export_json_to_geojson_polygon
 from pyhexwatershed.algorithms.auxiliary.merge_stream_edge_to_stream_segment import merge_stream_edge_to_stream_segment
-from pyflowline.external.pyearth.gis.gdal.gdal_functions import gdal_read_geotiff_file, reproject_coordinates, reproject_coordinates_batch
+from pyearth.gis.spatialref.reproject_coodinates import reproject_coordinates, reproject_coordinates_batch
+from pyearth.gis.gdal.read.raster.gdal_read_geotiff_file import gdal_read_geotiff_file
+from pyearth.toolbox.data.geoparquet.convert_geojson_to_geoparquet import convert_geojson_to_geoparquet
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
@@ -530,9 +532,19 @@ class hexwatershedcase(object):
         pSrs = osr.SpatialReference()  
         pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
         pDataset_elevation = gdal.Open(sFilename_dem_in, gdal.GA_ReadOnly)
-        aDem_in, dPixelWidth, pPixelHeight, dOriginX, dOriginY, \
-            nrow, ncolumn,dMissing_value, pGeotransform, pProjection,  pSpatialRef_target = gdal_read_geotiff_file(sFilename_dem_in)
+        dummy = gdal_read_geotiff_file(sFilename_dem_in)
 
+        aDem_in= dummy['dataOut']
+        dPixelWidth = dummy['pixelWidth']                        
+        pPixelHeight = dummy['pixelHeight']
+        dOriginX = dummy['originX']
+        dOriginY = dummy['originY']
+        nrow = dummy['nrow']
+        ncolumn = dummy['ncolumn']
+        dMissing_value= dummy['missingValue']
+        #pGeotransform = dummy['geotransform']
+        pProjection = dummy['projection']
+        pSpatialRef_target = dummy['spatialReference']
         #transform = osr.CoordinateTransformation(pSrs, pSpatialRef_target) 
         #get raster extent 
         dX_left=dOriginX
@@ -938,6 +950,9 @@ class hexwatershedcase(object):
                 aVariable_type_out = [1, 2]
                 export_json_to_geojson_polyline(sFilename_json, sFilename_geojson,
                                                 aVariable_json, aVariable_geojson, aVariable_type_out)
+                
+                #convert to geoparquet for visualization 
+                convert_geojson_to_geoparquet(sFilename_geojson, sFilename_geojson.replace('.geojson','.parquet'))
         
     def pyhexwatershed_export_elevation(self):
         """
@@ -1039,4 +1054,8 @@ class hexwatershedcase(object):
                                         aVariable_json,
                                         aVariable_geojson,
                                         aVariable_type)
+        
+        #convert to geoparquet for visualization
+        convert_geojson_to_geoparquet(sFilename_geojson, sFilename_geojson.replace('.geojson','.parquet'))
+        
         return

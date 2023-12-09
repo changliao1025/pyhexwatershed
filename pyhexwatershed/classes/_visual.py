@@ -1,11 +1,10 @@
-import os, stat
-import json
+import os
 from pathlib import Path
 
-from pyflowline.external.pyearth.toolbox.reader.text_reader_string import text_reader_string
-from pyflowline.external.pyearth.visual.map.map_vector_polygon_data import map_vector_polygon_data
-from pyflowline.external.pyearth.visual.map.map_vector_polyline_data import map_vector_polyline_data
-from pyflowline.external.pyearth.visual.map.map_multiple_vector_data import map_multiple_vector_data
+from pyearth.toolbox.reader.text_reader_string import text_reader_string
+from pyearth.visual.map.vector.map_vector_polygon_data import map_vector_polygon_data
+from pyearth.visual.map.vector.map_vector_polyline_data import map_vector_polyline_data
+from pyearth.visual.map.vector.map_multiple_vector_data import map_multiple_vector_data
 
 def plot(self,
           iFlag_type_in = None,
