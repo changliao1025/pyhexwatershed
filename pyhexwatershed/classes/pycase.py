@@ -1042,13 +1042,13 @@ class hexwatershedcase(object):
                 sFilename_geojson = pBasin.sFilename_variable_polygon  
 
         if self.iMesh_type == 4: #mpas mesh
-            aVariable_json  = ['lSubbasin','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
-            aVariable_geojson = ['subbasin','area','elevation', 'slope', 'drainage_area','travel_distance']
+            aVariable_json  = ['lSubbasin','lHillslope','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
+            aVariable_geojson = ['subbasin','hillslope','area','elevation', 'slope', 'drainage_area','travel_distance']
         else:
-            aVariable_json  = ['lSubbasin','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled            
-            aVariable_geojson = ['subbasin','area','elevation', 'slope', 'drainage_area','travel_distance']
+            aVariable_json  = ['lSubbasin','lHillslope','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled            
+            aVariable_geojson = ['subbasin','hillslope','area','elevation', 'slope', 'drainage_area','travel_distance']
 
-        aVariable_type= [1,2,2,2,2,2]
+        aVariable_type= [1,1,2,2,2,2,2]
         export_json_to_geojson_polygon(sFilename_json,
                                         sFilename_geojson, 
                                         aVariable_json,

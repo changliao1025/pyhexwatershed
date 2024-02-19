@@ -45,6 +45,11 @@ Copyright © 2022, Battelle Memorial Institute
 
 There are a number of publications that describe the algorithms used in `HexWatershed` in detail. If you make use of `HexWatershed` in your work, please consider including a reference to the following:
 
+* Liao, Chang, Cooper, M. G. PyFlowline a mesh independent river network generator for hydrologic models. Journal of Open Source Software. https://doi.org/10.21105/joss.05446
+
+Liao, Chang, Zhou, T., Xu, D., Tan, Z., Bisht, G., Cooper, M. G., et al. (2023). Topological relationship-based flow direction modeling: Stream burning and depression filling. Journal of Advances in Modeling Earth Systems, 15, e2022MS003487. https://doi.org/10.1029/2022MS003487
+
+* Liao, Chang, Zhou, T., Xu, D., Cooper, M. G., Engwirda, D., Li, H.-Y., Leung, L. R. (2023). Topological relationship-based flow direction modeling: Mesh-independent river networks representation. Journal of Advances in Modeling Earth Systems, 15, e2022MS003089. https://doi.org/10.1029/2022MS003089
 
 * Liao, Chang, Tian Zhou, Donghui Xu, Richard Barnes, Gautam Bisht, Hong-Yi Li, Zeli Tan, et al. (02/2022AD) 2022. “Advances In Hexagon Mesh-Based Flow Direction Modeling”. Advances In Water Resources 160. Elsevier BV: 104099. 
 https://doi.org/10.1016/j.advwatres.2021.104099.
