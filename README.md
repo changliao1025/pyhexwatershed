@@ -47,7 +47,7 @@ There are a number of publications that describe the algorithms used in `HexWate
 
 * Liao, Chang, Cooper, M. G. PyFlowline a mesh independent river network generator for hydrologic models. Journal of Open Source Software. https://doi.org/10.21105/joss.05446
 
-Liao, Chang, Zhou, T., Xu, D., Tan, Z., Bisht, G., Cooper, M. G., et al. (2023). Topological relationship-based flow direction modeling: Stream burning and depression filling. Journal of Advances in Modeling Earth Systems, 15, e2022MS003487. https://doi.org/10.1029/2022MS003487
+* Liao, Chang, Zhou, T., Xu, D., Tan, Z., Bisht, G., Cooper, M. G., et al. (2023). Topological relationship-based flow direction modeling: Stream burning and depression filling. Journal of Advances in Modeling Earth Systems, 15, e2022MS003487. https://doi.org/10.1029/2022MS003487
 
 * Liao, Chang, Zhou, T., Xu, D., Cooper, M. G., Engwirda, D., Li, H.-Y., Leung, L. R. (2023). Topological relationship-based flow direction modeling: Mesh-independent river networks representation. Journal of Advances in Modeling Earth Systems, 15, e2022MS003089. https://doi.org/10.1029/2022MS003089
 
