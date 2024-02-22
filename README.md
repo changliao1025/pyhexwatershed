@@ -45,7 +45,8 @@ Copyright © 2022, Battelle Memorial Institute
 
 There are a number of publications that describe the algorithms used in `HexWatershed` in detail. If you make use of `HexWatershed` in your work, please consider including a reference to the following:
 
-* Liao, Chang, Cooper, M. G. PyFlowline a mesh independent river network generator for hydrologic models. Journal of Open Source Software. https://doi.org/10.21105/joss.05446
+
+#### `Scientific Publications`
 
 * Liao, Chang, Zhou, T., Xu, D., Tan, Z., Bisht, G., Cooper, M. G., et al. (2023). Topological relationship-based flow direction modeling: Stream burning and depression filling. Journal of Advances in Modeling Earth Systems, 15, e2022MS003487. https://doi.org/10.1029/2022MS003487
 
@@ -56,9 +57,18 @@ https://doi.org/10.1016/j.advwatres.2021.104099.
 
 * Liao, C., Tesfa, T., Duan, Z., & Leung, L. R. (2020). Watershed delineation on a hexagonal mesh grid. Environmental Modelling & Software, 128, 104702. https://doi.org/10.1016/j.envsoft.2020.104702
 
+
+#### `Software`
+
+* Liao, Chang, Cooper, M. G. PyFlowline a mesh independent river network generator for hydrologic models. Journal of Open Source Software. https://doi.org/10.21105/joss.05446
+
 * Liao. C. (2022) Pyflowline: a mesh independent river network generator for hydrologic models. Zenodo.
 https://doi.org/10.5281/zenodo.6407299
 
 * Liao. C. (2022). HexWatershed: a mesh independent flow direction model for hydrologic models (0.1.1). Zenodo. https://doi.org/10.5281/zenodo.6425881
+
+
+For a full list of references including applications of HexWatershed in other projects, please refer to the <a href="https://hexwatershed.readthedocs.io/en/latest/">`documentation`</a>.
+
 
 

@@ -72,6 +72,7 @@ class hexwatershedcase(object):
     sFilename_model_configuration=''
     sFilename_mesh=''
     sFilename_mesh_info=''
+    sFilename_mesh_boundary=''
     sFilename_flowline_info=''
     sFilename_basins=''     
     sFilename_hexwatershed_bin=''
@@ -218,6 +219,15 @@ class hexwatershedcase(object):
 
         if 'sFilename_mesh_netcdf' in aConfig_in:
             self.sFilename_mesh_netcdf = aConfig_in['sFilename_mesh_netcdf']
+
+        if 'sFilename_mesh_boundary' in aConfig_in:
+            self.sFilename_mesh_boundary    = aConfig_in[ 'sFilename_mesh_boundary']
+
+            if self.iFlag_mesh_boundary==1:
+                if not os.path.isfile(self.sFilename_mesh_boundary ):
+                    print("The mesh boundary file does not exist, you should update this parameter before running the model!")
+                    #exit()
+                pass
 
         if self.iFlag_user_provided_binary == 1:
             print('The model will use the user provided binary file')
@@ -477,7 +487,8 @@ class hexwatershedcase(object):
             self.generate_bash_script()
             os.chdir(self.sWorkspace_output_hexwatershed)            
             sCommand = "./run_hexwatershed.bat"
-            print(sCommand)
+            #print(sCommand)
+            sys.stdout.flush()
             p = subprocess.Popen(sCommand, shell= True)
             p.wait()           
         elif system == 'Linux':
@@ -486,7 +497,8 @@ class hexwatershedcase(object):
             self.pyhexwatershed_generate_bash_script()
             os.chdir(self.sWorkspace_output_hexwatershed)            
             sCommand = "./run_hexwatershed.sh"
-            print(sCommand)
+            #print(sCommand)
+            sys.stdout.flush()
             p = subprocess.Popen(sCommand, shell= True)
             p.wait()
         elif system == 'Darwin':     
@@ -495,7 +507,8 @@ class hexwatershedcase(object):
             self.generate_bash_script()
             os.chdir(self.sWorkspace_output_hexwatershed)            
             sCommand = "./run_hexwatershed.sh"
-            print(sCommand)
+            #print(sCommand)
+            sys.stdout.flush()
             p = subprocess.Popen(sCommand, shell= True)
             p.wait()        
         else:
