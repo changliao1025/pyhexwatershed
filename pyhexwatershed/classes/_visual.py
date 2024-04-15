@@ -6,6 +6,8 @@ from pyearth.visual.map.vector.map_vector_polygon_data import map_vector_polygon
 from pyearth.visual.map.vector.map_vector_polyline_data import map_vector_polyline_data
 from pyearth.visual.map.vector.map_multiple_vector_data import map_multiple_vector_data
 
+from pyearth.visual.animate.animate_vector_polygon_data import animate_vector_polygon_data
+
 def plot(self,
           iFlag_type_in = None,
           iFlag_title_in = None,
@@ -17,14 +19,14 @@ def plot(self,
           iFigheight_in=None,
           iFont_size_in=None,
           iFlag_scientific_notation_colorbar_in=None,
-           dData_min_in = None,
-           dData_max_in = None,
+          dData_min_in = None,
+          dData_max_in = None,
           aExtent_in = None,
           pProjection_map_in = None):
 
-    aPolyline = ['flow_direction', 'stream_segment', 'stream_order' ]
-    aPolygon = ['area','elevation', 'drainage_area', 'slope', 'travel_distance']
-    aMixed = ['flow_direction_with_mesh', 'flow_direction_with_observation']
+    aPolyline = ['flow_direction', 'stream_segment', 'stream_order','flowline_filter' ]
+    aPolygon = ['area','elevation', 'drainage_area', 'slope', 'travel_distance', 'hillslope']
+    aMixed = ['flow_direction_with_mesh', 'flow_direction_with_observation','hillslope_with_flow_direction']
     
 
     if iFlag_title_in is None:
@@ -49,7 +51,11 @@ def plot(self,
     if self.iMesh_type == 4:
         sResolution =  'Resolution: 3 ~ 10 km'
     else:
-        sResolution =  'Resolution: ' + "{:0d}".format( int(self.dResolution_meter/1000) ) + ' km'
+        if self.dResolution_meter > 1000:
+            sResolution =  'Resolution: ' + "{:0d}".format( int(self.dResolution_meter/1000) ) + ' km'
+        else:
+            sResolution =  'Resolution: ' + "{:0d}".format( int(self.dResolution_meter) ) + ' m'
+
     aLegend.append(sResolution) 
     if self.iFlag_stream_burning_topology ==1:
         sText = 'Stream topology: on'  
@@ -89,8 +95,7 @@ def plot(self,
                     self._plot_mesh(sFilename_output_in=sFilename_output_in,
                                     aExtent_in = aExtent_in,
                                     pProjection_map_in = pProjection_map_in)
-                else:
-                    
+                else:                    
                     if self.iFlag_multiple_outlet == 1:
                         sFilename_mesh = self.sFilename_mesh
                         self._plot_mesh_with_variable( sVariable_in,
@@ -104,8 +109,6 @@ def plot(self,
                     else:
                         #for each basin
                         #polygon based, only mesh
-
-
                         for pBasin in self.aBasin:
                             sFilename_mesh = pBasin.sFilename_variable_polygon
                             pBasin.basin_plot( iFlag_type_in,                                            
@@ -143,7 +146,7 @@ def plot(self,
                                                   sFilename_mesh_in = sFilename_mesh,
                                                   iFont_size_in = iFont_size_in,
                                                   iFlag_title_in = iFlag_title_in,
-                                                  iFlag_openstreetmap_in=   iFlag_openstreetmap_in,
+                                                  iFlag_openstreetmap_in= iFlag_openstreetmap_in,
                                                   sVariable_in = sVariable_in,
                                                   sFilename_output_in=sFilename_output_in,
                                                   aExtent_in = aExtent_in,
@@ -224,10 +227,24 @@ def _plot_mesh_with_flow_direction(self,
 def _animate(self, sFilename_in,
              iFlag_type_in = None,
              iFigwidth_in=None, iFigheight_in=None,
+             iFont_size_in=None,
              aExtent_in = None,
              pProjection_map_in = None):
 
     #this function is under update
+    sFilename_mesh = self.sFilename_mesh    
+    sFilename_animation_json = self.sFilename_animation_json
+    sFilename_animation_out = sFilename_in
+    animate_vector_polygon_data(
+    sFilename_mesh,
+    sFilename_animation_json,
+    sFilename_animation_out,
+    iFlag_type_in=None,
+    iFigwidth_in=None,
+    iFigheight_in=None,
+    aExtent_in=None,
+    sTitle_in= 'Hybrid stream burning and depression filling',
+    pProjection_map_in=None)
 
     return
 

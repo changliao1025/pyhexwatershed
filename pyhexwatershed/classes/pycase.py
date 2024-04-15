@@ -18,10 +18,13 @@ from pyflowline.classes.basin import pybasin
 from pyflowline.classes.vertex import pyvertex
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polyline import export_json_to_geojson_polyline
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polygon import export_json_to_geojson_polygon
+from pyhexwatershed.algorithms.auxiliary.merge_cell_to_polygon import merge_cell_to_polygon
 from pyhexwatershed.algorithms.auxiliary.merge_stream_edge_to_stream_segment import merge_stream_edge_to_stream_segment
 from pyearth.gis.spatialref.reproject_coodinates import reproject_coordinates, reproject_coordinates_batch
 from pyearth.gis.gdal.read.raster.gdal_read_geotiff_file import gdal_read_geotiff_file
 from pyearth.toolbox.data.geoparquet.convert_geojson_to_geoparquet import convert_geojson_to_geoparquet
+
+from pyearth.toolbox.reader.text_reader_string import text_reader_string
 
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
@@ -83,6 +86,7 @@ class hexwatershedcase(object):
     sFilename_distance_to_outlet=   ''
     sFilename_variable_polyline=''
     sFilename_variable_polygon=''
+    sFilename_animation_json=''
 
     sRegion=''
     sModel=''
@@ -356,6 +360,8 @@ class hexwatershedcase(object):
         
         self.sFilename_variable_polyline = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_variable_polyline.geojson" )
         self.sFilename_variable_polygon = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) , sMesh_type + "_variable_polygon.geojson" )
+
+        self.sFilename_animation_json = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  "animation.json" )
         return    
 
     def tojson(self):
@@ -744,6 +750,10 @@ class hexwatershedcase(object):
                 if lCellID in aCell_remove:
                     aCell_elevation.remove(pCell)
 
+            #we may print the removed info for debug purpose
+            for lCellID in aCell_remove:
+                print('Cell removed:', lCellID)
+
         ptimer.stop()
 
         self.pPyFlowline.aCell = aCell_elevation
@@ -823,8 +833,8 @@ class hexwatershedcase(object):
             else:
                 #if the pyflowline does not turn on flowline,
                 #then we need to include at least one watershed
-                self.pyhexwatershed_export_flow_direction() 
-                self.pyhexwatershed_export_stream_segment()
+                #self.pyhexwatershed_export_flow_direction() 
+                #self.pyhexwatershed_export_stream_segment()
 
                 #polygon
                 #self.pyhexwatershed_export_elevation()
@@ -930,6 +940,39 @@ class hexwatershedcase(object):
                     merge_stream_edge_to_stream_segment(sFilename_stream_edge_geojson, 
                                                         sFilename_stream_segment_geojson, 
                                                         pVertex_outlet)
+                else: #even there is no flowline, it could be elevation-based simulation
+                    iWatershed = 1
+                    pBasin = self.aBasin[iWatershed-1]                                       
+                    sFilename_stream_edge  = pBasin.sFilename_stream_edge_json
+                    sFilename_stream_edge_geojson = pBasin.sFilename_stream_edge
+                    sFilename_stream_segment_geojson = pBasin.sFilename_stream_segment                    
+                    aVariable_json_in = ['lStream_segment']
+                    aVariable_geojson_out = ['stream_segment']
+                    aVariable_type_out= [1]
+                    export_json_to_geojson_polyline(sFilename_stream_edge, 
+                                                    sFilename_stream_edge_geojson, 
+                                                    aVariable_json_in,
+                                                    aVariable_geojson_out,
+                                                    aVariable_type_out)
+                    #how about segment? maybe a lightly different function is needed.
+                    #we can extract the outlet from the watershed txt file
+                    sFilename_watershed_characteristics = pBasin.sFilename_watershed_characteristics_txt
+                    #read the txt and get the outlet location
+                    dummy_data = text_reader_string(sFilename_watershed_characteristics, iSkipline_in= 1, cDelimiter_in= ':')
+                    #find which line has the longitude and latitude
+                    lIndex_longtitude = np.where(dummy_data[:,0] == 'Outlet longitude degree')[0]
+                    lIndex_latitude = np.where(dummy_data[:,0] == 'Outlet latitude degree')[0]
+                    dLongitude_outlet_longitude = float(dummy_data[lIndex_longtitude, 1])
+                    dLatitude_outlet_latitude = float(dummy_data[lIndex_latitude, 1])                       
+                    point = dict()
+                    point['dLongitude_degree'] = dLongitude_outlet_longitude
+                    point['dLatitude_degree'] = dLatitude_outlet_latitude
+                    pVertex_outlet=pyvertex(point)
+                    merge_stream_edge_to_stream_segment(sFilename_stream_edge_geojson, 
+                                                        sFilename_stream_segment_geojson, 
+                                                        pVertex_outlet)
+
+                    pass
  
            
 
@@ -1062,13 +1105,21 @@ class hexwatershedcase(object):
             aVariable_geojson = ['subbasin','hillslope','area','elevation', 'slope', 'drainage_area','travel_distance']
 
         aVariable_type= [1,1,2,2,2,2,2]
-        export_json_to_geojson_polygon(sFilename_json,
-                                        sFilename_geojson, 
-                                        aVariable_json,
-                                        aVariable_geojson,
-                                        aVariable_type)
-        
+        #export_json_to_geojson_polygon(sFilename_json,
+        #                                sFilename_geojson, 
+        #                                aVariable_json,
+        #                                aVariable_geojson,
+        #                                aVariable_type)        
         #convert to geoparquet for visualization
-        convert_geojson_to_geoparquet(sFilename_geojson, sFilename_geojson.replace('.geojson','.parquet'))
+        sFilename_parquet = sFilename_geojson.replace('.geojson','.parquet')
+        #convert_geojson_to_geoparquet(sFilename_geojson, sFilename_parquet)
+        #because each geojson file has many small polygons, we can merge them into large polygons
+        #get the folder of the geojson
+        sFolder = os.path.dirname(sFilename_geojson)
+        sFilename_subbasin = os.path.join( sFolder, 'subbasin.parquet' ) #sFilename_geojson.replace('.geojson','_subbasin.parquet')    
+        merge_cell_to_polygon(sFilename_parquet, sFilename_subbasin,'subbasin')
+        sFilename_hillslope = os.path.join( sFolder, 'hillslope.parquet' ) #sFilename_geojson.replace('.geojson','_hillslope.parquet')   
+        merge_cell_to_polygon(sFilename_parquet, sFilename_hillslope,'hillslope')
+
         
         return
