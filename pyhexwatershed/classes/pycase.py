@@ -833,8 +833,8 @@ class hexwatershedcase(object):
             else:
                 #if the pyflowline does not turn on flowline,
                 #then we need to include at least one watershed
-                #self.pyhexwatershed_export_flow_direction() 
-                #self.pyhexwatershed_export_stream_segment()
+                self.pyhexwatershed_export_flow_direction() 
+                self.pyhexwatershed_export_stream_segment()
 
                 #polygon
                 #self.pyhexwatershed_export_elevation()
