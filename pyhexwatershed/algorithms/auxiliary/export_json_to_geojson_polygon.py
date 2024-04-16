@@ -26,11 +26,8 @@ def export_json_to_geojson_polygon(sFilename_json_in,
     pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
     pLayer = pDataset.CreateLayer('hexwatershed', pSrs, geom_type=ogr.wkbPolygon)
     #Add basic attributes cellid 
-    pLayer.CreateField(ogr.FieldDefn('cellid', ogr.OFTInteger64)) #long type for high resolution       
-    
-
+    pLayer.CreateField(ogr.FieldDefn('cellid', ogr.OFTInteger64)) #long type for high resolution         
     nField_in = len(aVariable_json_in)
-
     nField_out = len(aVariable_geojson_out)
     if nField_in != nField_out:
         print("Error: the field number of input and output are not the same")
@@ -55,15 +52,13 @@ def export_json_to_geojson_polygon(sFilename_json_in,
     with open(sFilename_json_in) as json_file:
         data = json.load(json_file)  
         ncell = len(data)
-        lID = 0 
+        #lID = 0 
         for i in range(ncell):
             pcell = data[i]
             lCellID = int(pcell['lCellID'])
-            lCellID_downslope = int(pcell['lCellID_downslope'])
-            x_start=float(pcell['dLongitude_center_degree'])
-            y_start=float(pcell['dLatitude_center_degree'])
-            
-
+            #lCellID_downslope = int(pcell['lCellID_downslope'])
+            #x_start=float(pcell['dLongitude_center_degree'])
+            #y_start=float(pcell['dLatitude_center_degree'])            
             vVertex = pcell['vVertex']
             nvertex = len(vVertex)
             pPolygon = ogr.Geometry(ogr.wkbPolygon)

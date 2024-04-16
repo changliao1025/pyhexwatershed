@@ -44,6 +44,11 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
                 sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].dThreshold_small_river=' \
                     + "{:0f}".format(self.pPyFlowline.aBasin[0].dThreshold_small_river)+ '\n'   
                 ofs_pyhexwatershed.write(sLine)     
+                sLine = 'oPyhexwatershed.pPyFlowline.aBasin[0].sFilename_flowline_filter=' \
+                    + "'"+ self.pPyFlowline.aBasin[0].sFilename_flowline_filter + "'" +'\n'   
+                ofs_pyhexwatershed.write(sLine)   
+
+
                   
     sLine = 'oPyhexwatershed.pyhexwatershed_setup()' + '\n'   
     ofs_pyhexwatershed.write(sLine)
