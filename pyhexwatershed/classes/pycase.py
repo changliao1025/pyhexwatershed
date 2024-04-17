@@ -281,9 +281,15 @@ class hexwatershedcase(object):
         self.sCase = sCase
 
         sPath = str(Path(self.sWorkspace_output)  /  sCase)
-        self.sWorkspace_output = sPath
-        Path(sPath).mkdir(parents=True, exist_ok=True)
-
+        self.sWorkspace_output = sPath    
+        try:
+            Path(sPath).mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            print(f"Failed to create directory {sPath} due to error: {e}")
+            print('You should provide a valid path to create the output directory')
+            return
+        else:
+            print(f"Directory {sPath} created successfully")
         
         if 'sMesh_type' in aConfig_in:
             self.sMesh_type =  aConfig_in['sMesh_type']
@@ -427,12 +433,7 @@ class hexwatershedcase(object):
             copy2(self.sFilename_hexwatershed_bin, sFilename_new)
             os.chmod(sFilename_new, stat.S_IRWXU )
             pass
-        else:          
-            # Get the distribution object for the package
-            distribution = pkg_resources.get_distribution('hexwatershed')
-            # Get the installation path for the package
-            sPath_installation = distribution.location
-
+        else:                  
             if system == 'Windows':
                 sFilename_executable = 'hexwatershed.exe'
             else:
@@ -448,8 +449,15 @@ class hexwatershedcase(object):
             else:
                 print('Binary not found in system path.')
             if iFlag_found_binary ==1:
+                sFilename_new = os.path.join(str(Path(self.sWorkspace_output_hexwatershed)  ) ,  sFilename_executable )
+                copy2(sFilename_hexwatershed_bin, sFilename_new)
+                os.chmod(sFilename_new, stat.S_IRWXU )
                 pass
-            else:                
+            else:    
+                # Get the distribution object for the package
+                distribution = pkg_resources.get_distribution('hexwatershed')
+                # Get the installation path for the package
+                sPath_installation = distribution.location
                 sFilename_hexwatershed_bin = os.path.join(str(Path(sPath_installation + '/pyhexwatershed/_bin/') ) ,  sFilename_executable )
                 if os.path.isfile(sFilename_hexwatershed_bin):
                     iFlag_found_binary=1
@@ -510,7 +518,7 @@ class hexwatershedcase(object):
         elif system == 'Darwin':     
             print('Running on a Unix-based system')
             #run the model using bash
-            self.generate_bash_script()
+            self.pyhexwatershed_generate_bash_script()
             os.chdir(self.sWorkspace_output_hexwatershed)            
             sCommand = "./run_hexwatershed.sh"
             #print(sCommand)
@@ -1105,14 +1113,14 @@ class hexwatershedcase(object):
             aVariable_geojson = ['subbasin','hillslope','area','elevation', 'slope', 'drainage_area','travel_distance']
 
         aVariable_type= [1,1,2,2,2,2,2]
-        #export_json_to_geojson_polygon(sFilename_json,
-        #                                sFilename_geojson, 
-        #                                aVariable_json,
-        #                                aVariable_geojson,
-        #                                aVariable_type)        
+        export_json_to_geojson_polygon(sFilename_json,
+                                        sFilename_geojson, 
+                                        aVariable_json,
+                                        aVariable_geojson,
+                                        aVariable_type)        
         #convert to geoparquet for visualization
         sFilename_parquet = sFilename_geojson.replace('.geojson','.parquet')
-        #convert_geojson_to_geoparquet(sFilename_geojson, sFilename_parquet)
+        convert_geojson_to_geoparquet(sFilename_geojson, sFilename_parquet)
         #because each geojson file has many small polygons, we can merge them into large polygons
         #get the folder of the geojson
         sFolder = os.path.dirname(sFilename_geojson)
