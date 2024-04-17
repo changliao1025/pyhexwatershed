@@ -11,7 +11,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.27"
+VERSION = "0.2.28"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = ["hexwatershed",
             "hydrology",
