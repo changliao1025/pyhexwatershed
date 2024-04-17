@@ -18,7 +18,8 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
                                                  dResolution_meter_in = None,
                                                  sDate_in = None,
                                                  sDggrid_type_in = None,
-                                                 sMesh_type_in=None):
+                                                 sMesh_type_in=None,
+                                             sWorkspace_output_in=None):
 
 
     # Opening JSON file
@@ -86,6 +87,19 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
         dResolution_meter = float( aConfig['dResolution_meter'])
         pass
 
+    if sWorkspace_output_in is not None:
+        sWorkspace_output = sWorkspace_output_in
+    else:
+        sWorkspace_output = aConfig['sWorkspace_output']
+        # try to create this output folder first using
+
+    try:
+        print(sWorkspace_output)
+        Path(sWorkspace_output).mkdir(parents=True, exist_ok=True)
+    except ValueError:
+        print("The specified output workspace cannot be created!")
+        exit
+
     aConfig["sDate"] = sDate
     aConfig["sMesh_type"] = sMesh_type
     aConfig["iCase_index"] = iCase_index
@@ -96,6 +110,7 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
     aConfig["dResolution_meter"] = dResolution_meter
     aConfig["sFilename_model_configuration"] = sFilename_configuration_in
     aConfig["sDggrid_type"] = sDggrid_type
+    aConfig["sWorkspace_output"] = sWorkspace_output
 
     oPyhexwatershed = None
     oPyflowline = None
@@ -110,7 +125,7 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
 
     #set up the basin object
     #check flowline flag 
-    if oPyhexwatershed.iFlag_flowline == 1:
+    if oPyhexwatershed.iFlag_flowline == 1 and os.path.exists(oPyhexwatershed.sFilename_basins):
         with open(oPyhexwatershed.sFilename_basins) as json_file:
             dummy_data = json.load(json_file)
             for i in range(oPyhexwatershed.nOutlet):
