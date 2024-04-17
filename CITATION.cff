@@ -5,6 +5,6 @@ authors:
     given-names: Chang
     orcid: https://orcid.org/0000-0002-7348-8858  
 title: "HexWatershed: a mesh-independent flow direction model for hydrologic models"
-version: 0.2.28
+version: 0.2.29
 doi: 10.5281/zenodo.6425881
 date-released: 2022-03-31
