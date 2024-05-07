@@ -9,7 +9,7 @@ from pyflowline.classes.basin import pybasin
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
 
-def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
+def pyhexwatershed_read_configuration_file(sFilename_configuration_in,
                                                  iCase_index_in=None,
                                                  iFlag_stream_burning_topology_in = None,
                                                  iFlag_elevation_profile_in = None,
@@ -41,25 +41,25 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
     if sDggrid_type_in is not None:
         sDggrid_type = sDggrid_type_in
     else:
-        if "sDggrid_type" in aConfig:            
+        if "sDggrid_type" in aConfig:
             sDggrid_type = aConfig["sDggrid_type"]
         else:
             sDggrid_type = 'ISEA3H'
-            
+
     if iCase_index_in is not None:
         iCase_index = iCase_index_in
     else:
         iCase_index = int( aConfig['iCase_index'])
         pass
 
-    if iResolution_index_in is not None:    
+    if iResolution_index_in is not None:
         iResolution_index = iResolution_index_in
     else:
-        if "iResolution_index" in aConfig:            
+        if "iResolution_index" in aConfig:
             iResolution_index =  int( aConfig['iResolution_index'])
         else:
             iResolution_index = 10
-      
+
         pass
 
     if iFlag_stream_burning_topology_in is not None:
@@ -118,13 +118,13 @@ def pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,
     oPyflowline = flowlinecase(aConfig ,  iFlag_standalone_in = 0,
                                sModel_in = 'pyflowline',
                                sWorkspace_output_in = oPyhexwatershed.sWorkspace_output_pyflowline)
-    
+
     oPyhexwatershed.dResolution_meter = oPyflowline.dResolution_meter
     oPyhexwatershed.pPyFlowline = oPyflowline
     oPyhexwatershed.aBasin.clear()
 
     #set up the basin object
-    #check flowline flag 
+    #check flowline flag
     if oPyhexwatershed.iFlag_flowline == 1 and os.path.exists(oPyhexwatershed.sFilename_basins):
         with open(oPyhexwatershed.sFilename_basins) as json_file:
             dummy_data = json.load(json_file)

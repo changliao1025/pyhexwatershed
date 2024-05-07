@@ -3,7 +3,7 @@ import os, sys
 from pathlib import Path
 from os.path import realpath
 
-from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
+from pyhexwatershed.configuration.read_configuration_file import pyhexwatershed_read_model_configuration_file
 
 #===========================
 #setup workspace path
@@ -33,7 +33,7 @@ sMesh_type = 'mpas'
 sDate='20220801'
 
 oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
-    iCase_index_in=iCase_index, sDate_in= sDate, sMesh_type_in= sMesh_type)   
+    iCase_index_in=iCase_index, sDate_in= sDate, sMesh_type_in= sMesh_type)
 
 if oPyhexwatershed.iFlag_global==1:
     #global simulation
@@ -44,7 +44,7 @@ else:
     if oPyhexwatershed.iFlag_multiple_outlet ==1:
         pass
     else:
-        #single basin example       
+        #single basin example
         #mpas mesh has elevation built-in
         oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620
         oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093
@@ -60,7 +60,7 @@ else:
         oPyhexwatershed.analyze()
         oPyhexwatershed.export()
         pass
-    pass            
+    pass
 
 print('Finished')
 
