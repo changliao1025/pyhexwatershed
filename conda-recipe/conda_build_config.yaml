@@ -16,14 +16,14 @@ build_string: py38_0
 test:
   imports:
     - pyhexwatershed
-  
+
 
 # Define the package metadata
 metadata:
   # Package name
   name: hexwatershed
   # Package version
-  version: "0.2.29"
+  version: "0.2.30"
   # Package summary
   summary: A mesh-independent flow direction model for hydrologic models
   # Package homepage
@@ -46,4 +46,4 @@ metadata:
     - python
     - setuptools
     - pip
-    
+

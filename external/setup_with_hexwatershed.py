@@ -11,7 +11,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.29"
+VERSION = "0.2.30"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = ["hexwatershed",
             "hydrology",
@@ -22,7 +22,7 @@ KEYWORDS = ["hexwatershed",
 
 REQUIRED = [
     "numpy",
-    "gdal",    
+    "gdal",
     "shapely",
     "pyflowline"
 ]
@@ -45,12 +45,12 @@ def get_data_files(sFolder_in):
     for root, dirs, files in os.walk(sFolder_in):
         for file in files:
             data_files_tmp.append(os.path.join(root, file))
-    
+
     #print(data_files_tmp)
     return data_files_tmp
 
 
-data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CMakeLists.txt"]        ) ,          
+data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CMakeLists.txt"]        ) ,
               ( "external/rapidjson/"               , get_data_files('external/rapidjson')            ),
               ( "external/rapidjson/error/"         , get_data_files('external/rapidjson/error/')     ),
               ( "external/rapidjson/internal/"      , get_data_files('external/rapidjson/internal')   ),
@@ -60,7 +60,7 @@ data_files=[  ( 'external/hexwatershed/',             ["external/hexwatershed/CM
               ( "external/hexwatershed/src/domain/" , get_data_files('external/hexwatershed/src/domain')    ),
               ( "external/hexwatershed/src/json/"   , get_data_files('external/hexwatershed/src/json')      )
                                ]
-                               
+
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
 # Check if the expanded path exists
@@ -112,18 +112,18 @@ class build_external(Command):
 
             source_path = os.path.join(
                 HERE, "external", "hexwatershed")
-            
+
             source_path = os.path.expandvars(source_path)
 
             # Check if the expanded path exists
             if os.path.exists(source_path):
                 print('Path exists:', source_path)
             else:
-                print('Path does not exist:', source_path)      
+                print('Path does not exist:', source_path)
 
             builds_path =  os.path.join(source_path, "build")
 
-            if os.path.exists(builds_path):                
+            if os.path.exists(builds_path):
                 sFilename_cache  = os.path.join(builds_path, "CMakeCache.txt")
                 if os.path.exists(sFilename_cache):
                     os.remove(sFilename_cache)
@@ -152,7 +152,7 @@ class build_external(Command):
                 libdst_path, ignore_errors=True)
 
             os.chdir(builds_path)
-            #copy cmakelistx.txt to the build folder            
+            #copy cmakelistx.txt to the build folder
             dst = os.getcwd()
             shutil.copy("../CMakeLists.txt", dst)
             config_call = ["cmake",  "CMakeLists.txt"]
@@ -162,13 +162,13 @@ class build_external(Command):
             self.announce("cmake complie", level=3)
 
             ver = get_cmake_version()
-            
+
             compilecall = [
                     "cmake", "--build", ".",
                     "--config", "Release",
                     "--target", "install"
                     ]
-            
+
 
             subprocess.run(compilecall, check=True)
 
@@ -197,7 +197,7 @@ setup(
     setup_requires=['setuptools'],
     packages=find_packages(),
     package_data={
-        "pyhexwatershed": ["_bin/*", "_lib/*"]       
+        "pyhexwatershed": ["_bin/*", "_lib/*"]
         },
     install_requires=REQUIRED,
     cmdclass={"build_external": build_external},

@@ -655,9 +655,9 @@ class hexwatershedcase(object):
                         pDataset_clip = pDriver_memory.Create('', iNewWidth, iNewHeigh, 1, gdalconst.GDT_Float32)
                         pDataset_clip.SetGeoTransform( newGeoTransform )
                         pDataset_clip.SetProjection( pProjection)
-                        pWrapOption = gdal.WarpOptions( cropToCutline=True,cutlineDSName = sFilename_shapefile_cut , \
-                                width=iNewWidth,   \
-                                    height=iNewHeigh,      \
+                        pWrapOption = gdal.WarpOptions( cropToCutline=True,cutlineDSName = sFilename_shapefile_cut ,
+                                width=iNewWidth,
+                                    height=iNewHeigh,     
                                         dstSRS=pProjection , format = 'MEM' )
                         pDataset_clip = gdal.Warp('',pDataset_elevation, options=pWrapOption)
                         pBand = pDataset_clip.GetRasterBand( 1 )

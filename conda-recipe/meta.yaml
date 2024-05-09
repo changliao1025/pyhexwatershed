@@ -1,6 +1,6 @@
 {% set name = "hexwatershed" %}
 {% set git_rev = "main" %}
-{% set version = "0.2.29" %}
+{% set version = "0.2.30" %}
 
 package:
   name: {{ name|lower }}
@@ -13,29 +13,29 @@ source:
   #git_rev: {{ git_rev }}
   #git_url: https://github.com/changliao1025/pyhexwatershed
 
-build:  
+build:
   noarch: python
   #script:
-  #  - pip install . 
+  #  - pip install .
   #  - python setup.py build_external -vv
-    
+
   number: 0
-  
-requirements:  
-  
+
+requirements:
+
   build:
     - cmake
     - make
     - {{ compiler('cxx') }}
-    - python >=3.8    
+    - python >=3.8
     - setuptools
     - pip
-  
+
   host:
-    - python >=3.8  
+    - python >=3.8
     - pip
     - {{ compiler('cxx') }}
- 
+
   run:
     - python >=3.8
     - numpy
@@ -46,7 +46,7 @@ requirements:
 test:
   imports:
     - pyhexwatershed
-  
+
 
 about:
   home: https://github.com/changliao1025/pyhexwatershed
