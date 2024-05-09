@@ -11,7 +11,7 @@ DESCRIPTION = \
 AUTHOR = "Chang Liao"
 AUTHOR_EMAIL = "chang.liao@pnnl.gov"
 URL = "https://github.com/changliao1025/pyhexwatershed"
-VERSION = "0.2.29"
+VERSION = "0.2.30"
 REQUIRES_PYTHON = ">=3.8.0"
 KEYWORDS = ["hexwatershed",
             "hydrology",
@@ -22,7 +22,7 @@ KEYWORDS = ["hexwatershed",
 
 REQUIRED = [
     "numpy",
-    "gdal",    
+    "gdal",
     "pyearth",
     "pyflowline"
 ]
@@ -38,8 +38,8 @@ CLASSIFY = [
     "Topic :: Scientific/Engineering :: Hydrology",
     "Topic :: Scientific/Engineering :: GIS",
     "Topic :: Scientific/Engineering :: Physics"
-]       
-                               
+]
+
 HERE = os.path.abspath(os.path.dirname(__file__))
 HERE = os.path.expandvars(HERE)
 # Check if the expanded path exists

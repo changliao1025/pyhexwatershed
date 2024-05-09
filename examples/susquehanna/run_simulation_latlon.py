@@ -3,7 +3,7 @@ import os, sys
 from pathlib import Path
 from os.path import realpath
 
-from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file
+from pyhexwatershed.configuration.read_configuration_file import pyhexwatershed_read_model_configuration_file
 
 #===========================
 #setup workspace path
@@ -37,7 +37,7 @@ for iResolution in range(1, nResolution + 1):
     oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,\
         iCase_index_in=iCase_index, \
             dResolution_meter_in = dResolution_meter, \
-                sDate_in= sDate, sMesh_type_in= sMesh_type)   
+                sDate_in= sDate, sMesh_type_in= sMesh_type)
 
     if oPyhexwatershed.iFlag_global==1:
         #global simulation
@@ -48,7 +48,7 @@ for iResolution in range(1, nResolution + 1):
         if oPyhexwatershed.iFlag_multiple_outlet ==1:
             pass
         else:
-            #single basin example  
+            #single basin example
             #use dem
             oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree=39.4620
             oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree=-76.0093
@@ -61,16 +61,16 @@ for iResolution in range(1, nResolution + 1):
             aCell_out = oPyhexwatershed.assign_elevation_to_cells()
             aCell_new = oPyhexwatershed.update_outlet(aCell_origin)
             oPyhexwatershed.pPyFlowline.export()
-            oPyhexwatershed.export_config_to_json()                
+            oPyhexwatershed.export_config_to_json()
             oPyhexwatershed.run_hexwatershed()
             oPyhexwatershed.analyze()
             oPyhexwatershed.export()
             pass
-    
+
     iCase_index = iCase_index + 1
-           
-           
-                 
+
+
+
 
 print('Finished')
 
