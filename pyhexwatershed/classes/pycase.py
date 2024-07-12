@@ -23,6 +23,7 @@ from pyhexwatershed.algorithms.auxiliary.merge_stream_edge_to_stream_segment imp
 from pyearth.gis.spatialref.reproject_coodinates import reproject_coordinates, reproject_coordinates_batch
 from pyearth.gis.gdal.read.raster.gdal_read_geotiff_file import gdal_read_geotiff_file
 from pyearth.toolbox.data.geoparquet.convert_geojson_to_geoparquet import convert_geojson_to_geoparquet
+from pyearth.toolbox.data.geopackage.convert_geojson_to_geopackage import convert_geojson_to_geopackage
 
 from pyearth.toolbox.reader.text_reader_string import text_reader_string
 
@@ -62,6 +63,8 @@ class hexwatershedcase(object):
     iFlag_save_mesh = 0
     iFlag_use_mesh_dem=0
     iFlag_user_provided_binary= 0
+    iFlag_analysis = 0
+    iFlag_evaluation = 0 #run evaluation or not
     iFlag_slurm = 0
     nOutlet=1
     dResolution_degree=0.0
@@ -89,7 +92,7 @@ class hexwatershedcase(object):
     sFilename_animation_json=''
 
     sRegion=''
-    sModel=''
+    sModel='pyhexwatershed'
     iMesh_type ='mpas'
     sCase=''
     sDate=''
@@ -106,7 +109,7 @@ class hexwatershedcase(object):
 
     iFlag_visual = importlib.util.find_spec("cartopy")
     if iFlag_visual is not None:
-        from ._visual import plot
+        from ._visual import plot, _plot_flow_direction, _plot_mesh_with_flow_direction
         from ._visual import _animate
 
     else:
@@ -137,6 +140,8 @@ class hexwatershedcase(object):
 
         if 'sModel' in aConfig_in:
             self.sModel                = aConfig_in[ 'sModel']
+        else:
+            self.sModel = 'pyhexwatershed'
 
         if 'iFlag_resample_method' in aConfig_in:
             self.iFlag_resample_method       = int(aConfig_in[ 'iFlag_resample_method'])
@@ -147,16 +152,27 @@ class hexwatershedcase(object):
             self.iFlag_flowline =1
 
         if 'iFlag_create_mesh' in aConfig_in:
-            self.iFlag_create_mesh             = int(aConfig_in[ 'iFlag_create_mesh'])
+            self.iFlag_create_mesh           = int(aConfig_in[ 'iFlag_create_mesh'])
         else:
             self.iFlag_create_mesh =1
 
         if 'iFlag_simplification' in aConfig_in:
-            self.iFlag_simplification             = int(aConfig_in[ 'iFlag_simplification'])
+            self.iFlag_simplification          = int(aConfig_in[ 'iFlag_simplification'])
         else:
             self.iFlag_simplification = 1
         if self.iFlag_simplification ==1:
             self.iFlag_flowline = 1
+        else:
+            self.iFlag_flowline = 0
+
+        if 'iFlag_analysis' in aConfig_in:
+            self.iFlag_analysis          = int(aConfig_in[ 'iFlag_analysis'])
+
+        if 'iFlag_evaluation' in aConfig_in:
+            self.iFlag_evaluation      = int(aConfig_in[ 'iFlag_evaluation'])
+
+        if 'iFlag_antarctic' in aConfig_in:
+            self.iFlag_antarctic        = int(aConfig_in[ 'iFlag_antarctic'])
 
         if 'iFlag_intersect' in aConfig_in:
             self.iFlag_intersect             = int(aConfig_in[ 'iFlag_intersect'])
@@ -556,8 +572,9 @@ class hexwatershedcase(object):
         pDriver_json = ogr.GetDriverByName('GeoJSON')
         pDriver_memory = gdal.GetDriverByName('MEM')
         sFilename_shapefile_cut = "/vsimem/tmp_polygon.shp"
-        pSrs = osr.SpatialReference()
-        pSrs.ImportFromEPSG(4326)    # WGS84 lat/lon
+        pSpatialRef_wgs84 = osr.SpatialReference()
+        pSpatialRef_wgs84.ImportFromEPSG(4326)    # WGS84 lat/lon
+        pProjection_wgs84 = pSpatialRef_wgs84.ExportToWkt()
         pDataset_elevation = gdal.Open(sFilename_dem_in, gdal.GA_ReadOnly)
         dummy = gdal_read_geotiff_file(sFilename_dem_in)
 
@@ -571,11 +588,17 @@ class hexwatershedcase(object):
         if dMissing_value_in is not None:
             dMissing_value = dMissing_value_in
         else:
-            dMissing_value= dummy['missingValue']
+            dMissing_value0= dummy['missingValue']
+            if dMissing_value0 is None:
+                dMissing_value = -9999.0
+            else:
+                dMissing_value = dMissing_value0
+
         #pGeotransform = dummy['geotransform']
-        pProjection = dummy['projection']
-        pSpatialRef_target = dummy['spatialReference']
-        #transform = osr.CoordinateTransformation(pSrs, pSpatialRef_target)
+        pProjection_target = dummy['projection']
+        pSpatialRef_target = osr.SpatialReference()
+        pSpatialRef_target.ImportFromWkt(pProjection_target)
+
         #get raster extent
         dX_left=dOriginX
         dX_right = dOriginX + ncolumn * dPixelWidth
@@ -585,9 +608,9 @@ class hexwatershedcase(object):
         lCellIndex = 0
         if iFlag_resample_method == 1:
             #the nearest resample method
-
             for pCell in aCell_in:
-                dX_out,dY_out = reproject_coordinates(pCell.dLongitude_center_degree,pCell.dLatitude_center_degree,pSrs,pSpatialRef_target)
+                dX_out,dY_out = reproject_coordinates(pCell.dLongitude_center_degree,pCell.dLatitude_center_degree,
+                                                      pProjection_wgs84,pProjection_target)
                 lColumn_index = int((dX_out - dX_left) / dPixelWidth)
                 lRow_index = int((dY_top - dY_out) / dPixelWidth)
 
@@ -621,7 +644,7 @@ class hexwatershedcase(object):
                         pass
                     aX.append( pCell.aVertex[0].dLongitude_degree )
                     aY.append( pCell.aVertex[0].dLatitude_degree )
-                    aX_out,aY_out = reproject_coordinates_batch(aX,aY,pSrs,pSpatialRef_target)
+                    aX_out,aY_out = reproject_coordinates_batch(aX,aY, pProjection_wgs84,pProjection_target)
                     for j in range(nVertex + 1):
                         x1 = aX_out[j]
                         y1 = aY_out[j]
@@ -630,7 +653,7 @@ class hexwatershedcase(object):
 
                     pPolygon = ogr.Geometry(ogr.wkbPolygon)
                     pPolygon.AddGeometry(ring)
-                    #pPolygon.AssignSpatialReference(pSpatialRef_target)
+
                     if os.path.exists(sFilename_shapefile_cut):
                         os.remove(sFilename_shapefile_cut)
 
@@ -654,16 +677,16 @@ class hexwatershedcase(object):
                     else:
                         pDataset_clip = pDriver_memory.Create('', iNewWidth, iNewHeigh, 1, gdalconst.GDT_Float32)
                         pDataset_clip.SetGeoTransform( newGeoTransform )
-                        pDataset_clip.SetProjection( pProjection)
+                        pDataset_clip.SetProjection( pProjection_target)
                         pWrapOption = gdal.WarpOptions( cropToCutline=True,cutlineDSName = sFilename_shapefile_cut ,
                                 width=iNewWidth,
-                                    height=iNewHeigh,     
-                                        dstSRS=pProjection , format = 'MEM' )
+                                    height=iNewHeigh,
+                                        dstSRS=pProjection_target , format = 'MEM' )
                         pDataset_clip = gdal.Warp('',pDataset_elevation, options=pWrapOption)
                         pBand = pDataset_clip.GetRasterBand( 1 )
                         aData_out = pBand.ReadAsArray(0,0,iNewWidth, iNewHeigh)
                         aElevation = aData_out[np.where(aData_out !=dMissing_value)]
-                        if(len(aElevation) >0 and np.mean(aElevation)!=-9999):
+                        if(len(aElevation) >0 and np.mean(aElevation)!=dMissing_value):
                             dElevation =  float(np.mean(aElevation) )
                             pCell.dElevation_mean =    dElevation
                             pCell.dz = dElevation
@@ -822,6 +845,13 @@ class hexwatershedcase(object):
     def pyhexwatershed_analyze(self):
         #a list of analysis was done within the C++ backend
         #additional analysis can be implemented here
+        if self.iFlag_analysis == 1:
+            pass
+        return
+
+    def pyhexwatershed_evaluate(self):
+        if self.iFlag_evaluation == 1:
+            pass
         return
 
     def pyhexwatershed_export(self):
@@ -834,6 +864,8 @@ class hexwatershedcase(object):
         #polyline
 
         if self.iFlag_global==1: #we do not have the polyline information
+            self.pyhexwatershed_export_flow_direction()
+            self.pyhexwatershed_export_all_polygon_variables()
             pass
         else:
             if self.iFlag_multiple_outlet == 1:
@@ -994,13 +1026,26 @@ class hexwatershedcase(object):
         if self.iFlag_global==1:
             sFilename_json = self.sFilename_hexwatershed_json
             sFilename_geojson = self.sFilename_flow_direction
-            export_json_to_geojson_polyline(sFilename_json, sFilename_geojson)
+            aVariable_json = ['dDrainage_area'] #new names
+            aVariable_geojson =    ['drainage_area']
+            aVariable_type_out = [2]
+            export_json_to_geojson_polyline(sFilename_json, sFilename_geojson,aVariable_json_in = aVariable_json,
+                                    aVariable_geojson_out= aVariable_geojson,
+                                    aVariable_type_out= aVariable_type_out)
+            sFilename_parquet = sFilename_geojson.replace('.geojson','.parquet')
+            convert_geojson_to_geoparquet(sFilename_geojson, sFilename_parquet)
+            sFilename_geopackage = sFilename_geojson.replace('.geojson','.gpkg')
+            convert_geojson_to_geopackage(sFilename_geojson, sFilename_geopackage)
 
         else:
             if self.iFlag_multiple_outlet==1:
                 sFilename_json = self.sFilename_hexwatershed_json
                 sFilename_geojson = self.sFilename_flow_direction
                 export_json_to_geojson_polyline(sFilename_json, sFilename_geojson)
+                sFilename_parquet = sFilename_geojson.replace('.geojson','.parquet')
+                convert_geojson_to_geoparquet(sFilename_geojson, sFilename_parquet)
+                sFilename_geopackage = sFilename_geojson.replace('.geojson','.gpkg')
+                convert_geojson_to_geopackage(sFilename_geojson, sFilename_geopackage)
             else:
                 iWatershed = 1
                 pBasin = self.aBasin[iWatershed-1]
@@ -1017,6 +1062,7 @@ class hexwatershedcase(object):
 
                 #convert to geoparquet for visualization
                 convert_geojson_to_geoparquet(sFilename_geojson, sFilename_geojson.replace('.geojson','.parquet'))
+                convert_geojson_to_geopackage(sFilename_geojson, sFilename_geojson.replace('.geojson','.gpkg'))
 
     def pyhexwatershed_export_elevation(self):
         """
@@ -1106,8 +1152,13 @@ class hexwatershedcase(object):
                 sFilename_geojson = pBasin.sFilename_variable_polygon
 
         if self.iMesh_type == 4: #mpas mesh
-            aVariable_json  = ['lSubbasin','lHillslope','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
-            aVariable_geojson = ['subbasin','hillslope','area','elevation', 'slope', 'drainage_area','travel_distance']
+            if self.iFlag_global==1:
+                aVariable_json  = ['dArea','dElevation','dSlope_between', 'dDrainage_area'] #profile not enabled
+                aVariable_geojson = ['area','elevation', 'slope', 'drainage_area']
+
+            else:
+                aVariable_json  = ['lSubbasin','lHillslope','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
+                aVariable_geojson = ['subbasin','hillslope','area','elevation', 'slope', 'drainage_area','travel_distance']
         else:
             aVariable_json  = ['lSubbasin','lHillslope','dArea','dElevation','dSlope_between', 'dDrainage_area','dDistance_to_watershed_outlet'] #profile not enabled
             aVariable_geojson = ['subbasin','hillslope','area','elevation', 'slope', 'drainage_area','travel_distance']
@@ -1121,13 +1172,16 @@ class hexwatershedcase(object):
         #convert to geoparquet for visualization
         sFilename_parquet = sFilename_geojson.replace('.geojson','.parquet')
         convert_geojson_to_geoparquet(sFilename_geojson, sFilename_parquet)
+        sFilename_geopaakge = sFilename_geojson.replace('.geojson','.gpkg')
+        convert_geojson_to_geopackage(sFilename_geojson, sFilename_geopaakge)
         #because each geojson file has many small polygons, we can merge them into large polygons
         #get the folder of the geojson
-        sFolder = os.path.dirname(sFilename_geojson)
-        sFilename_subbasin = os.path.join( sFolder, 'subbasin.parquet' ) #sFilename_geojson.replace('.geojson','_subbasin.parquet')
-        merge_cell_to_polygon(sFilename_parquet, sFilename_subbasin,'subbasin')
-        sFilename_hillslope = os.path.join( sFolder, 'hillslope.parquet' ) #sFilename_geojson.replace('.geojson','_hillslope.parquet')
-        merge_cell_to_polygon(sFilename_parquet, sFilename_hillslope,'hillslope')
-
-
+        if self.iFlag_global==1:
+            pass
+        else:
+            sFolder = os.path.dirname(sFilename_geojson)
+            sFilename_subbasin = os.path.join( sFolder, 'subbasin.parquet' ) #sFilename_geojson.replace('.geojson','_subbasin.parquet')
+            merge_cell_to_polygon(sFilename_parquet, sFilename_subbasin,'subbasin')
+            sFilename_hillslope = os.path.join( sFolder, 'hillslope.parquet' ) #sFilename_geojson.replace('.geojson','_hillslope.parquet')
+            merge_cell_to_polygon(sFilename_parquet, sFilename_hillslope,'hillslope')
         return
