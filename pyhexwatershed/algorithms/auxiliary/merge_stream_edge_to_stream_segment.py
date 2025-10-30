@@ -1,5 +1,4 @@
 import os
-
 from pyflowline.formats.read_flowline import read_flowline_geojson
 from pyflowline.algorithms.split.find_flowline_confluence import find_flowline_confluence
 from pyflowline.algorithms.merge.merge_flowline import merge_flowline
@@ -23,13 +22,13 @@ def merge_stream_edge_to_stream_segment(sFilename_stream_edge_geojson_in,
                 pVertex_outlet_in,
                 aIndex_headwater,
                 aIndex_middle,
-                aIndex_confluence  )
+                aIndex_confluence )
 
     #sFilename_stream_segment_geojson = pBasin.sFilename_stream_segment
 
     aStream_segment = list()
     for pFlowline in aFlowline_basin_conceptual:
-        aStream_segment.append( pFlowline.iStream_segment  )
+        aStream_segment.append( pFlowline.iStream_segment )
 
     export_flowline_to_geojson(aFlowline_basin_conceptual,
                                 sFilename_stream_segment_geojson,

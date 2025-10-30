@@ -1,17 +1,14 @@
 
 import sys
 import os, stat
-
-
-
 from pathlib import Path
-from pyearth.system.python.retrieve_python_environment import retrieve_python_environment
-def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
+from pyearth.system.python.get_python_environment import get_python_environment
+def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None, hours_in = 24):
     """create a HPC job for this simulation
     """
     os.chdir(self.sWorkspace_output)
 
-    sConda_env_path , sConda_env_name = retrieve_python_environment()
+    sConda_env_path , sConda_env_name,_ = get_python_environment()
 
     #part 1 python script
 
@@ -46,6 +43,21 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
         pass
     else:
         if self.iFlag_multiple_outlet ==1:
+            if self.pPyFlowline.iFlag_flowline==1:
+                for iBasin in range(self.pPyFlowline.nOutlet):
+                    sLine = 'oPyhexwatershed.pPyFlowline.aBasin[' + str(iBasin) + '].dLatitude_outlet_degree=' \
+                        +  "{:0f}".format(self.pPyFlowline.aBasin[iBasin].dLatitude_outlet_degree)+ '\n'
+                    ofs_pyhexwatershed.write(sLine)
+                    sLine = 'oPyhexwatershed.pPyFlowline.aBasin[' + str(iBasin) + '].dLongitude_outlet_degree=' \
+                        +  "{:0f}".format(self.pPyFlowline.aBasin[iBasin].dLongitude_outlet_degree)+ '\n'
+                    ofs_pyhexwatershed.write(sLine)
+                    sLine = 'oPyhexwatershed.pPyFlowline.aBasin[' + str(iBasin) + '].dThreshold_small_river=' \
+                        +  "{:0f}".format(self.pPyFlowline.aBasin[iBasin].dThreshold_small_river)+ '\n'
+                    ofs_pyhexwatershed.write(sLine)
+                    sLine = 'oPyhexwatershed.pPyFlowline.aBasin[' + str(iBasin) + '].sFilename_flowline_filter=' \
+                        + "'" + self.pPyFlowline.aBasin[iBasin].sFilename_flowline_filter + "'" +'\n'
+                    ofs_pyhexwatershed.write(sLine)
+
             pass
         else:
             if self.pPyFlowline.iFlag_flowline==1:
@@ -62,8 +74,6 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
                     + "'"+ self.pPyFlowline.aBasin[0].sFilename_flowline_filter + "'" +'\n'
                 ofs_pyhexwatershed.write(sLine)
 
-
-
     sLine = 'oPyhexwatershed.pyhexwatershed_setup()' + '\n'
     ofs_pyhexwatershed.write(sLine)
     sLine = 'aCell_origin = oPyhexwatershed.pyhexwatershed_run_pyflowline()' + '\n'
@@ -75,8 +85,15 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
         ofs_pyhexwatershed.write(sLine)
     else:
         #possible has issue too
-
+        if self.iFlag_use_mesh_dem == 1: #dem is within the mesh already
+            pass
+        else: #mpas mesh has no dem information
+            sLine = 'oPyhexwatershed.pyhexwatershed_assign_elevation_to_cells()' + '\n'
+            ofs_pyhexwatershed.write(sLine)
+            sLine = 'aCell_new = oPyhexwatershed.pyhexwatershed_update_outlet(aCell_origin)' + '\n'
+            ofs_pyhexwatershed.write(sLine)
         pass
+
     sLine = 'oPyhexwatershed.pPyFlowline.pyflowline_export()' + '\n'
     ofs_pyhexwatershed.write(sLine)
     sLine = 'oPyhexwatershed.pPyFlowline.pyflowline_analyze()' + '\n'
@@ -86,6 +103,8 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
     sLine = 'oPyhexwatershed.pyhexwatershed_export_config_to_json()' + '\n'
     ofs_pyhexwatershed.write(sLine)
     sLine = 'oPyhexwatershed.pyhexwatershed_run_hexwatershed()' + '\n'
+    ofs_pyhexwatershed.write(sLine)
+    sLine = 'oPyhexwatershed.pyhexwatershed_postrun()' + '\n'
     ofs_pyhexwatershed.write(sLine)
     sLine = 'oPyhexwatershed.pyhexwatershed_analyze()' + '\n'
     ofs_pyhexwatershed.write(sLine)
@@ -103,7 +122,9 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
     ofs.write(sLine)
     sLine = '#SBATCH --job-name=' + self.sCase + '\n'
     ofs.write(sLine)
-    sLine = '#SBATCH -t 90:00:00' + '\n'
+
+    sHour = "{:02d}".format(hours_in)
+    sLine = '#SBATCH -t ' + sHour + ':00:00' + '\n'
     ofs.write(sLine)
     sLine = '#SBATCH --nodes=1' + '\n'
     ofs.write(sLine)
@@ -123,9 +144,9 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
     ofs.write(sLine)
     #sLine = 'module load gcc/10.2.0' + '\n' #this is only for the C++ component
     #ofs.write(sLine)
-    sLine = 'module load python/miniconda4.12.0 ' + '\n'
+    sLine = 'module load python/miniconda2024May29 ' + '\n'
     ofs.write(sLine)
-    sLine = 'source /share/apps/python/miniconda4.12.0/etc/profile.d/conda.sh' + '\n'
+    sLine = 'source /share/apps/python/miniconda2024May29/etc/profile.d/conda.sh' + '\n'
     ofs.write(sLine)
     sLine = 'conda activate ' + sConda_env_name + '\n'
     ofs.write(sLine)

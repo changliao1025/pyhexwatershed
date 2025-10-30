@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 import tempfile
 
-def change_json_key_value(sFilename_json_in, sKey, new_value, iFlag_basin_in=None):
+def change_json_key_value(sFilename_json_in, sKey, new_value, iFlag_basin_in=None, iBasin_index_in=None):
     """
     Change the value associated with the specified key in a JSON file safely.
 
@@ -28,7 +28,48 @@ def change_json_key_value(sFilename_json_in, sKey, new_value, iFlag_basin_in=Non
     if iFlag_basin_in is None:
         data[sKey] = new_value
     else:
-        data[0][sKey] = new_value
+        if iBasin_index_in is not None:
+            iBasin_index_in = int(iBasin_index_in)
+            data[iBasin_index_in][sKey] = new_value
+        else:
+            data[0][sKey] = new_value
+
+
+    # Write the updated data to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.json') as temp_file:
+        json.dump(data, temp_file, indent=4)
+        temp_path = temp_file.name
+
+    # Replace the original file with the updated temporary file
+    shutil.move(temp_path, sFilename_json_in)
+
+def change_json_keys_values(sFilename_json_in, key_value_pairs, iFlag_basin_in=None):
+    """
+    Change multiple key-value pairs in a JSON file safely.
+
+    Args:
+        sFilename_json_in (str or Path): Path to the JSON file.
+        key_value_pairs (dict): Dictionary containing keys and their new values.
+        iFlag_basin_in (bool, optional): Flag indicating if the keys are for a basin configuration. Defaults to None.
+    """
+    # Ensure input filename is a string
+    sFilename_json_in = str(sFilename_json_in)
+
+    # Read the original JSON data
+    with open(sFilename_json_in, 'r') as file:
+        data = json.load(file)
+
+    # Update all specified key-value pairs
+    for key, new_value in key_value_pairs.items():
+        # Convert new_value to string if it's a Path object
+        if isinstance(new_value, Path):
+            new_value = str(new_value)
+
+        # Update the value associated with the specified key
+        if iFlag_basin_in is None:
+            data[key] = new_value
+        else:
+            data[0][key] = new_value
 
     # Write the updated data to a temporary file
     with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.json') as temp_file:
