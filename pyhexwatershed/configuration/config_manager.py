@@ -139,11 +139,12 @@ def create_pyhexwatershed_template_configuration_file(sFilename_json, **kwargs):
     config = HexwatershedConfigManager.create_template_config(sFilename_json, kwargs)
 
     # Initialize the hexwatershed model with the config
-    oPyhexwatershed = hexwatershedcase(config)
+    oPyhexwatershed = hexwatershedcase(config, iFlag_create_directory_in = 0)
 
     # Initialize the pyflowline model
     oPyflowline = flowlinecase(config,
                               iFlag_standalone_in=0,
+                              iFlag_create_directory_in = 0,
                               sModel_in='pyflowline',
                               sWorkspace_output_in=oPyhexwatershed.sWorkspace_output_pyflowline)
 
@@ -163,7 +164,7 @@ def create_pyhexwatershed_template_configuration_file(sFilename_json, **kwargs):
     oPyhexwatershed.sFilename_basins = sFilename_basins_json
 
     # Export configuration
-    oPyhexwatershed.pyhexwatershed_export_config_to_json(sFilename_json)
+    oPyhexwatershed.pyhexwatershed_export_config_to_json(sFilename_json, iFlag_export_basin_in=0)
 
     return oPyhexwatershed
 

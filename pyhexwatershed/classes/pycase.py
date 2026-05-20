@@ -32,9 +32,6 @@ from pyhexwatershed.algorithms.auxiliary.merge_cell_to_polygon import merge_cell
 from pyhexwatershed.algorithms.auxiliary.merge_stream_edge_to_stream_segment import merge_stream_edge_to_stream_segment
 
 
-
-
-
 pDate = datetime.datetime.today()
 sDate_default = "{:04d}".format(
     pDate.year) + "{:02d}".format(pDate.month) + "{:02d}".format(pDate.day)
@@ -130,7 +127,7 @@ class hexwatershedcase(object):
     from ._hpc import _pyhexwatershed_create_hpc_job
     from ._hpc import _pyhexwatershed_submit_hpc_job
 
-    def __init__(self, aConfig_in):
+    def __init__(self, aConfig_in, iFlag_create_directory_in = 1):
         print('HexWatershed compset is being initialized')
         self.sFilename_model_configuration = aConfig_in['sFilename_model_configuration']
 
@@ -331,14 +328,16 @@ class hexwatershedcase(object):
 
         sPath = str(Path(self.sWorkspace_output) / sCase)
         self.sWorkspace_output = sPath
-        try:
-            Path(sPath).mkdir(parents=True, exist_ok=True)
-        except Exception as e:
-            print(f"Failed to create directory {sPath} due to error: {e}")
-            print('You should provide a valid path to create the output directory')
-            return
-        else:
-            print(f"Directory {sPath} created successfully")
+
+        if iFlag_create_directory_in == 1:
+            try:
+                Path(sPath).mkdir(parents=True, exist_ok=True)
+            except Exception as e:
+                print(f"Failed to create directory {sPath} due to error: {e}")
+                print('You should provide a valid path to create the output directory')
+                return
+            else:
+                print(f"Directory {sPath} created successfully")
 
         if 'sMesh_type' in aConfig_in:
             self.sMesh_type = aConfig_in['sMesh_type']
@@ -400,11 +399,13 @@ class hexwatershedcase(object):
 
         sPath = str(Path(self.sWorkspace_output) / 'hexwatershed')
         self.sWorkspace_output_hexwatershed = sPath
-        Path(sPath).mkdir(parents=True, exist_ok=True)
+        if iFlag_create_directory_in == 1:
+            Path(sPath).mkdir(parents=True, exist_ok=True)
 
         sPath = str(Path(self.sWorkspace_output) / 'pyflowline')
         self.sWorkspace_output_pyflowline = sPath
-        Path(sPath).mkdir(parents=True, exist_ok=True)
+        if iFlag_create_directory_in == 1:
+            Path(sPath).mkdir(parents=True, exist_ok=True)
 
         self.sFilename_mesh = os.path.join(
             str(Path(self.sWorkspace_output_pyflowline)), sMesh_type + ".geojson")
@@ -449,8 +450,10 @@ class hexwatershedcase(object):
 
         return sJson
 
-    def pyhexwatershed_export_config_to_json(self, sFilename_out=None):
-        self.pPyFlowline.pyflowline_export_basin_config_to_json()
+    def pyhexwatershed_export_config_to_json(self, sFilename_out=None,
+                                              iFlag_export_basin_in=1):
+        if iFlag_export_basin_in == 1:
+            self.pPyFlowline.pyflowline_export_basin_config_to_json()
         self.sFilename_model_configuration = os.path.join(
             self.sWorkspace_output, 'configuration.json')
         self.sFilename_basins = self.pPyFlowline.sFilename_basins
@@ -474,9 +477,10 @@ class hexwatershedcase(object):
                       ensure_ascii=False,
                       indent=4, cls=CaseClassEncoder)
 
-        # make a copy
+        # make a copy, why?
         if sFilename_out is not None:
-            copy2(sFilename_configuration, self.sFilename_model_configuration)
+            #copy2(sFilename_configuration, self.sFilename_model_configuration)
+            pass
 
         return
 
@@ -640,11 +644,20 @@ class hexwatershedcase(object):
             pDateset_vector = ogr.Open(sFilename_preprocessed, gdal.GA_ReadOnly)
             pLayer_vector = pDateset_vector.GetLayer(0)
             aElevation = dict()
-            for feature in pLayer_vector:
-                lCellID = int(feature.GetField('cellid'))
-                dElevation = float(feature.GetField(sField_name))
-                aElevation[lCellID] = dElevation
-                pass
+            try:
+                for feature in pLayer_vector:
+                    lCellID = int(feature.GetField('cellid'))
+                    dummy = feature.GetField(sField_name)
+                    if dummy is None:
+                        print(lCellID, sField_name)
+                        dElevation = -9999.0
+                    else:
+                        dElevation = float(dummy)
+                    aElevation[lCellID] = dElevation
+                    pass
+            except Exception as e:
+                print(f"Error reading elevation from {sFilename_preprocessed}: {e}")
+
             pDateset_vector = None
             for idx, pCell in enumerate(aCell_in):
                 if pCell.lCellID in aElevation:
@@ -1321,8 +1334,8 @@ class hexwatershedcase(object):
             convert_vector_format(sFilename_geojson, sFilename_parquet)
             sFilename_geopackage = sFilename_geojson.replace(
                 '.geojson', '.gpkg')
-            convert_vector_format(
-                sFilename_geojson, sFilename_geopackage)
+            #convert_vector_format(
+            #    sFilename_geojson, sFilename_geopackage)
 
         else:
             if self.iFlag_multiple_outlet == 1:
@@ -1500,8 +1513,8 @@ class hexwatershedcase(object):
         # convert to geoparquet for visualization
         sFilename_parquet = sFilename_geojson.replace('.geojson', '.parquet')
         convert_vector_format(sFilename_geojson, sFilename_parquet)
-        sFilename_geopackage = sFilename_geojson.replace('.geojson', '.gpkg')
-        convert_vector_format(sFilename_geojson, sFilename_geopackage)
+        #sFilename_geopackage = sFilename_geojson.replace('.geojson', '.gpkg')
+        #convert_vector_format(sFilename_geojson, sFilename_geopackage)
 
         if self.iFlag_multiple_outlet == 0:
             #watershed scale

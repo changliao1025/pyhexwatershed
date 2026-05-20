@@ -7,13 +7,18 @@ def export_json_to_geojson_polyline(sFilename_json_in,
                                     sFilename_geojson_out,
                                     aVariable_json_in = None,
                                     aVariable_geojson_out= None,
-                                    aVariable_type_out= None):
+                                    aVariable_type_out= None,
+                                    force_2d=True):
     """
     Convert a hexwatershed json into a geojson polyline
 
     Args:
         sFilename_json_in (_type_): _description_
         sFilename_geojson_out (_type_): _description_
+        aVariable_json_in (list, optional): Input variable names
+        aVariable_geojson_out (list, optional): Output variable names
+        aVariable_type_out (list, optional): Output variable types
+        force_2d (bool, optional): Force 2D coordinates (default: True)
     """
 
     if os.path.exists(sFilename_geojson_out):
@@ -24,7 +29,10 @@ def export_json_to_geojson_polyline(sFilename_json_in,
     pSrs = osr.SpatialReference()
     pSrs.ImportFromEPSG(4326)  #WGS84 lat/lon
     #pLayer = pDataset.CreateLayer('stream', pSrs, ogr.wkbLineString)
-    pLayer = pDataset.CreateLayer('stream', pSrs, geom_type=ogr.wkbLineString)
+    if force_2d:
+        pLayer = pDataset.CreateLayer('stream', pSrs, geom_type=ogr.wkbLineString)
+    else:
+        pLayer = pDataset.CreateLayer('stream', pSrs, geom_type=ogr.wkbLineString25D)
 
     # Add one attribute
     pLayer.CreateField(ogr.FieldDefn('lineid', ogr.OFTInteger64)) #long type for high resolution
@@ -90,8 +98,16 @@ def export_json_to_geojson_polyline(sFilename_json_in,
                 #feature = {"lineid": lLineID, "geometry": line}
 
                 pLine = ogr.Geometry(ogr.wkbLineString)
-                pLine.AddPoint(x_start, y_start) #AddPoint_2D
-                pLine.AddPoint(x_end, y_end)
+                if force_2d:
+                    pLine.AddPoint_2D(x_start, y_start)  # Explicitly 2D
+                    pLine.AddPoint_2D(x_end, y_end)
+                else:
+                    pLine.AddPoint(x_start, y_start)
+                    pLine.AddPoint(x_end, y_end)
+
+                # Ensure geometry is 2D if force_2d is True
+                if force_2d and pLine.GetCoordinateDimension() == 3:
+                    pLine.FlattenTo2D()
                 pFeature.SetGeometry(pLine)
                 pFeature.SetField("lineid", lLineID)
 
@@ -109,7 +125,7 @@ def export_json_to_geojson_polyline(sFilename_json_in,
     pFeature = None
     pDataset  = None
 
-def process_line(index, pcell, cell_dict, aVariable_json_in, aVariable_geojson_out, aVariable_type_out):
+def process_line(index, pcell, cell_dict, aVariable_json_in, aVariable_geojson_out, aVariable_type_out, force_2d=True):
     lCellID = int(pcell['lCellID'])
     lCellID_downslope = int(pcell['lCellID_downslope'])
     x_start = float(pcell['dLongitude_center_degree'])
@@ -142,7 +158,8 @@ def export_json_to_geojson_polyline_parallel(sFilename_json_in,
                                     sFilename_geojson_out,
                                     aVariable_json_in=None,
                                     aVariable_geojson_out=None,
-                                    aVariable_type_out=None):
+                                    aVariable_type_out=None,
+                                    force_2d=True):
     """
     Convert a hexwatershed JSON into a GeoJSON polyline.
 
@@ -152,6 +169,7 @@ def export_json_to_geojson_polyline_parallel(sFilename_json_in,
         aVariable_json_in (list): List of input variable names.
         aVariable_geojson_out (list): List of output variable names.
         aVariable_type_out (list): List of output variable types (1 for integer, 2 for float).
+        force_2d (bool, optional): Force 2D coordinates (default: True)
     """
 
     if os.path.exists(sFilename_geojson_out):
@@ -161,7 +179,10 @@ def export_json_to_geojson_polyline_parallel(sFilename_json_in,
     pDataset = pDriver_geojson.CreateDataSource(sFilename_geojson_out)
     pSrs = osr.SpatialReference()
     pSrs.ImportFromEPSG(4326)  # WGS84 lat/lon
-    pLayer = pDataset.CreateLayer('stream', pSrs, geom_type=ogr.wkbLineString)
+    if force_2d:
+        pLayer = pDataset.CreateLayer('stream', pSrs, geom_type=ogr.wkbLineString)
+    else:
+        pLayer = pDataset.CreateLayer('stream', pSrs, geom_type=ogr.wkbLineString25D)
 
     # Add one attribute
     pLayer.CreateField(ogr.FieldDefn('lineid', ogr.OFTInteger64))  # long type for high resolution
@@ -201,7 +222,7 @@ def export_json_to_geojson_polyline_parallel(sFilename_json_in,
         cell_dict = {int(pcell['lCellID']): pcell for pcell in data}
 
         with ThreadPoolExecutor() as executor:
-            futures = {executor.submit(process_line, i, data[i], cell_dict, aVariable_json_in, aVariable_geojson_out, aVariable_type_out): i for i in range(ncell)}
+            futures = {executor.submit(process_line, i, data[i], cell_dict, aVariable_json_in, aVariable_geojson_out, aVariable_type_out, force_2d): i for i in range(ncell)}
             results = [None] * ncell
             for future in as_completed(futures):
                 index = futures[future]
@@ -212,6 +233,11 @@ def export_json_to_geojson_polyline_parallel(sFilename_json_in,
             for line_data in results:
                 if line_data:
                     pLine = ogr.CreateGeometryFromWkt(line_data['geometry'])
+
+                    # Ensure geometry is 2D if force_2d is True
+                    if force_2d and pLine.GetCoordinateDimension() == 3:
+                        pLine.FlattenTo2D()
+
                     pFeature = ogr.Feature(pLayer.GetLayerDefn())
                     pFeature.SetGeometry(pLine)
                     pFeature.SetField("lineid", line_data['lineid'])

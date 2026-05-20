@@ -61,12 +61,16 @@ def export_json_to_geojson_polygon(sFilename_json_in,
             ring = ogr.Geometry(ogr.wkbLinearRing)
             for j in range(nvertex):
                 vertex = vVertex[j]
-                ring.AddPoint(vertex['dLongitude_degree'], vertex['dLatitude_degree'])
+                ring.AddPoint_2D(vertex['dLongitude_degree'], vertex['dLatitude_degree'])
 
             # Close the ring
             ring.CloseRings()
             pPolygon = ogr.Geometry(ogr.wkbPolygon)
             pPolygon.AddGeometry(ring)
+
+            # Ensure geometry is 2D
+            if pPolygon.GetCoordinateDimension() == 3:
+                pPolygon.FlattenTo2D()
 
             pFeature = ogr.Feature(pLayerDefn)
             pFeature.SetGeometry(pPolygon)
@@ -93,12 +97,16 @@ def process_cell(index, pcell, aVariable_json_in, aVariable_geojson_out, aVariab
     ring = ogr.Geometry(ogr.wkbLinearRing)
     for j in range(nvertex):
         vertex = vVertex[j]
-        ring.AddPoint(vertex['dLongitude_degree'], vertex['dLatitude_degree'])
+        ring.AddPoint_2D(vertex['dLongitude_degree'], vertex['dLatitude_degree'])
 
     # Close the ring
     ring.CloseRings()
     pPolygon = ogr.Geometry(ogr.wkbPolygon)
     pPolygon.AddGeometry(ring)
+
+    # Ensure geometry is 2D
+    if pPolygon.GetCoordinateDimension() == 3:
+        pPolygon.FlattenTo2D()
 
     feature_data = {
         'geometry': pPolygon.ExportToWkt(),
@@ -178,8 +186,14 @@ def export_json_to_geojson_polygon_parallel(sFilename_json_in,
                 results[index] = feature_data
 
             for feature_data in results:
+                pPolygon = ogr.CreateGeometryFromWkt(feature_data['geometry'])
+
+                # Ensure geometry is 2D
+                if pPolygon.GetCoordinateDimension() == 3:
+                    pPolygon.FlattenTo2D()
+
                 pFeature = ogr.Feature(pLayerDefn)
-                pFeature.SetGeometryDirectly(ogr.CreateGeometryFromWkt(feature_data['geometry']))
+                pFeature.SetGeometry(pPolygon)
                 pFeature.SetField("cellid", feature_data['cellid'])
                 for k in range(len(aVariable_geojson_out)):
                     field_name = aVariable_geojson_out[k]
