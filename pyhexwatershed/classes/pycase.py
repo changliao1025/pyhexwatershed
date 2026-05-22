@@ -1053,18 +1053,21 @@ class hexwatershedcase(object):
         return
 
     def pyhexwatershed_postrun(self):
-        #update some information after the model run
-        if self.iFlag_flowline != 1: #pure dem-based simulation
-            #retrieve the number of outlets using the domain information
-            self.pyhexwatershed_retrieve_domain_characteristics()
-            self.aBasin.clear()
-            for iBasin in range(1, self.nOutlet+1):
-                sBasin = "{:08d}".format(iBasin)
-                dummy_basin = dict()
-                dummy_basin['sWorkspace_output_basin'] = str(
-                    Path(self.sWorkspace_output_hexwatershed) / sBasin)
-                pBasin = pybasin(dummy_basin)
-                self.aBasin.append(pBasin)
+        if self.iFlag_global == 1:
+            pass
+        else:
+            #update some information after the model run
+            if self.iFlag_flowline != 1: #pure dem-based simulation
+                #retrieve the number of outlets using the domain information
+                self.pyhexwatershed_retrieve_domain_characteristics()
+                self.aBasin.clear()
+                for iBasin in range(1, self.nOutlet+1):
+                    sBasin = "{:08d}".format(iBasin)
+                    dummy_basin = dict()
+                    dummy_basin['sWorkspace_output_basin'] = str(
+                        Path(self.sWorkspace_output_hexwatershed) / sBasin)
+                    pBasin = pybasin(dummy_basin)
+                    self.aBasin.append(pBasin)
         return
 
     def pyhexwatershed_retrieve_domain_characteristics(self):
@@ -1131,7 +1134,6 @@ class hexwatershedcase(object):
         if self.iFlag_global == 1:  # we do not have the polyline information
             self.pyhexwatershed_export_flow_direction()
             self.pyhexwatershed_export_all_polygon_variables()
-            pass
         else:
             if self.iFlag_multiple_outlet == 1:
                 self.pyhexwatershed_postrun()
@@ -1155,18 +1157,13 @@ class hexwatershedcase(object):
                 ptimer.start()
                 self.pyhexwatershed_export_stream_segment()
                 ptimer.stop()
-                # polygon
-                # self.pyhexwatershed_export_elevation()
-                # self.pyhexwatershed_export_slope()
-                # self.pyhexwatershed_export_drainage_area()
-                # self.pyhexwatershed_export_travel_distance()
 
                 # we can also save a geojson that has all the information
                 print('Started exporting polygon variables')
                 ptimer.start()
                 self.pyhexwatershed_export_all_polygon_variables()
                 ptimer.stop()
-                # self.pyhexwatershed_export_all_polyline_variables()
+                #self.pyhexwatershed_export_all_polyline_variables()
                 pass
 
         sys.stdout.flush()
@@ -1332,10 +1329,24 @@ class hexwatershedcase(object):
             sFilename_parquet = sFilename_geojson.replace(
                 '.geojson', '.parquet')
             convert_vector_format(sFilename_geojson, sFilename_parquet)
-            sFilename_geopackage = sFilename_geojson.replace(
-                '.geojson', '.gpkg')
+            #sFilename_geopackage = sFilename_geojson.replace(
+            #    '.geojson', '.gpkg')
             #convert_vector_format(
             #    sFilename_geojson, sFilename_geopackage)
+            if self.iFlag_export_individual_watershed ==1:
+                for pBasin in self.aBasin:
+                    sFilename_json = pBasin.sFilename_watershed_json
+                    sFilename_geojson = pBasin.sFilename_flow_direction
+                    aVariable_json = ['lStream_segment',
+                                      'dDrainage_area']  # new names
+                    aVariable_geojson = ['stream_segment', 'drainage_area']
+                    aVariable_type_out = [1, 2]
+                    export_json_to_geojson_polyline_parallel(sFilename_json, sFilename_geojson,
+                                                             aVariable_json, aVariable_geojson, aVariable_type_out)
+                    # convert to geoparquet for visualization
+                    convert_vector_format(
+                        sFilename_geojson, sFilename_geojson.replace('.geojson', '.parquet'))
+
 
         else:
             if self.iFlag_multiple_outlet == 1:
@@ -1354,10 +1365,10 @@ class hexwatershedcase(object):
                     sFilename_geojson, sFilename_parquet)
                 sFilename_geopackage = sFilename_geojson.replace(
                     '.geojson', '.gpkg')
-                convert_vector_format(
-                    sFilename_geojson, sFilename_geopackage)
+                #convert_vector_format(
+                #    sFilename_geojson, sFilename_geopackage)
                 #for each basin, how to retrive the number of basin for hexwatershed?
-                if self.iFlag_export_individual_watershed ==1:
+                if self.iFlag_export_individual_watershed == 1:
                     for pBasin in self.aBasin:
                         sFilename_json = pBasin.sFilename_watershed_json
                         sFilename_geojson = pBasin.sFilename_flow_direction
@@ -1371,8 +1382,8 @@ class hexwatershedcase(object):
                         # convert to geoparquet for visualization
                         convert_vector_format(
                             sFilename_geojson, sFilename_geojson.replace('.geojson', '.parquet'))
-                        convert_vector_format(
-                            sFilename_geojson, sFilename_geojson.replace('.geojson', '.gpkg'))
+                        #convert_vector_format(
+                        #    sFilename_geojson, sFilename_geojson.replace('.geojson', '.gpkg'))
             else:
                 sFilename_json = self.sFilename_hexwatershed_json
                 sFilename_geojson = self.sFilename_flow_direction
