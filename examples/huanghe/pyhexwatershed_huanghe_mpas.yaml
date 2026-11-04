@@ -1,0 +1,77 @@
+# ==============================================================================
+# PyHexWatershed Case Specification: Yellow River (Huanghe) MPAS Mesh (YAML)
+# ==============================================================================
+# Regional variable-resolution MPAS Voronoi mesh configuration for the
+# Yellow River (Huanghe) basin flow direction and watershed modeling.
+# ==============================================================================
+
+workflow:
+  model: pyhexwatershed                         # Model engine: pyhexwatershed
+  mesh_type: mpas                               # Target mesh family: mpas
+  case_index: 1                                 # Simulation run index
+  date: "20261101"                              # Simulation date (YYYYMMDD)
+  job: hexwatershed                             # Job name
+  region: huanghe                               # Study region name
+
+resolutions:
+  degree: 0.05                                  # Resolution in degrees (~5 km)
+  meter: 3000.0                                 # High-resolution corridor spacing (3 km)
+  accumulation_threshold: 100000.0              # Upstream drainage accumulation threshold
+  small_river_threshold: 10000.0                # River reach length threshold for pruning
+  breach_threshold: 10.0                        # Breach depression threshold
+  missing_value_dem: -9999.0                    # DEM no-data missing value
+
+region:
+  name: huanghe
+  bbox:
+    left: 95.9083                               # Western bounding longitude
+    right: 119.1798                             # Eastern bounding longitude
+    bottom: 32.1583                             # Southern bounding latitude
+    top: 41.8379                                # Northern bounding latitude
+  outlet:
+    longitude: 119.1729                         # Main basin outlet longitude (Bohai Sea mouth)
+    latitude: 37.7687                           # Main basin outlet latitude
+
+flags:
+  simulation: true                              # Enable simulation execution pipeline
+  visualization: false                          # Enable map visualization output
+  create_mesh: true                             # Generate mesh geometry
+  save_mesh: true                               # Export mesh to GeoJSON/disk
+  mesh_boundary: true                           # Crop global mesh using vector basin boundary
+  simplification: true                          # Simplify river geometry
+  intersect: true                               # Intersect river reaches with mesh cells
+  flowline: true                                # Enable river flowline processing
+  use_mesh_dem: false                            # Sample elevation from mesh DEM
+  stream_burning_topology: true                 # Stream burning topological relationship
+  save_elevation: true                          # Export elevation results
+  elevation_profile: true                       # Calculate elevation profiles
+  resample_method: 2                            # Resampling method index
+  global: false                                 # Regional domain execution
+  multiple_outlet: false                        # Single main basin outlet
+
+paths:
+  workspace_input:
+    Darwin: /Users/changliao/data/hexwatershed/huanghe
+    Linux: /public/home/liaochang/data/hexwatershed/huanghe
+    default: ./input
+  workspace_output:
+    Darwin: /Users/changliao/scratch/pyhexwatershed/huanghe
+    Linux: /data2/share/liaochang/04model/hexwatershed/huanghe
+    default: ./output
+  mesh_boundary:
+    Darwin: /Users/changliao/data/hexwatershed/huanghe/vector/basin_boundary/merged.geojson
+    Linux: /public/home/liaochang/data/hexwatershed/huanghe/vector/basin_boundary/merged.geojson
+    default: ./merged.geojson
+  mesh_netcdf:
+    Darwin: /Users/changliao/scratch/earthmesh/huanghe/mpas20261101002/out/invert_mesh.nc
+    Linux: /data2/share/liaochang/04model/jigsaw/huanghe/mpas20261101002/out/invert_mesh.nc
+    default: ./invert_mesh.nc
+  dem:
+    Darwin: //Users/changliao/scratch/rawdata/hydrology/hydrosheds/hydrosheds/hyd_as_dem_15s/hyd_as_dem_15s.tif
+    Linux: /public/home/liaochang/data/hexwatershed/huanghe/raster/dem/dem_ext.tif
+    default: ./dem_ext.tif
+  spatial_reference:
+    Darwin: /Users/changliao/data/hexwatershed/huanghe/vector/basin_boundary/merged.geojson
+    Linux: /public/home/liaochang/data/hexwatershed/huanghe/vector/basin_boundary/merged.geojson
+    default: ./boundary.geojson
+  basins: ./pyhexwatershed_huanghe_basins.yaml   # Child basin specification file

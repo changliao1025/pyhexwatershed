@@ -6,12 +6,12 @@ HexWatershed: a mesh independent flow direction model for hydrological models.
 
 This Python package provides a <a href="http://www.python.org">`Python`</a> interface to the underlying <a href="https://github.com/changliao1025/hexwatershed">`HexWatershed`</a> model.
 
-`HexWatershed` has been compiled and tested on various `64-bit` `Linux` and `Mac` based platforms. 
+`HexWatershed` has been compiled and tested on various `64-bit` `Linux` and `Mac` based platforms.
 
 ### `Installation`
 
     Ensure you have a c++ compiler and the cmake utility installed.
-    
+
     Build the HexWatershed C++ backend and place the binary under the bin path.
 
     Install the python package using conda: conda install -c conda-forge hexwatershed
@@ -21,10 +21,10 @@ For detailed installation instruction, please refer to the <a href="https://hexw
 ### `Usage`
 
 Please use this <a href="https://github.com/changliao1025/hexwatershed_tutorial">`tutorial`</a> to run the examples.
-    
+
 ### `Acknowledgement`
 
-This work was supported by the Earth System Model Development program areas of the U.S. Department of Energy, Office of Science, Office of Biological and Environmental Research as part of the multi-program, collaborative Integrated Coastal Modeling (ICoM) project. 
+This work was supported by the Earth System Model Development program areas of the U.S. Department of Energy, Office of Science, Office of Biological and Environmental Research as part of the multi-program, collaborative Integrated Coastal Modeling (ICoM) project.
 
 ### `License`
 
@@ -52,7 +52,7 @@ There are a number of publications that describe the algorithms used in `HexWate
 
 * Liao, Chang, Zhou, T., Xu, D., Cooper, M. G., Engwirda, D., Li, H.-Y., Leung, L. R. (2023). Topological relationship-based flow direction modeling: Mesh-independent river networks representation. Journal of Advances in Modeling Earth Systems, 15, e2022MS003089. https://doi.org/10.1029/2022MS003089
 
-* Liao, Chang, Tian Zhou, Donghui Xu, Richard Barnes, Gautam Bisht, Hong-Yi Li, Zeli Tan, et al. (02/2022AD) 2022. “Advances In Hexagon Mesh-Based Flow Direction Modeling”. Advances In Water Resources 160. Elsevier BV: 104099. 
+* Liao, Chang, Tian Zhou, Donghui Xu, Richard Barnes, Gautam Bisht, Hong-Yi Li, Zeli Tan, et al. (02/2022AD) 2022. “Advances In Hexagon Mesh-Based Flow Direction Modeling”. Advances In Water Resources 160. Elsevier BV: 104099.
 https://doi.org/10.1016/j.advwatres.2021.104099.
 
 * Liao, C., Tesfa, T., Duan, Z., & Leung, L. R. (2020). Watershed delineation on a hexagonal mesh grid. Environmental Modelling & Software, 128, 104702. https://doi.org/10.1016/j.envsoft.2020.104702
@@ -69,6 +69,3 @@ https://doi.org/10.5281/zenodo.6407299
 
 
 For a full list of references including applications of HexWatershed in other projects, please refer to the <a href="https://hexwatershed.readthedocs.io/en/latest/">`documentation`</a>.
-
-
-

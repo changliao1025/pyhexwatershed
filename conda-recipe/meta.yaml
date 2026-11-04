@@ -42,6 +42,7 @@ requirements:
     - matplotlib-base
     - gdal
     - pyflowline
+    - pyyaml
 
 test:
   imports:
