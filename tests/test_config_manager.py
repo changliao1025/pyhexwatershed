@@ -258,6 +258,14 @@ paths:
             self.assertEqual(case.sMesh_type, "hexagon")
             self.assertIsNotNone(case.pPyFlowline)
             self.assertGreater(len(case.aBasin), 0)
+            self.assertTrue(
+                case.aBasin[0].sWorkspace_output_basin.startswith(case.sWorkspace_output_pyflowline)
+            )
+            self.assertFalse(
+                case.aBasin[0].sWorkspace_output_basin.startswith(
+                    case.sWorkspace_output_hexwatershed
+                )
+            )
 
             # Test exporting to YAML
             yaml_out = Path(tmp_dir) / "exported_case.yaml"
@@ -297,11 +305,42 @@ paths:
                 resolution_meter=2500.0,
                 workspace_input=tmp_path / "input",
                 workspace_output=tmp_path / "output",
+                hexwatershed_bin="/usr/local/bin/hexwatershed",
             )
             self.assertTrue(json_out.exists())
             self.assertTrue((tmp_path / "test_template_basins.json").exists())
             self.assertEqual(cfg_json["sMesh_type"], "mpas")
             self.assertEqual(cfg_json["dResolution_meter"], 2500.0)
+            self.assertEqual(cfg_json["sFilename_hexwatershed_bin"], "/usr/local/bin/hexwatershed")
+
+    def test_hexwatershed_binary_configuration(self):
+        yaml_path = (
+            Path(pyhexwatershed_project_root())
+            / "examples"
+            / "huanghe"
+            / "pyhexwatershed_huanghe_mpas.yaml"
+        )
+        self.assertTrue(yaml_path.exists())
+        config = load_workflow_config(yaml_path)
+        self.assertIn("sFilename_hexwatershed_bin", config)
+        if platform.system() == "Darwin":
+            self.assertEqual(
+                config["sFilename_hexwatershed_bin"],
+                "/Users/changliao/workspace/cplus/hexwatershed/bin/hexwatershed",
+            )
+        self.assertEqual(config["iFlag_user_provided_binary"], 1)
+
+    def test_force_watershed_boundary_flag(self):
+        spec_dict = {
+            "workflow": {"mesh_type": "mpas"},
+            "flags": {"force_watershed_boundary": True},
+        }
+        cfg = compile_workflow(spec_dict)
+        self.assertEqual(cfg["iFlag_force_watershed_boundary"], 1)
+
+        case = create_workflow(spec_dict)
+        self.assertEqual(case.iFlag_force_watershed_boundary, 1)
+        self.assertEqual(case.pPyFlowline.iFlag_force_watershed_boundary, 1)
 
 
 if __name__ == "__main__":

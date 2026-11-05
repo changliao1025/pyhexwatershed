@@ -8,7 +8,7 @@
 workflow:
   model: pyhexwatershed                         # Model engine: pyhexwatershed
   mesh_type: mpas                               # Target mesh family: mpas
-  case_index: 1                                 # Simulation run index
+  case_index: 4                                 # Simulation run index
   date: "20261101"                              # Simulation date (YYYYMMDD)
   job: hexwatershed                             # Job name
   region: huanghe                               # Study region name
@@ -48,6 +48,8 @@ flags:
   resample_method: 2                            # Resampling method index
   global: false                                 # Regional domain execution
   multiple_outlet: false                        # Single main basin outlet
+  force_watershed_boundary: true               # Burn watershed boundary into mesh
+  user_provided_binary: true                    # Use user-provided hexwatershed binary
 
 paths:
   workspace_input:
@@ -58,6 +60,10 @@ paths:
     Darwin: /Users/changliao/scratch/pyhexwatershed/huanghe
     Linux: /data2/share/liaochang/04model/hexwatershed/huanghe
     default: ./output
+  hexwatershed_bin:
+    Darwin: /Users/changliao/workspace/cplus/hexwatershed/bin/hexwatershed
+    Linux: /public/home/liaochang/workspace/cplus/hexwatershed/bin/hexwatershed
+    default: /Users/changliao/workspace/cplus/hexwatershed/bin/hexwatershed
   mesh_boundary:
     Darwin: /Users/changliao/data/hexwatershed/huanghe/vector/basin_boundary/merged.geojson
     Linux: /public/home/liaochang/data/hexwatershed/huanghe/vector/basin_boundary/merged.geojson

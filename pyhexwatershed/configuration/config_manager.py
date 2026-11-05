@@ -128,6 +128,7 @@ DEFAULT_HEXWATERSHED_CONFIG: dict[str, Any] = {
     "iFlag_stream_burning_topology": 1,
     "iFlag_create_mesh": 1,
     "iFlag_mesh_boundary": 0,
+    "iFlag_force_watershed_boundary": 0,
     "iFlag_simplification": 1,
     "iFlag_intersect": 1,
     "iFlag_merge_reach": 1,
@@ -584,6 +585,7 @@ def compile_workflow(spec_or_config: dict[str, Any] | WorkflowSpec) -> dict[str,
             "profile": "iFlag_profile",
             "antarctic": "iFlag_antarctic",
             "mesh_boundary": "iFlag_mesh_boundary",
+            "force_watershed_boundary": "iFlag_force_watershed_boundary",
             "merge_reach": "iFlag_merge_reach",
             "user_provided_binary": "iFlag_user_provided_binary",
             "slurm": "iFlag_slurm",
@@ -621,6 +623,19 @@ def compile_workflow(spec_or_config: dict[str, Any] | WorkflowSpec) -> dict[str,
         for k, v in paths.items():
             if k.startswith("sFilename_") or k.startswith("sWorkspace_"):
                 native[k] = _select_platform_path(v)
+
+        # If hexwatershed was provided as a path to a binary and hexwatershed_bin wasn't given
+        if ("hexwatershed" in paths and paths["hexwatershed"] is not None) and (
+            "hexwatershed_bin" not in paths or paths["hexwatershed_bin"] is None
+        ):
+            hw_val = native.get("sFilename_hexwatershed", "")
+            if "/" in hw_val or "\\" in hw_val or os.path.isabs(hw_val):
+                native["sFilename_hexwatershed_bin"] = hw_val
+
+        # Automatically enable user_provided_binary when a binary path is configured
+        if native.get("sFilename_hexwatershed_bin"):
+            if "user_provided_binary" not in flags and "iFlag_user_provided_binary" not in flags:
+                native["iFlag_user_provided_binary"] = 1
 
     # Section 6: basins (inline list or single dict of basin specifications)
     basins = raw.get("basins") or raw.get("aBasin")
@@ -768,6 +783,7 @@ def pyhexwatershed_read_configuration_file(
     iFlag_stream_burning_topology_in: int | None = None,
     iFlag_elevation_profile_in: int | None = None,
     iFlag_use_mesh_dem_in: int | None = None,
+    iFlag_force_watershed_boundary_in: int | None = None,
     iResolution_index_in: int | None = None,
     dResolution_degree_in: float | None = None,
     dResolution_meter_in: float | None = None,
@@ -811,6 +827,8 @@ def pyhexwatershed_read_configuration_file(
         aConfig["iFlag_elevation_profile"] = int(iFlag_elevation_profile_in)
     if iFlag_use_mesh_dem_in is not None:
         aConfig["iFlag_use_mesh_dem"] = int(iFlag_use_mesh_dem_in)
+    if iFlag_force_watershed_boundary_in is not None:
+        aConfig["iFlag_force_watershed_boundary"] = int(iFlag_force_watershed_boundary_in)
     if iResolution_index_in is not None:
         aConfig["iResolution_index"] = int(iResolution_index_in)
     if dResolution_degree_in is not None:
@@ -838,6 +856,7 @@ def pyhexwatershed_read_configuration_file(
         "resolution_degree": "dResolution_degree",
         "workspace_output": "sWorkspace_output",
         "workspace_input": "sWorkspace_input",
+        "force_watershed_boundary": "iFlag_force_watershed_boundary",
     }
     for k, v in kwargs.items():
         if v is not None:
@@ -882,6 +901,7 @@ def pyhexwatershed_read_configuration_file(
         elif isinstance(raw_basins, dict):
             basins_data = [raw_basins]
 
+    #hexwatershed model has it own basin workspace output path
     if basins_data:
         n_outlets = oPyhexwatershed.nOutlet if oPyhexwatershed.nOutlet > 0 else len(basins_data)
         n_basins = min(len(basins_data), n_outlets)
@@ -903,7 +923,7 @@ def pyhexwatershed_read_configuration_file(
         pBasin = pybasin(dummy_basin)
         oPyhexwatershed.aBasin.append(pBasin)
 
-    oPyflowline.aBasin = oPyhexwatershed.aBasin
+
     oPyflowline.nOutlet = len(oPyhexwatershed.aBasin)
 
     return oPyhexwatershed
@@ -953,6 +973,7 @@ def create_workflow(config_or_path: str | Path | dict[str, Any], **kwargs: Any) 
     oPyhexwatershed.pPyFlowline = oPyflowline
     oPyhexwatershed.aBasin.clear()
 
+    #hexwatershed model has it own basin workspace output path
     basins_data = config.get("aBasin")
     if basins_data and isinstance(basins_data, list):
         for i, b in enumerate(basins_data):
@@ -972,7 +993,6 @@ def create_workflow(config_or_path: str | Path | dict[str, Any], **kwargs: Any) 
         pBasin = pybasin(dummy_basin)
         oPyhexwatershed.aBasin.append(pBasin)
 
-    oPyflowline.aBasin = oPyhexwatershed.aBasin
     oPyflowline.nOutlet = len(oPyhexwatershed.aBasin)
     return oPyhexwatershed
 
@@ -1203,6 +1223,7 @@ def create_model_configuration(
                 "stream_burning_topology": bool(kwargs.get("iFlag_stream_burning_topology", 1)),
                 "save_elevation": bool(kwargs.get("iFlag_save_elevation", 1)),
                 "use_mesh_dem": bool(kwargs.get("iFlag_use_mesh_dem", 0)),
+                "force_watershed_boundary": bool(kwargs.get("iFlag_force_watershed_boundary", 0)),
             },
             "paths": {
                 "workspace_input": ws_in,
@@ -1217,6 +1238,12 @@ def create_model_configuration(
                 "basins": sFilename_basins,
             },
         }
+        if "hexwatershed_bin" in kwargs or "sFilename_hexwatershed_bin" in kwargs:
+            bin_path = str(
+                kwargs.get("hexwatershed_bin") or kwargs.get("sFilename_hexwatershed_bin")
+            )
+            config_data["paths"]["hexwatershed_bin"] = bin_path
+            config_data["flags"]["user_provided_binary"] = True
     else:
         config_data = HexwatershedConfigManager.get_default_config()
         config_data["sWorkspace_input"] = ws_in
@@ -1232,6 +1259,9 @@ def create_model_configuration(
         config_data["nOutlet"] = n_outlets
         for k, v in kwargs.items():
             config_data[k] = v
+        if "hexwatershed_bin" in kwargs:
+            config_data["sFilename_hexwatershed_bin"] = str(kwargs["hexwatershed_bin"])
+            config_data["iFlag_user_provided_binary"] = 1
 
     _dump_config_file(config_data, dest_path, fmt=fmt)
     return config_data

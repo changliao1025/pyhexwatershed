@@ -61,7 +61,7 @@ for iResolution in range(1, nResolution + 1):
             aCell_out = oPyhexwatershed.assign_elevation_to_cells()
             aCell_new = oPyhexwatershed.update_outlet(aCell_origin)
             oPyhexwatershed.pPyFlowline.export()
-            oPyhexwatershed.export_config_to_yaml()
+            oPyhexwatershed.export_config_to_json()
             oPyhexwatershed.run_hexwatershed()
             oPyhexwatershed.analyze()
             oPyhexwatershed.export()

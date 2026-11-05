@@ -35,6 +35,8 @@ flags:
   stream_burning_topology: true
   save_elevation: true
   use_mesh_dem: true
+  force_watershed_boundary: false
+  user_provided_binary: false
 
 paths:
   workspace_input:
@@ -57,4 +59,8 @@ paths:
     Darwin: ../data/susquehanna/input/lnd_cull_mesh.nc
     Linux: ../data/susquehanna/input/lnd_cull_mesh.nc
     default: ../data/susquehanna/input/lnd_cull_mesh.nc
+  # hexwatershed_bin:
+  #   Darwin: /path/to/hexwatershed
+  #   Linux: /path/to/hexwatershed
+  #   default: /path/to/hexwatershed
   basins: ./template_basins.yaml

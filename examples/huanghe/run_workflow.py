@@ -6,7 +6,7 @@ and orchestrating the full PyHexWatershed simulation pipeline:
 1. Model setup
 2. PyFlowline simplification and mesh intersection
 3. Elevation assignment and outlet update
-4. Configuration export (YAML and backend JSON)
+4. Configuration export (JSON for HexWatershed backend)
 5. HexWatershed flow direction model execution
 6. Result analysis and GIS vector/raster export
 """
@@ -89,6 +89,8 @@ def main() -> None:
         logger.info("   * Mesh boundary: %s", case.sFilename_mesh_boundary)
     if getattr(case, "sFilename_dem", None):
         logger.info("   * DEM: %s", case.sFilename_dem)
+    if getattr(case, "sFilename_hexwatershed_bin", None):
+        logger.info("   * HexWatershed binary: %s", case.sFilename_hexwatershed_bin)
 
     # ── Step 2: Model setup ───────────────────────────────────────────────────
     logger.info("Step 2: Setting up PyHexWatershed model...")
@@ -97,22 +99,24 @@ def main() -> None:
     # ── Step 3: Simulation Execution ──────────────────────────────────────────
     if args.simulate or getattr(case, "iFlag_simulation", 0) == 1:
         logger.info("Step 3: Running PyFlowline river simplification & mesh intersection...")
-        aCell_origin = case.run_pyflowline()
+        #aCell_origin = case.run_pyflowline()
 
         # Step 4: Elevation assignment & outlet update
         if getattr(case, "iFlag_use_mesh_dem", 0) != 1:
             logger.info("Step 4: Sampling and assigning elevation to mesh cells...")
-            case.assign_elevation_to_cells()
-            case.update_outlet(aCell_origin)
+            #case.assign_elevation_to_cells()
+            #case.update_outlet(aCell_origin)
 
         # Step 5: Export PyFlowline results and case configuration
-        logger.info("Step 5: Exporting PyFlowline results and YAML configuration...")
-        case.pPyFlowline.export()
-        case.export_config_to_yaml()
+        logger.info(
+            "Step 5: Exporting PyFlowline results and JSON configuration for HexWatershed..."
+        )
+        #case.pPyFlowline.export()
+        #case.export_config_to_json()
 
         # Step 6: HexWatershed model execution
         logger.info("Step 6: Running HexWatershed flow direction model...")
-        case.run_hexwatershed()
+        #case.run_hexwatershed()
 
         # Step 7: Analyze and export HexWatershed results
         logger.info("Step 7: Analyzing and exporting watershed products...")

@@ -56,7 +56,7 @@ else:
         oPyhexwatershed.pPyFlowline.dLatitude_top = 42.8
         oPyhexwatershed.run_pyflowline()
         oPyhexwatershed.pPyFlowline.export()
-        oPyhexwatershed.export_config_to_yaml()
+        oPyhexwatershed.export_config_to_json()
         oPyhexwatershed.run_hexwatershed()
         oPyhexwatershed.analyze()
         oPyhexwatershed.export()

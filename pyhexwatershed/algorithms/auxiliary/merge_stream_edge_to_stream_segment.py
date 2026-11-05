@@ -1,22 +1,8 @@
 import os
 
-try:
-    from pyflowline.formats.read_flowline import read_flowline_geojson
-except ImportError:
-    from pyflowline.formats.read_flowline import read_flowline_vector as read_flowline_geojson
-try:
-    from pyflowline.algorithms.split.find_flowline_confluence import find_flowline_confluence
-except ImportError:
-    find_flowline_confluence = None
-
-try:
-    from pyflowline.algorithms.merge.merge_flowline import merge_flowline
-except ImportError:
-    try:
-        from pyearthriver.algorithms.topology.segmentation import merge_flowline
-    except ImportError:
-        merge_flowline = None
+from pyearthriver.classes.rivergraph import pyrivergraph
 from pyflowline.formats.export_flowline import export_flowline_to_geojson
+from pyflowline.formats.read_flowline import read_flowline_vector
 
 
 def merge_stream_edge_to_stream_segment(
@@ -26,35 +12,14 @@ def merge_stream_edge_to_stream_segment(
     if os.path.exists(sFilename_stream_segment_geojson):
         os.remove(sFilename_stream_segment_geojson)
 
-    aFlowline_edge_basin_conceptual, pSpatialRef_geojson = read_flowline_geojson(
+    aFlowline_edge_basin_conceptual, pSpatialRef_geojson = read_flowline_vector(
         sFilename_stream_edge_geojson_in
     )
 
-    # remember there that it is possible that there is only one segment, no confluence
-    (
-        aVertex,
-        lIndex_outlet,
-        aIndex_headwater,
-        aIndex_middle,
-        aIndex_confluence,
-        aConnectivity,
-        pVertex_outlet_in,
-    ) = find_flowline_confluence(aFlowline_edge_basin_conceptual, pVertex_outlet_in)
-    # segment based
-    aFlowline_basin_conceptual = merge_flowline(
-        aFlowline_edge_basin_conceptual,
-        aVertex,
-        pVertex_outlet_in,
-        aIndex_headwater,
-        aIndex_middle,
-        aIndex_confluence,
-    )
-
-    # sFilename_stream_segment_geojson = pBasin.sFilename_stream_segment
-
-    aStream_segment = list()
-    for pFlowline in aFlowline_basin_conceptual:
-        aStream_segment.append(pFlowline.iStream_segment)
+    pRivergraph = pyrivergraph(aFlowline_edge_basin_conceptual, pVertex_outlet_in)
+    pRivergraph.define_river_confluence()
+    aFlowline_basin_conceptual = pRivergraph.merge_flowline()
+    aFlowline_basin_conceptual, aStream_segment = pRivergraph.define_stream_segment()
 
     export_flowline_to_geojson(
         aFlowline_basin_conceptual,

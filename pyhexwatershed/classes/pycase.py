@@ -30,7 +30,7 @@ from pyflowline.classes.timer import pytimer
 try:
     from pyearthriver.classes.vertex import pyvertex
 except ImportError:
-    from pyflowline.classes.vertex import pyvertex
+    from pyearth.toolbox.mesh.vertex import pyvertex
 
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polygon import (
     export_json_to_geojson_polygon,
@@ -46,25 +46,16 @@ from pyhexwatershed.algorithms.auxiliary.merge_stream_edge_to_stream_segment imp
 try:
     from pyearth.gis.spatialref import reproject_coordinates, reproject_coordinates_batch
 except ImportError:
-    try:
-        from pyearth.gis.spatialref.reproject_coordinates import (
-            reproject_coordinates,
-            reproject_coordinates_batch,
-        )
-    except ImportError:
-        from pyearth.gis.spatialref.reproject_coodinates import (
-            reproject_coordinates,
-            reproject_coordinates_batch,
-        )
+    print("Warning: Could not import reproject_coordinates from pyearth.gis.spatialref")
+    reproject_coordinates = None
+    reproject_coordinates_batch = None
 
 from pyearth.gis.gdal.read.raster.gdal_read_geotiff_file import gdal_read_geotiff_file
 
 try:
-    from pyearth.toolbox.data.geoparquet.convert_geojson_to_geoparquet import (
-        convert_geojson_to_geoparquet,
-    )
+    from pyearth.toolbox.conversion.convert_vector_format import convert_vector_format
 except ImportError:
-    convert_geojson_to_geoparquet = None
+    convert_vector_format = None
 
 from pyearth.toolbox.reader.text_reader_string import text_reader_string
 
@@ -113,6 +104,7 @@ class hexwatershedcase:
     iFlag_stream_burning_topology = 1
     iFlag_create_mesh = 1
     iFlag_mesh_boundary = 0
+    iFlag_force_watershed_boundary = 0
     iFlag_simplification = 0
     iFlag_intersect = 0
     iFlag_merge_reach = 1
@@ -252,6 +244,11 @@ class hexwatershedcase:
 
         if "iFlag_elevation_profile" in aConfig_in:
             self.iFlag_elevation_profile = int(aConfig_in["iFlag_elevation_profile"])
+
+        if "iFlag_force_watershed_boundary" in aConfig_in:
+            self.iFlag_force_watershed_boundary = int(aConfig_in["iFlag_force_watershed_boundary"])
+        else:
+            self.iFlag_force_watershed_boundary = 0
 
         if "iFlag_user_provided_binary" in aConfig_in:
             self.iFlag_user_provided_binary = int(aConfig_in["iFlag_user_provided_binary"])
@@ -466,21 +463,22 @@ class hexwatershedcase:
         return sJson
 
     def pyhexwatershed_export_config(self, sFilename_out=None, fmt=None):
-        """Export the model configuration to YAML or JSON."""
+        """Export the model configuration to JSON or YAML."""
+        # Determine format (default to json since HexWatershed C++ binary requires JSON)
+        if fmt is None:
+            if sFilename_out is not None:
+                ext = Path(sFilename_out).suffix.lower()
+                fmt = "yaml" if ext in (".yaml", ".yml") else "json"
+            else:
+                fmt = "json"
+
+        # Export basin config from pyflowline in the requested format
         if hasattr(self.pPyFlowline, "pyflowline_export_basin_config"):
             self.pPyFlowline.pyflowline_export_basin_config(fmt=fmt)
         elif hasattr(self.pPyFlowline, "pyflowline_export_basin_config_to_json"):
             self.pPyFlowline.pyflowline_export_basin_config_to_json()
 
         self.sFilename_basins = getattr(self.pPyFlowline, "sFilename_basins", self.sFilename_basins)
-
-        # Determine format (default to yaml unless specified or matching file extension)
-        if fmt is None:
-            if sFilename_out is not None:
-                ext = Path(sFilename_out).suffix.lower()
-                fmt = "json" if ext == ".json" else "yaml"
-            else:
-                fmt = "yaml"
 
         ext = ".json" if fmt == "json" else ".yaml"
         self.sFilename_model_configuration = os.path.join(
@@ -508,9 +506,17 @@ class hexwatershedcase:
 
         _dump_config_file(obj, Path(sFilename_configuration), fmt=fmt)
 
-        # Always also ensure configuration.json exists in sWorkspace_output for the C++ backend
+        # Always ensure configuration.json exists in sWorkspace_output for the C++ backend,
+        # with sFilename_basins pointing to a JSON basin configuration
+        obj_backend = obj.copy()
+        if fmt != "json":
+            if hasattr(self.pPyFlowline, "pyflowline_export_basin_config_to_json"):
+                self.pPyFlowline.pyflowline_export_basin_config_to_json()
+                obj_backend["sFilename_basins"] = getattr(
+                    self.pPyFlowline, "sFilename_basins", self.sFilename_basins
+                )
         sFilename_json_backend = os.path.join(self.sWorkspace_output, "configuration.json")
-        _dump_config_file(obj, Path(sFilename_json_backend), fmt="json")
+        _dump_config_file(obj_backend, Path(sFilename_json_backend), fmt="json")
 
         if sFilename_out is not None and sFilename_out != self.sFilename_model_configuration:
             try:
@@ -521,11 +527,11 @@ class hexwatershedcase:
         return
 
     def pyhexwatershed_export_config_to_yaml(self, sFilename_out=None):
-        """Export the model configuration to a YAML file (primary format)."""
+        """Export the model configuration to a YAML file."""
         return self.pyhexwatershed_export_config(sFilename_out=sFilename_out, fmt="yaml")
 
     def pyhexwatershed_export_config_to_json(self, sFilename_out=None):
-        """Export the model configuration to a JSON file."""
+        """Export the model configuration to a JSON file (required for HexWatershed C++ binary)."""
         return self.pyhexwatershed_export_config(sFilename_out=sFilename_out, fmt="json")
 
     def pyhexwatershed_setup(self):
@@ -1196,7 +1202,7 @@ class hexwatershedcase:
                 )
 
                 # convert to geoparquet for visualization
-                convert_geojson_to_geoparquet(
+                convert_vector_format(
                     sFilename_geojson, sFilename_geojson.replace(".geojson", ".parquet")
                 )
 
@@ -1330,7 +1336,7 @@ class hexwatershedcase:
         )
         # convert to geoparquet for visualization
         sFilename_parquet = sFilename_geojson.replace(".geojson", ".parquet")
-        convert_geojson_to_geoparquet(sFilename_geojson, sFilename_parquet)
+        convert_vector_format(sFilename_geojson, sFilename_parquet)
         # because each geojson file has many small polygons, we can merge them into large polygons
         # get the folder of the geojson
         sFolder = os.path.dirname(sFilename_geojson)
