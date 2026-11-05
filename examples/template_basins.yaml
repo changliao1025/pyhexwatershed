@@ -1,0 +1,32 @@
+# ==============================================================================
+# PyHexWatershed Template Basin Specification (YAML)
+# ==============================================================================
+- id: 1
+  outlet:
+    longitude: 180.0
+    latitude: -180.0
+  accumulation_threshold: 100000.0
+  small_river: 10000.0
+
+  flags:
+    dam: 0
+    disconnected: 0
+    debug: 0
+
+  paths:
+    dam:
+      Darwin: ../data/susquehanna/input/ICoM_dams.csv
+      Linux: ../data/susquehanna/input/ICoM_dams.csv
+      default: ../data/susquehanna/input/ICoM_dams.csv
+    flowline_filter:
+      Darwin: ../data/susquehanna/input/streamord7above.shp
+      Linux: ../data/susquehanna/input/streamord7above.shp
+      default: ../data/susquehanna/input/streamord7above.shp
+    flowline_raw:
+      Darwin: ../data/susquehanna/input/allflowline.shp
+      Linux: ../data/susquehanna/input/allflowline.shp
+      default: ../data/susquehanna/input/allflowline.shp
+    flowline_topo:
+      Darwin: ../data/susquehanna/input/flowline.csv
+      Linux: ../data/susquehanna/input/flowline.csv
+      default: ../data/susquehanna/input/flowline.csv

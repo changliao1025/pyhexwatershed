@@ -1,7 +1,7 @@
 [
     {
         "dLatitude_outlet_degree": 39.4620,
-        "dLongitude_outlet_degree": -76.0093,    
+        "dLongitude_outlet_degree": -76.0093,
         "dAccumulation_threshold": 100000,
         "dThreshold_small_river": 10000,
         "iFlag_dam": 0,
@@ -11,7 +11,7 @@
         "sFilename_flowline_filter": "/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/streamord7above.shp",
         "sFilename_flowline_raw": "/qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/allflowline.shp",
         "sFilename_flowline_topo": "/qfs/people/liao313/data/hexwatershed/susquehanna/auxiliary/flowline.csv"
-        
-    
+
+
     }
 ]

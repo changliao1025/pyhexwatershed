@@ -1,0 +1,30 @@
+# ==============================================================================
+# PyHexWatershed Basin Specification: Yellow River (Huanghe) (YAML)
+# ==============================================================================
+# Defines outlet location, flowline vector datasets, dam flags, and pruning
+# thresholds for the Yellow River (Huanghe) watershed.
+# ==============================================================================
+
+- id: 1                                         # Basin unique identifier
+  outlet:
+    longitude: 119.1729                         # Outlet longitude in decimal degrees for huanghe (Bohai Sea mouth)
+    latitude: 37.7687                           # Outlet latitude in decimal degrees for huanghe
+  accumulation_threshold: 100000.0              # Upstream drainage area threshold
+  small_river_threshold: 10000.0                # River reach length threshold for pruning
+  flags:
+    dam: 0                                      # Include dam locations (0: disabled, 1: enabled)
+    debug: 1                                    # Diagnostic output flag
+    disconnected: 0                             # Preserve disconnected reaches
+  paths:
+    flowline_filter:
+      Darwin: /Users/changliao/scratch/earthmesh/huanghe/river_network/3.00E+03_6.40E+09/cropped_river_network_simplified_3.00E+03_6.40E+09.geojson
+      Linux: /public/home/liaochang/data/hexwatershed/huanghe/vector/river_network/cropped_river_network.shp
+      default: ./cropped_river_network.shp
+    flowline_raw:
+      Darwin: /Users/changliao/data/hexwatershed/huanghe/vector/river_network/cropped_river_network.shp
+      Linux: /public/home/liaochang/data/hexwatershed/huanghe/vector/river_network/cropped_river_network.shp
+      default: ./cropped_river_network.shp
+    flowline_topo:
+      Darwin: /Users/changliao/data/hexwatershed/huanghe/auxiliary/flowline.csv
+      Linux: /public/home/liaochang/data/hexwatershed/huanghe/auxiliary/flowline.csv
+      default: ./flowline.csv

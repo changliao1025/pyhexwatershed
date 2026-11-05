@@ -71,6 +71,3 @@ https://doi.org/10.5281/zenodo.6407299
 
 
 For a full list of references including applications of HexWatershed in other projects, please refer to the <a href="https://hexwatershed.readthedocs.io/en/latest/">`documentation`</a>.
-
-
-

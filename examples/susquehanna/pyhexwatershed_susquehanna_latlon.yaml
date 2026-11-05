@@ -1,0 +1,60 @@
+# ==============================================================================
+# PyHexWatershed Susquehanna Lat-Lon Simulation Case Specification (YAML)
+# ==============================================================================
+workflow:
+  model: pyhexwatershed
+  mesh_type: latlon
+  case_index: 1
+  date: "20220801"
+  job: pyhexwatershed
+
+resolutions:
+  degree: 0.5
+  meter: 5000.0
+  accumulation_threshold: 100000.0
+  small_river: 0.0
+
+region:
+  name: susquehanna
+  bbox:
+    left: -180.0
+    right: 180.0
+    bottom: -90.0
+    top: 90.0
+
+flags:
+  create_mesh: true
+  save_mesh: true
+  simplification: true
+  intersect: true
+  flowline: true
+  resample_method: 2
+  global: false
+  multiple_outlet: false
+  elevation_profile: false
+  stream_burning_topology: true
+  save_elevation: true
+  use_mesh_dem: false
+
+paths:
+  workspace_input:
+    Darwin: ../../data/susquehanna/input
+    Linux: /qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/input
+    default: ../../data/susquehanna/input
+  workspace_output:
+    Darwin: ../../data/susquehanna/output
+    Linux: /compyfs/liao313/04model/pyhexwatershed/susquehanna
+    default: ../../data/susquehanna/output
+  dem:
+    Darwin: ../../data/susquehanna/input/dem_ext.tif
+    Linux: /qfs/people/liao313/data/hexwatershed/susquehanna/raster/dem/dem_ext.tif
+    default: ../../data/susquehanna/input/dem_ext.tif
+  spatial_reference:
+    Darwin: ../../data/susquehanna/input/boundary_proj.shp
+    Linux: /qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/input/boundary_proj.shp
+    default: ../../data/susquehanna/input/boundary_proj.shp
+  mesh_netcdf:
+    Darwin: ../../data/susquehanna/input/lnd_cull_mesh.nc
+    Linux: /qfs/people/liao313/workspace/python/pyhexwatershed/data/susquehanna/input/lnd_cull_mesh.nc
+    default: ../../data/susquehanna/input/lnd_cull_mesh.nc
+  basins: ./pyhexwatershed_susquehanna_basins.yaml

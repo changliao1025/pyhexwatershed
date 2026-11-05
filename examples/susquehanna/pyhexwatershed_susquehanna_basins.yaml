@@ -1,0 +1,32 @@
+# ==============================================================================
+# PyHexWatershed Susquehanna Basin Specification (YAML)
+# ==============================================================================
+- id: 1
+  outlet:
+    longitude: -76.0093
+    latitude: 39.4620
+  accumulation_threshold: 100000.0
+  small_river: 10000.0
+
+  flags:
+    dam: 0
+    disconnected: 0
+    debug: 0
+
+  paths:
+    dam:
+      Darwin: ../../data/susquehanna/input/ICoM_dams.csv
+      Linux: /qfs/people/liao313/data/hexwatershed/susquehanna/auxiliary/ICoM_dams.csv
+      default: ../../data/susquehanna/input/ICoM_dams.csv
+    flowline_filter:
+      Darwin: ../../data/susquehanna/input/streamord7above.shp
+      Linux: /qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/streamord7above.shp
+      default: ../../data/susquehanna/input/streamord7above.shp
+    flowline_raw:
+      Darwin: ../../data/susquehanna/input/allflowline.shp
+      Linux: /qfs/people/liao313/data/hexwatershed/susquehanna/vector/hydrology/allflowline.shp
+      default: ../../data/susquehanna/input/allflowline.shp
+    flowline_topo:
+      Darwin: ../../data/susquehanna/input/flowline.csv
+      Linux: /qfs/people/liao313/data/hexwatershed/susquehanna/auxiliary/flowline.csv
+      default: ../../data/susquehanna/input/flowline.csv

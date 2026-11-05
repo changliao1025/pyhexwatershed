@@ -1,0 +1,66 @@
+# ==============================================================================
+# PyHexWatershed Template Simulation Case Specification (YAML)
+# ==============================================================================
+workflow:
+  model: pyhexwatershed
+  mesh_type: mpas
+  case_index: 1
+  date: "20220315"
+  job: pyhexwatershed
+
+resolutions:
+  degree: 0.5
+  meter: 10000.0
+  accumulation_threshold: 100000.0
+  small_river: 10000.0
+
+region:
+  name: susquehanna
+  bbox:
+    left: -180.0
+    right: 180.0
+    bottom: -90.0
+    top: 90.0
+
+flags:
+  create_mesh: true
+  save_mesh: true
+  simplification: true
+  intersect: true
+  flowline: true
+  resample_method: 1
+  global: false
+  multiple_outlet: false
+  elevation_profile: true
+  stream_burning_topology: true
+  save_elevation: true
+  use_mesh_dem: true
+  force_watershed_boundary: false
+  user_provided_binary: false
+
+paths:
+  workspace_input:
+    Darwin: ../data/susquehanna/input
+    Linux: ../data/susquehanna/input
+    default: ../data/susquehanna/input
+  workspace_output:
+    Darwin: ../data/susquehanna/output
+    Linux: ../data/susquehanna/output
+    default: ../data/susquehanna/output
+  dem:
+    Darwin: ../data/susquehanna/input/dem_ext.tif
+    Linux: ../data/susquehanna/input/dem_ext.tif
+    default: ../data/susquehanna/input/dem_ext.tif
+  spatial_reference:
+    Darwin: ../data/susquehanna/input/boundary_proj.shp
+    Linux: ../data/susquehanna/input/boundary_proj.shp
+    default: ../data/susquehanna/input/boundary_proj.shp
+  mesh_netcdf:
+    Darwin: ../data/susquehanna/input/lnd_cull_mesh.nc
+    Linux: ../data/susquehanna/input/lnd_cull_mesh.nc
+    default: ../data/susquehanna/input/lnd_cull_mesh.nc
+  # hexwatershed_bin:
+  #   Darwin: /path/to/hexwatershed
+  #   Linux: /path/to/hexwatershed
+  #   default: /path/to/hexwatershed
+  basins: ./template_basins.yaml

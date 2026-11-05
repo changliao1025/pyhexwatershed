@@ -1,0 +1,18 @@
+[flake8]
+# Increase the line length to avoid E501
+max-line-length = 150
+
+# Ignore specific error codes:
+# E501: Line too long
+# F401: Module imported but unused
+# F841: Local variable is assigned to but never used
+# E402: Module level import not at top of file
+# E203: Whitespace before ':' (conflicts with black slices)
+# E741: Ambiguous variable name
+# F811: Redefinition of unused name (conflicts with TYPE_CHECKING guards)
+# F403: Wildcard imports from global variables
+extend-ignore = E203, E501, F401, F841, E402, F541, E741, F811, F403, E265, E712, F405, W503, E722
+exclude = .git,__pycache__,build,dist,docs,.venv
+per-file-ignores =
+    examples/*: E402, F811, F401
+    tests/*: F401, F811
