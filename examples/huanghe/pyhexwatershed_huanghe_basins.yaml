@@ -28,3 +28,7 @@
       Darwin: /Users/changliao/data/hexwatershed/huanghe/auxiliary/flowline.csv
       Linux: /public/home/liaochang/data/hexwatershed/huanghe/auxiliary/flowline.csv
       default: ./flowline.csv
+    watershed_boundary:
+      Darwin: /Users/changliao/data/hexwatershed/huanghe/vector/basin_boundary/merged.geojson
+      Linux: /public/home/liaochang/data/hexwatershed/huanghe/auxiliary/watershed_boundary.shp
+      default: ./watershed_boundary.shp

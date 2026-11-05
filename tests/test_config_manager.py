@@ -259,9 +259,9 @@ paths:
             self.assertIsNotNone(case.pPyFlowline)
             self.assertGreater(len(case.aBasin), 0)
             self.assertTrue(
-                case.aBasin[0].sWorkspace_output_basin.startswith(case.sWorkspace_output_pyflowline)
+                case.pPyFlowline.aBasin[0].sWorkspace_output_basin.startswith(case.sWorkspace_output_pyflowline)
             )
-            self.assertFalse(
+            self.assertTrue(
                 case.aBasin[0].sWorkspace_output_basin.startswith(
                     case.sWorkspace_output_hexwatershed
                 )

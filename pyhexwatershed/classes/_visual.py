@@ -2,42 +2,33 @@ import os
 from pathlib import Path
 
 from pyearth.toolbox.reader.text_reader_string import text_reader_string
-from pyearth.visual.animate.animate_vector_polygon_data import animate_vector_polygon_data
-from pyearth.visual.map.vector.map_multiple_vector_data import map_multiple_vector_data
-from pyearth.visual.map.vector.map_vector_polygon_data import map_vector_polygon_data
-from pyearth.visual.map.vector.map_vector_polyline_data import map_vector_polyline_data
+try:
+    from pyearthviz.map.vector.map_vector_polygon_file import map_vector_polygon_file
+    from pyearthviz.map.vector.map_vector_polyline_file import map_vector_polyline_file
+    from pyearthviz.map.vector.map_multiple_vector_files import map_multiple_vector_files
+    from pyearthviz.animate.animate_polygon_file import animate_vector_polygon_data
+except ImportError:
+    try:
+        from pyearth.visual.animate.animate_vector_polygon_data import animate_vector_polygon_data
+        from pyearth.visual.map.vector.map_multiple_vector_data import map_multiple_vector_data as map_multiple_vector_files
+        from pyearth.visual.map.vector.map_vector_polygon_data import map_vector_polygon_data as map_vector_polygon_file
+        from pyearth.visual.map.vector.map_vector_polyline_data import map_vector_polyline_data as map_vector_polyline_file
+    except ImportError:
+        map_vector_polygon_file = None
+        map_vector_polyline_file = None
+        map_multiple_vector_files = None
+        animate_vector_polygon_data = None
 
 
-def plot(
-    self,
-    iFlag_type_in=None,
-    iFlag_title_in=None,
-    iFlag_colorbar_in=None,
-    iFlag_openstreetmap_in=None,
-    sVariable_in=None,
-    sFilename_output_in=None,
-    iFigwidth_in=None,
-    iFigheight_in=None,
-    iFont_size_in=None,
-    iFlag_scientific_notation_colorbar_in=None,
-    dData_min_in=None,
-    dData_max_in=None,
-    aExtent_in=None,
-    pProjection_map_in=None,
-):
+def plot(self,
+         iFlag_type_in=None,
+         sVariable_in=None,
+         sFilename_boundary_in=None,
+         **kwargs):
 
-    aPolyline = ["flow_direction", "stream_segment", "stream_order", "flowline_filter"]
-    aPolygon = ["area", "elevation", "drainage_area", "slope", "travel_distance", "hillslope"]
-    aMixed = [
-        "flow_direction_with_mesh",
-        "flow_direction_with_observation",
-        "hillslope_with_flow_direction",
-    ]
-
-    if iFlag_title_in is None:
-        iFlag_title_in = 0
-    else:
-        iFlag_title_in = iFlag_title_in
+    aPolyline = ['flow_direction', 'stream_segment', 'stream_order', 'flowline_filter']
+    aPolygon = ['area', 'elevation', 'drainage_area', 'slope', 'travel_distance', 'hillslope', 'subbasin', 'area_of_difference']
+    aMixed = ['flow_direction_with_mesh', 'flow_direction_with_observation', 'hillslope_with_flow_direction']
 
     if sVariable_in in aPolyline:
         iFlag_type_in = 2
@@ -48,182 +39,99 @@ def plot(
             if sVariable_in in aMixed:
                 iFlag_type_in = 4
 
-    aLegend = list()
-    # sText = 'Case: ' + "{:0d}".format( int(self.iCase_index) )
-    # aLegend.append(sText)
-    sText = "Mesh type: " + self.sMesh_type.upper()
-    aLegend.append(sText)
-    if self.iMesh_type == 4:
-        sResolution = "Resolution: 3 ~ 10 km"
-    else:
-        if self.dResolution_meter > 1000:
-            sResolution = "Resolution: " + f"{int(self.dResolution_meter / 1000):0d}" + " km"
+    aLegend_in = kwargs.get('aLegend_in', None)
+    if aLegend_in is None:
+        aLegend = list()
+        sText = 'Mesh type: ' + self.sMesh_type.upper()
+        aLegend.append(sText)
+        if self.iMesh_type == 4:
+            sResolution = 'Variable resolution'
         else:
-            sResolution = "Resolution: " + f"{int(self.dResolution_meter):0d}" + " m"
+            if self.dResolution_meter > 1000:
+                sResolution = f"Resolution: {int(self.dResolution_meter / 1000):0d} km"
+            else:
+                sResolution = f"Resolution: {int(self.dResolution_meter):0d} m"
 
-    aLegend.append(sResolution)
-    if self.iFlag_stream_burning_topology == 1:
-        sText = "Stream topology: on"
+        aLegend.append(sResolution)
+        if self.iFlag_stream_burning_topology == 1:
+            sText = 'Stream topology: on'
+        else:
+            sText = 'Stream topology: off'
+        aLegend.append(sText)
+        kwargs['aLegend_in'] = aLegend
     else:
-        sText = "Stream topology: off"
-    aLegend.append(sText)
+        aLegend = aLegend_in
 
     if iFlag_type_in == 1:  # point based
-        # not yet implemented
         pass
     else:
         if iFlag_type_in == 2:  # polyline based
-            if self.iFlag_multiple_outlet == 1:
-                self._plot_flow_direction(
-                    iFigwidth_in=iFigwidth_in,
-                    iFigheight_in=iFigheight_in,
-                    aExtent_in=aExtent_in,
-                    pProjection_map_in=pProjection_map_in,
-                )
-
+            if sVariable_in == 'flow_direction':
+                self._plot_flow_direction(**kwargs)
             else:
-                # for each basin
-
-                for pBasin in self.aBasin:
-                    pBasin.basin_plot(
-                        iFlag_type_in,
-                        self.sMesh_type,
-                        iFlag_title_in=iFlag_title_in,
-                        iFont_size_in=iFont_size_in,
-                        sVariable_in=sVariable_in,
-                        sFilename_output_in=sFilename_output_in,
-                        aExtent_in=aExtent_in,
-                        aLegend_in=aLegend,
-                        pProjection_map_in=pProjection_map_in,
-                    )
-
+                if sVariable_in == 'stream_segment':
+                    self._plot_stream_segment(**kwargs)
+                else:
+                    if sVariable_in == 'stream_order':
+                        self._plot_stream_order(**kwargs)
+                    else:
+                        if sVariable_in == 'flowline_filter':
+                            self._plot_flowline_filter(**kwargs)
         else:
             if iFlag_type_in == 3:  # polygon based
-                if sVariable_in == "mesh":
-                    self._plot_mesh(
-                        sFilename_output_in=sFilename_output_in,
-                        aExtent_in=aExtent_in,
-                        pProjection_map_in=pProjection_map_in,
-                    )
+                if sVariable_in == 'area':
+                    self._plot_area(**kwargs)
                 else:
-                    if self.iFlag_multiple_outlet == 1:
-                        sFilename_mesh = self.sFilename_mesh
-                        self._plot_mesh_with_variable(
-                            sVariable_in,
-                            iFigwidth_in=iFigwidth_in,
-                            iFigheight_in=iFigheight_in,
-                            sFilename_mesh_in=sFilename_mesh,
-                            sFilename_output_in=sFilename_output_in,
-                            aExtent_in=aExtent_in,
-                            pProjection_map_in=pProjection_map_in,
-                        )
-
+                    if sVariable_in == 'elevation':
+                        self._plot_elevation(**kwargs)
                     else:
-                        # for each basin
-                        # polygon based, only mesh
-                        for pBasin in self.aBasin:
-                            sFilename_mesh = pBasin.sFilename_variable_polygon
-                            pBasin.basin_plot(
-                                iFlag_type_in,
-                                self.sMesh_type,
-                                iFont_size_in=iFont_size_in,
-                                iFlag_colorbar_in=iFlag_colorbar_in,
-                                iFlag_title_in=iFlag_title_in,
-                                iFlag_scientific_notation_colorbar_in=iFlag_scientific_notation_colorbar_in,
-                                dData_min_in=dData_min_in,
-                                dData_max_in=dData_max_in,
-                                sVariable_in=sVariable_in,
-                                sFilename_mesh_in=sFilename_mesh,
-                                sFilename_output_in=sFilename_output_in,
-                                aExtent_in=aExtent_in,
-                                aLegend_in=aLegend,
-                                pProjection_map_in=pProjection_map_in,
-                            )
-
-                pass
-            else:  # mesh + point/polyline/polygon
-                if iFlag_type_in == 4:  # mixed
-                    if self.iFlag_multiple_outlet == 1:
-                        if sVariable_in == "flow_direction_with_mesh":
-                            self._plot_variable_with_flow_direction(
-                                sFilename_output_in=sFilename_output_in,
-                                iFigwidth_in=iFigwidth_in,
-                                iFigheight_in=iFigheight_in,
-                                aExtent_in=aExtent_in,
-                                pProjection_map_in=pProjection_map_in,
-                            )
-                        return
+                        if sVariable_in == 'slope':
+                            self._plot_slope(**kwargs)
+                        else:
+                            if sVariable_in == 'drainage_area':
+                                self._plot_drainage_area(**kwargs)
+                            else:
+                                if sVariable_in == 'travel_distance':
+                                    self._plot_travel_distance(**kwargs)
+                                else:
+                                    if sVariable_in == 'hillslope':
+                                        self._plot_hillslope(**kwargs)
+                                    else:
+                                        if sVariable_in == 'subbasin':
+                                            self._plot_subbasin(**kwargs)
+            else:
+                if iFlag_type_in == 4:  # mixed based
+                    if sVariable_in == 'flow_direction_with_mesh':
+                        self._plot_mesh_with_flow_direction(**kwargs)
                     else:
+                        if sVariable_in == 'flow_direction_with_observation':
+                            self._plot_mesh_with_flow_direction_and_observation(**kwargs)
+                        else:
+                            if sVariable_in == 'hillslope_with_flow_direction':
+                                self._plot_hillslope_with_flow_direction(**kwargs)
+                else:
+                    self._plot_mesh_with_flow_direction_and_river_network(**kwargs)
 
-                        for pBasin in self.aBasin:
-                            sFilename_mesh = pBasin.sFilename_variable_polygon
-                            pBasin.basin_plot(
-                                iFlag_type_in,
-                                self.sMesh_type,
-                                sFilename_mesh_in=sFilename_mesh,
-                                iFont_size_in=iFont_size_in,
-                                iFlag_title_in=iFlag_title_in,
-                                iFlag_openstreetmap_in=iFlag_openstreetmap_in,
-                                sVariable_in=sVariable_in,
-                                sFilename_output_in=sFilename_output_in,
-                                aExtent_in=aExtent_in,
-                                aLegend_in=aLegend,
-                                pProjection_map_in=pProjection_map_in,
-                            )
-
-                    pass
-                else:  # careful, this one only used for special case
-                    self._plot_mesh_with_flow_direction_and_river_network(
-                        sFilename_output_in=sFilename_output_in,
-                        iFigwidth_in=iFigwidth_in,
-                        iFigheight_in=iFigheight_in,
-                        aExtent_in=aExtent_in,
-                        aLegend_in=aLegend,
-                        pProjection_map_in=pProjection_map_in,
-                    )
-                    pass
-
-    print("Finished plotting!")
+    print('Finished plotting!')
     return
 
 
-def _plot_flow_direction(
-    self,
-    iFigwidth_in=None,
-    iFigheight_in=None,
-    iFlag_thickness_in=None,
-    sField_thickness_in=None,
-    sFilename_output_in=None,
-    aExtent_in=None,
-    pProjection_map_in=None,
-):
-
+def _plot_flow_direction(self, **kwargs):
     sFilename_json = self.sFilename_flow_direction
-
-    sTitle = "Flow direction"
-
-    map_vector_polyline_data(
-        sFilename_json,
-        sFilename_output_in,
-        iFlag_thickness_in=iFlag_thickness_in,
-        sTitle_in=sTitle,
-        sField_thickness_in=sField_thickness_in,  # use drainage area to scale the thickness
-        aExtent_in=aExtent_in,
-        pProjection_map_in=pProjection_map_in,
-    )
+    map_vector_polyline_file(1, sFilename_json, iFlag_zebra_in=1, **kwargs)
     return
 
 
-def _plot_mesh_with_flow_direction(
-    self,
-    iFigwidth_in=None,
-    iFigheight_in=None,
-    sMesh_type_in=None,
-    sFilename_mesh_in=None,
-    sFilename_output_in=None,
-    aExtent_in=None,
-    pProjection_map_in=None,
-):
+def _plot_mesh_with_flow_direction(self,
+                                   iFigwidth_in=None,
+                                   iFigheight_in=None,
+                                   sMesh_type_in=None,
+                                   sFilename_mesh_in=None,
+                                   sFilename_output_in=None,
+                                   aExtent_in=None,
+                                   pProjection_map_in=None,
+                                   pProjection_data_in=None,
+                                   **kwargs):
     if sMesh_type_in is None:
         sMesh_type = self.sMesh_type
     else:
@@ -235,53 +143,44 @@ def _plot_mesh_with_flow_direction(
         sFilename_mesh = sFilename_mesh_in
 
     if sFilename_output_in is None:
-        sFilename_output = os.path.join(
-            str(Path(self.sWorkspace_output_hexwatershed)),
-            sMesh_type + "_mesh_w_flow_direction.png",
-        )
+        sFilename_output = os.path.join(self.sWorkspace_output, f"mesh_with_flowline_{sMesh_type}.png")
     else:
         sFilename_output = sFilename_output_in
 
-    sFilename = self.sFilename_flow_direction  # this can be either domain wide or subbasin level
-
+    sFilename = self.sFilename_flow_direction
     aFiletype_in = [3, 2]
-
     aFilename_in = [sFilename_mesh, sFilename]
-    map_multiple_vector_data(
-        aFiletype_in,
-        aFilename_in,
-        sFilename_output_in=sFilename_output_in,
-        sTitle_in="Mesh with flowline",
-        aFlag_color_in=[0, 1],
-    )
+    map_multiple_vector_files(aFiletype_in,
+                             aFilename_in,
+                             sFilename_output_in=sFilename_output,
+                             sTitle_in='Mesh with flowline',
+                             aFlag_color_in=[0, 1],
+                             **kwargs)
     return
 
 
-def _animate(
-    self,
-    sFilename_in,
-    iFlag_type_in=None,
-    iFigwidth_in=None,
-    iFigheight_in=None,
-    iFont_size_in=None,
-    aExtent_in=None,
-    pProjection_map_in=None,
-):
+def _animate(self, sFilename_in,
+             iFlag_type_in=None,
+             iFigwidth_in=None,
+             iFigheight_in=None,
+             iFont_size_in=None,
+             sTitle_in=None,
+             aExtent_in=None,
+             pProjection_map_in=None):
 
-    # this function is under update
     sFilename_mesh = self.sFilename_mesh
     sFilename_animation_json = self.sFilename_animation_json
     sFilename_animation_out = sFilename_in
+
     animate_vector_polygon_data(
         sFilename_mesh,
         sFilename_animation_json,
         sFilename_animation_out,
-        iFlag_type_in=None,
-        iFigwidth_in=None,
-        iFigheight_in=None,
-        aExtent_in=None,
-        sTitle_in="Hybrid stream burning and depression filling",
-        pProjection_map_in=None,
-    )
+        iFlag_type_in=iFlag_type_in,
+        iFigwidth_in=iFigwidth_in,
+        iFigheight_in=iFigheight_in,
+        aExtent_in=aExtent_in,
+        sTitle_in=sTitle_in,
+        pProjection_map_in=pProjection_map_in)
 
     return

@@ -8,7 +8,7 @@
 workflow:
   model: pyhexwatershed                         # Model engine: pyhexwatershed
   mesh_type: mpas                               # Target mesh family: mpas
-  case_index: 4                                 # Simulation run index
+  case_index: 5                                 # Simulation run index
   date: "20261101"                              # Simulation date (YYYYMMDD)
   job: hexwatershed                             # Job name
   region: huanghe                               # Study region name

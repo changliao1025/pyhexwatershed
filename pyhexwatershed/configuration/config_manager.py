@@ -1318,6 +1318,7 @@ def change_json_key_value(
     sKey: str,
     new_value: Any,
     iFlag_basin_in: Any = None,
+    iBasin_index_in: Any = None,
 ) -> None:
     """Safely update a key value in a JSON or YAML file (legacy helper)."""
     target = Path(sFilename_json_in).expanduser().resolve()
@@ -1326,14 +1327,16 @@ def change_json_key_value(
     if isinstance(new_value, Path):
         new_value = str(new_value)
 
+    idx = int(iBasin_index_in) if iBasin_index_in is not None else 0
+
     if iFlag_basin_in is None:
         if isinstance(data, dict):
             data[sKey] = new_value
         elif isinstance(data, list) and len(data) > 0:
-            data[0][sKey] = new_value
+            data[idx][sKey] = new_value
     else:
         if isinstance(data, list) and len(data) > 0:
-            data[0][sKey] = new_value
+            data[idx][sKey] = new_value
         elif isinstance(data, dict):
             data[sKey] = new_value
 
@@ -1342,6 +1345,7 @@ def change_json_key_value(
     _dump_config_file(data, target, fmt=fmt)
 
 
+create_pyhexwatershed_template_configuration_file = pyhexwatershed_create_template_configuration_file
 change_config_key_value = change_json_key_value
 change_config_keys_values = change_config_key_value
 change_json_keys_values = change_json_key_value
@@ -1377,4 +1381,7 @@ __all__ = [
     "root_path_from_setup_file",
     "change_json_key_value",
     "change_config_key_value",
+    "create_pyhexwatershed_template_configuration_file",
+    "change_json_keys_values",
+    "change_config_keys_values",
 ]

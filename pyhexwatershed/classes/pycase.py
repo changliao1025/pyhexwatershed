@@ -34,9 +34,11 @@ except ImportError:
 
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polygon import (
     export_json_to_geojson_polygon,
+    export_json_to_geojson_polygon_parallel,
 )
 from pyhexwatershed.algorithms.auxiliary.export_json_to_geojson_polyline import (
     export_json_to_geojson_polyline,
+    export_json_to_geojson_polyline_parallel,
 )
 from pyhexwatershed.algorithms.auxiliary.merge_cell_to_polygon import merge_cell_to_polygon
 from pyhexwatershed.algorithms.auxiliary.merge_stream_edge_to_stream_segment import (
@@ -112,6 +114,9 @@ class hexwatershedcase:
     iFlag_save_mesh = 0
     iFlag_use_mesh_dem = 0
     iFlag_user_provided_binary = 0
+    iFlag_analysis = 0
+    iFlag_evaluation = 0
+    iFlag_export_individual_watershed = 0
     iFlag_slurm = 0
     nOutlet = 1
     dResolution_degree = 0.0
@@ -218,6 +223,15 @@ class hexwatershedcase:
 
         if "iFlag_antarctic" in aConfig_in:
             self.iFlag_antarctic = int(aConfig_in["iFlag_antarctic"])
+
+        if "iFlag_analysis" in aConfig_in:
+            self.iFlag_analysis = int(aConfig_in["iFlag_analysis"])
+
+        if "iFlag_evaluation" in aConfig_in:
+            self.iFlag_evaluation = int(aConfig_in["iFlag_evaluation"])
+
+        if "iFlag_export_individual_watershed" in aConfig_in:
+            self.iFlag_export_individual_watershed = int(aConfig_in["iFlag_export_individual_watershed"])
 
         if "iFlag_multiple_outlet" in aConfig_in:
             self.iFlag_multiple_outlet = int(aConfig_in["iFlag_multiple_outlet"])
@@ -676,7 +690,9 @@ class hexwatershedcase:
         ptimer.stop()
         return
 
-    def pyhexwatershed_assign_elevation_to_cells(self, dMissing_value_in=None):
+    def pyhexwatershed_assign_elevation_to_cells(
+        self, dMissing_value_in=None, sFilename_preprocessed=None, sField_name_in="elevation"
+    ):
         """When there is no elevation in the meshm, a DEM file is
         used to assign elevation for each mesh cell.
         However, it is posselbe that a cell has no elevation because it is
@@ -690,6 +706,33 @@ class hexwatershedcase:
         print("Started assigning elevation")
         ptimer = pytimer()
         ptimer.start()
+
+        if sFilename_preprocessed is not None and os.path.exists(sFilename_preprocessed):
+            print(f"File {sFilename_preprocessed} exists")
+            sField_name = sField_name_in if sField_name_in is not None else "elevation"
+            aCell_in = self.pPyFlowline.aCell
+            pDataset_vector = ogr.Open(sFilename_preprocessed, gdal.GA_ReadOnly)
+            pLayer_vector = pDataset_vector.GetLayer(0)
+            aElevation = {}
+            try:
+                for feature in pLayer_vector:
+                    lCellID = int(feature.GetField("cellid"))
+                    dummy = feature.GetField(sField_name)
+                    dElevation = -9999.0 if dummy is None else float(dummy)
+                    aElevation[lCellID] = dElevation
+            except Exception as e:
+                print(f"Error reading elevation from {sFilename_preprocessed}: {e}")
+
+            pDataset_vector = None
+            for idx, pCell in enumerate(aCell_in):
+                if pCell.lCellID in aElevation:
+                    pCell.dElevation_mean = aElevation[pCell.lCellID]
+                else:
+                    pCell.dElevation_mean = -9999.0
+
+            print(f"Finished assigning preprocessed elevation in {ptimer.stop():.2f} seconds")
+            return
+
         iFlag_resample_method = self.iFlag_resample_method
         sFilename_dem_in = self.sFilename_dem
         aCell_in = self.pPyFlowline.aCell
@@ -982,9 +1025,54 @@ class hexwatershedcase:
             os.chmod(sFilename_bash, stat.S_IRWXU)
         return
 
+    def pyhexwatershed_postrun(self):
+        if self.iFlag_global == 1:
+            pass
+        else:
+            if self.iFlag_flowline != 1:  # pure dem-based simulation
+                self.pyhexwatershed_retrieve_domain_characteristics()
+                self.aBasin.clear()
+                for iBasin in range(1, self.nOutlet + 1):
+                    sBasin = f"{iBasin:08d}"
+                    dummy_basin = {
+                        "sWorkspace_output_basin": str(
+                            Path(self.sWorkspace_output_hexwatershed) / sBasin
+                        )
+                    }
+                    pBasin = pybasin(dummy_basin)
+                    self.aBasin.append(pBasin)
+        return
+
+    def pyhexwatershed_retrieve_domain_characteristics(self):
+        """Read the number of outlets (nOutlet) from domain characteristics file."""
+        sFilename_domain_characteristics = os.path.join(
+            self.sWorkspace_output_hexwatershed, "domain.txt"
+        )
+        try:
+            with open(sFilename_domain_characteristics, "r") as f:
+                for sLine in f:
+                    if "Total number of outlets:" in sLine:
+                        parts = sLine.split(":")
+                        if len(parts) >= 2:
+                            try:
+                                self.nOutlet = int(parts[1].strip())
+                            except ValueError:
+                                raise ValueError("Failed to parse nOutlet value as integer")
+        except FileNotFoundError:
+            raise FileNotFoundError(
+                f"Domain characteristics file not found: {sFilename_domain_characteristics}"
+            )
+
     def pyhexwatershed_analyze(self):
         # a list of analysis was done within the C++ backend
         # additional analysis can be implemented here
+        if self.iFlag_analysis == 1:
+            pass
+        return
+
+    def pyhexwatershed_evaluate(self):
+        if self.iFlag_evaluation == 1:
+            pass
         return
 
     def pyhexwatershed_export(self):
@@ -997,10 +1085,17 @@ class hexwatershedcase:
         # polyline
 
         if self.iFlag_global == 1:  # we do not have the polyline information
-            pass
+            self.pyhexwatershed_export_flow_direction()
+            self.pyhexwatershed_export_all_polygon_variables()
         else:
             if self.iFlag_multiple_outlet == 1:
-                pass
+                self.pyhexwatershed_postrun()
+                ptimer = pytimer()
+                print("Started exporting flow direction")
+                ptimer.start()
+                self.pyhexwatershed_export_flow_direction()
+                self.pyhexwatershed_export_stream_segment()
+                self.pyhexwatershed_export_all_polygon_variables()
             else:
                 # if the pyflowline does not turn on flowline,
                 # then we need to include at least one watershed
@@ -1364,3 +1459,5 @@ class hexwatershedcase:
     export_config = pyhexwatershed_export_config
     export_config_to_json = pyhexwatershed_export_config_to_json
     export_config_to_yaml = pyhexwatershed_export_config_to_yaml
+    postrun = pyhexwatershed_postrun
+    evaluate = pyhexwatershed_evaluate

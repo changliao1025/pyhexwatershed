@@ -1,117 +1,100 @@
 import os
-import stat
 from pathlib import Path
+import stat
+import sys
+
+from pyearth.system.python.get_python_environment import get_python_environment
 
 
-def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
+def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None, hours_in=24):
     """create a HPC job for this simulation"""
     os.chdir(self.sWorkspace_output)
 
-    # part 1 python script
+    sConda_env_path, sConda_env_name, _ = get_python_environment()
 
-    sFilename_pyhexwatershed = os.path.join(
-        str(Path(self.sWorkspace_output)), "run_pyhexwatershed.py"
-    )
+    # part 1 python script
+    sFilename_pyhexwatershed = os.path.join(str(Path(self.sWorkspace_output)), "run_pyhexwatershed.py")
     ofs_pyhexwatershed = open(sFilename_pyhexwatershed, "w")
 
-    sLine = "#!/qfs/people/liao313/.conda/envs/hexwatershed/bin/" + "python3" + "\n"
+    sLine = f"#!/qfs/people/liao313/.conda/envs/{sConda_env_name}/bin/python3\n"
+    ofs_pyhexwatershed.write(sLine)
+    sLine = "import os\n"
+    ofs_pyhexwatershed.write(sLine)
+    sLine = f'os.environ["PROJ_LIB"] = "{sConda_env_path}/share/proj"\n'
+    ofs_pyhexwatershed.write(sLine)
+    sLine = f'os.environ["LD_LIBRARY_PATH"] = "{sConda_env_path}/lib:${{LD_LIBRARY_PATH}}"\n'
+    ofs_pyhexwatershed.write(sLine)
+    sLine = "from pyhexwatershed.configuration.read_configuration_file import pyhexwatershed_read_configuration_file\n"
+    ofs_pyhexwatershed.write(sLine)
+    sLine = f'sFilename_configuration_in = "{self.sFilename_model_configuration}"\n'
     ofs_pyhexwatershed.write(sLine)
     sLine = (
-        "from pyhexwatershed.pyhexwatershed_read_model_configuration_file import pyhexwatershed_read_model_configuration_file"
-        + "\n"
-    )
-    ofs_pyhexwatershed.write(sLine)
-    sLine = "sFilename_configuration_in = " + '"' + self.sFilename_model_configuration + '"\n'
-    ofs_pyhexwatershed.write(sLine)
-    sLine = (
-        "oPyhexwatershed = pyhexwatershed_read_model_configuration_file(sFilename_configuration_in,"
-        + "iCase_index_in="
-        + str(self.iCase_index)
-        + ","
-        + "iFlag_stream_burning_topology_in="
-        + str(self.iFlag_stream_burning_topology)
-        + ","
-        + "iFlag_elevation_profile_in="
-        + str(self.iFlag_elevation_profile)
-        + ","
-        + "iFlag_use_mesh_dem_in="
-        + str(self.iFlag_use_mesh_dem)
-        + ","
-        + "iResolution_index_in="
-        + str(self.iResolution_index)
-        + ","
-        + "dResolution_meter_in="
-        + f"{self.dResolution_meter:0f}"
-        + ","
-        + 'sDggrid_type_in="'
-        + str(self.sDggrid_type)
-        + '",'
-        + 'sDate_in="'
-        + str(self.sDate)
-        + '",'
-        + 'sMesh_type_in="'
-        + str(self.sMesh_type)
-        + '"'
-        + ")"
-        + "\n"
+        f"oPyhexwatershed = pyhexwatershed_read_configuration_file(sFilename_configuration_in,"
+        f"iCase_index_in={self.iCase_index},"
+        f"iFlag_stream_burning_topology_in={self.iFlag_stream_burning_topology},"
+        f"iFlag_elevation_profile_in={self.iFlag_elevation_profile},"
+        f"iFlag_use_mesh_dem_in={self.iFlag_use_mesh_dem},"
+        f"iResolution_index_in={self.iResolution_index},"
+        f"dResolution_meter_in={self.dResolution_meter:0f},"
+        f'sDggrid_type_in="{self.sDggrid_type}",'
+        f'sDate_in="{self.sDate}",'
+        f'sMesh_type_in="{self.sMesh_type}")\n'
     )
     ofs_pyhexwatershed.write(sLine)
     if self.iFlag_global == 1:
         pass
     else:
         if self.iFlag_multiple_outlet == 1:
-            pass
+            if self.pPyFlowline.iFlag_flowline == 1:
+                for iBasin in range(self.pPyFlowline.nOutlet):
+                    sLine = (
+                        f"oPyhexwatershed.pPyFlowline.aBasin[{iBasin}].dLatitude_outlet_degree="
+                        f"{self.pPyFlowline.aBasin[iBasin].dLatitude_outlet_degree:0f}\n"
+                    )
+                    ofs_pyhexwatershed.write(sLine)
+                    sLine = (
+                        f"oPyhexwatershed.pPyFlowline.aBasin[{iBasin}].dLongitude_outlet_degree="
+                        f"{self.pPyFlowline.aBasin[iBasin].dLongitude_outlet_degree:0f}\n"
+                    )
+                    ofs_pyhexwatershed.write(sLine)
         else:
             if self.pPyFlowline.iFlag_flowline == 1:
                 sLine = (
-                    "oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree="
-                    + f"{self.pPyFlowline.aBasin[0].dLatitude_outlet_degree:0f}"
-                    + "\n"
+                    f"oPyhexwatershed.pPyFlowline.aBasin[0].dLatitude_outlet_degree="
+                    f"{self.pPyFlowline.aBasin[0].dLatitude_outlet_degree:0f}\n"
                 )
                 ofs_pyhexwatershed.write(sLine)
                 sLine = (
-                    "oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree="
-                    + f"{self.pPyFlowline.aBasin[0].dLongitude_outlet_degree:0f}"
-                    + "\n"
-                )
-                ofs_pyhexwatershed.write(sLine)
-                sLine = (
-                    "oPyhexwatershed.pPyFlowline.aBasin[0].dThreshold_small_river="
-                    + f"{self.pPyFlowline.aBasin[0].dThreshold_small_river:0f}"
-                    + "\n"
-                )
-                ofs_pyhexwatershed.write(sLine)
-                sLine = (
-                    "oPyhexwatershed.pPyFlowline.aBasin[0].sFilename_flowline_filter="
-                    + "'"
-                    + self.pPyFlowline.aBasin[0].sFilename_flowline_filter
-                    + "'"
-                    + "\n"
+                    f"oPyhexwatershed.pPyFlowline.aBasin[0].dLongitude_outlet_degree="
+                    f"{self.pPyFlowline.aBasin[0].dLongitude_outlet_degree:0f}\n"
                 )
                 ofs_pyhexwatershed.write(sLine)
 
-    sLine = "oPyhexwatershed.pyhexwatershed_setup()" + "\n"
+    sLine = "oPyhexwatershed.pyhexwatershed_setup()\n"
     ofs_pyhexwatershed.write(sLine)
-    sLine = "aCell_origin = oPyhexwatershed.pyhexwatershed_run_pyflowline()" + "\n"
+
+    if self.iFlag_flowline == 1:
+        sLine = "oPyhexwatershed.pyhexwatershed_run_pyflowline()\n"
+        ofs_pyhexwatershed.write(sLine)
+
+    sLine = "aCell_origin = oPyhexwatershed.pPyFlowline.aCell\n"
     ofs_pyhexwatershed.write(sLine)
     if self.iMesh_type != 4:
-        sLine = "oPyhexwatershed.pyhexwatershed_assign_elevation_to_cells()" + "\n"
+        sLine = "oPyhexwatershed.pyhexwatershed_assign_elevation_to_cells()\n"
         ofs_pyhexwatershed.write(sLine)
-        sLine = "aCell_new = oPyhexwatershed.pyhexwatershed_update_outlet(aCell_origin)" + "\n"
+        sLine = "aCell_new = oPyhexwatershed.pyhexwatershed_update_outlet(aCell_origin)\n"
         ofs_pyhexwatershed.write(sLine)
     else:
-        # possible has issue too
-
         pass
-    sLine = "oPyhexwatershed.pPyFlowline.pyflowline_export()" + "\n"
+    sLine = "oPyhexwatershed.pPyFlowline.pyflowline_export()\n"
     ofs_pyhexwatershed.write(sLine)
-    sLine = "oPyhexwatershed.pyhexwatershed_export_config_to_json()" + "\n"
+    sLine = "oPyhexwatershed.pyhexwatershed_export_config_to_json()\n"
     ofs_pyhexwatershed.write(sLine)
-    sLine = "oPyhexwatershed.pyhexwatershed_run_hexwatershed()" + "\n"
+    sLine = "oPyhexwatershed.pyhexwatershed_run_hexwatershed()\n"
     ofs_pyhexwatershed.write(sLine)
-    sLine = "oPyhexwatershed.pyhexwatershed_analyze()" + "\n"
+    sLine = "oPyhexwatershed.pyhexwatershed_analyze()\n"
     ofs_pyhexwatershed.write(sLine)
-    sLine = "oPyhexwatershed.pyhexwatershed_export()" + "\n"
+    sLine = "oPyhexwatershed.pyhexwatershed_export()\n"
     ofs_pyhexwatershed.write(sLine)
     ofs_pyhexwatershed.close()
     os.chmod(sFilename_pyhexwatershed, stat.S_IREAD | stat.S_IWRITE | stat.S_IXUSR)
@@ -123,19 +106,21 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
     ofs.write(sLine)
     sLine = "#SBATCH -A ESMD\n"
     ofs.write(sLine)
-    sLine = "#SBATCH --job-name=" + self.sCase + "\n"
+    sLine = f"#SBATCH --job-name={self.sCase}\n"
     ofs.write(sLine)
-    sLine = "#SBATCH -t 90:00:00" + "\n"
+
+    sHour = f"{hours_in:02d}"
+    sLine = f"#SBATCH -t {sHour}:00:00\n"
     ofs.write(sLine)
-    sLine = "#SBATCH --nodes=1" + "\n"
+    sLine = "#SBATCH --nodes=1\n"
     ofs.write(sLine)
-    sLine = "#SBATCH --ntasks-per-node=1" + "\n"
+    sLine = "#SBATCH --ntasks-per-node=1\n"
     ofs.write(sLine)
     if sSlurm_in is not None:
         sSlurm = sSlurm_in
     else:
         sSlurm = "slurm"
-    sLine = "#SBATCH --partition=" + sSlurm + "\n"
+    sLine = f"#SBATCH --partition={sSlurm}\n"
     ofs.write(sLine)
     sLine = "#SBATCH -o stdout.out\n"
     ofs.write(sLine)
@@ -143,34 +128,35 @@ def _pyhexwatershed_create_hpc_job(self, sSlurm_in=None):
     ofs.write(sLine)
     sLine = "module purge\n"
     ofs.write(sLine)
-    sLine = "module load gcc/8.1.0" + "\n"
+    sLine = "module load python/miniconda2024May29\n"
     ofs.write(sLine)
-    sLine = "module load python/miniconda4.12.0 " + "\n"
+    sLine = "source /share/apps/python/miniconda2024May29/etc/profile.d/conda.sh\n"
     ofs.write(sLine)
-    sLine = "source /share/apps/python/miniconda4.12.0/etc/profile.d/conda.sh" + "\n"
-    ofs.write(sLine)
-    sLine = "conda activate hexwatershed" + "\n"
+    sLine = f"conda activate {sConda_env_name}\n"
     ofs.write(sLine)
     sLine = "cd $SLURM_SUBMIT_DIR\n"
     ofs.write(sLine)
-    sLine = "JOB_DIRECTORY=" + self.sWorkspace_output + "\n"
+    sLine = f"JOB_DIRECTORY={self.sWorkspace_output}\n"
     ofs.write(sLine)
-    sLine = "cd $JOB_DIRECTORY" + "\n"
+    sLine = "cd $JOB_DIRECTORY\n"
+    ofs.write(sLine)
+
+    sLine = f"export PROJ_LIB={sConda_env_path}/share/proj\n"
+    ofs.write(sLine)
+    sLine = f"export LD_LIBRARY_PATH={sConda_env_path}/lib:$LD_LIBRARY_PATH\n"
     ofs.write(sLine)
 
     if self.iFlag_profile == 0:
-        sLine = "python3 run_pyhexwatershed.py" + "\n"
+        sLine = "python3 run_pyhexwatershed.py\n"
     else:
-        # use cProfile tp run the code
-        sLine = "python3 -m cProfile -o cprofile.txt run_pyhexwatershed.py" + "\n"
+        sLine = "python3 -m cProfile -o cprofile.txt run_pyhexwatershed.py\n"
 
     ofs.write(sLine)
-    sLine = "conda deactivate" + "\n"
+    sLine = "conda deactivate\n"
     ofs.write(sLine)
     ofs.close()
     return
 
 
 def _pyhexwatershed_submit_hpc_job(self):
-    # this is not fully recommended as it may affect the environment variable
     return
